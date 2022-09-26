@@ -41,10 +41,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Instalation:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation-from-sources">Installation from sources</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation:</span></p>
 <ul>
@@ -123,23 +120,16 @@
 </ul>
 </dd>
 </dl>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install Taweret
-</pre></div>
-</div>
-<div class="section" id="installation-from-sources">
-<h2>Installation from sources<a class="headerlink" href="#installation-from-sources" title="Permalink to this headline">¶</a></h2>
-<p>The simplest way to install Taweret from sources is to run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/danOSU/Taweret.git
-</pre></div>
-</div>
-<p>you can also do it step by step: clone the repo, install dependencies. Use Taweret by appending it to the system path.</p>
+<p>Follow these steps to install Taweret from github.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/danOSU/Taweret.git
 <span class="nb">cd</span> Taweret
-pip install -r requirements/requirements.txt
-<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="o">[</span>path to your <span class="nb">local</span> Taweret repo<span class="o">]</span>
+conda env create -f environment.yml
+conda activate test_env
+<span class="nb">cd</span> Taweret/doc/build/html/notebooks
 </pre></div>
 </div>
-</div>
+<p>You can look at the available notebooks in the directory and modify it for your own use case. If you need to add a new mixing method please refer to the <a href="#id1"><span class="problematic" id="id2">**</span></a>For Deveopers* section.</p>
+<p>The pip instalation is not available yet. We are working on it.</p>
 </div>
 
 

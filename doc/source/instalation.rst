@@ -4,6 +4,7 @@ Installation
 Taweret requires the following for for basic functionality.
     - numpy
     - seaborn
+    - jupyter
 
 Follow these steps to install Taweret from github. 
 
@@ -15,7 +16,8 @@ Follow these steps to install Taweret from github.
     cd Taweret
     conda env create -f environment.yml
     conda activate test_env
-    cd Taweret/doc/build/html/notebooks
+    cd doc/build/html/notebooks
+    jupyter notebook --browser=safari
 
 You can look at the available notebooks in the directory and modify it for your own use case. If \
 you need to add a new mixing method please refer to the **For Deveopers* section. 

@@ -51,7 +51,7 @@ Using the likelihood provided by the Mixed model user can find the optimal weigh
 We provide wrapper functions to the likelihood method so that one can use their favourite calibration software \
 to estimate the weights. 
 
-Furthermore Mix and Calibrate Models Togeather
+[Optional] Do Mixing and Calibration Togeather
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Rather than using calibrated models to mix we can do better by doing everythin all at once. The advantage of this \
 is that the calibration of each model will happen using the experimental data that each model can explain the best.

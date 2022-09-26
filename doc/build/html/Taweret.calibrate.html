@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="python" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taweret.calibrate namespace &mdash; Taweret 0.1.0 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Taweret.mix namespace" href="Taweret.mix.html" />
+    <link rel="prev" title="Taweret package" href="Taweret.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Taweret
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">About Taweret:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Taweret for Bayesian Model Mixing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Instalation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="instalation.html">Installation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Taweret</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="Taweret.html">Taweret package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="Taweret.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Taweret.calibrate namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Taweret.mix.html">Taweret.mix namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Taweret.models.html">Taweret.models namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Taweret.utils.html">Taweret.utils namespace</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Taweret.html#module-Taweret">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_step_function_for_SAMBA_models.html">Linear BMM with SAMBA toy models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_step_function_for_SAMBA_models.html#1.-The-models-and-the-experimental-data.">1. The models and the experimental data.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_step_function_for_SAMBA_models.html#2.-Choose-a-Mixing-method">2. Choose a Mixing method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_step_function_for_SAMBA_models.html#3.-Estimating-the-mixture-weights">3. Estimating the mixture weights</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html">Linear BMM with full Bayesian calibration of coleman toy models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html#1.-The-models-and-the-experimental-data.">1. The models and the experimental data.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html#2.-Choose-a-Mixing-method">2. Choose a Mixing method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html#3.-Estimating-the-mixture-weights">3. Estimating the mixture weights</a></li>
+</ul>
+<p class="caption"><span class="caption-text">For Developers:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="linear.html">How to add a new linear mixing function</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Taweret</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">Taweret</a> &raquo;</li>
+          <li><a href="Taweret.html">Taweret package</a> &raquo;</li>
+      <li>Taweret.calibrate namespace</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Taweret.calibrate.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="taweret-calibrate-namespace">
+<h1>Taweret.calibrate namespace<a class="headerlink" href="#taweret-calibrate-namespace" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-Taweret.calibrate.likelihood_wrappers">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-Taweret.calibrate.likelihood_wrappers" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="Taweret.calibrate.likelihood_wrappers.likelihood_wrapper_for_bilby">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Taweret.calibrate.likelihood_wrappers.</span></code><code class="sig-name descname"><span class="pre">likelihood_wrapper_for_bilby</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mixed_model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/calibrate/likelihood_wrappers.html#likelihood_wrapper_for_bilby"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.calibrate.likelihood_wrappers.likelihood_wrapper_for_bilby" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bilby.core.likelihood.Likelihood</span></code></p>
+<p>Likelihood wrapper for Bilby calibrator
+...</p>
+<dl class="py attribute">
+<dt id="Taweret.calibrate.likelihood_wrappers.likelihood_wrapper_for_bilby.mixed_model">
+<code class="sig-name descname"><span class="pre">mixed_model</span></code><a class="headerlink" href="#Taweret.calibrate.likelihood_wrappers.likelihood_wrapper_for_bilby.mixed_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>mixed model object from Taweret model mixing class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Taweret.calibrate.likelihood_wrappers.likelihood_wrapper_for_bilby.parameters">
+<code class="sig-name descname"><span class="pre">parameters</span></code><a class="headerlink" href="#Taweret.calibrate.likelihood_wrappers.likelihood_wrapper_for_bilby.parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>dictionary with name of each parameter to be given to Bilby.
+all parameters have the prefix <a href="#id1"><span class="problematic" id="id2">theta_</span></a> and then the parameter number.
+ex : for liklihood with three free parameters ; theta_0, theta_1, theta_2
+Parameters are order as [mixture function parameters, model 1 parameters, model 2 parameters]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dic</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Taweret.calibrate.likelihood_wrappers.likelihood_wrapper_for_bilby.log_likelihood">
+<code class="sig-name descname"><span class="pre">log_likelihood</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/calibrate/likelihood_wrappers.html#likelihood_wrapper_for_bilby.log_likelihood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.calibrate.likelihood_wrappers.likelihood_wrapper_for_bilby.log_likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the log likelihood for the parameter values specefied in the wrapper object.</p>
+</dd></dl>
+
+<p>Empty likelihood class to be subclassed by other likelihoods</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>parameters</strong> (<em>dict</em>) -- A dictionary of the parameter names and associated values</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="id0">
+<code class="sig-name descname"><span class="pre">log_likelihood</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/calibrate/likelihood_wrappers.html#likelihood_wrapper_for_bilby.log_likelihood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>log likelihood function that can be used with Bilby.
+return the scalar log likelihood value.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Taweret.html" class="btn btn-neutral float-left" title="Taweret package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Taweret.mix.html" class="btn btn-neutral float-right" title="Taweret.mix namespace" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Dan Liyanage.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

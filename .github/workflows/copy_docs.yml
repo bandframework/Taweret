@@ -21,10 +21,11 @@ jobs:
           git checkout ${GITHUB_REF##*/} -- $files # copy files from the source branch
           echo "the folders before move"
           ls ${{ github.workspace }}
-          mv -f doc docs
+          mv -f doc/build/* docs
+          rm -rf doc
           echo "folders after move"
           ls ${{ github.workspace }}
           git status
-          git add docs
+          git add -A
           git commit -m "deploy files"  # commit to the repository (ignore if no modification)
           git push origin $TARGET_BRANCH # push to remote branch

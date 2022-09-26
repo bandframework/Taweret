@@ -2,6 +2,7 @@ Installation
 ============
 
 Taweret requires the following for for basic functionality.
+    - python
     - numpy
     - seaborn
     - jupyter
@@ -20,7 +21,7 @@ Follow these steps to install Taweret from github.
     jupyter notebook --browser=safari
 
 You can look at the available notebooks in the directory and modify it for your own use case. If \
-you need to add a new mixing method please refer to the **For Deveopers* section. 
+you need to add a new mixing method please refer to the **For Deveopers** section. 
 
 The pip instalation is not available yet. We are working on it. 
 

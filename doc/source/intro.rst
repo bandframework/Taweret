@@ -26,7 +26,7 @@ Taweret for Bayesian Model Mixing
 
 .. image:: _static/Taweret.png
 
-Taweret is the protective ancient Egyptian goddess of childbirth and fertility. She has a head of a hippopotamus \
+Taweret is the protective ancient Egyptian goddess of childbirth and fertility. She has the head of a hippopotamus \
 and limbs and paws of a lion. Her back and tail is of a Nile crocodile. Hence the name of our Bayesian Model \
 Mixing package, Taweret!
 
@@ -41,7 +41,7 @@ should return a mean and a variance for each input parameter value.
 Mixing Method
 ^^^^^^^^^^^^^
 The user will then choose a mixing method. Currently Taweret only support linear mixing and can handle \
-two different types of mixing functions (*Step*, *Sigmoid*). Mixing method take the two models and \
+three different types of mixing functions (*Step*, *Sigmoid*, *cdf*). Mixing method take the two models and \
 the experimental data as input and calculates the likelihood. Finding of the optimal weights by either \
 optimizing the likelihood or finindg the full posterior is done as the next step. 
 
@@ -49,13 +49,13 @@ Estimation of Mixing Function Weights
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Using the likelihood provided by the Mixed model user can find the optimal weights for Bayesian Model Mixing. \
 We provide wrapper functions to the likelihood method so that one can use their favourite calibration software \
-to estimate the weights. 
+to estimate the weights.(There is an example for this with SAMBA models in one of the example notebooks) 
 
-[Optional] Do Mixing and Calibration Togeather
+Do Mixing and Calibration Togeather
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Rather than using calibrated models to mix we can do better by doing everythin all at once. The advantage of this \
 is that the calibration of each model will happen using the experimental data that each model can explain the best.
-This would avoid situations where a model is calibrated using experimental data that is outside it's applicability. 
-
+This would avoid situations where a model is calibrated using experimental data that is outside it's applicability.\
+(There is an example of this with Coleman models in one of the example notebooks)
 
 

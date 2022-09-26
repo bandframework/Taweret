@@ -7,9 +7,9 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   Taweret.calibrate
-   Taweret.mix
    Taweret.models
+   Taweret.mix
+   Taweret.calibrate
    Taweret.utils
 
 Module contents

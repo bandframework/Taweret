@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation" href="instalation.html" />
-    <link rel="prev" title="Welcome to Taweret&#39;s documentation!" href="index.html" /> 
+    <link rel="prev" title="Welcome to Bayesian Model Mixing with Taweret!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,7 +42,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#id1">Taweret for Bayesian Model Mixing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#models">Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mixing-method">Mixing Method</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#weight-estimation">Weight Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#estimation-of-mixing-function-weights">Estimation of Mixing Function Weights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#furthermore-mix-and-calibrate-models-togeather">Furthermore Mix and Calibrate Models Togeather</a></li>
 </ul>
 </li>
 </ul>
@@ -129,7 +130,8 @@
 <ul>
 <li><p><a class="reference internal" href="#models" id="id4">Models</a></p></li>
 <li><p><a class="reference internal" href="#mixing-method" id="id5">Mixing Method</a></p></li>
-<li><p><a class="reference internal" href="#weight-estimation" id="id6">Weight Estimation</a></p></li>
+<li><p><a class="reference internal" href="#estimation-of-mixing-function-weights" id="id6">Estimation of Mixing Function Weights</a></p></li>
+<li><p><a class="reference internal" href="#furthermore-mix-and-calibrate-models-togeather" id="id7">Furthermore Mix and Calibrate Models Togeather</a></p></li>
 </ul>
 </li>
 </ul>
@@ -157,9 +159,14 @@
 <h3><a class="toc-backref" href="#id5">Mixing Method</a><a class="headerlink" href="#mixing-method" title="Permalink to this headline">¶</a></h3>
 <p>The user will then choose a mixing method. Currently Taweret only support linear mixing and can handle two different types of mixing functions (<em>Step</em>, <em>Sigmoid</em>). Mixing method take the two models and the experimental data as input and calculates the likelihood. Finding of the optimal weights by either optimizing the likelihood or finindg the full posterior is done as the next step.</p>
 </div>
-<div class="section" id="weight-estimation">
-<h3><a class="toc-backref" href="#id6">Weight Estimation</a><a class="headerlink" href="#weight-estimation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="estimation-of-mixing-function-weights">
+<h3><a class="toc-backref" href="#id6">Estimation of Mixing Function Weights</a><a class="headerlink" href="#estimation-of-mixing-function-weights" title="Permalink to this headline">¶</a></h3>
 <p>Using the likelihood provided by the Mixed model user can find the optimal weights for Bayesian Model Mixing. We provide wrapper functions to the likelihood method so that one can use their favourite calibration software to estimate the weights.</p>
+</div>
+<div class="section" id="furthermore-mix-and-calibrate-models-togeather">
+<h3><a class="toc-backref" href="#id7">Furthermore Mix and Calibrate Models Togeather</a><a class="headerlink" href="#furthermore-mix-and-calibrate-models-togeather" title="Permalink to this headline">¶</a></h3>
+<p>Rather than using calibrated models to mix we can do better by doing everythin all at once. The advantage of this is that the calibration of each model will happen using the experimental data that each model can explain the best.
+This would avoid situations where a model is calibrated using experimental data that is outside it's applicability.</p>
 </div>
 </div>
 </div>
@@ -168,7 +175,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Taweret&#39;s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Bayesian Model Mixing with Taweret!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="instalation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

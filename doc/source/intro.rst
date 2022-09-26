@@ -45,9 +45,17 @@ two different types of mixing functions (*Step*, *Sigmoid*). Mixing method take 
 the experimental data as input and calculates the likelihood. Finding of the optimal weights by either \
 optimizing the likelihood or finindg the full posterior is done as the next step. 
 
-Weight Estimation
-^^^^^^^^^^^^^^^^^
+Estimation of Mixing Function Weights
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Using the likelihood provided by the Mixed model user can find the optimal weights for Bayesian Model Mixing. \
 We provide wrapper functions to the likelihood method so that one can use their favourite calibration software \
 to estimate the weights. 
+
+Furthermore Mix and Calibrate Models Togeather
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Rather than using calibrated models to mix we can do better by doing everythin all at once. The advantage of this \
+is that the calibration of each model will happen using the experimental data that each model can explain the best.
+This would avoid situations where a model is calibrated using experimental data that is outside it's applicability. 
+
+
 

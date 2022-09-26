@@ -21,7 +21,7 @@ jobs:
           git checkout ${GITHUB_REF##*/} -- $files # copy files from the source branch
           echo "the folders before move"
           ls ${{ github.workspace }}
-          mv -f doc/build/* docs/
+          cp -rf doc/build/* docs/
           rm -rf doc
           echo "folders after move"
           ls ${{ github.workspace }}

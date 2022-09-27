@@ -43,7 +43,7 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
         params = np.array(params).flatten()
 
         mix_param = params[0:self.mixed_model.n_mix]
-        m1_param = params[self.mixed_model.n_mix:self.mixed_model.n_model_1]
+        m1_param = params[self.mixed_model.n_mix:self.mixed_model.n_mix+self.mixed_model.n_model_1]
         m2_param = params[-self.mixed_model.n_model_2:]
 
         return self.mixed_model.mix_loglikelihood(mix_param, m1_param, m2_param)

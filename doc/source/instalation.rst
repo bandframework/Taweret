@@ -7,6 +7,7 @@ Taweret requires the following for for basic functionality.
     - seaborn
     - jupyter
     - bilby
+    - ptemcee
 
 Follow these steps to install Taweret from github. 
 

@@ -141,7 +141,7 @@
 <span class="sd">            coupling strength (g) values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">])</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span>
         <span class="n">M</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Models</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
         <span class="n">mean</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">low_g</span><span class="p">(</span><span class="n">input_values</span><span class="p">)</span>
         <span class="n">U</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">error_model</span><span class="p">)</span>
@@ -188,7 +188,7 @@
 <span class="sd">            coupling strength (g) values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">])</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span>
         <span class="n">M</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Models</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
         <span class="n">mean</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">high_g</span><span class="p">(</span><span class="n">input_values</span><span class="p">)</span>
         <span class="n">U</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Uncertainties</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">error_model</span><span class="p">)</span>
@@ -212,7 +212,7 @@
 <span class="sd">            coupling strength (g) values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">M</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Models</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
         <span class="n">mean</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">true_model</span><span class="p">(</span><span class="n">input_values</span><span class="p">)</span>
         <span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">mean</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>

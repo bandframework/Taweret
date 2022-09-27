@@ -11,9 +11,7 @@ try:
     from samba import models
 except Exception as e:
     print(e)
-    print('To use the SAMBA toy models, SAMBA package needed to be installed first. cloning \
-        the SMABA github repo to the same place where your local Taweret github repo exist \
-            will also work.')
+    print('To use the SAMBA toy models, SAMBA package needed to be installed first. cloning the SMABA github repo to the same place where your local Taweret github repo exist will also work.')
 
 class loworder():
     """

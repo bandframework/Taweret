@@ -53,7 +53,7 @@ class loworder():
             coupling strength (g) values
         """
 
-        order = np.array([self.order])
+        order = self.order
         M = models.Models(order, order)
         mean = M.low_g(input_values)
         U = models.Uncertainties(self.error_model)
@@ -100,7 +100,7 @@ class highorder():
             coupling strength (g) values
         """
 
-        order = np.array([self.order])
+        order = self.order
         M = models.Models(order, order)
         mean = M.high_g(input_values)
         U = models.Uncertainties(self.error_model)
@@ -124,7 +124,7 @@ class true_model():
             coupling strength (g) values
         """
 
-        order = np.array([1])
+        order = 1
         M = models.Models(order, order)
         mean = M.true_model(input_values)
         var = np.zeros(shape=mean.shape)

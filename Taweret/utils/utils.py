@@ -26,7 +26,7 @@ def log_likelihood_elementwise(model : object, x_exp : np.ndarray, y_exp : np.nd
         predictions, model_err = model.predict(x_exp)
     else:
         predictions, model_err = model.predict(x_exp, model_param)
-    sigma = np.sqrt(np.squre(y_err) + np.squre(model_err))
+    sigma = np.sqrt(np.square(y_err) + np.square(model_err))
     diff = -0.5* np.square((predictions.flatten() - y_exp)/ sigma) \
         - 0.5 * np.log(2*math.pi*sigma*sigma)
     return diff

@@ -17,7 +17,7 @@ class coleman_model_1():
 
         x = input_values.flatten()
         mean = np.zeros(len(x))
-        var = np.zeros(len(x))
+        var = 0.3*0.3*np.zeros(len(x))
 
         if len(model_param.flatten()) !=1 :
             raise TypeError('The model_param has to be single element numpy array')
@@ -41,7 +41,7 @@ class coleman_model_2():
 
         x = input_values.flatten()
         mean = np.zeros(len(x))
-        var = np.zeros(len(x))
+        var = 0.3*0.3*np.zeros(len(x))
 
         if len(model_param.flatten()) !=1 :
             raise TypeError('The model_param has to be single element numpy array')

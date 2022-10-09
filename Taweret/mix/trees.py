@@ -6,23 +6,23 @@ Desc: Defines the tree mixing class, which is an interface for MixBART
 Start Date: 10/05/22
 Version: 1.0
 """
-from symbol import pass_stmt
 import numpy as np
 import sys
 import subprocess 
 import tempfile 
+import shutil
+import os
 from scipy.stats import norm 
 from pathlib import Path 
 from scipy.stats import spearmanr 
-
 
 from Taweret.core.base import BaseMixer
 
 class trees_mix(BaseMixer):
     # Overwrite base constructor
-    def __init__(self, model_list, data, method, args):
+    def __init__(self, model_list, data, method, **kwargs):
         # Call the base constructor
-        BaseMixer.__init__(model_list, data, method, args)
+        BaseMixer.__init__(self, model_list, data, method, **kwargs)
         
         # Set the defaults for the data objects
         tree_data_keys = ['x_exp', 'y_exp'] 
@@ -35,13 +35,13 @@ class trees_mix(BaseMixer):
             data['x_exp'] = np.array(data['x_exp'])
 
         if len(data['x_exp'].shape) == 1:
-            data['x_exp'].reshape(data['x_exp'].shape[0],1)
+            data['x_exp'] = data['x_exp'].reshape(data['x_exp'].shape[0],1)
 
         if isinstance(data['y_exp'], list):
             data['y_exp'] = np.array(data['y_exp'])
 
         if len(data['y_exp'].shape) == 1:
-            data['y_exp'].reshape(data['y_exp'].shape[0],1)
+            data['y_exp'] = data['y_exp'].reshape(data['y_exp'].shape[0],1)
 
         # Get number of observations and the number of columns in design matrix
         if data['x_exp'].shape[0] == data['y_exp'].shape[0]:
@@ -53,9 +53,9 @@ class trees_mix(BaseMixer):
         # Get predictions from the model set at X's
         fhat_list = []
         shat_list = []
-        for m in self.model_list:
+        for m in model_list:
             # Get predictions from selected model
-            fhat_col, shat_col = m.predict(self.x_exp)
+            fhat_col, shat_col = m.predict(data['x_exp'])
             
             # Append predictions to respective lists
             fhat_list.append(fhat_col)
@@ -72,16 +72,7 @@ class trees_mix(BaseMixer):
         self.X_train = np.transpose(data['x_exp']) # Reshape X_train to be pxn --- keeping this to remain in sync with remainder of code
         self.fmean = np.mean(data['y_exp'])
 
-        # Set other defaults        
-        self.modelname = "mixmodel"
-        self.summarystats = "FALSE"        
-        self.truncateds = None
-        self.modeltype = 9 # required for the cpp code
-        
-
-
-    def train(self, prior_info, mcmc_info):
-        # Set default values for prior and mcmc related parameters
+        # Set default values for prior and mcmc related parameters -- maybe move into constructor
         # MCMC Parameters
         self.ndpost = 1000
         self.nskip = 100
@@ -97,9 +88,9 @@ class trees_mix(BaseMixer):
         self.adaptevery = 100
         
         # Set the prior defaults
-        self.overallsd = None; self.overallnu = None
-        self.k = None
-        self.ntree = None; self.ntreeh = None
+        self.overallsd = None; self.overallnu = 10
+        self.k = 2
+        self.ntree = 1; self.ntreeh = 1
         self.power = 2.0
         self.base = 0.95
         self.nsprior = True
@@ -107,22 +98,28 @@ class trees_mix(BaseMixer):
         self.tauvec = False
         self.betavec = False
 
-        # Set the prior and mcmc information
-        self.__dict__.update((key, value) for key, value in prior_info.items())
-        self.__dict__.update((key, value) for key, value in mcmc_info.items())
-        #self.__dict__.update((key, value) for key, value in kwargs.items())
+        # Set other defaults
+        self.modelname = "mixmodel"
+        self.summarystats = "FALSE"
+        self.local_openbt_path = os.getcwd()
 
-        if "tauvec" in prior_info.keys() and "betavec" in prior_info.keys():
-            self.wtsprior = True
-            #self._set_wts_prior(self.betavec, self.tauvec)
+        # Set the kwargs dictionary
+        self.__dict__.update((key, value) for key, value in kwargs.items())
 
+        # Set defaults not relevant to model mixing -- only set so cpp code doesn't break               
+        self.truncateds = None
+        self.modeltype = 9
+        
+
+    def train(self, **kwargs):
         # Overwrite any default parameters
         self._define_params()
         print("Writing config file and data")
         self._write_config_file()
         self._write_data()
         print("Running model...")
-        self._run_model()
+        cmd = "openbtcli"
+        self._run_model(cmd)
         
         # Return attributes to be saved as a separate fit object:
         res = {} # Missing the influence attribute from the R code (skip for now)
@@ -152,7 +149,7 @@ class trees_mix(BaseMixer):
         shat_list = []
         for m in self.model_list:
             # Get predictions from selected model
-            fhat_col, shat_col = m.predict(self.x_exp)
+            fhat_col, shat_col = m.predict(X)
             
             # Append predictions to respective lists
             fhat_list.append(fhat_col)
@@ -188,7 +185,8 @@ class trees_mix(BaseMixer):
         with self.configfile.open("w") as pfile:
             for param in pred_params:
                 pfile.write(str(param)+"\n")
-        self._run_model(train=False)
+        cmd = "openbtpred"
+        self._run_model(cmd)
         self._read_in_preds()
         
         # Need to update the results -- one unifed dictionary across all BAND BMM
@@ -240,8 +238,9 @@ class trees_mix(BaseMixer):
                 pfile.write(str(param)+"\n")
         # run the program
         cmd = "openbtmixingwts"
-        sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
-                            stdin=subprocess.DEVNULL, capture_output=True)
+        self._run_model(cmd)
+
+        # Read in the weights
         self._read_in_wts()
         
         # New: make things a bit more like R, and save attributes to a fit object:
@@ -380,6 +379,7 @@ class trees_mix(BaseMixer):
             self.fmean = 0
             self.y_train = self.y_orig
             self.rgy = [np.min(self.y_train), np.max(self.y_train)]
+            self.ntreeh = 1
         else: # Unused modeltypes for now, but still set their properties just in case
             self.y_train = self.y_orig 
             self.fmean_out = None
@@ -423,6 +423,10 @@ class trees_mix(BaseMixer):
         # overall lambda calibration
         self.overalllambda = self.overallsd**2
         
+        # Set overall nu 
+        if self.overallnu is None:
+            self.overallnu = 10
+
         # Birth and Death probability -- set product tree pbd to 0 for selected models 
         if (isinstance(self.pbd, float)):
             self.pbd = [self.pbd, 0] 
@@ -522,7 +526,127 @@ class trees_mix(BaseMixer):
                 np.savetxt(str(self.fpath / Path(self.wproot)), np.concatenate(self.betavec, self.tauvec),fmt='%.7f')
         
 
-    def _run_model(self, train=True):
-        cmd = "openbtcli" if train else "openbtpred"
-        sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
-                            stdin=subprocess.DEVNULL, capture_output=True)
+    def _run_model(self, cmd="openbtcli"):
+        # Check to see if executable is in the current directory
+        sh = shutil.which(cmd)
+    
+        # Execute the subprocess, changing directory when needed
+        if sh is None:        
+            # openbt exe were not found in the current directory -- try the local directory passed in
+            sh = shutil.which(cmd, path = self.local_openbt_path) 
+            if sh is None:
+                raise FileNotFoundError("Cannot find openbt executables. Please specify the path using the argument local_openbt_path in the constructor.")
+            else:
+                cmd = sh
+                sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
+                                stdin=subprocess.DEVNULL, capture_output=True)    
+        else:
+            sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
+                                stdin=subprocess.DEVNULL, capture_output=True)
+        
+
+    #--------------------------------------------
+    # Extra setters right now -- could be useful for user, could be assigned _ tag to denote internal use, could be removed - not sure yet 
+    def set_prior_info(self, **kwargs):
+        # Extract arguments 
+        valid_prior_args = ['ntree', 'ntreeh', 'k','power','base','overallsd','overallnu','nsprior','tauvec', 'betavec'] 
+        for (key, value) in kwargs.itmes():
+            if key in valid_prior_args:
+                self.__dict__.update({key:value})
+
+        # Quality check for wtsprior argument
+        if "tauvec" in kwargs.keys() and "betavec" in kwargs.keys():
+            self.wtsprior = True
+        else:
+            self.wtsprior = False
+
+    def set_prior_info(self, **kwargs):
+        # Extract arguments
+        valid_mcmc_args = ["ndpost","nskip","nadapt","tc","pbd","pb","stepwpert","probchv","minnumbot","printevery","numcut", "adaptevery"]
+        for (key, value) in kwargs.itmes():
+            if key in valid_mcmc_args:
+                self.__dict__.update({key:value})
+    
+
+
+#------------------------------------------------
+# Testing MixBART
+#------------------------------------------------
+# Polynomial function
+# import matplotlib.pyplot as plt
+# class FP:
+#     def __init__(self,a=0,b=0,c=1,p=1):
+#         self.a = a
+#         self.b = b
+#         self.c = c
+#         self.p = p
+    
+#     def predict(self, x):
+#         if isinstance(x, list):
+#             x = np.array(x)
+#         m = self.c*(x-self.a)**self.p + self.b
+#         if len(m.shape) == 1:
+#             m = m.reshape(m.shape[0],1) 
+#         s = np.array([1]*x.shape[0]).reshape(m.shape[0],1)
+#         return m,s
+
+# model_list = [FP(0,-2,4,1), FP(0,2,-4,1)]
+
+# # Training Data
+# n_train = 15
+# n_test = 100
+# s = 0.1
+
+# x_train = np.concatenate([np.array([0.01,0.1,0.25]),np.linspace(0.45,1.0, n_train-3)])
+# x_test = np.linspace(0.01, 1.0, n_test)
+
+# np.random.seed(1234567)
+# fp = FP(0.5,0,8,2)
+# f0_train,_ = fp.predict(x_train)
+# f0_test,_ = fp.predict(x_test)
+# y_train = f0_train + np.random.normal(0,s,n_train).reshape(n_train,1)
+
+# data = {'x_exp':x_train, 'y_exp': y_train, 'y_err':None}
+# method = 'mixbart'
+# mix = trees_mix(model_list = model_list, data = data, method = method, tc = 4, modelname = "parabola", ntree = 10, k = 1, ndpost = 10000, nskip = 2000, nadapt = 5000, 
+#                 adaptevery = 500, overallsd = 0.556, minnumbot = 1, local_openbt_path = "/home/johnyannotty/Documents/Open BT Project SRC")
+
+# fitx = mix.train()
+# fitxp = mix.predict(X = x_test, q_lower=0.025, q_upper=0.975)
+# fitxw = mix.weights(X = x_test, q_lower=0.025, q_upper=0.975)
+
+
+# # Get the data for simplicty
+# fp1 = FP(0,-2,4,1)
+# fp2 = FP(0,2,-4,1)
+# f1_train,_ = fp1.predict(x_train)
+# f1_test,_ = fp1.predict(x_test)
+# f2_train,_ = fp2.predict(x_train)
+# f2_test,_ = fp2.predict(x_test)
+
+# f_train = np.concatenate([f1_train, f2_train], axis = 1)
+# f_test = np.concatenate([f1_test, f2_test], axis = 1)
+
+# # Plot function overlayed with predicted
+# fig = plt.figure(figsize=(16,9)); 
+# ax = fig.add_subplot()
+# ax.plot(x_test, fitxp['mmean'], 'green')
+# ax.plot(x_test, f0_test, 'black')
+# ax.plot(x_test, f_test[:,0], 'r')
+# ax.plot(x_test, f_test[:,1], 'b')
+# ax.scatter(x_train, y_train)
+# ax.set_xlabel("x"); ax.set_ylabel("y")
+# plt.show()
+
+
+# # Plot weight functions with 95% intervals
+# fig = plt.figure(figsize=(16,9)); 
+# ax = fig.add_subplot()
+# ax.plot(x_test, fitxw['wmean'][:,0], 'red')
+# ax.plot(x_test, fitxw['wmean'][:,1], 'blue')
+# ax.set_xlabel("x"); ax.set_ylabel("w(x)")
+# plt.show()
+
+# fitxp['mmean']
+# fitxp['smean']
+# fitxw['wmean']

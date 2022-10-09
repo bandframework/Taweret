@@ -6,11 +6,10 @@ Start Date: 10/05/22
 Version: 1.0
 """
 
-from Taweret.core.wrappers import IMPLEMENTED_MIXERS
 
 class BaseMixer:
     # Constructor
-    def __init__(self, model_list, data, method, args):
+    def __init__(self, model_list, data, method, **kwargs):
         """
         Parameters
         ----------
@@ -22,21 +21,20 @@ class BaseMixer:
         args (dict): arguments which are mixing method specific 
 
         """
-        # Set the class objects
+        # Set the basic class objects
         self.model_list = model_list
         self.method = method
-        self.mixingargs = args
         self.nummodels = len(model_list)
-
+        
         # Set the data objects                
         self.x_exp = data['x_exp']
         self.y_exp = data['y_exp']
         self.y_err = data['y_err']
 
-    def train(self, prior_info, mcmc_info):   
+    # Including **kwargs for now, though all arguments should be set in the constrcutor
+    def train(self, **kwargs):   
         print("The model training method has not been implemented for mixing approach = " + self.method)
-        train_results = {'fitted_values':None, 'parameters':None, 'posteriors': None }
-        return train_results 
+        self.train_results = {'fitted_values':None, 'parameters':None, 'posteriors': None } 
 
     def predict(self, X):
         print("The prediction method has not been implemented for mixing approach = " + self.method)
@@ -44,9 +42,19 @@ class BaseMixer:
 
     def weights(self, X):
         print("The weights method has not been implemented for mixing approach = " + self.method)
+        self.weights_results = {'wt_values':None, 'posteriors': None }
 
     def mix_likelihood(self, X):
         print("The mix_likelihood method has not been implemented for mixing approach = " + self.method)
 
-    def plot_weights(self, X):
+    def plot_weights(self):
         print("The plot_weights method has not been implemented for mixing approach = " + self.method)
+
+    def plot_prediction(self):
+        print("The plot_prediction method has not been implemented for mixing approach = " + self.method)
+
+    # Maybe include various setters and getters 
+    # The setters could be useful for changeing arguments wihtout redefining the class ()
+    # though with getters you can access the object (since its public)??
+    # def set_prior_info(): 
+    # def set_mcmc_info():

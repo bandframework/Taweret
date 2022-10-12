@@ -7,8 +7,8 @@ Taweret for Bayesian Model Mixing
 Bayesian Model Mixing
 ---------------------
 
-In the modern computer simulation studies we often come accross multiple theorotically \
-sound models that can simulate the same phenomena. These models have different assumptions built into them \
+In computer simulation studies we often come accross multiple theorotically \
+sound models that are equally good. These models have different assumptions built into them \
 and are only valid in certain domain of the input domain. It is most certainly possible that the true \
 model that can describe the phenomena is not any of the models that are being considered. Bayesian Model \
 Mixing is a data-driven technique that allows us to combine the models to get the most accurate predictions\
@@ -53,8 +53,9 @@ to estimate the weights.(There is an example for this with SAMBA models in one o
 
 Do Mixing and Calibration Togeather
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Rather than using calibrated models to mix we can do better by doing everythin all at once. The advantage of this \
-is that the calibration of each model will happen using the experimental data that each model can explain the best.
+Rather than using calibrated models to mix we can do better by doing calibration and mixing togeather. The advantage of this \
+is that the calibration of each model is not done by trying to fit the model to all experimental data and getting a global fit. \
+Instead each model is calibrated only using the fraction of experimental data that can be well fitted with the model. 
 This would avoid situations where a model is calibrated using experimental data that is outside it's applicability.\
 (There is an example of this with Coleman models in one of the example notebooks)
 

@@ -14,7 +14,7 @@ Follow these steps to install Taweret from github.
 .. code-block:: bash
 
     git clone https://github.com/danOSU/Taweret.git
-    #If you want to use SMABA toy models please clone samba repo too
+    #If you want to use SMABA toy models please clone samba repo
     #git clone https://github.com/asemposki/SAMBA.git
     cd Taweret
     conda env create -f environment.yml

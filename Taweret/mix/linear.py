@@ -1,11 +1,7 @@
-# This will have all the bayesian model mixing methods.
+# This will have all the linear bayesian model mixing methods.
 # Takes Models as inputs:
-#   Check if Models have an predict method and should output a mean and a variance.
+# Check if Models have an predict method and they should output a mean and a variance.
 
-# Need a likelihood funtion.
-# Let's have a seperate module for calibration which also allow us to specefy the prior/give prior as an input and also
-# the likelihood.
-from re import L
 import numpy as np
 import math
 from ..utils.utils import log_likelihood_elementwise, mixture_function, eps

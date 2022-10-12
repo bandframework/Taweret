@@ -5,11 +5,7 @@
 #NOTES: Only two model capability as of now
 
 #necessary imports
-from lark import v_args
 import numpy as np
-import matplotlib
-import matplotlib.pyplot as plt
-from matplotlib.ticker import AutoMinorLocator
 
 class bivariate:
 

@@ -1,14 +1,20 @@
 """
 Name: wrappers.py
 Author: John Yannotty (yannotty.1@osu.edu)
-Desc: Defines classes to wrap the BAND mixing and calibration methods
+Desc: Defines classes to wrap the BAND mixing and calibration methods. Inspired by biliby documentation 
+    (see repo: bilby/bilby/core/sampler/__init__.py) 
+
 Start Date: 10/05/22
 Version: 1.0
+References:
+    https://github.com/lscsoft/bilby/blob/master/bilby/core/sampler/__init__.py
+
 """
 
 from Taweret.mix.linear import linear_mix as LM
 from Taweret.mix.trees import trees_mix as TM
 
+# Dictionary containing all implemented methods
 IMPLEMENTED_MIXERS = {
     "sigmoid": LM,
     "cdf": LM,
@@ -24,11 +30,11 @@ def mixing(model_list, x_exp, y_exp = None, y_err = None, method = 'sigmoid', **
         Parameters --- update names 
         ----------
         model_list (list): list of model class instances
-        data (dict): dictionary containing relevant data for the mixing method
-            keys: x_exp, y_exp, y_err, (....add as we go)
-            values: enter each as a list or np.array, default = None
+        x_exp (np.array): x inputs to train with
+        y_exp (np.array): y experimental data to train with
+        y_exp (np.array): associated errors with y (std deviations???)
         method (string): name of the mixing method
-        args (dict): arguments which are mixing method specific 
+        **kwargs        : arguments which are mixing method specific 
 
     """
     # Check valid method

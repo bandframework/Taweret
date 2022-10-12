@@ -7,11 +7,13 @@ Start Date: 10/05/22
 Version: 1.0
 """
 import numpy as np
+import matplotlib.pyplot as plt
 import sys
 import subprocess 
 import tempfile 
 import shutil
 import os
+
 from scipy.stats import norm 
 from pathlib import Path 
 from scipy.stats import spearmanr 
@@ -192,16 +194,16 @@ class trees_mix(BaseMixer):
         # Need to update the results -- one unifed dictionary across all BAND BMM
         res = {}
         res['mdraws'] = self.mdraws; res['sdraws'] = self.sdraws;
-        res['mmean'] = self.mmean; res['smean'] = self.smean;
-        res['msd'] = self.msd; res['ssd'] = self.ssd;
-        res['m_5'] = self.m_5; res['s_5'] = self.s_5;
-        res['m_lower'] = self.m_lower; res['s_lower'] = self.s_lower;
-        res['m_upper'] = self.m_upper; res['s_upper'] = self.s_upper;
+        res['mmean'] = self.pred_mean; res['smean'] = self.sigma_mean;
+        res['msd'] = self.pred_sd; res['ssd'] = self.sigma_sd;
+        res['m_5'] = self.pred_5; res['s_5'] = self.sigma_5;
+        res['m_lower'] = self.pred_lower; res['s_lower'] = self.sigma_lower;
+        res['m_upper'] = self.pred_upper; res['s_upper'] = self.sigma_upper;
         res['q_lower'] = self.q_lower; res['q_upper'] = self.q_upper;
         res['x_test'] = X; res['modeltype'] = self.modeltype
         return res
 
-    def weights(self, X, q_lower, q_upper):
+    def weights(self, X, q_lower = 0.025, q_upper = 0.975):
         # Checks for proper inputs and convert lists to arrays
         if not self.modeltype == 9:
             raise TypeError("Cannot call openbt.mixingwts() method for openbt objects that are not modeltype = 'mixbart'")
@@ -212,7 +214,6 @@ class trees_mix(BaseMixer):
         if not self.p == X.shape[1]:
             raise ValueError("The X array does not have the appropriate number of columns.")
         
-        
         # Set control parameters
         self.xwroot = "xw"
         self.fitroot= ".fit"  # default, needed when considering the general class of model mixing problems -- revist this later
@@ -222,6 +223,7 @@ class trees_mix(BaseMixer):
         # write out the config file
         # Set control values
         self.n_test = X.shape[0] # no need to set this as a class object like in predict function
+        self.X_test = X
         self.__write_chunks(X, (self.n_test) // (self.n_test/(self.tc)),
                             self.xwroot,
                             '%.7f')
@@ -246,14 +248,39 @@ class trees_mix(BaseMixer):
         # New: make things a bit more like R, and save attributes to a fit object:
         res = {}
         res['wdraws'] = self.wdraws 
-        res['wmean'] = self.wmean 
-        res['wsd'] = self.wsd
-        res['w_5'] = self.w_5
-        res['w_lower'] = self.w_lower
-        res['w_upper'] = self.w_upper
+        res['wmean'] = self.wts_mean 
+        res['wsd'] = self.wts_sd
+        res['w_5'] = self.wts_5
+        res['w_lower'] = self.wts_lower
+        res['w_upper'] = self.wts_upper
         res['q_lower'] = self.q_lower; res['q_upper'] = self.q_upper
         res['x_test'] = X; res['modeltype'] = self.modeltype
         return res
+
+    def plot_weights(self, X, xdim = 0):
+        # Check if weights are already loaded
+        col_list = ['red','blue','green','purple','orange']
+        if self.wts_mean is None:
+            # Compute weights at training points
+            print("Computing weights at training points by default.")
+            out_wts = self.weights(self.X_train.transpose())
+            self.X_test = self.X_train.transpose()
+        
+        # Now plot the weights -- need to improve this plot
+        fig = plt.figure(figsize=(6,5))  
+        for i in range(self.nummodels):
+            plt.plot(self.X_test[:,xdim], self.wts_mean[:,i], color = col_list[i])
+            plt.plot(self.X_test[:,xdim], self.wts_lower[:,i], color = col_list[i], linestyle = "dashed")
+            plt.plot(self.X_test[:,xdim], self.wts_upper[:,i], color = col_list[i], linestyle = "dashed")
+        plt.title("Posterior Weight Functions")
+        plt.xlabel("X") # Update Label
+        plt.ylabel("W(X)") # Update Label 
+        plt.grid(True, color='lightgrey')
+        plt.show()
+
+
+    def plot_prediction(self):
+        return super().plot_prediction()
 
 
     def _read_in_preds(self):
@@ -277,27 +304,27 @@ class trees_mix(BaseMixer):
         
         # New (added by me), since R returns arrays like these by default:
         # Calculate mmean and smean arrays, and related statistics
-        self.mmean = np.empty(len(self.mdraws[0]))
-        self.smean = np.empty(len(self.sdraws[0]))
-        self.msd = np.empty(len(self.mdraws[0]))
-        self.ssd = np.empty(len(self.mdraws[0]))
-        self.m_5 = np.empty(len(self.mdraws[0]))
-        self.s_5 = np.empty(len(self.mdraws[0]))
-        self.m_lower = np.empty(len(self.mdraws[0]))
-        self.s_lower = np.empty(len(self.sdraws[0]))
-        self.m_upper = np.empty(len(self.mdraws[0]))
-        self.s_upper = np.empty(len(self.sdraws[0]))
+        self.pred_mean = np.empty(len(self.mdraws[0]))
+        self.sigma_mean = np.empty(len(self.sdraws[0]))
+        self.pred_sd = np.empty(len(self.mdraws[0]))
+        self.sigma_sd = np.empty(len(self.mdraws[0]))
+        self.pred_5 = np.empty(len(self.mdraws[0]))
+        self.sigma_5 = np.empty(len(self.mdraws[0]))
+        self.pred_lower = np.empty(len(self.mdraws[0]))
+        self.sigma_lower = np.empty(len(self.sdraws[0]))
+        self.pred_upper = np.empty(len(self.mdraws[0]))
+        self.sigma_upper = np.empty(len(self.sdraws[0]))
         for j in range(len(self.mdraws[0])):
-             self.mmean[j] = np.mean(self.mdraws[:, j])
-             self.smean[j] = np.mean(self.sdraws[:, j])
-             self.msd[j] = np.std(self.mdraws[:, j], ddof = 1)
-             self.ssd[j] = np.std(self.sdraws[:, j], ddof = 1)
-             self.m_5[j] = np.percentile(self.mdraws[:, j], 0.50)
-             self.s_5[j] = np.percentile(self.sdraws[:, j], 0.50)
-             self.m_lower[j] = np.percentile(self.mdraws[:, j], self.q_lower)
-             self.s_lower[j] = np.percentile(self.sdraws[:, j], self.q_lower)
-             self.m_upper[j] = np.percentile(self.mdraws[:, j], self.q_upper)
-             self.s_upper[j] = np.percentile(self.sdraws[:, j], self.q_upper)
+             self.pred_mean[j] = np.mean(self.mdraws[:, j])
+             self.sigma_mean[j] = np.mean(self.sdraws[:, j])
+             self.pred_sd[j] = np.std(self.mdraws[:, j], ddof = 1)
+             self.sigma_sd[j] = np.std(self.sdraws[:, j], ddof = 1)
+             self.pred_5[j] = np.quantile(self.mdraws[:, j], 0.50)
+             self.sigma_5[j] = np.quantile(self.sdraws[:, j], 0.50)
+             self.pred_lower[j] = np.quantile(self.mdraws[:, j], self.q_lower)
+             self.sigma_lower[j] = np.quantile(self.sdraws[:, j], self.q_lower)
+             self.pred_upper[j] = np.quantile(self.mdraws[:, j], self.q_upper)
+             self.sigma_upper[j] = np.quantile(self.sdraws[:, j], self.q_upper)
 
 
     def _read_in_wts(self):
@@ -305,11 +332,11 @@ class trees_mix(BaseMixer):
         self.wdraws = {}        
 
         # Initialize summary statistic matrices for the wts
-        self.wmean = np.empty((self.n_test,self.nummodels))
-        self.wsd = np.empty((self.n_test,self.nummodels))
-        self.w_5 = np.empty((self.n_test,self.nummodels))
-        self.w_lower = np.empty((self.n_test,self.nummodels))
-        self.w_upper = np.empty((self.n_test,self.nummodels))
+        self.wts_mean = np.empty((self.n_test,self.nummodels))
+        self.wts_sd = np.empty((self.n_test,self.nummodels))
+        self.wts_5 = np.empty((self.n_test,self.nummodels))
+        self.wts_lower = np.empty((self.n_test,self.nummodels))
+        self.wts_upper = np.empty((self.n_test,self.nummodels))
 
 
         # Get the weight files
@@ -326,11 +353,11 @@ class trees_mix(BaseMixer):
             self.wdraws[wtname] = np.concatenate(wdraws, axis=1) # Got rid of the transpose
             
             for j in range(len(self.wdraws[wtname][0])):
-                self.wmean[j][k] = np.mean(self.wdraws[wtname][:, j])
-                self.wsd[j][k] = np.std(self.wdraws[wtname][:, j], ddof = 1)
-                self.w_5[j][k] = np.percentile(self.wdraws[wtname][:, j], 0.50)
-                self.w_lower[j][k] = np.percentile(self.wdraws[wtname][:, j], self.q_lower)
-                self.w_upper[j][k] = np.percentile(self.wdraws[wtname][:, j], self.q_upper)
+                self.wts_mean[j][k] = np.mean(self.wdraws[wtname][:, j])
+                self.wts_sd[j][k] = np.std(self.wdraws[wtname][:, j], ddof = 1)
+                self.wts_5[j][k] = np.quantile(self.wdraws[wtname][:, j], 0.50)
+                self.wts_lower[j][k] = np.quantile(self.wdraws[wtname][:, j], self.q_lower)
+                self.wts_upper[j][k] = np.quantile(self.wdraws[wtname][:, j], self.q_upper)
 
 
     def _set_wts_prior(self, betavec, tauvec):
@@ -609,12 +636,12 @@ class trees_mix(BaseMixer):
 # data = {'x_exp':x_train, 'y_exp': y_train, 'y_err':None}
 # method = 'mixbart'
 # mix = trees_mix(model_list = model_list, data = data, method = method, tc = 4, modelname = "parabola", ntree = 10, k = 1, ndpost = 10000, nskip = 2000, nadapt = 5000, 
-#                 adaptevery = 500, overallsd = 0.556, minnumbot = 1, local_openbt_path = "/home/johnyannotty/Documents/Open BT Project SRC")
+#                  adaptevery = 500, overallsd = 0.556, minnumbot = 1, local_openbt_path = "/home/johnyannotty/Documents/Open BT Project SRC")
 
 # fitx = mix.train()
 # fitxp = mix.predict(X = x_test, q_lower=0.025, q_upper=0.975)
 # fitxw = mix.weights(X = x_test, q_lower=0.025, q_upper=0.975)
-
+# mix.plot_weights(x_test, 0)
 
 # # Get the data for simplicty
 # fp1 = FP(0,-2,4,1)
@@ -649,4 +676,6 @@ class trees_mix(BaseMixer):
 
 # fitxp['mmean']
 # fitxp['smean']
-# fitxw['wmean']
+# fitxw['wmean'][:5,]
+# fitxw['w_upper'][:5,]
+# fitxw['w_lower'][:5,]

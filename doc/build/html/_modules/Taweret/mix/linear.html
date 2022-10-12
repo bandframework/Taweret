@@ -86,14 +86,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for Taweret.mix.linear</h1><div class="highlight"><pre>
-<span></span><span class="c1"># This will have all the bayesian model mixing methods.</span>
+<span></span><span class="c1"># This will have all the linear bayesian model mixing methods.</span>
 <span class="c1"># Takes Models as inputs:</span>
-<span class="c1">#   Check if Models have an predict method and should output a mean and a variance.</span>
+<span class="c1"># Check if Models have an predict method and they should output a mean and a variance.</span>
 
-<span class="c1"># Need a likelihood funtion.</span>
-<span class="c1"># Let&#39;s have a seperate module for calibration which also allow us to specefy the prior/give prior as an input and also</span>
-<span class="c1"># the likelihood.</span>
-<span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="n">L</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">from</span> <span class="nn">..utils.utils</span> <span class="kn">import</span> <span class="n">log_likelihood_elementwise</span><span class="p">,</span> <span class="n">mixture_function</span><span class="p">,</span> <span class="n">eps</span>

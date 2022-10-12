@@ -159,6 +159,7 @@ class trees_mix(BaseMixer):
 
         # Construct two matrices using concatenate
         F = np.concatenate(fhat_list, axis = 1)
+        self.F_test = F
         #S = np.concatenate(shat_list, axis = 1)
         
         # Set control values
@@ -227,7 +228,7 @@ class trees_mix(BaseMixer):
         self.__write_chunks(X, (self.n_test) // (self.n_test/(self.tc)),
                             self.xwroot,
                             '%.7f')
-        
+
         # Set and write config file
         self.configfile = Path(self.fpath / "config.mxwts")
         pred_params = [self.modelname, self.modeltype,
@@ -257,7 +258,7 @@ class trees_mix(BaseMixer):
         res['x_test'] = X; res['modeltype'] = self.modeltype
         return res
 
-    def plot_weights(self, X, xdim = 0):
+    def plot_weights(self, xdim = 0):
         # Check if weights are already loaded
         col_list = ['red','blue','green','purple','orange']
         if self.wts_mean is None:
@@ -279,8 +280,27 @@ class trees_mix(BaseMixer):
         plt.show()
 
 
-    def plot_prediction(self):
-        return super().plot_prediction()
+    def plot_prediction(self, xdim = 0):
+        col_list = ['red','blue','green','purple','orange']
+        if self.pred_mean is None:
+            # Compute weights at training points
+            print("Getting predictions at training points by default.")
+            out_pred = self.predict(self.X_train.transpose())
+            self.X_test = self.X_train.transpose()
+        
+        # Now plot the prediction -- need to improve this plot
+        fig = plt.figure(figsize=(6,5))  
+        plt.plot(self.X_test[:,xdim], self.pred_mean, color = 'black')
+        plt.plot(self.X_test[:,xdim], self.pred_lower, color = 'black', linestyle = "dashed")
+        plt.plot(self.X_test[:,xdim], self.pred_upper, color = 'black', linestyle = "dashed")
+        for i in range(self.nummodels):
+            plt.plot(self.X_test[:,xdim], self.F_test[:,i], color = col_list[i], linestyle = 'dotted')
+        plt.scatter(self.X_train[xdim,:] ,self.y_orig) # Recall X_train was transposed in the beginning 
+        plt.title("Posterior Mean Prediction")
+        plt.xlabel("X") # Update Label
+        plt.ylabel("F(X)") # Update Label 
+        plt.grid(True, color='lightgrey')
+        plt.show()
 
 
     def _read_in_preds(self):

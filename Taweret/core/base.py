@@ -61,10 +61,10 @@ class BaseMixer:
     def mix_likelihood(self, X):
         print("The mix_likelihood method has not been implemented for mixing approach = " + self.method)
 
-    def plot_weights(self, X, xdim = 0):
+    def plot_weights(self, xdim = 0):
         print("The plot_weights method has not been implemented for mixing approach = " + self.method)
 
-    def plot_prediction(self):
+    def plot_prediction(self, xdim = 0):
         print("The plot_prediction method has not been implemented for mixing approach = " + self.method)
 
     # Maybe include various setters and getters 

@@ -1,7 +1,7 @@
 # Details
 __version__ = "0.1.0"
-__author__ = "Dananjaya (Dan) Liyanage"
-__credits__ = "The Ohio State University"
+__author__ = "Dananjaya (Dan) Liyanage, Alexandra Semposki, John Yannotty"
+__credits__ = "The Ohio State University, Ohio University"
 
 
 # Imports from Taweret modules
@@ -11,5 +11,3 @@ from Taweret import calibrate, core, mix, models, utils
 
 from Taweret.core import base, wrappers
 from Taweret.core.wrappers import mixing
-
-

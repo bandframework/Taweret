@@ -13,15 +13,13 @@ class linear_mix():
 
     """
 
-    def __init__(self, model_1, model_2, x_exp, y_exp, y_err, method='sigmoid',n_model_1=0\
-        ,n_model_2=0, n_mix=0):
+    def __init__(self, models, x_exp, y_exp, y_err, method='sigmoid',
+                 n_models=[], n_mix=0):
         """
         Parameters
         ----------
-        model_1 : object with a predict method
-            first model to be mixed
-        model_2 : object with a predict method
-            second model to be mixed
+        models : list
+            models to mix, each must contain a predict method
         x_exp : np.1darray
             input parameter values of experimental data
         y_exp : np.1darray
@@ -30,29 +28,26 @@ class linear_mix():
             standard deviation of the experimental data for each input value
         method : str
             mixing function
-        n_model_1 : int
-            number of free parameters in the model 1
-        n_model_2 : int
-            number of free parameters in the model 2
+        n_models : list
+            number of free parameters for each model
         n_mix : int
             number of free parameters in the mixing funtion
         """
 
-        #check for predict method in the models
-        try:
-            getattr(model_1, 'predict')
-        except AttributeError:
-            print('model 1 does not have a predict method')
-        else:
-            self.model_1 = model_1
+        # check that lengths of lists are compatible
+        if len(models) != len(n_models) and len(n_models) != 0:
+            raise Exception('in linear_mix.__init__: len(models) must either equal len(n_models) or 0')
 
-        try:
-            getattr(model_2, 'predict')
-        except AttributeError:
-            print('model 2 does not have a predict method')
-        else:
-            self.model_2 = model_2
-        
+        #check for predict method in the models
+        for i, model in enumerate(models):
+            try:
+                getattr(model, 'predict')
+            except AttributeError:
+                print(f'model {i} does not have a predict method')
+            else:
+                continue
+
+        self.models = models
 
         #check if the dimensions match for experimental data
         if (x_exp.shape != y_exp.shape) or (x_exp.shape!=y_err.shape):
@@ -68,20 +63,12 @@ class linear_mix():
 
         self.method = method
 
-        self.n_model_1 = n_model_1
-        self.n_model_2 = n_model_2
+        self.n_models = n_models
         self.n_mix = n_mix
+        
+        # function returns
 
-
-        # Calculate log likelihood of each model
-        if self.n_model_1==0 and self.n_model_2==0:
-
-            self.L1 = log_likelihood_elementwise(model_1,x_exp, y_exp, y_err)
-            self.L2 = log_likelihood_elementwise(model_2,x_exp, y_exp, y_err)
-        #print(self.L1)
-        #print(self.L2)
-
-    def mix_loglikelihood(self, mixture_params : np.ndarray, model_1_param=np.array([]), model_2_param=np.array([])) -> float:
+    def mix_loglikelihood(self, mixture_params : np.ndarray, model_params=[]) -> float:
         """
         log likelihood of the mixed model given the mixing function parameters
 
@@ -89,12 +76,18 @@ class linear_mix():
         ----------
         mixture_params : np.1darray
             parameter values that fix the shape of mixing function
-        model_1_param: np.1darray
-            parameter values in the model 1
-        model_2_param: np.1darray
-            parameter values  in the model 2
+        model_params: list[np.1darray]
+            list of model parameters for each model, note that different models can take different
+            number of params
         """
+        
+        # check that list of models and mixture_params has same length
+        if len(self.models) != len(mixture_params) and len(self.n_models) != 0:
+            raise Exception('linear_mix.mix_loglikelihood: mixture_params has wrong length')
 
+
+        # here, the mixture_function should support dirchlet distribution which is the most
+        # general distribution for the symplex defined be mixture_params
         W = mixture_function(self.method, self.x_exp, mixture_params)
         W_1 = np.log(W + eps)
         W_2 = np.log(1 - W + eps)

@@ -57,4 +57,6 @@ def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray) 
         theta_0, theta_1 = mixture_params
         x = theta_0 + theta_1*x
         w = norm.cdf(x)
+    elif method=='dirchlet':
+
     return w

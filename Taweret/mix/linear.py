@@ -65,7 +65,7 @@ class linear_mix():
 
         self.n_models = n_models
         self.n_mix = n_mix
-        
+
         # function returns
 
     def mix_loglikelihood(self, mixture_params : np.ndarray, model_params=[]) -> float:
@@ -80,26 +80,31 @@ class linear_mix():
             list of model parameters for each model, note that different models can take different
             number of params
         """
-        
+
         # check that list of models and mixture_params has same length
         if len(self.models) != len(mixture_params) and len(self.n_models) != 0:
             raise Exception('linear_mix.mix_loglikelihood: mixture_params has wrong length')
 
-
         # here, the mixture_function should support dirchlet distribution which is the most
         # general distribution for the symplex defined be mixture_params
-        W = mixture_function(self.method, self.x_exp, mixture_params)
-        W_1 = np.log(W + eps)
-        W_2 = np.log(1 - W + eps)
-        if self.n_model_1==0 and self.n_model_2==0:
-            complete_array=np.append(W_1+self.L1, W_2+self.L2)
+
+        # return weights for different models and take logs
+        weights = mixture_function(self.method, self.x_exp, mixture_params)
+        log_weights = np.array([np.log(weight + eps) for i, weight in enumerate(weights)])
+        log_weights = np.append(weights, np.log(1 - np.sum(weights) + eps))
+
+        # calculate log likelihoods
+        if len(self.n_models) == 0:
+            log_likelis = np.array(
+                [log_likelihood_elementwise(model, self.x_exp, self.y_exp, self.y_err) + log_weight
+                 for model, log_weight in zip(self.models, log_weights)])
         else:
-            L1 = log_likelihood_elementwise(self.model_1, self.x_exp, self.y_exp, self.y_err, model_1_param)
-            L2 = log_likelihood_elementwise(self.model_2, self.x_exp, self.y_exp, self.y_err, model_2_param)
-            complete_array=np.append(W_1+L1, W_2+L2)
-        #print(complete_array)
+            log_likelis = np.array(
+                [log_likelihood_elementwise(model, self.x_exp, self.y_exp, self.y_err, params) + log_weight
+                 for model, params, log_weight in zip(self.models, model_params, log_weights)])
+
         total_sum = 0
-        for i in range(0,len(complete_array)-1):
+        for i in range(len(log_likelis)-1):
             if i==0:
                 total_sum=np.logaddexp(complete_array[i],complete_array[i+1])
             else:
@@ -116,7 +121,7 @@ class linear_mix():
 
     #     return np.log(np.sum(complete_array)).item()
 
-    def prediction(self, mixture_params : np.ndarray, x : np.ndarray, model_1_param=np.array([]), model_2_param=np.array([])) -> np.ndarray:
+    def prediction(self, mixture_params : np.ndarray, x : np.ndarray, model_params=[]) -> np.ndarray:
         """
         predictions from mixed model for given mixing function parameters and at input values x
 
@@ -126,17 +131,18 @@ class linear_mix():
             parameter values that fix the shape of mixing function
         x : np.1daray
             input parameter values array
-        model_1_param: np.1darray
-            parameter values in the model 1
-        model_2_param: np.1darray
-            parameter values  in the model 2
+        model_params: list[np.1darray]
+            list of parameter values for each model
         """
-        w = mixture_function(self.method, x, mixture_params)
+        weights = mixture_function(self.method, x, mixture_params)
+        weights = np.append(weights, 1 - np.sum(weights))
 
-        if self.n_model_1==0 and self.n_model_2==0:
-            return w * self.model_1.predict(x)[0] + (1-w) * self.model_2.predict(x)[0]
+        if len(self.n_models) == 0:
+            return np.sum([weight * model.predict(x)[0]
+                           for weight, model in zip(weights, self.models)]).item()
         else:
-            return w * self.model_1.predict(x, model_1_param)[0] + (1-w) * self.model_2.predict(x, model_2_param)[0]
+            return np.sum([weight * model.predict(x, params)[0]
+                           for weight, model, params in zip(weights, self.models, model_params)]).item()
 
     def plot_weights(self, mixture_params : np.ndarray, x : np.ndarray) -> np.ndarray:
         """
@@ -150,12 +156,15 @@ class linear_mix():
             input parameter values
         """
 
-        fig, ax = plt.subplots()
-        ax.plot(x, mixture_function(self.method, x, mixture_params), label=self.method)
-        ax.set_ylabel('Weights')
-        ax.set_xlabel('Input Parameter')
+        if self.method != 'dirchlet':
+            fig, ax = plt.subplots()
+            ax.plot(x, mixture_function(self.method, x, mixture_params), label=self.method)
+            ax.set_ylabel('Weights')
+            ax.set_xlabel('Input Parameter')
+        else:
+            pass
         return None
-    
+
     def weights(self, mixture_params : np.ndarray, x : np.ndarray) -> np.ndarray :
         """
         return the mixing function value at the input parameter values x

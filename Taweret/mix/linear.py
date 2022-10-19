@@ -5,6 +5,8 @@
 import numpy as np
 import math
 from ..utils.utils import log_likelihood_elementwise, mixture_function, eps
+#likelihood_elementwise is only for testing purposes
+#from ..utils.utils import likelihood_elementwise
 import matplotlib.pyplot as plt
 
 class linear_mix():
@@ -63,7 +65,7 @@ class linear_mix():
         self.y_err = y_err.flatten()
 
         #check if mixing method exist
-        if method not in ['step', 'sigmoid', 'cdf']:
+        if method not in ['step', 'sigmoid', 'cdf', 'switchcos']:
             raise Exception('only supports the step or sigmoid mixing functions')
 
         self.method = method
@@ -99,29 +101,25 @@ class linear_mix():
         W_1 = np.log(W + eps)
         W_2 = np.log(1 - W + eps)
         if self.n_model_1==0 and self.n_model_2==0:
-            complete_array=np.append(W_1+self.L1, W_2+self.L2)
+            L1=self.L1
+            L2=self.L2
         else:
             L1 = log_likelihood_elementwise(self.model_1, self.x_exp, self.y_exp, self.y_err, model_1_param)
             L2 = log_likelihood_elementwise(self.model_2, self.x_exp, self.y_exp, self.y_err, model_2_param)
-            complete_array=np.append(W_1+L1, W_2+L2)
-        #print(complete_array)
-        total_sum = 0
-        for i in range(0,len(complete_array)-1):
-            if i==0:
-                total_sum=np.logaddexp(complete_array[i],complete_array[i+1])
-            else:
-                total_sum=np.logaddexp(total_sum, complete_array[i+1])
-            #print(total_sum)
-        return total_sum.item()
+        #we use the logaddexp here for numerical accuracy. Look at the 
+        #mix_loglikelihood_test to check for an alternative (common) way
+        mixed_loglikelihood_elementwise=np.logaddexp(W_1+L1, W_2+L2)
+        return np.sum(mixed_loglikelihood_elementwise).item()
 
-    # def mix_loglikelihood_test(self, mixture_params):
+    # def mix_loglikelihood_test(self, mixture_params, model_1_param=np.array([]), model_2_param=np.array([])) -> float:
     #     W = mixture_function(self.method, self.x_exp, mixture_params)
         
-    #     W_1 = W
-    #     W_2 = 1 - W
-    #     complete_array=np.append(W_1*np.exp(self.L1), W_2*np.exp(self.L2))
-
-    #     return np.log(np.sum(complete_array)).item()
+    #     W_1 = W + eps
+    #     W_2 = 1 - W + eps
+    #     L1 = likelihood_elementwise(self.model_1, self.x_exp, self.y_exp, self.y_err, model_1_param)
+    #     L2 = likelihood_elementwise(self.model_2, self.x_exp, self.y_exp, self.y_err, model_2_param)
+    #     mixed_likelihood_elementwise =  (W_1*L1) + (W_2*L2)
+    #     return np.sum(np.log(mixed_likelihood_elementwise)).item()
 
     def prediction(self, mixture_params : np.ndarray, x : np.ndarray, model_1_param=np.array([]), model_2_param=np.array([])) -> np.ndarray:
         """

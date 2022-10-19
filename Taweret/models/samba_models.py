@@ -5,10 +5,12 @@ import numpy as np
 import math
 from scipy import special, integrate
 import sys
+
 sys.path.append("../../../../SAMBA/")
 
 try:
     from samba import models
+    from samba import mixing
 except Exception as e:
     print(e)
     print('To use the SAMBA toy models, SAMBA package needed to be installed first. cloning the SMABA github repo to the same place where your local Taweret github repo exist will also work.')
@@ -109,13 +111,11 @@ class highorder():
 class true_model():
     """
     A wrapper for SAMBA  true function
-
     """
 
     def predict(self, input_values : np.array) -> np.array:
         """
         Predict the mean and error for given input values
-
         Parameters
         ----------
         input_values : numpy 1darray
@@ -127,5 +127,29 @@ class true_model():
         mean = M.true_model(input_values)
         var = np.zeros(shape=mean.shape)
         return mean, np.sqrt(var)
+
+class exp_data():
+    """
+    A wrapper for SAMBA  true function
+
+    """
+
+    def predict(self, input_values : np.array, error = 0.01) -> np.array:
+        """
+        Predict the mean and error for given input values
+
+        Parameters
+        ----------
+        input_values : numpy 1darray
+            coupling strength (g) values
+        error : float
+            defines the relative error as a fraction between (0,1)
+        """
+
+        order = 1
+        M = mixing.LMM(order, order, error_model='informative')
+        mean, sigma = M.add_data( input_values, input_values, error=error, plot=False)
+        return mean, sigma
+
 
 

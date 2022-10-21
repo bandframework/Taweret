@@ -1,7 +1,7 @@
 """
 Name: wrappers.py
 Author: John Yannotty (yannotty.1@osu.edu)
-Desc: Defines classes to wrap the BAND mixing and calibration methods. Inspired by biliby documentation 
+Desc: Defines classes to wrap the BAND mixing and calibration methods. Inspired by bilby documentation 
     (see repo: bilby/bilby/core/sampler/__init__.py) 
 
 Start Date: 10/05/22
@@ -13,13 +13,15 @@ References:
 
 from Taweret.mix.linear import linear_mix as LM
 from Taweret.mix.trees import trees_mix as TM
+from Taweret.mix.gaussian import bivariate as BM
 
 # Dictionary containing all implemented methods
 IMPLEMENTED_MIXERS = {
     "sigmoid": LM,
     "cdf": LM,
     "step": LM,
-    "mixbart":TM
+    "mixbart":TM,
+    "bivariate": BM
 }
 
 def mixing(model_list, x_exp, y_exp = None, y_err = None, method = 'sigmoid', **kwargs):

@@ -1,6 +1,8 @@
 # This will have all the linear bayesian model mixing methods.
 # Takes Models as inputs:
 # Check if Models have an predict method and they should output a mean and a variance.
+#
+# Modified by K. Ingles
 
 import numpy as np
 import math

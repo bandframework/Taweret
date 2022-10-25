@@ -54,17 +54,17 @@ def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray) 
     elif method=='step':
         x_0 = mixture_params[0]
         w = np.array([1-(eps) if xi<=x_0 else eps for xi in x]).flatten()
-        return w, 1 - w
+        return np.array([w, 1 - w])
     elif method=='cdf':
         theta_0, theta_1 = mixture_params
         x = theta_0 + theta_1*x
         w = norm.cdf(x)
-        return w, 1 - w
+        return np.array([w, 1 - w])
     elif method=='beta':
         print('Warning: mixture_function - the `beta` choice forces a stochastic')
         print('         likelihood to be returned after calibration')
         w = beta.rvs(*mixture_params)
-        return w, 1 - w
+        return np.array([w, 1 - w])
     elif method=='dirchlet':
         print('Warning: mixture_function - the `dirichlet` choice forces a stochastic')
         print('         likelihood to be returned after calibration')

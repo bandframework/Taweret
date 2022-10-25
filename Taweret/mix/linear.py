@@ -38,7 +38,7 @@ class linear_mix():
 
         # check that lengths of lists are compatible
         if len(models) != len(nargs_for_each_model) and len(nargs_for_each_model) != 0:
-            raise Exception('in linear_mix.__init__: len(models) must either equal len(nargs_for_each_model) or 0')
+            raise Exception('in linear_mix.__init__: len(nargs_for_each_model) must either equal len(models) or 0')
 
         #check for predict method in the models
         for i, model in enumerate(models):
@@ -92,7 +92,7 @@ class linear_mix():
 
         # return weights for different models and take logs
         weights = mixture_function(self.method, self.x_exp, mixture_params)
-        log_weights = np.array([np.log(weight + eps) for i, weight in enumerate(weights)])
+        log_weights = np.log(weights + eps)
 
         # calculate log likelihoods
         if len(self.nargs_for_each_model) == 0:
@@ -104,7 +104,7 @@ class linear_mix():
                 [log_likelihood_elementwise(model, self.x_exp, self.y_exp, self.y_err, params) + log_weight
                  for model, params, log_weight in zip(self.models, model_params, log_weights)])
 
-        total_sum = np.log(np.sum(np.exp(log_likelis)))
+        total_sum = np.logaddexp.reduce(log_likelis)
         return total_sum.item()
 
     # def mix_loglikelihood_test(self, mixture_params):
@@ -137,7 +137,7 @@ class linear_mix():
         """
 
         # FIXME: What if I need to return an array of predictions? Should I return a np.sum(..., axis=1)
-        weights = mixture_function(self.method, x, mixture_params)
+        weights = self.weights(mixture_params, x)
 
         if len(self.nargs_for_each_model) == 0:
             return np.sum([weight * model.predict(x)[0]

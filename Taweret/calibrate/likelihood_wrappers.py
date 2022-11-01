@@ -26,9 +26,10 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
 
     def __init__(self, mixed_model):
         
-        param_dic={}
-        for i in range(0, mixed_model.n_model_1 + mixed_model.n_model_2 + mixed_model.n_mix):
-            param_dic[f'theta_{i}']=None
+        param_dic= {
+            f'theta_{i}': None
+            for i in range(0, np.sum(np.asanyarray(mixed_model.nargs_for_each_model)) + mixed_model.n_mix)
+        }
 
         super().__init__(parameters=param_dic)
         self.mixed_model=mixed_model
@@ -43,7 +44,10 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
         params = np.array(params).flatten()
 
         mix_param = params[0:self.mixed_model.n_mix]
-        m1_param = params[self.mixed_model.n_mix:self.mixed_model.n_mix+self.mixed_model.n_model_1]
-        m2_param = params[-self.mixed_model.n_model_2:]
+        models_params = []
+        tot_sum = self.mixed_model.n_mix
+        for i in range(len(self.mixed_model.nargs_for_each_model) - 1):
+            tot_sum += self.mixed_model.nargs_for_each_model[i]
+            models_params.append(params[tot_sum: tot_sum + self.mixed_model.nargs_for_each_model[i + 1]])
 
-        return self.mixed_model.mix_loglikelihood(mix_param, m1_param, m2_param)
+        return self.mixed_model.mix_loglikelihood(mix_param, models_params)

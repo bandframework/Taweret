@@ -28,7 +28,7 @@ class multivariate:
         --------
         None. 
         '''
-
+        
         #check for predict method in the models
         for i in range(len(models)):
             try:
@@ -60,7 +60,6 @@ class multivariate:
 
         #credibility interval
         self.ci = ci 
-
         #predict for the two models 
         self.prediction = []
 
@@ -84,7 +83,7 @@ class multivariate:
         for i in range(len(self.x)):
             num[i] = np.sum([f[j][i]/v[j][i] for j in range(len(f))])
             denom[i] = np.sum([1/v[j][i] for j in range(len(f))])
-
+            
         #combine everything via input space tracking 
         mean = num/denom 
         var = 1/denom 

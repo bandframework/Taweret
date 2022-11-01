@@ -2,7 +2,7 @@ from tkinter import W
 import numpy as np
 import math
 from scipy.special import expit
-from scipy.stats import norm
+from scipy.stats import norm, beta, dirichlet
 #define log likelihood to be calculated give a model with a predict function
 # and experimental measurments. 
 
@@ -50,11 +50,25 @@ def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray) 
     if method=='sigmoid':
         theta_0, theta_1 = mixture_params
         w = expit((x-theta_0)/theta_1)
+        return w, 1 - w
     elif method=='step':
         x_0 = mixture_params[0]
         w = np.array([1-(eps) if xi<=x_0 else eps for xi in x]).flatten()
+        return w, 1 - w
     elif method=='cdf':
         theta_0, theta_1 = mixture_params
         x = theta_0 + theta_1*x
         w = norm.cdf(x)
-    return w
+        return w, 1 - w
+    elif method=='beta':
+        print('Warning: mixture_function - the `beta` choice forces a stochastic')
+        print('         likelihood to be returned after calibration')
+        w = beta.rvs(*mixture_params)
+        return w, 1 - w
+    elif method=='dirchlet':
+        print('Warning: mixture_function - the `dirichlet` choice forces a stochastic')
+        print('         likelihood to be returned after calibration')
+        w = dirichlet.rvs(mixture_params)
+        return w
+    else:
+        raise Exception('Method is not available for `mixture_function`')

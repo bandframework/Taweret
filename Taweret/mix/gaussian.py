@@ -1,15 +1,18 @@
-#SAMBA methods included here: Bivariate BMM and Trivariate BMM with a GP 
+#SAMBA methods included here: Multivariate BMM 
 #Written by: Alexandra Semposki
 #Authors of SAMBA: Alexandra Semposki, Dick Furnstahl, and Daniel Phillips
 
-#NOTES: Only two model capability as of now
+#NOTES: Only N model capability as of now (no GPs)
 
 #necessary imports
 import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib.ticker import AutoMinorLocator
 
-class bivariate:
+class multivariate:
 
-    def __init__(self, x, model_1, model_2, n_model_1=0, n_model_2=0):   #make models into list format
+    def __init__(self, x, models, n_models=0): 
 
         '''
         Parameters:
@@ -17,47 +20,33 @@ class bivariate:
         x : numpy.linspace
             Input space variable in which mixing is occurring. 
 
-        model_1 : First model with a predict method.
+        models : List of models with predict methods. 
 
-        model_2 : Second model with a predict method. 
-
-        n_model_1 : Number of free parameters in model 1.
-
-        n_model_2 : Number of free parameters in model 2. 
+        n_models : Number of free parameters per model. 
 
         Returns:
         --------
         None. 
         '''
-
-        #check for predict method in the models     #change later for a list of models
-        try:
-            getattr(model_1, 'predict')
-        except AttributeError:
-            print('model 1 does not have a predict method')
-        else:
-            self.model_1 = model_1
-
-        print(self.model_1)
-
-        try:
-            getattr(model_2, 'predict')
-        except AttributeError:
-            print('model 2 does not have a predict method')
-        else:
-            self.model_2 = model_2
-
+        
+        #check for predict method in the models
+        for i in range(len(models)):
+            try:
+                getattr(models[i], 'predict')
+            except AttributeError:
+                print('model {i} does not have a predict method')
+    
+        self.models = models
         self.x = x 
-        self.n_model_1 = n_model_1
-        self.n_model_2 = n_model_2
+        self.n_models = n_models
 
         return None
 
 
-    def mixing_prediction(self, ci=68):  #f_dagger equivalent 
+    def mixing_prediction(self, ci=68):
 
         '''
-        The f_dagger function responsible for mixing the two models together
+        The f_dagger function responsible for mixing the models together
         in a Gaussian way. 
 
         Parameters:
@@ -71,21 +60,19 @@ class bivariate:
 
         #credibility interval
         self.ci = ci 
+        #predict for the two models 
+        self.prediction = []
 
-        #predict for the two models     #should be changed later for a list of models
-        self.prediction_1 = self.model_1.predict(self.x)
-        self.prediction_2 = self.model_2.predict(self.x)
+        for i in range(len(self.models)):
+            self.prediction.append(self.models[i].predict(self.x))
 
-        #calculate the models from the class variables 
-        f_1 = self.prediction_1[0].flatten()
-        f_2 = self.prediction_2[0].flatten()
-
-        v_1 = np.square(self.prediction_1[1]).flatten()
-        v_2 = np.square(self.prediction_2[1]).flatten()
-
-        #stacked arrays for mixing
-        f = np.vstack([f_1, f_2])
-        v = np.vstack([v_1, v_2])
+        #calculate the models from the class variables
+        f = []
+        v = []
+        
+        for i in range(len(self.models)):
+            f.append(self.prediction[i][0].flatten())
+            v.append(np.square(self.prediction[i][1]).flatten())
 
         #initialise arrays
         num = np.zeros(len(self.x))
@@ -94,9 +81,9 @@ class bivariate:
 
         #sum over the models in the same input space
         for i in range(len(self.x)):
-            num[i] = f[0,i]/v[0,i] + f[1,i]/v[1,i]
-            denom[i] = 1/v[0,i] + 1/v[1,i]
-
+            num[i] = np.sum([f[j][i]/v[j][i] for j in range(len(f))])
+            denom[i] = np.sum([1/v[j][i] for j in range(len(f))])
+            
         #combine everything via input space tracking 
         mean = num/denom 
         var = 1/denom 

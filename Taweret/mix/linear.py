@@ -7,6 +7,8 @@
 import numpy as np
 import math
 from ..utils.utils import log_likelihood_elementwise, mixture_function, eps
+#likelihood_elementwise is only for testing purposes
+#from ..utils.utils import likelihood_elementwise
 import matplotlib.pyplot as plt
 
 class linear_mix():
@@ -60,7 +62,7 @@ class linear_mix():
         self.y_err = y_err.flatten()
 
         #check if mixing method exist
-        if method not in ['step', 'sigmoid', 'cdf']:
+        if method not in ['step', 'sigmoid', 'cdf', 'switchcos']:
             raise Exception('only supports the step or sigmoid mixing functions')
 
         self.method = method
@@ -82,7 +84,6 @@ class linear_mix():
             list of model parameters for each model, note that different models can take different
             number of params
         """
-
         # check that list of models and mixture_params has same length
         if len(self.models) != len(mixture_params) and len(self.nargs_for_each_model) != 0:
             raise Exception('linear_mix.mix_loglikelihood: mixture_params has wrong length')
@@ -107,14 +108,15 @@ class linear_mix():
         total_sum = np.log(np.sum(np.exp(log_likelis)))
         return total_sum.item()
 
-    # def mix_loglikelihood_test(self, mixture_params):
+    # def mix_loglikelihood_test(self, mixture_params, model_1_param=np.array([]), model_2_param=np.array([])) -> float:
     #     W = mixture_function(self.method, self.x_exp, mixture_params)
         
-    #     W_1 = W
-    #     W_2 = 1 - W
-    #     complete_array=np.append(W_1*np.exp(self.L1), W_2*np.exp(self.L2))
-
-    #     return np.log(np.sum(complete_array)).item()
+    #     W_1 = W + eps
+    #     W_2 = 1 - W + eps
+    #     L1 = likelihood_elementwise(self.model_1, self.x_exp, self.y_exp, self.y_err, model_1_param)
+    #     L2 = likelihood_elementwise(self.model_2, self.x_exp, self.y_exp, self.y_err, model_2_param)
+    #     mixed_likelihood_elementwise =  (W_1*L1) + (W_2*L2)
+    #     return np.sum(np.log(mixed_likelihood_elementwise)).item()
 
     def prediction(self, mixture_params : np.ndarray, x : np.ndarray, model_params=[]) -> np.ndarray:
         """

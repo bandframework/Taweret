@@ -2,15 +2,28 @@
 #Written by: Alexandra Semposki
 #Authors of SAMBA: Alexandra Semposki, Dick Furnstahl, and Daniel Phillips
 
-#NOTES: Only N model capability as of now (no GPs)
-
 #necessary imports
 import numpy as np
-import matplotlib
-import matplotlib.pyplot as plt
-from matplotlib.ticker import AutoMinorLocator
+#from Taweret.core.base_mixer import BaseMixer
 
-class multivariate:
+
+class Multivariate():     #put the BaseMixer inheritance back later
+
+    '''
+    The multivariate BMM class originally introduced
+    in the BAND SAMBA package. Combines individual
+    models using a Gaussian form. 
+
+    $$ f_{\dagger} = \mathcal{N} \left( \sum_i \frac{f_i/v_i}{1/v_i}, \sum_i \frac{1}{v_i}\right) $$
+
+    Example:
+    --------
+    ```python
+    m = Multivariate(x=np.linspace(), models=dict(), n_models=0)
+    m.predict(ci=68)
+    m.evaluate_weights()
+    ```
+    '''
 
     def __init__(self, x, models, n_models=0): 
 
@@ -20,7 +33,7 @@ class multivariate:
         x : numpy.linspace
             Input space variable in which mixing is occurring. 
 
-        models : List of models with predict methods. 
+        models : Dict of models with evaluate methods. 
 
         n_models : Number of free parameters per model. 
 
@@ -28,7 +41,7 @@ class multivariate:
         --------
         None. 
         '''
-        
+
         #check for predict method in the models
         for i in range(len(models)):
             try:
@@ -36,14 +49,18 @@ class multivariate:
             except AttributeError:
                 print('model {i} does not have a predict method')
     
-        self.models = models
+        # set up the class variables
+        self.model_dict = models
         self.x = x 
         self.n_models = n_models
+
+        # convert models dict() to list
+        self.models = [i for i in self.model_dict.values()]
 
         return None
 
 
-    def mixing_prediction(self, ci=68):
+    def predict(self, ci=68):
 
         '''
         The f_dagger function responsible for mixing the models together
@@ -51,21 +68,24 @@ class multivariate:
 
         Parameters:
         -----------
-        None. 
+        ci : int, list
+            The desired credibility interval(s) (1-sigma, 2-sigma) 
 
         Returns:
         --------
-        mean, var : The mean and variance of the predicted mixed model. 
+        mean, intervals, std_dev : The mean, credible intervals, and std_dev 
+                               of the predicted mixed model 
         '''
 
-        #credibility interval
+        #credibility interval(s)
         self.ci = ci 
+
         #predict for the two models 
         self.prediction = []
 
         for i in range(len(self.models)):
             self.prediction.append(self.models[i].predict(self.x))
-
+            
         #calculate the models from the class variables
         f = []
         v = []
@@ -88,17 +108,46 @@ class multivariate:
         mean = num/denom 
         var = 1/denom 
 
+        #variances for each model
+        self.var_weights = var/(np.sum(var, axis=0))
+
+        #std_dev calculation
+        std_dev = np.sqrt(var)
+
         #credibility interval check
         if self.ci == 68:
             val = 1.0
         elif self.ci == 95:
             val = 1.96
+        elif self.ci == [68,95]:
+            val = [1.0, 1.96]
         else:
-            raise ValueError('Credibility interval value not found.')
+            raise ValueError('Choose 1 and/or 2 sigma band.')
 
-        #calculate intervals
-        intervals = np.zeros([len(self.x), 2])
-        intervals[:,0] = (mean - val * np.sqrt(var))
-        intervals[:,1] = (mean + val * np.sqrt(var))
+        #calculate interval(s)
+        interval_low = []
+        interval_high = []
 
-        return mean, intervals 
+        for i in range(val):     #need to combine these into one variable to return to BaseMixer.predict()
+            interval_low.append(mean - i*std_dev)
+            interval_high.append(mean + i*std_dev)
+
+        #intervals[:,0] = (mean - val * np.sqrt(var))
+        #intervals[:,1] = (mean + val * np.sqrt(var))
+
+        return 0.0, mean, intervals, std_dev 
+
+
+    def evaluate_weights(self):
+        '''
+        Calculate the weights for each model in the mixed model
+        over the input space. 
+
+        Returns:
+        --------
+        weights : numpy.ndarray 
+            Array of model weights. 
+        '''
+
+        #return the weights calculated in the predict method
+        return self.var_weights

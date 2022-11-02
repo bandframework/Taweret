@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod, abstractproperty
+from abc import ABC, abstractmethod
 
 
 class BaseMixer(ABC):
@@ -18,7 +18,7 @@ class BaseMixer(ABC):
         $$ f_\mathrm{mixed} = \sum_{i=1}^N w_i \mathcal M_i(\theta_i) $$
 
         ```python
-        class my_mixer(BaseMixer):
+        class MyMixer(BaseMixer):
             @property
             def models(self):
                 return self._model_list
@@ -32,6 +32,7 @@ class BaseMixer(ABC):
                 for i in range(len(self._model_list)):
                     value += self._model_list[i](x, model_parameters[i]) \
                             * weight[i]
+                return value
             . . .
         ```
         '''
@@ -54,7 +55,7 @@ class BaseMixer(ABC):
         ```python
         import scipy
 
-        class my_mixer(BaseMixer):
+        class MyMixer(BaseMixer):
             . . .
 
             def evaluate_weights(self, dirichlet_params):
@@ -98,7 +99,7 @@ class BaseMixer(ABC):
         Global liner mixing:
 
         ```python
-        class my_mixer(BaseMixer):
+        class MyMixer(BaseMixer):
             . . .
             def predict(self, x_test):
                 # work to calculate everything
@@ -131,7 +132,7 @@ class BaseMixer(ABC):
         Global liner mixing:
 
         ```python
-        class my_mixer(BaseMixer):
+        class MyMixer(BaseMixer):
             . . .
             def predict_weights(self, x_test):
                 # work to calculate everything
@@ -163,7 +164,7 @@ class BaseMixer(ABC):
         Global liner mixing:
 
         ```python
-        class my_mixer(BaseMixer):
+        class MyMixer(BaseMixer):
             . . .
             def prior_predict(self, x_test):
                 # work to calculate everything
@@ -214,7 +215,7 @@ class BaseMixer(ABC):
         Example:
         --------
         ```python
-        class my_mixer(BaseMixer):
+        class MyMixer(BaseMixer):
             . . .
             def set_prior(self, prior_dict):
                 self._prior = prior_dict
@@ -224,10 +225,10 @@ class BaseMixer(ABC):
         priors = dict()
         priors['a'] = bilby.core.prior.MultivariateGaussian(mvg, 'a')
         priors['b'] = bilby.core.prior.MultivariateGaussian(mvg, 'b')
-        m = my_mixer()
+        m = MyMixer()
         m.set_prior(prior_dict=priors)
         ```
-        '''
+      '''
         return NotImplemented
 
     @abstractmethod

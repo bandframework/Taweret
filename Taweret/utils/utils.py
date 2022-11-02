@@ -1,10 +1,13 @@
-from tkinter import W
 import numpy as np
 import math
 from scipy.special import expit
 from scipy.stats import norm, beta, dirichlet
 #define log likelihood to be calculated give a model with a predict function
 # and experimental measurments. 
+
+def log_of_normal_dist(mean: np.1darray, mu: np.1darray, sigma: np.1darray):
+    return -(mean - mu) ** 2 / (2 * sigma) ** 2 \
+        - 0.5 * np.log(2 * np.pi * simga ** 2)
 
 eps = 1e-20
 def log_likelihood_elementwise(model : object, x_exp : np.ndarray, y_exp : np.ndarray, y_err : np.ndarray, model_param=np.array([])) -> np.ndarray:

@@ -10,12 +10,7 @@ class BaseModel(ABC):
         Returns:
         --------
         evaluation : float
-            point estimate from mixing model
-
-        Example:
-        --------
-        Global linear mixing:
-        $$ f_\mathrm{mixed} = \sum_{i=1}^N w_i \mathcal M_i(\theta_i) $$
+            point estimate for model
 
         ```python
         class MyModel(BaseModel):
@@ -47,13 +42,13 @@ class BaseModel(ABC):
 
         Example:
         --------
-        Global linear mixing
         ```python
         class MyModel(BaseModel):
             def log_likelihood_elementwise(self, y_exp, y_err, model_params):
-                # For global mixing, this should only return the log_likelihood
+                # Assuming a normal distribution for error
                 y = self.evaluate(model_params)
-                return np.prod(np.exp(-(y - y_exp) / (2 * y_err) ** 2) \
+                # If y_exp, y_err, y are numpy arrays of same length
+                return np.exp(-(y - y_exp) **2 / (2 * y_err ** 2)) \
                     / np.sqrt(2 * np.pi * y_err ** 2))
         ```
         '''

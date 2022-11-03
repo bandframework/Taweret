@@ -4,10 +4,10 @@
 
 #necessary imports
 import numpy as np
-#from Taweret.core.base_mixer import BaseMixer
+from Taweret.core.base_mixer import BaseMixer
 
 
-class Multivariate():     #put the BaseMixer inheritance back later
+class Multivariate(BaseMixer):
 
     '''
     The multivariate BMM class originally introduced
@@ -33,7 +33,7 @@ class Multivariate():     #put the BaseMixer inheritance back later
         x : numpy.linspace
             Input space variable in which mixing is occurring. 
 
-        models : Dict of models with evaluate methods. 
+        models : Dict of models with BaseModel methods. 
 
         n_models : Number of free parameters per model. 
 
@@ -42,7 +42,7 @@ class Multivariate():     #put the BaseMixer inheritance back later
         None. 
         '''
 
-        #check for predict method in the models
+        # check for predict method in the models
         for i in range(len(models)):
             try:
                 getattr(models[i], 'predict')
@@ -57,14 +57,47 @@ class Multivariate():     #put the BaseMixer inheritance back later
         # convert models dict() to list
         self.models = [i for i in self.model_dict.values()]
 
+        #set up weights variable
+        self.var_weights = np.zeros(len(self.models))
+
         return None
+
+    
+    def evaluate(self):
+        '''
+        Evaluate the mixed model at one set of parameters.
+        Not needed for this mixing method. 
+        '''
+        return None
+
+    
+    def evaluate_weights(self):
+        '''
+        Calculate the weights for each model in the mixed model
+        over the input space. 
+
+        Returns:
+        --------
+        weights : numpy.ndarray 
+            Array of model weights calculated in the 
+            Multivariate.predict function. 
+        '''
+
+        # check predict() has been called
+        if self.var_weights == np.zeros(len(self.models)):
+            raise Exception('Please run the predict function before\
+                calling this function.')
+
+        # return the weights calculated in the predict method
+        return self.var_weights
 
 
     def predict(self, ci=68):
 
         '''
         The f_dagger function responsible for mixing the models together
-        in a Gaussian way. 
+        in a Gaussian way. Based on the first two moments of the
+        distribution: mean and variance.
 
         Parameters:
         -----------
@@ -77,16 +110,16 @@ class Multivariate():     #put the BaseMixer inheritance back later
                                of the predicted mixed model 
         '''
 
-        #credibility interval(s)
+        # credibility interval(s)
         self.ci = ci 
 
-        #predict for the two models 
+        # predict for the two models 
         self.prediction = []
 
         for i in range(len(self.models)):
             self.prediction.append(self.models[i].predict(self.x))
             
-        #calculate the models from the class variables
+        # calculate the models from the class variables
         f = []
         v = []
         
@@ -94,27 +127,27 @@ class Multivariate():     #put the BaseMixer inheritance back later
             f.append(self.prediction[i][0].flatten())
             v.append(np.square(self.prediction[i][1]).flatten())
 
-        #initialise arrays
+        # initialise arrays
         num = np.zeros(len(self.x))
         denom = np.zeros(len(self.x))
         var = np.zeros(len(self.x))
 
-        #sum over the models in the same input space
+        # sum over the models in the same input space
         for i in range(len(self.x)):
             num[i] = np.sum([f[j][i]/v[j][i] for j in range(len(f))])
             denom[i] = np.sum([1/v[j][i] for j in range(len(f))])
             
-        #combine everything via input space tracking 
+        # combine everything via input space tracking 
         mean = num/denom 
         var = 1/denom 
 
-        #variances for each model
+        # variances for each model
         self.var_weights = var/(np.sum(var, axis=0))
 
-        #std_dev calculation
+        # std_dev calculation
         std_dev = np.sqrt(var)
 
-        #credibility interval check
+        # credibility interval check
         if self.ci == 68:
             val = 1.0
         elif self.ci == 95:
@@ -124,7 +157,7 @@ class Multivariate():     #put the BaseMixer inheritance back later
         else:
             raise ValueError('Choose 1 and/or 2 sigma band.')
 
-        #calculate interval(s)
+        # calculate interval(s)
         interval_low = []
         interval_high = []
 
@@ -135,19 +168,40 @@ class Multivariate():     #put the BaseMixer inheritance back later
         #intervals[:,0] = (mean - val * np.sqrt(var))
         #intervals[:,1] = (mean + val * np.sqrt(var))
 
-        return 0.0, mean, intervals, std_dev 
+        return 0.0, mean, intervals, std_dev
 
-
-    def evaluate_weights(self):
+    
+    def predict_weights(self):
         '''
-        Calculate the weights for each model in the mixed model
-        over the input space. 
-
-        Returns:
-        --------
-        weights : numpy.ndarray 
-            Array of model weights. 
+        Predict the weights of the mixed model. Returns
+        mean and intervals from the posterior of the 
+        weights. 
+        Not needed for this mixing method. 
         '''
+        return None
 
-        #return the weights calculated in the predict method
-        return self.var_weights
+    
+    def sample_prior(self):
+        '''
+        Returns samples from the prior
+        distributions for the various weight parameters.
+        Not needed for this mixing method.
+        '''
+        return None 
+
+    
+    def set_prior(self):
+        '''
+        Set the priors on the parameters.
+        Not needed for this mixing method.
+        '''
+        return None
+
+
+    def train(self):
+        '''
+        Train the mixed model by optimizing the
+        weights.
+        Not needed in this mixing method. 
+        '''
+        return None

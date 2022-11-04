@@ -161,14 +161,14 @@ class Multivariate(BaseMixer):
         interval_low = []
         interval_high = []
 
-        for i in range(val):     #need to combine these into one variable to return to BaseMixer.predict()
+        for i in range(val):  
             interval_low.append(mean - i*std_dev)
             interval_high.append(mean + i*std_dev)
 
-        #intervals[:,0] = (mean - val * np.sqrt(var))
-        #intervals[:,1] = (mean + val * np.sqrt(var))
+        # combine interval(s) into one list to return
+        interval = [interval_low, interval_high]
 
-        return 0.0, mean, intervals, std_dev
+        return 0.0, mean, interval, std_dev
 
     
     def predict_weights(self):

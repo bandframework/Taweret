@@ -1,5 +1,5 @@
 """
-Name: wrappers.py
+Name: base.py
 Author: John Yannotty (yannotty.1@osu.edu)
 Desc: Defines base estimator classes which can be used as a the parent class for the specific mixing module
 Start Date: 10/05/22

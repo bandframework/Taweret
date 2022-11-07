@@ -6,7 +6,6 @@
 import numpy as np
 from Taweret.core.base_mixer import BaseMixer
 
-
 class Multivariate(BaseMixer):
 
     '''
@@ -57,7 +56,7 @@ class Multivariate(BaseMixer):
         # convert models dict() to list
         self.models = [i for i in self.model_dict.values()]
 
-        #set up weights variable
+        # set up weights variable
         self.var_weights = np.zeros(len(self.models))
 
         return None

@@ -1,21 +1,24 @@
 # This toy example is copied from Alexandra; SAMBA package
-# : \pi^4 expansion for small and large g :
+# : \phi^4 expansion for small and large g :
 
 import numpy as np
-import math
-from scipy import special, integrate
 import sys
 
-sys.path.append("../../../../SAMBA/")
+from Taweret.core.base_model import BaseModel
+
+sys.path.append("../SAMBA/")
 
 try:
-    from samba import models
-    from samba import mixing
+    from SAMBA.samba import models   # assuming you have SAMBA in your Taweret top directory 
+    from SAMBA.samba import mixing
+
 except Exception as e:
     print(e)
-    print('To use the SAMBA toy models, SAMBA package needed to be installed first. cloning the SMABA github repo to the same place where your local Taweret github repo exist will also work.')
+    print('To use the SAMBA toy models, SAMBA package needed to be installed first. \
+        Cloning the SAMBA github repo to the same place where your local Taweret github repo exist will also work.')
 
-class loworder():
+
+class loworder(BaseModel):
     """
     A wrapper for SAMBA low order expansion function
 
@@ -43,14 +46,21 @@ class loworder():
 
         self.error_model = error_model
 
-    def predict(self, input_values : np.array) -> np.array:
+    def evaluate(self, input_values : np.array) -> np.array:
         """
-        Predict the mean and error for given input values
+        Evaluate the mean and error for given input values
 
         Parameters
         ----------
         input_values : numpy 1darray
             coupling strength (g) values
+        
+        Returns:
+        --------
+        mean : numpy 1darray
+            The mean of the model
+        np.sqrt(var) : numpy 1darray
+            The truncation error of the model
         """
 
         order = self.order
@@ -61,8 +71,14 @@ class loworder():
 
         return mean, np.sqrt(var)
 
+    def log_likelihood_elementwise(self):
+        return super().log_likelihood_elementwise()
 
-class highorder():
+    def set_prior(self):
+        return super().set_prior()
+
+
+class highorder(BaseModel):
     """
     A wrapper for SAMBA high order expansion function
 
@@ -90,14 +106,21 @@ class highorder():
 
         self.error_model = error_model
 
-    def predict(self, input_values : np.array) -> np.array:
+    def evaluate(self, input_values : np.array) -> np.array:
         """
-        Predict the mean and error for given input values
+        Evaluate the mean and error for given input values
 
         Parameters
         ----------
         input_values : numpy 1darray
             coupling strength (g) values
+
+        Returns:
+        --------
+        mean : numpy 1darray
+            The mean of the model
+        np.sqrt(var) : numpy 1darray
+            The truncation error of the model
         """
 
         order = self.order
@@ -107,15 +130,22 @@ class highorder():
         var = U.variance_high(input_values, order)
 
         return mean, np.sqrt(var)
+
+    def log_likelihood_elementwise(self):
+        return super().log_likelihood_elementwise()
+
+    def set_prior(self):
+        return super().set_prior()
     
-class true_model():
+
+class true_model(BaseModel):
     """
     A wrapper for SAMBA  true function
     """
 
-    def predict(self, input_values : np.array) -> np.array:
+    def evaluate(self, input_values : np.array) -> np.array:
         """
-        Predict the mean and error for given input values
+        Evaluate the mean and error for given input values
         Parameters
         ----------
         input_values : numpy 1darray
@@ -128,15 +158,22 @@ class true_model():
         var = np.zeros(shape=mean.shape)
         return mean, np.sqrt(var)
 
-class exp_data():
+    def log_likelihood_elementwise(self):
+        return super().log_likelihood_elementwise()
+
+    def set_prior(self):
+        return super().set_prior()
+
+
+class exp_data(BaseModel):
     """
-    A wrapper for SAMBA  true function
+    A wrapper for SAMBA data function
 
     """
 
-    def predict(self, input_values : np.array, error = 0.01) -> np.array:
+    def evaluate(self, input_values : np.array, error = 0.01) -> np.array:
         """
-        Predict the mean and error for given input values
+        Evaluate the mean and error for given input values
 
         Parameters
         ----------
@@ -148,5 +185,12 @@ class exp_data():
 
         order = 1
         M = mixing.LMM(order, order, error_model='informative')
-        mean, sigma = M.add_data( input_values, input_values, error=error, plot=False)
+        mean, sigma = M.add_data(input_values, input_values, error=error, plot=False)
+        
         return mean, sigma
+
+    def log_likelihood_elementwise(self):
+        return super().log_likelihood_elementwise()
+
+    def set_prior(self):
+        return super().set_prior()

@@ -75,7 +75,11 @@ class loworder(BaseModel):
         return super().log_likelihood_elementwise()
 
     def set_prior(self):
-        return super().set_prior()
+        '''
+        Set the prior on model parameters.
+        Not needed for this model. 
+        '''
+        return None
 
 
 class highorder(BaseModel):
@@ -135,7 +139,11 @@ class highorder(BaseModel):
         return super().log_likelihood_elementwise()
 
     def set_prior(self):
-        return super().set_prior()
+        '''
+        Set the prior on the model parameters.
+        Not needed for this model. 
+        '''
+        return None
     
 
 class true_model(BaseModel):
@@ -162,10 +170,14 @@ class true_model(BaseModel):
         return super().log_likelihood_elementwise()
 
     def set_prior(self):
-        return super().set_prior()
+        '''
+        Set the prior on any model parameters.
+        Not needed for this model. 
+        '''
+        return None 
 
 
-class exp_data(BaseModel):
+class exp_data(BaseModel):    # --> check that this model is set up correctly
     """
     A wrapper for SAMBA data function
 
@@ -193,4 +205,8 @@ class exp_data(BaseModel):
         return super().log_likelihood_elementwise()
 
     def set_prior(self):
-        return super().set_prior()
+        '''
+        Set the prior on any model parameters.
+        Not needed for this model. 
+        '''
+        return None 

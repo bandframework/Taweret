@@ -2,15 +2,27 @@
 #Written by: Alexandra Semposki
 #Authors of SAMBA: Alexandra Semposki, Dick Furnstahl, and Daniel Phillips
 
-#NOTES: Only N model capability as of now (no GPs)
-
 #necessary imports
 import numpy as np
-import matplotlib
-import matplotlib.pyplot as plt
-from matplotlib.ticker import AutoMinorLocator
+from Taweret.core.base_mixer import BaseMixer
 
-class multivariate:
+class Multivariate(BaseMixer):
+
+    '''
+    The multivariate BMM class originally introduced
+    in the BAND SAMBA package. Combines individual
+    models using a Gaussian form. 
+
+    $$ f_{\dagger} = \mathcal{N} \left( \sum_i \frac{f_i/v_i}{1/v_i}, \sum_i \frac{1}{v_i}\right) $$
+
+    Example:
+    --------
+    ```python
+    m = Multivariate(x=np.linspace(), models=dict(), n_models=0)
+    m.predict(ci=68)
+    m.evaluate_weights()
+    ```
+    '''
 
     def __init__(self, x, models, n_models=0): 
 
@@ -20,7 +32,7 @@ class multivariate:
         x : numpy.linspace
             Input space variable in which mixing is occurring. 
 
-        models : List of models with predict methods. 
+        models : Dict of models with BaseModel methods. 
 
         n_models : Number of free parameters per model. 
 
@@ -28,45 +40,85 @@ class multivariate:
         --------
         None. 
         '''
-        
-        #check for predict method in the models
+
+        # check for predict method in the models
         for i in range(len(models)):
             try:
                 getattr(models[i], 'predict')
             except AttributeError:
                 print('model {i} does not have a predict method')
     
-        self.models = models
+        # set up the class variables
+        self.model_dict = models
         self.x = x 
         self.n_models = n_models
 
+        # convert models dict() to list
+        self.models = [i for i in self.model_dict.values()]
+
+        # set up weights variable
+        self.var_weights = np.zeros(len(self.models))
+
         return None
 
-
-    def mixing_prediction(self, ci=68):
-
+    
+    def evaluate(self):
         '''
-        The f_dagger function responsible for mixing the models together
-        in a Gaussian way. 
+        Evaluate the mixed model at one set of parameters.
+        Not needed for this mixing method. 
+        '''
+        return None
 
-        Parameters:
-        -----------
-        None. 
+    
+    def evaluate_weights(self):
+        '''
+        Calculate the weights for each model in the mixed model
+        over the input space. 
 
         Returns:
         --------
-        mean, var : The mean and variance of the predicted mixed model. 
+        weights : numpy.ndarray 
+            Array of model weights calculated in the 
+            Multivariate.predict function. 
         '''
 
-        #credibility interval
+        # check predict() has been called
+        if self.var_weights == np.zeros(len(self.models)):
+            raise Exception('Please run the predict function before\
+                calling this function.')
+
+        # return the weights calculated in the predict method
+        return self.var_weights
+
+
+    def predict(self, ci=68):
+
+        '''
+        The f_dagger function responsible for mixing the models together
+        in a Gaussian way. Based on the first two moments of the
+        distribution: mean and variance.
+
+        Parameters:
+        -----------
+        ci : int, list
+            The desired credibility interval(s) (1-sigma, 2-sigma) 
+
+        Returns:
+        --------
+        mean, intervals, std_dev : The mean, credible intervals, and std_dev 
+                               of the predicted mixed model 
+        '''
+
+        # credibility interval(s)
         self.ci = ci 
-        #predict for the two models 
+
+        # predict for the two models 
         self.prediction = []
 
         for i in range(len(self.models)):
             self.prediction.append(self.models[i].predict(self.x))
-
-        #calculate the models from the class variables
+            
+        # calculate the models from the class variables
         f = []
         v = []
         
@@ -74,31 +126,81 @@ class multivariate:
             f.append(self.prediction[i][0].flatten())
             v.append(np.square(self.prediction[i][1]).flatten())
 
-        #initialise arrays
+        # initialise arrays
         num = np.zeros(len(self.x))
         denom = np.zeros(len(self.x))
         var = np.zeros(len(self.x))
 
-        #sum over the models in the same input space
+        # sum over the models in the same input space
         for i in range(len(self.x)):
             num[i] = np.sum([f[j][i]/v[j][i] for j in range(len(f))])
             denom[i] = np.sum([1/v[j][i] for j in range(len(f))])
             
-        #combine everything via input space tracking 
+        # combine everything via input space tracking 
         mean = num/denom 
         var = 1/denom 
 
-        #credibility interval check
+        # variances for each model
+        self.var_weights = var/(np.sum(var, axis=0))
+
+        # std_dev calculation
+        std_dev = np.sqrt(var)
+
+        # credibility interval check
         if self.ci == 68:
             val = 1.0
         elif self.ci == 95:
             val = 1.96
+        elif self.ci == [68,95]:
+            val = [1.0, 1.96]
         else:
-            raise ValueError('Credibility interval value not found.')
+            raise ValueError('Choose 1 and/or 2 sigma band.')
 
-        #calculate intervals
-        intervals = np.zeros([len(self.x), 2])
-        intervals[:,0] = (mean - val * np.sqrt(var))
-        intervals[:,1] = (mean + val * np.sqrt(var))
+        # calculate interval(s)
+        interval_low = []
+        interval_high = []
 
-        return mean, intervals 
+        for i in range(val):  
+            interval_low.append(mean - i*std_dev)
+            interval_high.append(mean + i*std_dev)
+
+        # combine interval(s) into one list to return
+        interval = [interval_low, interval_high]
+
+        return 0.0, mean, interval, std_dev
+
+    
+    def predict_weights(self):
+        '''
+        Predict the weights of the mixed model. Returns
+        mean and intervals from the posterior of the 
+        weights. 
+        Not needed for this mixing method. 
+        '''
+        return None
+
+    
+    def sample_prior(self):
+        '''
+        Returns samples from the prior
+        distributions for the various weight parameters.
+        Not needed for this mixing method.
+        '''
+        return None 
+
+    
+    def set_prior(self):
+        '''
+        Set the priors on the parameters.
+        Not needed for this mixing method.
+        '''
+        return None
+
+
+    def train(self):
+        '''
+        Train the mixed model by optimizing the
+        weights.
+        Not needed in this mixing method. 
+        '''
+        return None

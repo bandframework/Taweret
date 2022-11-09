@@ -1,9 +1,0 @@
-To rebase the branches: 0) git remote add <name of remote repo> <url>
-                        1) git fetch <name of remote repo>
-                        2) git checkout <local branch>
-                        3) git rebase remotes/<name of remote repo>/<name of remote branch>
-
-Example: git remote add Dan https://www.github.com/danOSU/Taweret.git 
-         git fetch Dan
-         git checkout develop
-         git rebase remotes/Dan/develop 

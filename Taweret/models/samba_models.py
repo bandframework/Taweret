@@ -5,6 +5,7 @@ import numpy as np
 import sys
 
 from Taweret.core.base_model import BaseModel
+from ..utils.utils import log_likelihood_elementwise as log_likelihood_elementwise_utils
 
 sys.path.append("../SAMBA/")
 
@@ -71,8 +72,8 @@ class loworder(BaseModel):
 
         return mean, np.sqrt(var)
 
-    def log_likelihood_elementwise(self):
-        return super().log_likelihood_elementwise()
+    def log_likelihood_elementwise(self, x_exp, y_exp, y_err, model_param):
+        return log_likelihood_elementwise_utils(self, x_exp, y_exp, y_err, model_param)
 
     def set_prior(self):
         '''
@@ -135,8 +136,8 @@ class highorder(BaseModel):
 
         return mean, np.sqrt(var)
 
-    def log_likelihood_elementwise(self):
-        return super().log_likelihood_elementwise()
+    def log_likelihood_elementwise(self, x_exp, y_exp, y_err, model_param):
+        return log_likelihood_elementwise_utils(self, x_exp, y_exp, y_err, model_param)
 
     def set_prior(self):
         '''
@@ -166,8 +167,8 @@ class true_model(BaseModel):
         var = np.zeros(shape=mean.shape)
         return mean, np.sqrt(var)
 
-    def log_likelihood_elementwise(self):
-        return super().log_likelihood_elementwise()
+    def log_likelihood_elementwise(self, x_exp, y_exp, y_err):
+        return log_likelihood_elementwise_utils(self, x_exp, y_exp, y_err)
 
     def set_prior(self):
         '''
@@ -202,7 +203,7 @@ class exp_data(BaseModel):    # --> check that this model is set up correctly
         return mean, sigma
 
     def log_likelihood_elementwise(self):
-        return super().log_likelihood_elementwise()
+        return None
 
     def set_prior(self):
         '''

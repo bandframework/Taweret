@@ -97,7 +97,7 @@ def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray) 
     elif method=='switchcos':
         g1, g2, g3 = mixture_params
         w = np.array(list(map(lambda x: switchcos(g1, g2, g3, x), x)))
-    return w, 1-w
+        return w, 1-w
     else:
         raise Exception('Method is not available for `mixture function`')
 

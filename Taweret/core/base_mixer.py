@@ -185,7 +185,7 @@ class BaseMixer(ABC):
         _posterior : np.ndarray
             posterior from learning the weights
         '''
-        return self._posterior
+        return self.posterior
 
     @property
     @abstractmethod
@@ -203,7 +203,7 @@ class BaseMixer(ABC):
         --------
         Please consult `BaseMixer.set_prior` for an example
         '''
-        return self._prior
+        return self.prior
 
     @abstractmethod
     def set_prior(self):

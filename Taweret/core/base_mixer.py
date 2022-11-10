@@ -72,9 +72,8 @@ class BaseMixer(ABC):
         Stores the MAP values for the posterior distributions and is set
         during the self.train step
         '''
-        if not self.model_was_trained:
-            raise Exception("Please call train method before this method!")
-        return self._map
+
+        return NotImplemented
 
     @abstractmethod
     def predict(self):
@@ -185,7 +184,7 @@ class BaseMixer(ABC):
         _posterior : np.ndarray
             posterior from learning the weights
         '''
-        return self.posterior
+        return NotImplemented
 
     @property
     @abstractmethod
@@ -203,7 +202,7 @@ class BaseMixer(ABC):
         --------
         Please consult `BaseMixer.set_prior` for an example
         '''
-        return self.prior
+        return NotImplemented
 
     @abstractmethod
     def set_prior(self):

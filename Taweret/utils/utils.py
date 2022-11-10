@@ -6,7 +6,7 @@ from scipy.stats import norm, beta, dirichlet
 # and experimental measurments. 
 
 eps = 1e-15
-def log_likelihood_elementwise(model : object, x_exp : np.ndarray, y_exp : np.ndarray, y_err : np.ndarray, model_param=np.array([])) -> np.ndarray:
+def normal_log_likelihood_elementwise(model : object, x_exp : np.ndarray, y_exp : np.ndarray, y_err : np.ndarray, model_param=np.array([])) -> np.ndarray:
     """
     predict the log normal log liklihood for each experimental data point
 
@@ -22,15 +22,15 @@ def log_likelihood_elementwise(model : object, x_exp : np.ndarray, y_exp : np.nd
         standard deviation of the experimental data
     """
     if model_param.size == 0:
-        predictions, model_err = model.predict(x_exp)
+        predictions, model_err = model.evaluate(x_exp)
     else:
-        predictions, model_err = model.predict(x_exp, model_param)
+        predictions, model_err = model.evaluate(x_exp, model_param)
     sigma = np.sqrt(np.square(y_err) + np.square(model_err))
     diff = -0.5* np.square((predictions.flatten() - y_exp)/ sigma) \
         - 0.5 * np.log(2*np.pi)- np.log(sigma)
     return diff
 
-def likelihood_elementwise(model : object, x_exp : np.ndarray, y_exp : np.ndarray, y_err : np.ndarray, model_param=np.array([])) -> np.ndarray:
+def normal_likelihood_elementwise(model : object, x_exp : np.ndarray, y_exp : np.ndarray, y_err : np.ndarray, model_param=np.array([])) -> np.ndarray:
     """
     predict the normal liklihood for each experimental data point
 

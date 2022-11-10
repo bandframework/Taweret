@@ -5,18 +5,22 @@ import numpy as np
 import sys
 
 from Taweret.core.base_model import BaseModel
-from ..utils.utils import log_likelihood_elementwise as log_likelihood_elementwise_utils
+from Taweret.utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
 
-sys.path.append("../SAMBA/")
+#sys.path.append("../SAMBA")
+
+#from samba import models   # assuming you have SAMBA in your Taweret top directory 
+#from samba import mixing
 
 try:
-    from SAMBA.samba import models   # assuming you have SAMBA in your Taweret top directory 
-    from SAMBA.samba import mixing
+    from samba import models   # assuming you have SAMBA in your Taweret top directory 
+    from samba import mixing
 
 except Exception as e:
     print(e)
-    print('To use the SAMBA toy models, SAMBA package needed to be installed first. \
-        Cloning the SAMBA github repo to the same place where your local Taweret github repo exist will also work.')
+    print('''To use the SAMBA toy models, SAMBA package needed to be installed first''')
+    print('Then use `sys.path.append("path_to_local_SAMBA_instalation")` in your code before calling \
+SAMBA models')
 
 
 class loworder(BaseModel):
@@ -46,6 +50,7 @@ class loworder(BaseModel):
             raise TypeError(f"order has to be an integer number: {order}")
 
         self.error_model = error_model
+        self.prior = None
 
     def evaluate(self, input_values : np.array) -> np.array:
         """
@@ -110,7 +115,8 @@ class highorder(BaseModel):
             raise TypeError(f"order has to be an integer number: {order}")
 
         self.error_model = error_model
-
+        self.prior = None
+        
     def evaluate(self, input_values : np.array) -> np.array:
         """
         Evaluate the mean and error for given input values

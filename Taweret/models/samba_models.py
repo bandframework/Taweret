@@ -71,8 +71,37 @@ class loworder(BaseModel):
 
         return mean, np.sqrt(var)
 
-    def log_likelihood_elementwise(self):
-        return super().log_likelihood_elementwise()
+    def log_likelihood_elementwise(self, model : object, x_exp : np.ndarray, y_exp : np.ndarray, y_err : np.ndarray, model_param=np.array([])) -> np.ndarray:
+        '''
+        Predict the log normal log likelihood for each experimental data point
+        in the small-g model.
+
+        Parameters
+        ---------
+        model : object
+            model object with a predict method
+        x_exp : np.1darray
+            input parameter values for experimental data
+        y_exp : np.1darray
+            mean of the experimental data
+        y_err : np.1darray
+            standard deviation of the experimental data
+
+        Returns:
+        --------
+        diff : np.1darray 
+            The log likelihood for the array of 
+            experimental points
+        '''
+        if model_param.size == 0:
+            predictions, model_err = model.predict(x_exp)
+        else:
+            predictions, model_err = model.predict(x_exp, model_param)
+        sigma = np.sqrt(np.square(y_err) + np.square(model_err))
+        diff = -0.5* np.square((predictions.flatten() - y_exp)/ sigma) \
+            - 0.5 * np.log(2*np.pi)- np.log(sigma)
+        return diff
+        
 
     def set_prior(self):
         '''
@@ -135,8 +164,36 @@ class highorder(BaseModel):
 
         return mean, np.sqrt(var)
 
-    def log_likelihood_elementwise(self):
-        return super().log_likelihood_elementwise()
+    def log_likelihood_elementwise(self, model : object, x_exp : np.ndarray, y_exp : np.ndarray, y_err : np.ndarray, model_param=np.array([])) -> np.ndarray:
+        '''
+        Predict the log normal log likelihood for each experimental data point
+        in the large-g model.
+
+        Parameters
+        ---------
+        model : object
+            model object with a predict method
+        x_exp : np.1darray
+            input parameter values for experimental data
+        y_exp : np.1darray
+            mean of the experimental data
+        y_err : np.1darray
+            standard deviation of the experimental data
+
+        Returns:
+        --------
+        diff : np.1darray 
+            The log likelihood for the array of 
+            experimental points
+        '''
+        if model_param.size == 0:
+            predictions, model_err = model.predict(x_exp)
+        else:
+            predictions, model_err = model.predict(x_exp, model_param)
+        sigma = np.sqrt(np.square(y_err) + np.square(model_err))
+        diff = -0.5* np.square((predictions.flatten() - y_exp)/ sigma) \
+            - 0.5 * np.log(2*np.pi)- np.log(sigma)
+        return diff
 
     def set_prior(self):
         '''
@@ -167,7 +224,12 @@ class true_model(BaseModel):
         return mean, np.sqrt(var)
 
     def log_likelihood_elementwise(self):
-        return super().log_likelihood_elementwise()
+        '''
+        Return the log likelihood for an array of 
+        experimental points. 
+        Not needed for this model.
+        '''
+        return None 
 
     def set_prior(self):
         '''
@@ -180,7 +242,6 @@ class true_model(BaseModel):
 class exp_data(BaseModel):    # --> check that this model is set up correctly
     """
     A wrapper for SAMBA data function
-
     """
 
     def evaluate(self, input_values : np.array, error = 0.01) -> np.array:
@@ -202,7 +263,12 @@ class exp_data(BaseModel):    # --> check that this model is set up correctly
         return mean, sigma
 
     def log_likelihood_elementwise(self):
-        return super().log_likelihood_elementwise()
+        '''
+        Returns the log likelihood of an array of 
+        experimental points. 
+        Not needed for this model. 
+        '''
+        return None
 
     def set_prior(self):
         '''

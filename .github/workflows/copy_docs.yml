@@ -49,6 +49,7 @@ jobs:
           sh run_to_rebuild_tawret_rst.sh
           git add -A
           git diff-index --quiet HEAD || git commit -m "deploy files"  # commit to the repository (ignore if no modification)
+          git push origin develop
       - name: copy
         env:
           SRC_FOLDER_PATH: 'docs/build'
@@ -67,6 +68,6 @@ jobs:
           echo "folders after move"
           ls ${{ github.workspace }}
           git status
-          #git add -A
-          #git diff-index --quiet HEAD || git commit -m "deploy files"  # commit to the repository (ignore if no modification)
-          #git push origin $TARGET_BRANCH # push to remote branch
+          git add -A
+          git diff-index --quiet HEAD || git commit -m "deploy files"  # commit to the repository (ignore if no modification)
+          git push origin $TARGET_BRANCH # push to remote branch

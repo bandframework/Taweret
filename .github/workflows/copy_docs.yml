@@ -22,7 +22,7 @@ jobs:
           pip install sphinx
           pwd
           ls
-          cd Taweret/docs
+          cd docs
           sh run_to_rebuild_tawret_rst.sh
       - name: copy
         env:

@@ -15,7 +15,8 @@ jobs:
       - name: Install dependencies
         run: |
           # $CONDA/bin/conda env update --file environment.yml --name base
-          $CONDA/bin/conda init bash
+          source $CONDA/bin/activate
+          # $CONDA/bin/conda init bash
           $CONDA/bin/conda activate base
           $CONDA/bin/conda install sphinx
           pwd

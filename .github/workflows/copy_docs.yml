@@ -6,6 +6,9 @@ jobs:
   copy:
     name: Copy my folder
     runs-on: macos-latest
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.8
@@ -15,8 +18,7 @@ jobs:
       - name: set up conda
         uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-environment: test_env
-          environment-file: environment.yml
+          activate-environment: base
       - run: |
            conda info
            conda list
@@ -34,7 +36,7 @@ jobs:
           conda install -c conda-forge sphinx_rtd_theme
           conda install -c conda-forge pandoc
           conda env list
-          conda activate test_env || conda activate base
+          conda activate base
           # pip install sphinx
           # pip install nbsphinx
           # pip install sphinx-rtd-theme

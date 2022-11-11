@@ -21,6 +21,7 @@ jobs:
           # $CONDA/bin/conda install sphinx
           pip install sphinx
           pip install nbsphinx
+          pip install pip install sphinx-rtd-theme
           pwd
           ls
           cd docs

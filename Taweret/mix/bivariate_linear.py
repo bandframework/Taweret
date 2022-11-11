@@ -1,10 +1,11 @@
-import numpy as np
-from ..utils.utils import mixture_function, eps
-from ..core.base_mixer import BaseMixer
-from ..core.base_model import BaseModel
 import bilby
-from ..sampler.likelihood_wrappers import likelihood_wrapper_for_bilby
 import os
+import numpy as np
+from Taweret.utils.utils import mixture_function, eps
+from Taweret.core.base_mixer import BaseMixer
+from Taweret.core.base_model import BaseModel
+from Taweret.sampler.likelihood_wrappers import likelihood_wrapper_for_bilby
+
 
 class BivariateLinear(BaseMixer):
 
@@ -35,10 +36,10 @@ class BivariateLinear(BaseMixer):
             try:
                 issubclass(model, BaseModel)
             except AttributeError:
-                print(f'model {list(models_dic.keys())[i]} is not derived from taweret.core.base_model class')
+                print(f'model {list(models_dic.keys())[i]} is not derived from \
+                    taweret.core.base_model class')
             else:
                 continue
-        
         self.models_dic = models_dic
         method_n_mix_dic = {'step':1, 'sigmoid':2, 'cdf':2, 'switchcos':3}
 
@@ -48,7 +49,7 @@ class BivariateLinear(BaseMixer):
         else:
             self.n_mix=method_n_mix_dic[method]
             print(f'{method} mixing function has {self.n_mix} free parameter(s)')
-        
+        #assign default priors
         priors = bilby.core.prior.PriorDict()
         for i in range(0, self.n_mix):
             name = f'{method}_{i}'
@@ -56,38 +57,30 @@ class BivariateLinear(BaseMixer):
         print(f'Default prior is set to {priors}')
         print('To change the prior use `set_prior` method')
         self._prior=priors
-
         self.method = method
         self.nargs_model_dic = nargs_model_dic
         self.model_was_trained=False # Flag to know if the model was trained or not
-        
         self._map=None
-        
         self._posterior=None
-
 # Attributes
     @property
     def prior(self):
         return self._prior
-    
     @prior.setter
     def prior(self, bilby_prior_dic):
         return self.set_prior(bilby_prior_dic)
-
     @property
     def posterior(self):
         if self._posterior is None:
             raise Exception('First train the model to access the posterior')
         else:
             return self._posterior
-
     @property
     def map(self):
         if self._map is None:
             raise Exception('First train the model to access the MAP')
         else:
             return self._map
-
 #End Attributes
 
     def evaluate(self, mixture_params, x , model_params=[]):
@@ -176,7 +169,7 @@ class BivariateLinear(BaseMixer):
             points
         '''
 
-        if self.model_was_trained==False and samples is None:
+        if self.model_was_trained is False and samples is None:
             raise Exception('Posterior is not available to make predictions\n\
                             train the model before predicting')
         pos_predictions = []
@@ -220,7 +213,7 @@ class BivariateLinear(BaseMixer):
             confidence intervals
         samples: np.ndarray
             If samples are given use that instead of posterior\
-                for predictions. 
+                for predictions.
         Returns:
         --------
         posterior_weights : np.ndarray
@@ -321,7 +314,7 @@ class BivariateLinear(BaseMixer):
         '''
         for name, model in self.models_dic.items():
             if model.prior is None:
-                continue;
+                continue
             else:
                 priors = model.prior
             for ii, entry2 in enumerate(priors):
@@ -352,10 +345,12 @@ class BivariateLinear(BaseMixer):
         model_1, model_2 = list(self.models_dic.values())
         L1 = model_1.log_likelihood_elementwise(x_exp, y_exp, y_err, model_1_param)
         L2 = model_2.log_likelihood_elementwise(x_exp, y_exp, y_err, model_2_param)
-        # L1 = log_likelihood_elementwise(self.models_dic.items()[0], self.x_exp, self.y_exp, self.y_err, model_1_param)
-        # L2 = log_likelihood_elementwise(self.models_dic.items()[1], self.x_exp, self.y_exp, self.y_err, model_2_param)
+        # L1 = log_likelihood_elementwise(self.models_dic.items()[0], self.x_exp, self.y_exp, \
+        # self.y_err, model_1_param)
+        # L2 = log_likelihood_elementwise(self.models_dic.items()[1], self.x_exp, self.y_exp, \
+        # self.y_err, model_2_param)
 
-        #we use the logaddexp here for numerical accuracy. Look at the 
+        #we use the logaddexp here for numerical accuracy. Look at the
         #mix_loglikelihood_test to check for an alternative (common) way
         mixed_loglikelihood_elementwise=np.logaddexp(W_1+L1, W_2+L2)
         return np.sum(mixed_loglikelihood_elementwise).item()
@@ -411,5 +406,3 @@ Check Bilby documentation for other sampling options.\n{kwargs_for_sampler}')
 
         self._map=self._posterior[np.argmax(result.posterior.values[:,-2].flatten()),:]
         return result
-
-

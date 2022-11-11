@@ -17,8 +17,9 @@ jobs:
           $CONDA/bin/conda env update --file environment.yml --name base
           # source $CONDA/bin/activate
           # $CONDA/bin/conda init bash
-          $CONDA/bin/conda activate base
-          $CONDA/bin/conda install sphinx
+          # $CONDA/bin/conda activate base
+          # $CONDA/bin/conda install sphinx
+          pip install sphinx
           pwd
           ls
           cd Taweret/docs

@@ -7,10 +7,23 @@ jobs:
     name: Copy my folder
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with: 
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          $CONDA/bin/conda env update --file environment.yml --name base
+          $CONDA/bin/conda activate base
+          $CONDA/bin/conda install sphinx
+          pwd
+          ls
+          cd Taweret/docs
+          sh run_to_rebuild_tawret_rst.sh
       - name: copy
         env:
-          SRC_FOLDER_PATH: 'doc/build'
+          SRC_FOLDER_PATH: 'docs/build'
           TARGET_BRANCH: 'gh-pages'
         run: |
           files=$(find $SRC_FOLDER_PATH -type f) # get the file list
@@ -21,11 +34,11 @@ jobs:
           git checkout ${GITHUB_REF##*/} -- $files # copy files from the source branch
           echo "the folders before move"
           ls ${{ github.workspace }}
-          cp -rf doc/build/* docs/
-          rm -rf doc
+          cp -rf docs/build/* docs/
+          rm -rf docs/build
           echo "folders after move"
           ls ${{ github.workspace }}
           git status
-          git add -A
-          git commit -m "deploy files"  # commit to the repository (ignore if no modification)
-          git push origin $TARGET_BRANCH # push to remote branch
+          #git add -A
+          #git diff-index --quiet HEAD || git commit -m "deploy files"  # commit to the repository (ignore if no modification)
+          #git push origin $TARGET_BRANCH # push to remote branch

@@ -31,8 +31,8 @@ jobs:
           # $CONDA/bin/conda install sphinx
           conda install sphinx
           conda install -c conda-forge nbsphinx
-          conda install sphinx-rtd-theme
-          conda install pandoc
+          conda install -c conda-forge sphinx_rtd_theme
+          conda install -c conda-forge pandoc
           # pip install sphinx
           # pip install nbsphinx
           # pip install sphinx-rtd-theme

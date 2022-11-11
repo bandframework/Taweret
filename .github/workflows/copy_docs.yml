@@ -30,7 +30,7 @@ jobs:
           # $CONDA/bin/conda activate base
           # $CONDA/bin/conda install sphinx
           conda install sphinx
-          conda install nbsphinx
+          conda install -c conda-forge nbsphinx
           conda install sphinx-rtd-theme
           conda install pandoc
           # pip install sphinx

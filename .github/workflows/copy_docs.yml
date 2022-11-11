@@ -18,7 +18,8 @@ jobs:
       - name: set up conda
         uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-environment: base
+          auto-activate-base: true
+          activate-environment: ""
       - run: |
            conda info
            conda list

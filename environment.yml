@@ -3,6 +3,3 @@ dependencies:
   - numpy=1.18.5
   - seaborn=0.11.0
   - jupyter
-  - bilby=1.1.3
-  - ptemcee
-  - schwimmbad

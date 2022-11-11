@@ -33,6 +33,8 @@ jobs:
           conda install -c conda-forge nbsphinx
           conda install -c conda-forge sphinx_rtd_theme
           conda install -c conda-forge pandoc
+          conda env list
+          conda activate test_env || conda activate base
           # pip install sphinx
           # pip install nbsphinx
           # pip install sphinx-rtd-theme

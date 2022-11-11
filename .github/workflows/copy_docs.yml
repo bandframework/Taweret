@@ -12,6 +12,16 @@ jobs:
         uses: actions/setup-python@v2
         with: 
           python-version: 3.8
+      - name: set up conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: test
+          environment-file: environment.yml
+      - run: |
+           conda info
+           conda list
+           conda activate base
+           
       - name: Install dependencies
         run: |
           # $CONDA/bin/conda env update --file environment.yml --name base
@@ -19,11 +29,15 @@ jobs:
           # $CONDA/bin/conda init bash
           # $CONDA/bin/conda activate base
           # $CONDA/bin/conda install sphinx
-          pip install sphinx
-          pip install nbsphinx
-          pip install sphinx-rtd-theme
-          sudo apt install pandoc
-          pip install pandoc
+          conda install sphinx
+          conda install nbsphinx
+          conda install sphinx-rtd-theme
+          conda install pandoc
+          # pip install sphinx
+          # pip install nbsphinx
+          # pip install sphinx-rtd-theme
+          # sudo apt install pandoc
+          # pip install pandoc
           pwd
           ls
           cd docs

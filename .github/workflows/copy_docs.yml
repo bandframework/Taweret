@@ -15,12 +15,12 @@ jobs:
       - name: set up conda
         uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-environment: test
-          environment-file: environment.yml
+          activate-environment: anaconda-client-env
+          environment-file: etc/example-environment.yml
       - run: |
            conda info
            conda list
-           conda activate base
+           
            
       - name: Install dependencies
         run: |

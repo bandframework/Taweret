@@ -1,6 +1,8 @@
 Taweret.models namespace
 ========================
 
+.. py:module:: Taweret.models
+
 Submodules
 ----------
 

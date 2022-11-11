@@ -1,34 +1,74 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="python" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="python" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="python" > <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Linear BMM with full Bayesian calibration of coleman toy models &mdash; Taweret 0.1.0 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Linear BMM with full Bayesian calibration of coleman toy models &mdash; Taweret 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
-    <script src="../_static/js/theme.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Bivariate BMM Test: Taweret v.0.1.0" href="Bivariate_Test.html" />
-    <link rel="prev" title="Linear BMM with SAMBA toy models" href="Linear_BMM_with_step_function_for_SAMBA_models.html" /> 
+    <link rel="prev" title="Bivariate Linear Bayesian Model Mixing with SAMBA toy models" href="Linear_BMM_with_step_function_for_SAMBA_models.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="../index.html" class="icon icon-home"> Taweret
+          
+
+          
           </a>
+
+          
+            
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -36,25 +76,32 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">About Taweret:</span></p>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">About Taweret:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Taweret for Bayesian Model Mixing</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Instalation:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Instalation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../instalation.html">Installation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API Documentation:</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">Taweret</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Examples:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_step_function_for_SAMBA_models.html">Linear BMM with SAMBA toy models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_step_function_for_SAMBA_models.html#1.-The-models-and-the-experimental-data.">1. The models and the experimental data.</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_step_function_for_SAMBA_models.html#2.-Choose-a-Mixing-method">2. Choose a Mixing method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_step_function_for_SAMBA_models.html#3.-Estimating-the-mixture-weights">3. Estimating the mixture weights</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_step_function_for_SAMBA_models.html">Bivariate Linear Bayesian Model Mixing with SAMBA toy models</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Linear BMM with full Bayesian calibration of coleman toy models</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Steps-for-linear-BMM">Steps for linear BMM</a></li>
 </ul>
@@ -64,35 +111,73 @@
 <li class="toctree-l1"><a class="reference internal" href="#3.-Estimating-the-mixture-weights">3. Estimating the mixture weights</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Bivariate_Test.html">Bivariate BMM Test: Taweret v.0.1.0</a></li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers:</span></p>
+<p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../linear.html">How to add a new linear mixing function</a></li>
 </ul>
 
+            
+          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">Taweret</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
       <li>Linear BMM with full Bayesian calibration of coleman toy models</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
+            
             <a href="../_sources/notebooks/Linear_BMM_with_cdf_function_for_coleman_models.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+            
   
 <style>
 /* CSS for nbsphinx extension */
@@ -308,6 +393,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
 div.rendered_html table {
   border: none;
   border-collapse: collapse;
@@ -316,10 +402,14 @@ div.rendered_html table {
   font-size: 12px;
   table-layout: fixed;
 }
+.jp-RenderedHTMLCommon thead,
 div.rendered_html thead {
   border-bottom: 1px solid black;
   vertical-align: bottom;
 }
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
 div.rendered_html tr,
 div.rendered_html th,
 div.rendered_html td {
@@ -331,12 +421,15 @@ div.rendered_html td {
   max-width: none;
   border: none;
 }
+.jp-RenderedHTMLCommon th,
 div.rendered_html th {
   font-weight: bold;
 }
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
 div.rendered_html tbody tr:nth-child(odd) {
   background: #f5f5f5;
 }
+.jp-RenderedHTMLCommon tbody tr:hover,
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
@@ -363,14 +456,14 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="Linear-BMM-with-full-Bayesian-calibration-of-coleman-toy-models">
-<h1>Linear BMM with full Bayesian calibration of coleman toy models<a class="headerlink" href="#Linear-BMM-with-full-Bayesian-calibration-of-coleman-toy-models" title="Permalink to this headline">¶</a></h1>
+<section id="Linear-BMM-with-full-Bayesian-calibration-of-coleman-toy-models">
+<h1>Linear BMM with full Bayesian calibration of coleman toy models<a class="headerlink" href="#Linear-BMM-with-full-Bayesian-calibration-of-coleman-toy-models" title="Permalink to this heading">¶</a></h1>
 <p>The models can be found in Coleman Thesis : <a class="reference external" href="https://go.exlibris.link/3fVZCfhl">https://go.exlibris.link/3fVZCfhl</a></p>
 <p>This notebook shows how to use the Bayesian model mixing package <strong>Taweret</strong> for a toy problem.</p>
 <p>Author : Dan Liyanage</p>
 <p>Date : 19/21/2022</p>
-<div class="section" id="Steps-for-linear-BMM">
-<h2>Steps for linear BMM<a class="headerlink" href="#Steps-for-linear-BMM" title="Permalink to this headline">¶</a></h2>
+<section id="Steps-for-linear-BMM">
+<h2>Steps for linear BMM<a class="headerlink" href="#Steps-for-linear-BMM" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1. Get Models with a prediction method
 2. Choose a Mixing method
 3. Estimate the mixture weights (parameters in the mixture function) with user defined calibration method
@@ -381,9 +474,9 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;../../../../Taweret&#39;</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import sys
+import os
+sys.path.insert(0, os.path.abspath(&#39;../../../../Taweret&#39;))
 <br/></pre></div>
 </div>
 </div>
@@ -391,12 +484,12 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import models with a predict method</span>
-<span class="kn">from</span> <span class="nn">Taweret.models</span> <span class="kn">import</span> <span class="n">coleman_models</span> <span class="k">as</span> <span class="n">toy_models</span>
-<span class="c1"># Mixing object with a likelihood method</span>
-<span class="kn">from</span> <span class="nn">Taweret.mix.linear</span> <span class="kn">import</span> <span class="n">linear_mix</span> <span class="k">as</span> <span class="n">LM</span>
-<span class="c1"># Wrapper for the likelihood to be used with Bilby</span>
-<span class="kn">from</span> <span class="nn">Taweret.calibrate.likelihood_wrappers</span> <span class="kn">import</span> <span class="n">likelihood_wrapper_for_bilby</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Import models with a predict method
+from Taweret.models import coleman_models as toy_models
+# Mixing object with a likelihood method
+from Taweret.mix.linear import linear_mix as LM
+# Wrapper for the likelihood to be used with Bilby
+from Taweret.calibrate.likelihood_wrappers import likelihood_wrapper_for_bilby
 </pre></div>
 </div>
 </div>
@@ -404,17 +497,17 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># For plotting</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># For plotting
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-<span class="c1"># For calibration</span>
-<span class="kn">import</span> <span class="nn">bilby</span>
+# For calibration
+import bilby
 
-<span class="c1"># For other operations</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
+# For other operations
+import numpy as np
+import os
+import shutil
 </pre></div>
 </div>
 </div>
@@ -422,9 +515,9 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m1</span> <span class="o">=</span> <span class="n">toy_models</span><span class="o">.</span><span class="n">coleman_model_1</span><span class="p">()</span>
-<span class="n">m2</span> <span class="o">=</span> <span class="n">toy_models</span><span class="o">.</span><span class="n">coleman_model_2</span><span class="p">()</span>
-<span class="n">truth</span> <span class="o">=</span> <span class="n">toy_models</span><span class="o">.</span><span class="n">coleman_truth</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>m1 = toy_models.coleman_model_1()
+m2 = toy_models.coleman_model_2()
+truth = toy_models.coleman_truth()
 </pre></div>
 </div>
 </div>
@@ -432,17 +525,17 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">plot_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">true_output</span> <span class="o">=</span> <span class="n">truth</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">plot_g</span><span class="p">)</span>
-<span class="n">exp_data</span> <span class="o">=</span> <span class="n">truth</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>g = np.linspace(-1,9,10)
+plot_g = np.linspace(-1,9,100)
+true_output = truth.predict(plot_g)
+exp_data = truth.predict(g)
 </pre></div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="1.-The-models-and-the-experimental-data.">
-<h1>1. The models and the experimental data.<a class="headerlink" href="#1.-The-models-and-the-experimental-data." title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section id="1.-The-models-and-the-experimental-data.">
+<h1>1. The models and the experimental data.<a class="headerlink" href="#1.-The-models-and-the-experimental-data." title="Permalink to this heading">¶</a></h1>
 <p>Truth</p>
 <p><span class="math notranslate nohighlight">\(f(x) = 2-0.1(x-4)^2\)</span>, where <span class="math notranslate nohighlight">\(x \in [-1, 9]\)</span></p>
 <p>Model 1</p>
@@ -455,25 +548,25 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">prior_ranges</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">true_output</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;truth&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">exp_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">exp_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;experimental data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">prior_ranges</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="mi">10</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-            <span class="n">predict_1</span> <span class="o">=</span> <span class="n">m1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">predict_1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$f_1(x)$&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-            <span class="n">predict_2</span> <span class="o">=</span> <span class="n">m2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">predict_2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$f_2(x)$&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.set_context(&#39;notebook&#39;)
+fig, axs = plt.subplots(1,2,figsize=(20,5))
+prior_ranges = [(1,6), (-2,3)]
+for i in range(0,2):
+    ax = axs.flatten()[i]
+    ax.plot(plot_g, true_output[0], label=&#39;truth&#39;, color=&#39;black&#39;)
+    ax.errorbar(g,exp_data[0],exp_data[1], fmt=&#39;o&#39;, label=&#39;experimental data&#39;, color=&#39;r&#39;)
+    ax.legend()
+    ax.set_ylim(-2,4)
+    for value in np.linspace(*prior_ranges[i],10):
+        if i==0:
+            predict_1 = m1.predict(plot_g, value)
+            ax.plot(plot_g, predict_1[0])
+            ax.set_ylabel(r&#39;$f_1(x)$&#39;)
+        if i==1:
+            predict_2 = m2.predict(plot_g, value)
+            ax.plot(plot_g, predict_2[0])
+            ax.set_ylabel(r&#39;$f_2(x)$&#39;)
+    ax.set_xlabel(&#39;x&#39;)
 <br/></pre></div>
 </div>
 </div>
@@ -484,14 +577,14 @@ div.rendered_html tbody tr:hover {
 <img alt="../_images/notebooks_Linear_BMM_with_cdf_function_for_coleman_models_10_0.png" src="../_images/notebooks_Linear_BMM_with_cdf_function_for_coleman_models_10_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="2.-Choose-a-Mixing-method">
-<h1>2. Choose a Mixing method<a class="headerlink" href="#2.-Choose-a-Mixing-method" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="2.-Choose-a-Mixing-method">
+<h1>2. Choose a Mixing method<a class="headerlink" href="#2.-Choose-a-Mixing-method" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mix_model</span> <span class="o">=</span> <span class="n">LM</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">exp_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">exp_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;cdf&#39;</span><span class="p">,</span> <span class="n">n_model_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_model_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_mix</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mix_model = LM(m1, m2, g, exp_data[0], exp_data[1], method=&#39;cdf&#39;, n_model_1=1, n_model_2=1, n_mix=2)
 </pre></div>
 </div>
 </div>
@@ -499,7 +592,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mix_model</span><span class="o">.</span><span class="n">plot_weights</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]),</span><span class="n">plot_g</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mix_model.plot_weights(np.array([0.2, 10]),plot_g)
 </pre></div>
 </div>
 </div>
@@ -514,7 +607,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#mix_model.mix_loglikelihood_test([0.25])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#mix_model.mix_loglikelihood_test([0.25])
 </pre></div>
 </div>
 </div>
@@ -522,7 +615,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mix_model</span><span class="o">.</span><span class="n">mix_loglikelihood</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mix_model.mix_loglikelihood(np.array([0.2, 10]), np.array([2]),np.array([1]))
 </pre></div>
 </div>
 </div>
@@ -532,20 +625,20 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.2897570171611727
+-163.6090700290104
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">mix_prediction</span> <span class="o">=</span> <span class="n">mix_model</span><span class="o">.</span><span class="n">prediction</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]),</span> <span class="n">plot_g</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">m1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;model 1&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;model 2&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">mix_prediction</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;BMM prediction&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax = plt.subplots()
+mix_prediction = mix_model.prediction(np.array([0.2, 10]), plot_g, np.array([2]), np.array([1]))
+ax.plot(plot_g, m1.predict(plot_g, np.array([2]))[0].flatten(), label=&#39;model 1&#39;)
+ax.plot(plot_g, m2.predict(plot_g, np.array([1]))[0].flatten(), label=&#39;model 2&#39;)
+ax.plot(plot_g, mix_prediction.flatten(), label=&#39;BMM prediction&#39;)
+ax.set_ylim(-2,4)
+ax.legend()
 </pre></div>
 </div>
 </div>
@@ -555,7 +648,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7fc56a9847f0&gt;
+&lt;matplotlib.legend.Legend at 0x7fcec9a339b0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -569,21 +662,21 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sw = np.linspace(0.01,1,1000)</span>
-<span class="c1"># likelihood = np.array([mix_model.mix_loglikelihood([s]) for s in sw]).flatten()</span>
-<span class="c1"># fig, ax = plt.subplots()</span>
-<span class="c1"># ax.plot(sw,likelihood,label=&#39;Mixture likelihood for step function&#39;)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># sw = np.linspace(0.01,1,1000)
+# likelihood = np.array([mix_model.mix_loglikelihood([s]) for s in sw]).flatten()
+# fig, ax = plt.subplots()
+# ax.plot(sw,likelihood,label=&#39;Mixture likelihood for step function&#39;)
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="3.-Estimating-the-mixture-weights">
-<h1>3. Estimating the mixture weights<a class="headerlink" href="#3.-Estimating-the-mixture-weights" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="3.-Estimating-the-mixture-weights">
+<h1>3. Estimating the mixture weights<a class="headerlink" href="#3.-Estimating-the-mixture-weights" title="Permalink to this heading">¶</a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">likelihood</span> <span class="o">=</span> <span class="n">likelihood_wrapper_for_bilby</span><span class="p">(</span><span class="n">mix_model</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>likelihood = likelihood_wrapper_for_bilby(mix_model)
 </pre></div>
 </div>
 </div>
@@ -596,38 +689,39 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A few simple setup steps</span>
-<span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;cdf_mixing&quot;</span>
-<span class="n">outdir</span> <span class="o">=</span> <span class="s2">&quot;outdir&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># A few simple setup steps
+label = &quot;cdf_mixing&quot;
+outdir = &quot;outdir&quot;
 
-<span class="n">priors</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">theta_0</span><span class="o">=</span><span class="n">bilby</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;theta_0&quot;</span><span class="p">),</span>
-   <span class="n">theta_1</span><span class="o">=</span><span class="n">bilby</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;theta_1&quot;</span><span class="p">),</span>
-   <span class="n">theta_2</span><span class="o">=</span><span class="n">bilby</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;theta_2&quot;</span><span class="p">),</span>
-   <span class="n">theta_3</span><span class="o">=</span><span class="n">bilby</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;theta_3&quot;</span><span class="p">))</span>
+priors = dict(theta_0=bilby.core.prior.Normal(0, 1, &quot;theta_0&quot;),
+   theta_1=bilby.core.prior.Normal(0, 1, &quot;theta_1&quot;),
+   theta_2=bilby.core.prior.Uniform(1, 6, &quot;theta_2&quot;),
+   theta_3=bilby.core.prior.Uniform(-2, 3, &quot;theta_3&quot;))
 
-<span class="c1"># priors = dict(</span>
-<span class="c1">#     theta_0=bilby.core.prior.Beta(2,2)</span>
-<span class="c1"># )</span>
+# priors = dict(
+#     theta_0=bilby.core.prior.Beta(2,2)
+# )
 
-<span class="c1"># And run sampler</span>
-<span class="c1">## If file exists, delete it ##</span>
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outdir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outdir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="c1">#shutil.rmtree(outdir)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">bilby</span><span class="o">.</span><span class="n">run_sampler</span><span class="p">(</span>
-    <span class="n">likelihood</span><span class="p">,</span>
-    <span class="n">priors</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
-    <span class="n">outdir</span><span class="o">=</span><span class="n">outdir</span><span class="p">,</span>
-    <span class="n">sampler</span><span class="o">=</span><span class="s2">&quot;ptemcee&quot;</span><span class="p">,</span>
-    <span class="n">ntemps</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-    <span class="n">nwalkers</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-    <span class="n">Tmax</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-    <span class="n">nburn</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-    <span class="n">nsamples</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>  <span class="c1"># This is the number of raw samples</span>
-    <span class="n">threads</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-    <span class="p">)</span>
-<span class="n">result</span><span class="o">.</span><span class="n">plot_corner</span><span class="p">()</span>
+# And run sampler
+## If file exists, delete it ##
+if os.path.exists(f&#39;{outdir}/{label}_result.json&#39;):
+    os.remove(f&#39;{outdir}/{label}_result.json&#39;)
+    os.remove(f&#39;{outdir}/{label}_checkpoint_resume.pickle&#39;)
+    os.remove(f&#39;{outdir}/{label}_samples.txt&#39;)
+result = bilby.run_sampler(
+    likelihood,
+    priors,
+    label=label,
+    outdir=outdir,
+    sampler=&quot;ptemcee&quot;,
+    ntemps=5,
+    nwalkers=100,
+    Tmax=10,
+    nburn=200,
+    nsamples=500,  # This is the number of raw samples
+    threads=5,
+    )
+result.plot_corner()
 <br/></pre></div>
 </div>
 </div>
@@ -636,20 +730,20 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-16:34 bilby INFO    : Running for label &#39;cdf_mixing&#39;, output will be saved to &#39;outdir&#39;
-16:34 bilby INFO    : Search parameters:
-16:34 bilby INFO    :   theta_0 = Normal(mu=0, sigma=1, name=&#39;theta_0&#39;, latex_label=&#39;theta_0&#39;, unit=None, boundary=None)
-16:34 bilby INFO    :   theta_1 = Normal(mu=0, sigma=1, name=&#39;theta_1&#39;, latex_label=&#39;theta_1&#39;, unit=None, boundary=None)
-16:34 bilby INFO    :   theta_2 = Uniform(minimum=1, maximum=6, name=&#39;theta_2&#39;, latex_label=&#39;theta_2&#39;, unit=None, boundary=None)
-16:34 bilby INFO    :   theta_3 = Uniform(minimum=-2, maximum=3, name=&#39;theta_3&#39;, latex_label=&#39;theta_3&#39;, unit=None, boundary=None)
-16:34 bilby INFO    : Single likelihood evaluation took 3.511e-04 s
-16:34 bilby WARNING : Supplied argument &#39;npool&#39; not an argument of &#39;Ptemcee&#39;, removing.
-16:34 bilby WARNING : Supplied argument &#39;nburn&#39; not an argument of &#39;Ptemcee&#39;, removing.
-16:34 bilby INFO    : Using sampler Ptemcee with kwargs {&#39;ntemps&#39;: 5, &#39;nwalkers&#39;: 100, &#39;Tmax&#39;: 10, &#39;betas&#39;: None, &#39;a&#39;: 2.0, &#39;adaptation_lag&#39;: 10000, &#39;adaptation_time&#39;: 100, &#39;random&#39;: None, &#39;adapt&#39;: False, &#39;swap_ratios&#39;: False}
-16:34 bilby INFO    : Using convergence inputs: ConvergenceInputs(autocorr_c=5, autocorr_tol=50, autocorr_tau=1, gradient_tau=0.1, gradient_mean_log_posterior=0.1, Q_tol=1.02, safety=1, burn_in_nact=50, burn_in_fixed_discard=0, mean_logl_frac=0.01, thin_by_nact=0.5, nsamples=500, ignore_keys_for_tau=None, min_tau=1, niterations_per_check=5)
-16:34 bilby INFO    : Creating MultiPool with 5 processes
-16:34 bilby INFO    : Generating pos0 samples
-16:34 bilby INFO    : Starting to sample
+14:54 bilby INFO    : Running for label &#39;cdf_mixing&#39;, output will be saved to &#39;outdir&#39;
+14:54 bilby INFO    : Search parameters:
+14:54 bilby INFO    :   theta_0 = Normal(mu=0, sigma=1, name=&#39;theta_0&#39;, latex_label=&#39;theta_0&#39;, unit=None, boundary=None)
+14:54 bilby INFO    :   theta_1 = Normal(mu=0, sigma=1, name=&#39;theta_1&#39;, latex_label=&#39;theta_1&#39;, unit=None, boundary=None)
+14:54 bilby INFO    :   theta_2 = Uniform(minimum=1, maximum=6, name=&#39;theta_2&#39;, latex_label=&#39;theta_2&#39;, unit=None, boundary=None)
+14:54 bilby INFO    :   theta_3 = Uniform(minimum=-2, maximum=3, name=&#39;theta_3&#39;, latex_label=&#39;theta_3&#39;, unit=None, boundary=None)
+14:54 bilby INFO    : Single likelihood evaluation took 2.988e-04 s
+14:54 bilby WARNING : Supplied argument &#39;npool&#39; not an argument of &#39;Ptemcee&#39;, removing.
+14:54 bilby WARNING : Supplied argument &#39;nburn&#39; not an argument of &#39;Ptemcee&#39;, removing.
+14:54 bilby INFO    : Using sampler Ptemcee with kwargs {&#39;ntemps&#39;: 5, &#39;nwalkers&#39;: 100, &#39;Tmax&#39;: 10, &#39;betas&#39;: None, &#39;a&#39;: 2.0, &#39;adaptation_lag&#39;: 10000, &#39;adaptation_time&#39;: 100, &#39;random&#39;: None, &#39;adapt&#39;: False, &#39;swap_ratios&#39;: False}
+14:54 bilby INFO    : Using convergence inputs: ConvergenceInputs(autocorr_c=5, autocorr_tol=50, autocorr_tau=1, gradient_tau=0.1, gradient_mean_log_posterior=0.1, Q_tol=1.02, safety=1, burn_in_nact=50, burn_in_fixed_discard=0, mean_logl_frac=0.01, thin_by_nact=0.5, nsamples=500, ignore_keys_for_tau=None, min_tau=1, niterations_per_check=5)
+14:54 bilby INFO    : Creating MultiPool with 5 processes
+14:54 bilby INFO    : Generating pos0 samples
+14:54 bilby INFO    : Starting to sample
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -657,580 +751,432 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-1|0:00:00|nc:2.5e+03|a0:0.00-1.00|swp:0.87-0.99|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.09ms/ev
-2|0:00:00|nc:5.0e+03|a0:0.10-0.80|swp:0.87-0.99|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-3|0:00:00|nc:7.5e+03|a0:0.20-0.73|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-4|0:00:01|nc:1.0e+04|a0:0.30-0.75|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-5|0:00:01|nc:1.2e+04|a0:0.24-0.76|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-6|0:00:01|nc:1.5e+04|a0:0.30-0.70|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-7|0:00:01|nc:1.8e+04|a0:0.29-0.69|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-8|0:00:01|nc:2.0e+04|a0:0.30-0.70|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.09ms/ev
-9|0:00:02|nc:2.2e+04|a0:0.29-0.71|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.09ms/ev
-10|0:00:02|nc:2.5e+04|a0:0.30-0.68|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.09ms/ev
-11|0:00:02|nc:2.8e+04|a0:0.29-0.67|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-12|0:00:02|nc:3.0e+04|a0:0.33-0.67|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-13|0:00:03|nc:3.2e+04|a0:0.34-0.66|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-14|0:00:03|nc:3.5e+04|a0:0.34-0.63|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-15|0:00:03|nc:3.8e+04|a0:0.33-0.61|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-16|0:00:04|nc:4.0e+04|a0:0.33-0.61|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-17|0:00:04|nc:4.2e+04|a0:0.33-0.62|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-18|0:00:04|nc:4.5e+04|a0:0.32-0.61|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-19|0:00:05|nc:4.8e+04|a0:0.33-0.61|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
-20|0:00:05|nc:5.0e+04|a0:0.36-0.60|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-21|0:00:05|nc:5.2e+04|a0:0.37-0.60|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-22|0:00:05|nc:5.5e+04|a0:0.36-0.62|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-23|0:00:06|nc:5.8e+04|a0:0.37-0.62|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-24|0:00:06|nc:6.0e+04|a0:0.38-0.62|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.14ms/ev
-25|0:00:06|nc:6.2e+04|a0:0.38-0.62|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.14ms/ev
-26|0:00:07|nc:6.5e+04|a0:0.38-0.62|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.14ms/ev
-27|0:00:07|nc:6.8e+04|a0:0.39-0.62|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.14ms/ev
-28|0:00:07|nc:7.0e+04|a0:0.39-0.61|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
-29|0:00:08|nc:7.2e+04|a0:0.39-0.61|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
-30|0:00:08|nc:7.5e+04|a0:0.39-0.61|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.14ms/ev
-31|0:00:08|nc:7.8e+04|a0:0.39-0.61|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.15ms/ev
-32|0:00:09|nc:8.0e+04|a0:0.40-0.60|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.14ms/ev
-33|0:00:09|nc:8.2e+04|a0:0.40-0.59|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-34|0:00:09|nc:8.5e+04|a0:0.41-0.59|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-35|0:00:10|nc:8.8e+04|a0:0.41-0.59|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-36|0:00:10|nc:9.0e+04|a0:0.41-0.59|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-37|0:00:10|nc:9.2e+04|a0:0.41-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-38|0:00:10|nc:9.5e+04|a0:0.41-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-39|0:00:11|nc:9.8e+04|a0:0.41-0.59|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-40|0:00:11|nc:1.0e+05|a0:0.41-0.59|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-41|0:00:11|nc:1.0e+05|a0:0.41-0.60|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-42|0:00:12|nc:1.0e+05|a0:0.42-0.60|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-43|0:00:12|nc:1.1e+05|a0:0.42-0.59|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-44|0:00:12|nc:1.1e+05|a0:0.42-0.59|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-45|0:00:12|nc:1.1e+05|a0:0.42-0.59|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-46|0:00:13|nc:1.2e+05|a0:0.42-0.60|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-47|0:00:13|nc:1.2e+05|a0:0.42-0.60|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-48|0:00:13|nc:1.2e+05|a0:0.42-0.59|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-49|0:00:13|nc:1.2e+05|a0:0.42-0.59|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-50|0:00:14|nc:1.2e+05|a0:0.43-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-51|0:00:14|nc:1.3e+05|a0:0.43-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-52|0:00:14|nc:1.3e+05|a0:0.42-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-53|0:00:15|nc:1.3e+05|a0:0.42-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-54|0:00:15|nc:1.4e+05|a0:0.42-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-55|0:00:15|nc:1.4e+05|a0:0.42-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-56|0:00:15|nc:1.4e+05|a0:0.42-0.59|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
-57|0:00:16|nc:1.4e+05|a0:0.42-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-58|0:00:16|nc:1.4e+05|a0:0.43-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-59|0:00:16|nc:1.5e+05|a0:0.42-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-60|0:00:17|nc:1.5e+05|a0:0.42-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-61|0:00:17|nc:1.5e+05|a0:0.42-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-62|0:00:17|nc:1.6e+05|a0:0.42-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-63|0:00:17|nc:1.6e+05|a0:0.43-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-64|0:00:18|nc:1.6e+05|a0:0.42-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-65|0:00:18|nc:1.6e+05|a0:0.42-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-66|0:00:18|nc:1.6e+05|a0:0.42-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
-67|0:00:18|nc:1.7e+05|a0:0.43-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-68|0:00:19|nc:1.7e+05|a0:0.43-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-69|0:00:19|nc:1.7e+05|a0:0.42-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-70|0:00:19|nc:1.8e+05|a0:0.43-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-71|0:00:19|nc:1.8e+05|a0:0.42-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-72|0:00:20|nc:1.8e+05|a0:0.43-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-73|0:00:20|nc:1.8e+05|a0:0.43-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-74|0:00:20|nc:1.8e+05|a0:0.43-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-75|0:00:21|nc:1.9e+05|a0:0.43-0.55|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-76|0:00:21|nc:1.9e+05|a0:0.43-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-77|0:00:21|nc:1.9e+05|a0:0.43-0.55|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-78|0:00:21|nc:2.0e+05|a0:0.43-0.55|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-79|0:00:22|nc:2.0e+05|a0:0.44-0.55|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-80|0:00:22|nc:2.0e+05|a0:0.44-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-81|0:00:22|nc:2.0e+05|a0:0.44-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-82|0:00:23|nc:2.0e+05|a0:0.44-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-83|0:00:23|nc:2.1e+05|a0:0.44-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-84|0:00:23|nc:2.1e+05|a0:0.44-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-85|0:00:23|nc:2.1e+05|a0:0.44-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-86|0:00:24|nc:2.2e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-87|0:00:24|nc:2.2e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-88|0:00:24|nc:2.2e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-89|0:00:25|nc:2.2e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-90|0:00:25|nc:2.2e+05|a0:0.45-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-91|0:00:25|nc:2.3e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-92|0:00:25|nc:2.3e+05|a0:0.45-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-93|0:00:26|nc:2.3e+05|a0:0.45-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-94|0:00:26|nc:2.4e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-95|0:00:26|nc:2.4e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-96|0:00:27|nc:2.4e+05|a0:0.45-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-97|0:00:27|nc:2.4e+05|a0:0.45-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-98|0:00:27|nc:2.4e+05|a0:0.45-0.58|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-99|0:00:27|nc:2.5e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-100|0:00:28|nc:2.5e+05|a0:0.45-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-101|0:00:28|nc:2.5e+05|a0:0.45-0.57|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-102|0:00:28|nc:2.6e+05|a0:0.45-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-103|0:00:29|nc:2.6e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-104|0:00:29|nc:2.6e+05|a0:0.45-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-105|0:00:29|nc:2.6e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-106|0:00:30|nc:2.6e+05|a0:0.44-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-107|0:00:30|nc:2.7e+05|a0:0.44-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-108|0:00:30|nc:2.7e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-109|0:00:30|nc:2.7e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-110|0:00:31|nc:2.8e+05|a0:0.45-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-111|0:00:31|nc:2.8e+05|a0:0.44-0.57|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-112|0:00:31|nc:2.8e+05|a0:0.44-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-113|0:00:32|nc:2.8e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-114|0:00:32|nc:2.8e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-115|0:00:32|nc:2.9e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-116|0:00:33|nc:2.9e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-117|0:00:33|nc:2.9e+05|a0:0.45-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-118|0:00:33|nc:3.0e+05|a0:0.45-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-119|0:00:33|nc:3.0e+05|a0:0.45-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-120|0:00:34|nc:3.0e+05|a0:0.45-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-121|0:00:34|nc:3.0e+05|a0:0.45-0.56|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-122|0:00:34|nc:3.0e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-123|0:00:35|nc:3.1e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-124|0:00:35|nc:3.1e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-125|0:00:35|nc:3.1e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-126|0:00:35|nc:3.2e+05|a0:0.46-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-127|0:00:36|nc:3.2e+05|a0:0.46-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-128|0:00:36|nc:3.2e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-129|0:00:36|nc:3.2e+05|a0:0.45-0.55|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-130|0:00:37|nc:3.2e+05|a0:0.45-0.55|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-131|0:00:37|nc:3.3e+05|a0:0.45-0.55|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-132|0:00:37|nc:3.3e+05|a0:0.45-0.55|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-133|0:00:37|nc:3.3e+05|a0:0.45-0.55|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-134|0:00:38|nc:3.4e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-135|0:00:38|nc:3.4e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-136|0:00:38|nc:3.4e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-137|0:00:39|nc:3.4e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-138|0:00:39|nc:3.4e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-139|0:00:39|nc:3.5e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-140|0:00:39|nc:3.5e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-141|0:00:40|nc:3.5e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-142|0:00:40|nc:3.6e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-143|0:00:40|nc:3.6e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-144|0:00:41|nc:3.6e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-145|0:00:41|nc:3.6e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-146|0:00:41|nc:3.6e+05|a0:0.45-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-147|0:00:41|nc:3.7e+05|a0:0.46-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-148|0:00:42|nc:3.7e+05|a0:0.46-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-149|0:00:42|nc:3.7e+05|a0:0.46-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-150|0:00:42|nc:3.8e+05|a0:0.46-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-151|0:00:42|nc:3.8e+05|a0:0.46-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-152|0:00:43|nc:3.8e+05|a0:0.46-0.56|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-153|0:00:43|nc:3.8e+05|a0:0.46-0.56|swp:0.86-0.98|n:5100&lt;500|t!1(+nan,+0.00)|q:1.00|0.11ms/ev
-154|0:00:43|nc:3.8e+05|a0:0.46-0.56|swp:0.86-0.98|n:5200&lt;500|t!1(+nan,+0.00)|q:1.00|0.12ms/ev
-155|0:00:44|nc:3.9e+05|a0:0.46-0.55|swp:0.86-0.98|n:5300&lt;500|t!1(+nan,+0.00)|q:1.00|0.13ms/ev
-156|0:00:44|nc:3.9e+05|a0:0.46-0.55|swp:0.86-0.98|n:5400&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-157|0:00:44|nc:3.9e+05|a0:0.46-0.56|swp:0.86-0.98|n:5500&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-158|0:00:45|nc:4.0e+05|a0:0.46-0.56|swp:0.86-0.98|n:5600&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-159|0:00:45|nc:4.0e+05|a0:0.45-0.55|swp:0.86-0.98|n:5700&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-160|0:00:45|nc:4.0e+05|a0:0.45-0.56|swp:0.86-0.98|n:5800&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-161|0:00:46|nc:4.0e+05|a0:0.45-0.56|swp:0.87-0.98|n:5900&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-162|0:00:46|nc:4.0e+05|a0:0.46-0.56|swp:0.86-0.98|n:6000&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-163|0:00:46|nc:4.1e+05|a0:0.46-0.56|swp:0.87-0.98|n:6100&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-164|0:00:47|nc:4.1e+05|a0:0.45-0.56|swp:0.87-0.98|n:6200&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-165|0:00:47|nc:4.1e+05|a0:0.45-0.56|swp:0.87-0.98|n:6300&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-166|0:00:48|nc:4.2e+05|a0:0.46-0.56|swp:0.87-0.98|n:6400&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-167|0:00:48|nc:4.2e+05|a0:0.46-0.56|swp:0.87-0.98|n:6500&lt;500|t!1(+nan,+0.00)|q:1.00|0.13ms/ev
-168|0:00:48|nc:4.2e+05|a0:0.46-0.56|swp:0.86-0.98|n:6600&lt;500|t!1(+nan,+0.00)|q:1.00|0.13ms/ev
-169|0:00:49|nc:4.2e+05|a0:0.46-0.55|swp:0.86-0.98|n:6700&lt;500|t!1(+nan,+0.00)|q:1.00|0.13ms/ev
-170|0:00:49|nc:4.2e+05|a0:0.46-0.55|swp:0.86-0.98|n:6800&lt;500|t!1(+nan,+0.00)|q:1.00|0.13ms/ev
-171|0:00:49|nc:4.3e+05|a0:0.46-0.55|swp:0.86-0.98|n:6900&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-172|0:00:50|nc:4.3e+05|a0:0.46-0.55|swp:0.86-0.98|n:7000&lt;500|t!1(+nan,+0.00)|q:1.00|0.13ms/ev
-173|0:00:50|nc:4.3e+05|a0:0.46-0.55|swp:0.87-0.98|n:7100&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-174|0:00:50|nc:4.4e+05|a0:0.46-0.55|swp:0.86-0.98|n:7200&lt;500|t!1(+nan,+0.00)|q:1.00|0.13ms/ev
-175|0:00:51|nc:4.4e+05|a0:0.46-0.55|swp:0.86-0.98|n:7300&lt;500|t!1(+nan,+0.00)|q:1.00|0.13ms/ev
-176|0:00:51|nc:4.4e+05|a0:0.46-0.55|swp:0.86-0.98|n:7400&lt;500|t!1(+nan,+0.00)|q:1.00|0.13ms/ev
-177|0:00:51|nc:4.4e+05|a0:0.46-0.55|swp:0.87-0.98|n:7500&lt;500|t!1(+nan,+0.00)|q:1.00|0.13ms/ev
-178|0:00:52|nc:4.4e+05|a0:0.46-0.55|swp:0.87-0.98|n:7600&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-179|0:00:52|nc:4.5e+05|a0:0.46-0.55|swp:0.87-0.98|n:7700&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-180|0:00:52|nc:4.5e+05|a0:0.46-0.55|swp:0.87-0.98|n:7800&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-181|0:00:53|nc:4.5e+05|a0:0.46-0.55|swp:0.87-0.98|n:7900&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-182|0:00:53|nc:4.6e+05|a0:0.46-0.55|swp:0.87-0.98|n:8000&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-183|0:00:53|nc:4.6e+05|a0:0.46-0.55|swp:0.87-0.98|n:8100&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-184|0:00:54|nc:4.6e+05|a0:0.46-0.55|swp:0.87-0.98|n:8200&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-185|0:00:54|nc:4.6e+05|a0:0.46-0.55|swp:0.87-0.98|n:8300&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-186|0:00:54|nc:4.6e+05|a0:0.46-0.55|swp:0.86-0.98|n:8400&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-187|0:00:55|nc:4.7e+05|a0:0.46-0.55|swp:0.86-0.98|n:8500&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-188|0:00:55|nc:4.7e+05|a0:0.46-0.55|swp:0.87-0.98|n:8600&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-189|0:00:55|nc:4.7e+05|a0:0.46-0.55|swp:0.86-0.98|n:8700&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-190|0:00:56|nc:4.8e+05|a0:0.46-0.55|swp:0.87-0.98|n:8800&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-191|0:00:56|nc:4.8e+05|a0:0.46-0.55|swp:0.87-0.98|n:8900&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-192|0:00:56|nc:4.8e+05|a0:0.46-0.55|swp:0.87-0.98|n:9000&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-193|0:00:57|nc:4.8e+05|a0:0.46-0.55|swp:0.87-0.98|n:9100&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-194|0:00:57|nc:4.8e+05|a0:0.46-0.55|swp:0.86-0.98|n:9200&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-195|0:00:57|nc:4.9e+05|a0:0.46-0.55|swp:0.86-0.98|n:9300&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-196|0:00:58|nc:4.9e+05|a0:0.46-0.55|swp:0.86-0.98|n:9400&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-197|0:00:58|nc:4.9e+05|a0:0.46-0.55|swp:0.86-0.98|n:9500&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-198|0:00:58|nc:5.0e+05|a0:0.46-0.55|swp:0.86-0.98|n:9600&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-199|0:00:59|nc:5.0e+05|a0:0.46-0.55|swp:0.87-0.98|n:9700&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-200|0:00:59|nc:5.0e+05|a0:0.47-0.55|swp:0.87-0.98|n:9800&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-201|0:00:59|nc:5.0e+05|a0:0.47-0.55|swp:0.87-0.98|n:9900&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-202|0:01:00|nc:5.0e+05|a0:0.46-0.55|swp:0.87-0.98|n:10000&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-203|0:01:00|nc:5.1e+05|a0:0.46-0.55|swp:0.87-0.98|n:10100&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-204|0:01:00|nc:5.1e+05|a0:0.46-0.55|swp:0.87-0.98|n:10200&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-205|0:01:01|nc:5.1e+05|a0:0.46-0.55|swp:0.87-0.98|n:10300&lt;500|t!1(+nan,+0.00)|q:1.00|0.13ms/ev
-206|0:01:01|nc:5.2e+05|a0:0.46-0.55|swp:0.87-0.98|n:10400&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-207|0:01:01|nc:5.2e+05|a0:0.46-0.55|swp:0.87-0.98|n:10500&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-208|0:01:02|nc:5.2e+05|a0:0.46-0.55|swp:0.87-0.98|n:10600&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-209|0:01:02|nc:5.2e+05|a0:0.46-0.55|swp:0.87-0.98|n:10700&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-210|0:01:02|nc:5.2e+05|a0:0.46-0.54|swp:0.87-0.98|n:10800&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-211|0:01:03|nc:5.3e+05|a0:0.46-0.54|swp:0.87-0.98|n:10900&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-212|0:01:03|nc:5.3e+05|a0:0.47-0.54|swp:0.87-0.98|n:11000&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-213|0:01:04|nc:5.3e+05|a0:0.47-0.54|swp:0.87-0.98|n:11100&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-214|0:01:04|nc:5.4e+05|a0:0.46-0.54|swp:0.87-0.98|n:11200&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-215|0:01:04|nc:5.4e+05|a0:0.46-0.54|swp:0.87-0.98|n:11300&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-216|0:01:05|nc:5.4e+05|a0:0.46-0.54|swp:0.87-0.98|n:11400&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-217|0:01:05|nc:5.4e+05|a0:0.46-0.54|swp:0.87-0.98|n:11500&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-218|0:01:05|nc:5.4e+05|a0:0.47-0.54|swp:0.87-0.98|n:11600&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-219|0:01:06|nc:5.5e+05|a0:0.47-0.54|swp:0.87-0.98|n:11700&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-220|0:01:06|nc:5.5e+05|a0:0.47-0.54|swp:0.86-0.98|n:11800&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-221|0:01:06|nc:5.5e+05|a0:0.47-0.54|swp:0.86-0.98|n:11900&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-222|0:01:07|nc:5.6e+05|a0:0.47-0.54|swp:0.86-0.98|n:12000&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-223|0:01:07|nc:5.6e+05|a0:0.47-0.54|swp:0.86-0.98|n:12100&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-224|0:01:07|nc:5.6e+05|a0:0.47-0.54|swp:0.86-0.98|n:12200&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-225|0:01:08|nc:5.6e+05|a0:0.47-0.54|swp:0.86-0.98|n:12300&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-226|0:01:08|nc:5.6e+05|a0:0.47-0.54|swp:0.86-0.98|n:12400&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-227|0:01:08|nc:5.7e+05|a0:0.47-0.54|swp:0.86-0.98|n:12500&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-228|0:01:09|nc:5.7e+05|a0:0.47-0.54|swp:0.86-0.98|n:12600&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-229|0:01:09|nc:5.7e+05|a0:0.47-0.54|swp:0.86-0.98|n:12700&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-230|0:01:10|nc:5.8e+05|a0:0.47-0.54|swp:0.86-0.98|n:12800&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-231|0:01:10|nc:5.8e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.14ms/ev
-232|0:01:10|nc:5.8e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
-233|0:01:10|nc:5.8e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-234|0:01:11|nc:5.8e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-235|0:01:11|nc:5.9e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-236|0:01:11|nc:5.9e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-237|0:01:11|nc:5.9e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-238|0:01:12|nc:6.0e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-239|0:01:12|nc:6.0e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-240|0:01:12|nc:6.0e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-241|0:01:13|nc:6.0e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-242|0:01:13|nc:6.0e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-243|0:01:13|nc:6.1e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-244|0:01:13|nc:6.1e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-245|0:01:14|nc:6.1e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-246|0:01:14|nc:6.2e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-247|0:01:14|nc:6.2e+05|a0:0.48-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-248|0:01:14|nc:6.2e+05|a0:0.48-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-249|0:01:15|nc:6.2e+05|a0:0.48-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-250|0:01:15|nc:6.2e+05|a0:0.48-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-251|0:01:15|nc:6.3e+05|a0:0.48-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-252|0:01:16|nc:6.3e+05|a0:0.48-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-253|0:01:16|nc:6.3e+05|a0:0.48-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-254|0:01:16|nc:6.4e+05|a0:0.48-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-255|0:01:16|nc:6.4e+05|a0:0.48-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-256|0:01:17|nc:6.4e+05|a0:0.48-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-257|0:01:17|nc:6.4e+05|a0:0.48-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-258|0:01:17|nc:6.4e+05|a0:0.48-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-259|0:01:18|nc:6.5e+05|a0:0.48-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-260|0:01:18|nc:6.5e+05|a0:0.48-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-261|0:01:18|nc:6.5e+05|a0:0.48-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-262|0:01:18|nc:6.6e+05|a0:0.48-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-263|0:01:19|nc:6.6e+05|a0:0.48-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-264|0:01:19|nc:6.6e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-265|0:01:19|nc:6.6e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-266|0:01:19|nc:6.6e+05|a0:0.48-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-267|0:01:20|nc:6.7e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-268|0:01:20|nc:6.7e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-269|0:01:20|nc:6.7e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-270|0:01:20|nc:6.8e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-271|0:01:21|nc:6.8e+05|a0:0.48-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-272|0:01:21|nc:6.8e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-273|0:01:21|nc:6.8e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-274|0:01:22|nc:6.8e+05|a0:0.48-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-275|0:01:22|nc:6.9e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-276|0:01:22|nc:6.9e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-277|0:01:22|nc:6.9e+05|a0:0.48-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-278|0:01:23|nc:7.0e+05|a0:0.48-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-279|0:01:23|nc:7.0e+05|a0:0.48-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-280|0:01:23|nc:7.0e+05|a0:0.48-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-281|0:01:24|nc:7.0e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-282|0:01:24|nc:7.0e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
-283|0:01:24|nc:7.1e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
-284|0:01:25|nc:7.1e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
-285|0:01:25|nc:7.1e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-286|0:01:25|nc:7.2e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-287|0:01:25|nc:7.2e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-288|0:01:26|nc:7.2e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-289|0:01:26|nc:7.2e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-290|0:01:26|nc:7.2e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-291|0:01:27|nc:7.3e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-292|0:01:27|nc:7.3e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-293|0:01:27|nc:7.3e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-294|0:01:27|nc:7.4e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-295|0:01:28|nc:7.4e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-296|0:01:28|nc:7.4e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-297|0:01:28|nc:7.4e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-298|0:01:28|nc:7.4e+05|a0:0.47-0.54|swp:0.86-0.98|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-299|0:01:29|nc:7.5e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-300|0:01:29|nc:7.5e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-301|0:01:29|nc:7.5e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-302|0:01:30|nc:7.6e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-303|0:01:30|nc:7.6e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-304|0:01:30|nc:7.6e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-305|0:01:30|nc:7.6e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-306|0:01:31|nc:7.6e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-307|0:01:31|nc:7.7e+05|a0:0.47-0.53|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-308|0:01:31|nc:7.7e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-309|0:01:32|nc:7.7e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-310|0:01:32|nc:7.8e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-311|0:01:32|nc:7.8e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-312|0:01:32|nc:7.8e+05|a0:0.47-0.53|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-313|0:01:33|nc:7.8e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-314|0:01:33|nc:7.8e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-315|0:01:33|nc:7.9e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-316|0:01:34|nc:7.9e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-317|0:01:34|nc:7.9e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-318|0:01:34|nc:8.0e+05|a0:0.47-0.54|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-319|0:01:34|nc:8.0e+05|a0:0.47-0.53|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-320|0:01:35|nc:8.0e+05|a0:0.47-0.53|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-321|0:01:35|nc:8.0e+05|a0:0.47-0.53|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-322|0:01:35|nc:8.0e+05|a0:0.47-0.53|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-323|0:01:35|nc:8.1e+05|a0:0.47-0.53|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-324|0:01:36|nc:8.1e+05|a0:0.47-0.53|swp:0.86-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-325|0:01:36|nc:8.1e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-326|0:01:36|nc:8.2e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-327|0:01:37|nc:8.2e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-328|0:01:37|nc:8.2e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-329|0:01:37|nc:8.2e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-330|0:01:37|nc:8.2e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-331|0:01:38|nc:8.3e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-332|0:01:38|nc:8.3e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-333|0:01:38|nc:8.3e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-334|0:01:38|nc:8.4e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-335|0:01:39|nc:8.4e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-336|0:01:39|nc:8.4e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-337|0:01:39|nc:8.4e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-338|0:01:40|nc:8.4e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-339|0:01:40|nc:8.5e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-340|0:01:40|nc:8.5e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-341|0:01:40|nc:8.5e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-342|0:01:41|nc:8.6e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-343|0:01:41|nc:8.6e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-344|0:01:41|nc:8.6e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-345|0:01:41|nc:8.6e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-346|0:01:42|nc:8.6e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-347|0:01:42|nc:8.7e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-348|0:01:42|nc:8.7e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-349|0:01:43|nc:8.7e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
-350|0:01:43|nc:8.8e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-351|0:01:43|nc:8.8e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-352|0:01:43|nc:8.8e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-353|0:01:44|nc:8.8e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-354|0:01:44|nc:8.8e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-355|0:01:44|nc:8.9e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-356|0:01:44|nc:8.9e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-357|0:01:45|nc:8.9e+05|a0:0.48-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-358|0:01:45|nc:9.0e+05|a0:0.48-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-359|0:01:45|nc:9.0e+05|a0:0.48-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-360|0:01:46|nc:9.0e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-361|0:01:46|nc:9.0e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-362|0:01:46|nc:9.0e+05|a0:0.48-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-363|0:01:46|nc:9.1e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-364|0:01:47|nc:9.1e+05|a0:0.48-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-365|0:01:47|nc:9.1e+05|a0:0.48-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-366|0:01:47|nc:9.2e+05|a0:0.47-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-367|0:01:47|nc:9.2e+05|a0:0.48-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-368|0:01:48|nc:9.2e+05|a0:0.48-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-369|0:01:48|nc:9.2e+05|a0:0.48-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-370|0:01:48|nc:9.2e+05|a0:0.48-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-371|0:01:49|nc:9.3e+05|a0:0.48-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-372|0:01:49|nc:9.3e+05|a0:0.48-0.53|swp:0.87-0.97|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
-373|0:01:49|nc:9.3e+05|a0:0.48-0.53|swp:0.87-0.97|n:5100&lt;500|t!1(+nan,+0.00)|q:1.00|0.11ms/ev
-374|0:01:49|nc:9.4e+05|a0:0.48-0.53|swp:0.87-0.97|n:5200&lt;500|t!1(+nan,+0.00)|q:1.00|0.12ms/ev
-375|0:01:50|nc:9.4e+05|a0:0.48-0.53|swp:0.87-0.97|n:5300&lt;500|t!1(+nan,+0.00)|q:1.00|0.13ms/ev
-376|0:01:50|nc:9.4e+05|a0:0.48-0.53|swp:0.87-0.97|n:5400&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-377|0:01:50|nc:9.4e+05|a0:0.48-0.53|swp:0.87-0.97|n:5500&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-378|0:01:51|nc:9.4e+05|a0:0.48-0.53|swp:0.87-0.97|n:5600&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-379|0:01:51|nc:9.5e+05|a0:0.48-0.53|swp:0.87-0.97|n:5700&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-380|0:01:51|nc:9.5e+05|a0:0.48-0.53|swp:0.87-0.97|n:5800&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-381|0:01:52|nc:9.5e+05|a0:0.48-0.53|swp:0.87-0.97|n:5900&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-382|0:01:52|nc:9.6e+05|a0:0.48-0.53|swp:0.87-0.97|n:6000&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-383|0:01:53|nc:9.6e+05|a0:0.48-0.53|swp:0.87-0.97|n:6100&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-384|0:01:53|nc:9.6e+05|a0:0.48-0.53|swp:0.87-0.97|n:6200&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-385|0:01:53|nc:9.6e+05|a0:0.48-0.53|swp:0.87-0.97|n:6300&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-386|0:01:54|nc:9.6e+05|a0:0.48-0.53|swp:0.87-0.97|n:6400&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-387|0:01:54|nc:9.7e+05|a0:0.48-0.53|swp:0.87-0.97|n:6500&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-388|0:01:54|nc:9.7e+05|a0:0.48-0.53|swp:0.87-0.97|n:6600&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-389|0:01:55|nc:9.7e+05|a0:0.48-0.53|swp:0.87-0.97|n:6700&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-390|0:01:55|nc:9.8e+05|a0:0.47-0.53|swp:0.87-0.97|n:6800&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-391|0:01:55|nc:9.8e+05|a0:0.48-0.53|swp:0.87-0.97|n:6900&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-392|0:01:56|nc:9.8e+05|a0:0.47-0.53|swp:0.87-0.97|n:7000&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-393|0:01:56|nc:9.8e+05|a0:0.48-0.53|swp:0.87-0.97|n:7100&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-394|0:01:56|nc:9.8e+05|a0:0.48-0.53|swp:0.87-0.97|n:7200&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-395|0:01:57|nc:9.9e+05|a0:0.48-0.53|swp:0.87-0.97|n:7300&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-396|0:01:57|nc:9.9e+05|a0:0.48-0.53|swp:0.87-0.97|n:7400&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-397|0:01:57|nc:9.9e+05|a0:0.48-0.53|swp:0.87-0.97|n:7500&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-398|0:01:58|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:7600&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-399|0:01:58|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:7700&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-400|0:01:58|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:7800&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-401|0:01:59|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:7900&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-402|0:01:59|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:8000&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-403|0:02:00|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:8100&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-404|0:02:00|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:8200&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-405|0:02:00|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:8300&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-406|0:02:01|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:8400&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-407|0:02:01|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:3500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-408|0:02:01|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:3600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-409|0:02:02|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:3700&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-410|0:02:02|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:3800&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-411|0:02:02|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:3900&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-412|0:02:03|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:4000&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-413|0:02:03|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:4100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-414|0:02:03|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:4200&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-415|0:02:04|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:4300&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-416|0:02:04|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:4400&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-417|0:02:04|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:4500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-418|0:02:05|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:4600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-419|0:02:05|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:4700&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-420|0:02:05|nc:1.0e+06|a0:0.48-0.53|swp:0.87-0.97|n:4800&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-421|0:02:06|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:4900&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-422|0:02:06|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:5000&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-423|0:02:06|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:5100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-424|0:02:07|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:5200&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-425|0:02:07|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:5300&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-426|0:02:07|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:5400&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-427|0:02:08|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:5500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-428|0:02:08|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:5600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-429|0:02:08|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:10700&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-430|0:02:09|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:10800&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-431|0:02:09|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:10900&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-432|0:02:09|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:11000&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-433|0:02:10|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:11100&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-434|0:02:10|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:6200&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-435|0:02:10|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:6300&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-436|0:02:11|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:6400&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-437|0:02:11|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:6500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-438|0:02:12|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:6600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-439|0:02:12|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:6700&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-440|0:02:12|nc:1.1e+06|a0:0.48-0.53|swp:0.86-0.97|n:6800&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-441|0:02:13|nc:1.1e+06|a0:0.48-0.53|swp:0.86-0.97|n:6900&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-442|0:02:13|nc:1.1e+06|a0:0.48-0.53|swp:0.86-0.97|n:7000&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-443|0:02:13|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:7100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-444|0:02:14|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:7200&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-445|0:02:14|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:7300&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-446|0:02:14|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:7400&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-447|0:02:15|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:7500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-448|0:02:15|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:7600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-449|0:02:15|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:7700&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-450|0:02:16|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:7800&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-451|0:02:16|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:7900&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-452|0:02:16|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:8000&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-453|0:02:17|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:8100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-454|0:02:17|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:8200&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-455|0:02:17|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:8300&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-456|0:02:18|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:8400&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-457|0:02:18|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:8500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-458|0:02:18|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:8600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-459|0:02:19|nc:1.1e+06|a0:0.48-0.53|swp:0.87-0.97|n:13700&lt;500|t!1(+nan,+0.00)|q:1.00|0.14ms/ev
-460|0:02:19|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:13800&lt;500|t!1(+nan,+0.00)|q:1.00|0.15ms/ev
-461|0:02:20|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:13900&lt;500|t!1(+nan,+0.00)|q:1.00|0.15ms/ev
-462|0:02:20|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:14000&lt;500|t!1(+nan,+0.00)|q:1.00|0.15ms/ev
-463|0:02:20|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:14100&lt;500|t!1(+nan,+0.00)|q:1.00|0.16ms/ev
-464|0:02:21|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:14200&lt;500|t!1(+nan,+0.00)|q:1.00|0.16ms/ev
-465|0:02:21|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:14300&lt;500|t!1(+nan,+0.00)|q:1.00|0.16ms/ev
-466|0:02:22|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:14400&lt;500|t!1(+nan,+0.00)|q:1.00|0.18ms/ev
-467|0:02:22|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:14500&lt;500|t!1(+nan,+0.00)|q:1.00|0.18ms/ev
-468|0:02:23|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:14600&lt;500|t!1(+nan,+0.00)|q:1.00|0.18ms/ev
-469|0:02:23|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:14700&lt;500|t!1(+nan,+0.00)|q:1.00|0.17ms/ev
-470|0:02:23|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:9800&lt;500|t!2(+nan,+0.00)|q:1.00|0.18ms/ev
-471|0:02:24|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:9900&lt;500|t!2(+nan,+0.00)|q:1.00|0.19ms/ev
-472|0:02:24|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:15000&lt;500|t!1(+nan,+0.00)|q:1.00|0.18ms/ev
-473|0:02:25|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:10100&lt;500|t!2(+nan,+0.00)|q:1.00|0.18ms/ev
-474|0:02:25|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:10200&lt;500|t!2(+nan,+0.00)|q:1.00|0.17ms/ev
-475|0:02:26|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:10300&lt;500|t!2(+nan,+0.00)|q:1.00|0.19ms/ev
-476|0:02:26|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:10400&lt;500|t!2(+nan,+0.00)|q:1.00|0.19ms/ev
-477|0:02:27|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:10500&lt;500|t!2(+nan,+0.00)|q:1.00|0.19ms/ev
-478|0:02:27|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:10600&lt;500|t!2(+nan,+0.00)|q:1.00|0.18ms/ev
-479|0:02:28|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:10700&lt;500|t!2(+nan,+0.00)|q:1.00|0.19ms/ev
-480|0:02:28|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:10800&lt;500|t!2(+nan,+0.00)|q:1.00|0.20ms/ev
-481|0:02:29|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:10900&lt;500|t!2(+nan,+0.00)|q:1.00|0.20ms/ev
-482|0:02:29|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:11000&lt;500|t!2(+nan,+0.00)|q:1.00|0.18ms/ev
-483|0:02:29|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:11100&lt;500|t!2(+nan,+0.00)|q:1.00|0.18ms/ev
-484|0:02:30|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:11200&lt;500|t!2(+nan,+0.00)|q:1.00|0.17ms/ev
-485|0:02:30|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:11300&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-486|0:02:31|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:11400&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-487|0:02:31|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:11500&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-488|0:02:31|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:11600&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-489|0:02:32|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:11700&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-490|0:02:32|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:11800&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-491|0:02:33|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:11900&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-492|0:02:33|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:12000&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-493|0:02:33|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:12100&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-494|0:02:34|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:12200&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-495|0:02:34|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:12300&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-496|0:02:34|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:12400&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-497|0:02:35|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:12500&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-498|0:02:35|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:12600&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-499|0:02:36|nc:1.2e+06|a0:0.48-0.53|swp:0.87-0.97|n:12700&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-500|0:02:36|nc:1.2e+06|a0:0.48-0.52|swp:0.87-0.97|n:12800&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-501|0:02:36|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:12900&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-502|0:02:37|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:13000&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-503|0:02:37|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:13100&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-504|0:02:38|nc:1.3e+06|a0:0.48-0.53|swp:0.87-0.97|n:13200&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-505|0:02:38|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:13300&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-506|0:02:38|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:13400&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-507|0:02:39|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:13500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-508|0:02:39|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:13600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-509|0:02:39|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:13700&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-510|0:02:40|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:13800&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-511|0:02:40|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:13900&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-512|0:02:40|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:14000&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-513|0:02:41|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:14100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-514|0:02:41|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:14200&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-515|0:02:41|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:14300&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-516|0:02:42|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:14400&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-517|0:02:42|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:14500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-518|0:02:42|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:14600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-519|0:02:43|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:14700&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-520|0:02:43|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:14800&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-521|0:02:44|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:14900&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-522|0:02:44|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:15000&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-523|0:02:44|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:15100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-524|0:02:45|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:15200&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-525|0:02:45|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:15300&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-526|0:02:45|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:15400&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-527|0:02:46|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:15500&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-528|0:02:46|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:15600&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-529|0:02:47|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:15700&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-530|0:02:47|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:15800&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-531|0:02:47|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:15900&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-532|0:02:48|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:16000&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
-533|0:02:48|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:16100&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-534|0:02:48|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:16200&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-535|0:02:49|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:16300&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-536|0:02:49|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:16400&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-537|0:02:49|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:16500&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-538|0:02:50|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:16600&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-539|0:02:50|nc:1.3e+06|a0:0.48-0.52|swp:0.87-0.97|n:16700&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-540|0:02:51|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:16800&lt;500|t!2(+nan,+0.01)|q:1.00|0.17ms/ev
-541|0:02:51|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:16900&lt;500|t!2(+nan,+0.01)|q:1.00|0.17ms/ev
-542|0:02:52|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:17000&lt;500|t!2(+nan,+0.01)|q:1.00|0.16ms/ev
-543|0:02:52|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:17100&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-544|0:02:52|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:17200&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-545|0:02:53|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:17300&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-546|0:02:53|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:17400&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-547|0:02:53|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:17500&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-548|0:02:54|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:17600&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-549|0:02:54|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:17700&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-550|0:02:55|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:17800&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-551|0:02:55|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:17900&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-552|0:02:55|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:18000&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-553|0:02:56|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:18100&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-554|0:02:56|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:18200&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-555|0:02:57|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:18300&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-556|0:02:57|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:18400&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-557|0:02:57|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:18500&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-558|0:02:58|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:18600&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-559|0:02:58|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:18700&lt;500|t!2(+nan,+0.00)|q:1.00|0.17ms/ev
-560|0:02:59|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:18800&lt;500|t!2(+nan,+0.00)|q:1.00|0.17ms/ev
-561|0:02:59|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:18900&lt;500|t!2(+nan,+0.00)|q:1.00|0.17ms/ev
-562|0:02:59|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:19000&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-563|0:03:00|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:19100&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-564|0:03:00|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:19200&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-565|0:03:01|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:19300&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
-566|0:03:01|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:19400&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-567|0:03:01|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:19500&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-568|0:03:02|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:19600&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-569|0:03:02|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:19700&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-570|0:03:03|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:19800&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-571|0:03:03|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:19900&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-572|0:03:03|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:20000&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-573|0:03:04|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:20100&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
-574|0:03:04|nc:1.4e+06|a0:0.48-0.52|swp:0.87-0.97|n:20200&lt;500|t=2(+0.01,+0.00)|q:1.00|0.17ms/ev
+1|0:00:00|nc:2.5e+03|a0:0.00-1.00|swp:0.30-0.52|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.09ms/ev
+2|0:00:00|nc:5.0e+03|a0:0.20-0.90|swp:0.26-0.42|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+3|0:00:00|nc:7.5e+03|a0:0.33-0.87|swp:0.27-0.39|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+4|0:00:01|nc:1.0e+04|a0:0.30-0.85|swp:0.29-0.40|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.15ms/ev
+5|0:00:01|nc:1.2e+04|a0:0.40-0.76|swp:0.32-0.40|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.18ms/ev
+6|0:00:02|nc:1.5e+04|a0:0.40-0.73|swp:0.34-0.41|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.21ms/ev
+7|0:00:03|nc:1.8e+04|a0:0.43-0.74|swp:0.36-0.42|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.25ms/ev
+8|0:00:03|nc:2.0e+04|a0:0.40-0.72|swp:0.38-0.43|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.25ms/ev
+9|0:00:04|nc:2.2e+04|a0:0.42-0.73|swp:0.39-0.45|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.24ms/ev
+10|0:00:04|nc:2.5e+04|a0:0.44-0.74|swp:0.41-0.46|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.22ms/ev
+11|0:00:05|nc:2.8e+04|a0:0.44-0.75|swp:0.42-0.48|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.24ms/ev
+12|0:00:06|nc:3.0e+04|a0:0.45-0.75|swp:0.43-0.49|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.26ms/ev
+13|0:00:06|nc:3.2e+04|a0:0.45-0.74|swp:0.44-0.50|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.23ms/ev
+14|0:00:06|nc:3.5e+04|a0:0.46-0.74|swp:0.44-0.51|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.17ms/ev
+15|0:00:07|nc:3.8e+04|a0:0.45-0.73|swp:0.45-0.52|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
+16|0:00:07|nc:4.0e+04|a0:0.45-0.74|swp:0.45-0.53|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+17|0:00:07|nc:4.2e+04|a0:0.45-0.71|swp:0.45-0.54|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+18|0:00:08|nc:4.5e+04|a0:0.44-0.71|swp:0.46-0.54|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+19|0:00:08|nc:4.8e+04|a0:0.44-0.68|swp:0.47-0.55|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
+20|0:00:08|nc:5.0e+04|a0:0.44-0.69|swp:0.47-0.56|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+21|0:00:09|nc:5.2e+04|a0:0.45-0.70|swp:0.48-0.56|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+22|0:00:09|nc:5.5e+04|a0:0.45-0.71|swp:0.48-0.56|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+23|0:00:09|nc:5.8e+04|a0:0.46-0.70|swp:0.48-0.57|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+24|0:00:09|nc:6.0e+04|a0:0.47-0.71|swp:0.49-0.57|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+25|0:00:10|nc:6.2e+04|a0:0.46-0.70|swp:0.49-0.58|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+26|0:00:10|nc:6.5e+04|a0:0.48-0.71|swp:0.49-0.58|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+27|0:00:10|nc:6.8e+04|a0:0.47-0.71|swp:0.49-0.58|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+28|0:00:10|nc:7.0e+04|a0:0.46-0.69|swp:0.50-0.59|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+29|0:00:11|nc:7.2e+04|a0:0.47-0.69|swp:0.50-0.59|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+30|0:00:11|nc:7.5e+04|a0:0.47-0.69|swp:0.50-0.60|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+31|0:00:11|nc:7.8e+04|a0:0.47-0.68|swp:0.50-0.60|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+32|0:00:11|nc:8.0e+04|a0:0.46-0.68|swp:0.50-0.60|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+33|0:00:12|nc:8.2e+04|a0:0.47-0.68|swp:0.51-0.60|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+34|0:00:12|nc:8.5e+04|a0:0.47-0.68|swp:0.51-0.61|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+35|0:00:12|nc:8.8e+04|a0:0.47-0.69|swp:0.51-0.61|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+36|0:00:12|nc:9.0e+04|a0:0.47-0.68|swp:0.51-0.61|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+37|0:00:13|nc:9.2e+04|a0:0.46-0.68|swp:0.51-0.61|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+38|0:00:13|nc:9.5e+04|a0:0.47-0.68|swp:0.51-0.61|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+39|0:00:13|nc:9.8e+04|a0:0.48-0.69|swp:0.51-0.62|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+40|0:00:14|nc:1.0e+05|a0:0.48-0.69|swp:0.52-0.62|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+41|0:00:14|nc:1.0e+05|a0:0.47-0.67|swp:0.52-0.62|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+42|0:00:14|nc:1.0e+05|a0:0.48-0.67|swp:0.52-0.62|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+43|0:00:14|nc:1.1e+05|a0:0.47-0.67|swp:0.52-0.62|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+44|0:00:15|nc:1.1e+05|a0:0.47-0.67|swp:0.52-0.62|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+45|0:00:15|nc:1.1e+05|a0:0.47-0.66|swp:0.52-0.62|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+46|0:00:15|nc:1.2e+05|a0:0.47-0.67|swp:0.52-0.62|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+47|0:00:15|nc:1.2e+05|a0:0.47-0.67|swp:0.52-0.63|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+48|0:00:16|nc:1.2e+05|a0:0.47-0.67|swp:0.52-0.63|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+49|0:00:16|nc:1.2e+05|a0:0.47-0.67|swp:0.52-0.63|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+50|0:00:16|nc:1.2e+05|a0:0.47-0.66|swp:0.52-0.63|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+51|0:00:17|nc:1.3e+05|a0:0.48-0.66|swp:0.52-0.63|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+52|0:00:17|nc:1.3e+05|a0:0.48-0.66|swp:0.52-0.63|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+53|0:00:17|nc:1.3e+05|a0:0.49-0.66|swp:0.52-0.63|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+54|0:00:17|nc:1.4e+05|a0:0.49-0.66|swp:0.52-0.63|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+55|0:00:18|nc:1.4e+05|a0:0.49-0.66|swp:0.52-0.63|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+56|0:00:18|nc:1.4e+05|a0:0.48-0.66|swp:0.52-0.63|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+57|0:00:18|nc:1.4e+05|a0:0.48-0.66|swp:0.52-0.63|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+58|0:00:18|nc:1.4e+05|a0:0.49-0.66|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+59|0:00:19|nc:1.5e+05|a0:0.49-0.66|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+60|0:00:19|nc:1.5e+05|a0:0.50-0.67|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+61|0:00:19|nc:1.5e+05|a0:0.49-0.67|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+62|0:00:20|nc:1.6e+05|a0:0.50-0.66|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+63|0:00:20|nc:1.6e+05|a0:0.50-0.66|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+64|0:00:20|nc:1.6e+05|a0:0.50-0.66|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+65|0:00:20|nc:1.6e+05|a0:0.50-0.66|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+66|0:00:21|nc:1.6e+05|a0:0.50-0.65|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+67|0:00:21|nc:1.7e+05|a0:0.50-0.65|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+68|0:00:21|nc:1.7e+05|a0:0.50-0.64|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+69|0:00:22|nc:1.7e+05|a0:0.51-0.65|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+70|0:00:22|nc:1.8e+05|a0:0.51-0.65|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+71|0:00:22|nc:1.8e+05|a0:0.51-0.64|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+72|0:00:22|nc:1.8e+05|a0:0.51-0.64|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+73|0:00:23|nc:1.8e+05|a0:0.51-0.64|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+74|0:00:23|nc:1.8e+05|a0:0.51-0.65|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+75|0:00:23|nc:1.9e+05|a0:0.51-0.64|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+76|0:00:24|nc:1.9e+05|a0:0.51-0.64|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+77|0:00:24|nc:1.9e+05|a0:0.51-0.64|swp:0.53-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+78|0:00:24|nc:2.0e+05|a0:0.51-0.64|swp:0.54-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+79|0:00:24|nc:2.0e+05|a0:0.51-0.64|swp:0.54-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+80|0:00:25|nc:2.0e+05|a0:0.51-0.64|swp:0.54-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+81|0:00:25|nc:2.0e+05|a0:0.51-0.64|swp:0.54-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+82|0:00:25|nc:2.0e+05|a0:0.51-0.64|swp:0.54-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+83|0:00:26|nc:2.1e+05|a0:0.51-0.63|swp:0.54-0.64|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.14ms/ev
+84|0:00:26|nc:2.1e+05|a0:0.51-0.63|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.17ms/ev
+85|0:00:27|nc:2.1e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.20ms/ev
+86|0:00:27|nc:2.2e+05|a0:0.51-0.63|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.20ms/ev
+87|0:00:28|nc:2.2e+05|a0:0.51-0.63|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.21ms/ev
+88|0:00:28|nc:2.2e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.19ms/ev
+89|0:00:28|nc:2.2e+05|a0:0.51-0.63|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.17ms/ev
+90|0:00:29|nc:2.2e+05|a0:0.51-0.63|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
+91|0:00:29|nc:2.3e+05|a0:0.51-0.63|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+92|0:00:29|nc:2.3e+05|a0:0.52-0.63|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+93|0:00:29|nc:2.3e+05|a0:0.51-0.63|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+94|0:00:30|nc:2.4e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+95|0:00:30|nc:2.4e+05|a0:0.52-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+96|0:00:30|nc:2.4e+05|a0:0.52-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+97|0:00:31|nc:2.4e+05|a0:0.52-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+98|0:00:31|nc:2.4e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+99|0:00:31|nc:2.5e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+100|0:00:31|nc:2.5e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+101|0:00:32|nc:2.5e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+102|0:00:32|nc:2.6e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+103|0:00:32|nc:2.6e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+104|0:00:32|nc:2.6e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+105|0:00:33|nc:2.6e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+106|0:00:33|nc:2.6e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+107|0:00:34|nc:2.7e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.16ms/ev
+108|0:00:34|nc:2.7e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.17ms/ev
+109|0:00:35|nc:2.7e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.23ms/ev
+110|0:00:36|nc:2.8e+05|a0:0.51-0.64|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.28ms/ev
+111|0:00:36|nc:2.8e+05|a0:0.52-0.63|swp:0.54-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.32ms/ev
+112|0:00:37|nc:2.8e+05|a0:0.51-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.27ms/ev
+113|0:00:37|nc:2.8e+05|a0:0.52-0.64|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.21ms/ev
+114|0:00:38|nc:2.8e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.20ms/ev
+115|0:00:38|nc:2.9e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.17ms/ev
+116|0:00:38|nc:2.9e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.16ms/ev
+117|0:00:39|nc:2.9e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+118|0:00:39|nc:3.0e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+119|0:00:39|nc:3.0e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+120|0:00:40|nc:3.0e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+121|0:00:40|nc:3.0e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+122|0:00:40|nc:3.0e+05|a0:0.53-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+123|0:00:40|nc:3.1e+05|a0:0.53-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+124|0:00:41|nc:3.1e+05|a0:0.53-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+125|0:00:41|nc:3.1e+05|a0:0.53-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+126|0:00:41|nc:3.2e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+127|0:00:42|nc:3.2e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+128|0:00:42|nc:3.2e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+129|0:00:42|nc:3.2e+05|a0:0.52-0.63|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+130|0:00:42|nc:3.2e+05|a0:0.52-0.63|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+131|0:00:43|nc:3.3e+05|a0:0.52-0.63|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+132|0:00:43|nc:3.3e+05|a0:0.52-0.63|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+133|0:00:43|nc:3.3e+05|a0:0.52-0.63|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+134|0:00:44|nc:3.4e+05|a0:0.52-0.63|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+135|0:00:44|nc:3.4e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+136|0:00:44|nc:3.4e+05|a0:0.52-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+137|0:00:44|nc:3.4e+05|a0:0.52-0.62|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+138|0:00:45|nc:3.4e+05|a0:0.52-0.62|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+139|0:00:45|nc:3.5e+05|a0:0.53-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+140|0:00:45|nc:3.5e+05|a0:0.53-0.63|swp:0.55-0.65|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+141|0:00:45|nc:3.5e+05|a0:0.53-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+142|0:00:46|nc:3.6e+05|a0:0.53-0.63|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+143|0:00:46|nc:3.6e+05|a0:0.53-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+144|0:00:46|nc:3.6e+05|a0:0.53-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+145|0:00:47|nc:3.6e+05|a0:0.53-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+146|0:00:47|nc:3.6e+05|a0:0.53-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
+147|0:00:47|nc:3.7e+05|a0:0.53-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.16ms/ev
+148|0:00:48|nc:3.7e+05|a0:0.53-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.17ms/ev
+149|0:00:48|nc:3.7e+05|a0:0.53-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.16ms/ev
+150|0:00:48|nc:3.8e+05|a0:0.53-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
+151|0:00:49|nc:3.8e+05|a0:0.54-0.63|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
+152|0:00:49|nc:3.8e+05|a0:0.53-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
+153|0:00:49|nc:3.8e+05|a0:0.53-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
+154|0:00:50|nc:3.8e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+155|0:00:50|nc:3.9e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+156|0:00:50|nc:3.9e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+157|0:00:51|nc:3.9e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+158|0:00:51|nc:4.0e+05|a0:0.54-0.63|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+159|0:00:51|nc:4.0e+05|a0:0.54-0.62|swp:0.55-0.66|n:100&lt;500|t!2(+nan,+0.09)|q:1.00|0.12ms/ev
+160|0:00:52|nc:4.0e+05|a0:0.54-0.62|swp:0.55-0.66|n:200&lt;500|t!2(+nan,+0.09)|q:1.00|0.14ms/ev
+161|0:00:52|nc:4.0e+05|a0:0.54-0.62|swp:0.55-0.66|n:300&lt;500|t!2(+nan,+0.09)|q:1.00|0.14ms/ev
+162|0:00:52|nc:4.0e+05|a0:0.54-0.63|swp:0.55-0.66|n:400&lt;500|t!2(+nan,+0.09)|q:1.00|0.16ms/ev
+163|0:00:53|nc:4.1e+05|a0:0.54-0.63|swp:0.55-0.66|n:500&lt;500|t!2(+nan,+0.09)|q:1.00|0.14ms/ev
+164|0:00:53|nc:4.1e+05|a0:0.54-0.63|swp:0.55-0.66|n:600&lt;500|t!2(+nan,+0.09)|q:1.00|0.16ms/ev
+165|0:00:54|nc:4.1e+05|a0:0.54-0.63|swp:0.55-0.66|n:700&lt;500|t!2(+nan,+0.09)|q:1.00|0.18ms/ev
+166|0:00:54|nc:4.2e+05|a0:0.54-0.63|swp:0.55-0.66|n:800&lt;500|t!2(+nan,+0.09)|q:1.00|0.18ms/ev
+167|0:00:54|nc:4.2e+05|a0:0.54-0.63|swp:0.55-0.66|n:900&lt;500|t!2(+nan,+0.09)|q:1.00|0.17ms/ev
+168|0:00:55|nc:4.2e+05|a0:0.54-0.62|swp:0.55-0.66|n:1000&lt;500|t!2(+nan,+0.09)|q:1.00|0.15ms/ev
+169|0:00:55|nc:4.2e+05|a0:0.55-0.62|swp:0.55-0.66|n:1100&lt;500|t!2(+nan,+0.09)|q:1.00|0.14ms/ev
+170|0:00:56|nc:4.2e+05|a0:0.55-0.62|swp:0.55-0.66|n:1200&lt;500|t!2(+nan,+0.09)|q:1.00|0.16ms/ev
+171|0:00:56|nc:4.3e+05|a0:0.54-0.62|swp:0.55-0.66|n:1300&lt;500|t!2(+nan,+0.09)|q:1.00|0.16ms/ev
+172|0:00:56|nc:4.3e+05|a0:0.54-0.62|swp:0.55-0.66|n:1400&lt;500|t!2(+nan,+0.09)|q:1.00|0.16ms/ev
+173|0:00:57|nc:4.3e+05|a0:0.54-0.62|swp:0.55-0.66|n:1500&lt;500|t!2(+nan,+0.09)|q:1.00|0.15ms/ev
+174|0:00:57|nc:4.4e+05|a0:0.54-0.62|swp:0.55-0.66|n:1600&lt;500|t!2(+nan,+0.09)|q:1.00|0.15ms/ev
+175|0:00:57|nc:4.4e+05|a0:0.54-0.63|swp:0.55-0.66|n:1700&lt;500|t!2(+nan,+0.09)|q:1.00|0.15ms/ev
+176|0:00:58|nc:4.4e+05|a0:0.54-0.63|swp:0.55-0.66|n:1800&lt;500|t!2(+nan,+0.09)|q:1.00|0.15ms/ev
+177|0:00:58|nc:4.4e+05|a0:0.54-0.63|swp:0.55-0.66|n:1900&lt;500|t!2(+nan,+0.09)|q:1.00|0.15ms/ev
+178|0:00:59|nc:4.4e+05|a0:0.54-0.63|swp:0.55-0.66|n:2000&lt;500|t!2(+nan,+0.09)|q:1.00|0.16ms/ev
+179|0:00:59|nc:4.5e+05|a0:0.54-0.63|swp:0.55-0.66|n:2100&lt;500|t!2(+nan,+0.09)|q:1.00|0.16ms/ev
+180|0:00:59|nc:4.5e+05|a0:0.54-0.63|swp:0.55-0.66|n:2200&lt;500|t!2(+nan,+0.09)|q:1.00|0.15ms/ev
+181|0:01:00|nc:4.5e+05|a0:0.54-0.63|swp:0.55-0.66|n:2300&lt;500|t!2(+nan,+0.09)|q:1.00|0.14ms/ev
+182|0:01:00|nc:4.6e+05|a0:0.54-0.63|swp:0.55-0.66|n:2400&lt;500|t!2(+nan,+0.09)|q:1.00|0.14ms/ev
+183|0:01:00|nc:4.6e+05|a0:0.54-0.62|swp:0.55-0.66|n:2500&lt;500|t!2(+nan,+0.09)|q:1.00|0.14ms/ev
+184|0:01:01|nc:4.6e+05|a0:0.54-0.62|swp:0.55-0.66|n:2600&lt;500|t!2(+nan,+0.09)|q:1.00|0.14ms/ev
+185|0:01:01|nc:4.6e+05|a0:0.54-0.62|swp:0.55-0.66|n:2700&lt;500|t!2(+nan,+0.09)|q:1.00|0.14ms/ev
+186|0:01:02|nc:4.6e+05|a0:0.54-0.62|swp:0.55-0.66|n:2800&lt;500|t!2(+nan,+0.09)|q:1.00|0.16ms/ev
+187|0:01:02|nc:4.7e+05|a0:0.54-0.62|swp:0.55-0.66|n:2900&lt;500|t!2(+nan,+0.09)|q:1.00|0.16ms/ev
+188|0:01:02|nc:4.7e+05|a0:0.54-0.62|swp:0.55-0.66|n:3000&lt;500|t!2(+nan,+0.09)|q:1.00|0.17ms/ev
+189|0:01:03|nc:4.7e+05|a0:0.54-0.62|swp:0.55-0.66|n:3100&lt;500|t!2(+nan,+0.09)|q:1.00|0.17ms/ev
+190|0:01:03|nc:4.8e+05|a0:0.54-0.62|swp:0.55-0.66|n:3200&lt;500|t!2(+nan,+0.09)|q:1.00|0.17ms/ev
+191|0:01:04|nc:4.8e+05|a0:0.54-0.62|swp:0.55-0.66|n:3300&lt;500|t!2(+nan,+0.09)|q:1.00|0.15ms/ev
+192|0:01:04|nc:4.8e+05|a0:0.54-0.62|swp:0.55-0.66|n:3400&lt;500|t!2(+nan,+0.09)|q:1.00|0.16ms/ev
+193|0:01:04|nc:4.8e+05|a0:0.54-0.62|swp:0.55-0.66|n:3500&lt;500|t!2(+nan,+0.09)|q:1.00|0.16ms/ev
+194|0:01:05|nc:4.8e+05|a0:0.54-0.62|swp:0.55-0.66|n:3600&lt;500|t!2(+nan,+0.09)|q:1.00|0.15ms/ev
+195|0:01:05|nc:4.9e+05|a0:0.54-0.62|swp:0.55-0.66|n:3700&lt;500|t!2(+nan,+0.09)|q:1.00|0.14ms/ev
+196|0:01:05|nc:4.9e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.14ms/ev
+197|0:01:06|nc:4.9e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.13ms/ev
+198|0:01:06|nc:5.0e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+199|0:01:06|nc:5.0e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+200|0:01:07|nc:5.0e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+201|0:01:07|nc:5.0e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+202|0:01:07|nc:5.0e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+203|0:01:07|nc:5.1e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+204|0:01:08|nc:5.1e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+205|0:01:08|nc:5.1e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.12ms/ev
+206|0:01:08|nc:5.2e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+207|0:01:08|nc:5.2e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+208|0:01:09|nc:5.2e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+209|0:01:09|nc:5.2e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+210|0:01:09|nc:5.2e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+211|0:01:10|nc:5.3e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+212|0:01:10|nc:5.3e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+213|0:01:10|nc:5.3e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+214|0:01:10|nc:5.4e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+215|0:01:11|nc:5.4e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+216|0:01:11|nc:5.4e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+217|0:01:11|nc:5.4e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+218|0:01:11|nc:5.4e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+219|0:01:12|nc:5.5e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+220|0:01:12|nc:5.5e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.11ms/ev
+221|0:01:12|nc:5.5e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+222|0:01:13|nc:5.6e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+223|0:01:13|nc:5.6e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+224|0:01:13|nc:5.6e+05|a0:0.54-0.62|swp:0.55-0.66|n:nan&lt;500|t!nan(+nan,+nan)|q:inf|0.10ms/ev
+225|0:01:13|nc:5.6e+05|a0:0.54-0.62|swp:0.55-0.66|n:100&lt;500|t!2(+nan,+0.00)|q:1.00|0.10ms/ev
+226|0:01:14|nc:5.6e+05|a0:0.54-0.62|swp:0.55-0.66|n:200&lt;500|t!2(+nan,+0.00)|q:1.00|0.11ms/ev
+227|0:01:14|nc:5.7e+05|a0:0.54-0.62|swp:0.55-0.66|n:300&lt;500|t!2(+nan,+0.00)|q:1.00|0.12ms/ev
+228|0:01:14|nc:5.7e+05|a0:0.54-0.62|swp:0.55-0.66|n:400&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+229|0:01:15|nc:5.7e+05|a0:0.54-0.62|swp:0.55-0.66|n:500&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+230|0:01:15|nc:5.8e+05|a0:0.54-0.62|swp:0.55-0.66|n:600&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+231|0:01:15|nc:5.8e+05|a0:0.55-0.62|swp:0.55-0.66|n:700&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+232|0:01:16|nc:5.8e+05|a0:0.54-0.62|swp:0.55-0.66|n:800&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+233|0:01:16|nc:5.8e+05|a0:0.55-0.62|swp:0.55-0.66|n:900&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+234|0:01:16|nc:5.8e+05|a0:0.55-0.62|swp:0.55-0.66|n:1000&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+235|0:01:17|nc:5.9e+05|a0:0.54-0.62|swp:0.55-0.66|n:1100&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+236|0:01:17|nc:5.9e+05|a0:0.54-0.62|swp:0.55-0.66|n:1200&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+237|0:01:18|nc:5.9e+05|a0:0.55-0.62|swp:0.55-0.66|n:1300&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+238|0:01:18|nc:6.0e+05|a0:0.55-0.62|swp:0.55-0.66|n:1400&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+239|0:01:18|nc:6.0e+05|a0:0.55-0.62|swp:0.55-0.66|n:1500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+240|0:01:19|nc:6.0e+05|a0:0.55-0.62|swp:0.55-0.66|n:1600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+241|0:01:19|nc:6.0e+05|a0:0.55-0.62|swp:0.55-0.66|n:1700&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+242|0:01:19|nc:6.0e+05|a0:0.55-0.62|swp:0.55-0.66|n:1800&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+243|0:01:20|nc:6.1e+05|a0:0.55-0.62|swp:0.55-0.66|n:1900&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+244|0:01:20|nc:6.1e+05|a0:0.55-0.62|swp:0.55-0.66|n:2000&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+245|0:01:20|nc:6.1e+05|a0:0.55-0.62|swp:0.55-0.66|n:2100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+246|0:01:21|nc:6.2e+05|a0:0.55-0.62|swp:0.55-0.66|n:2200&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+247|0:01:21|nc:6.2e+05|a0:0.55-0.62|swp:0.55-0.66|n:2300&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+248|0:01:21|nc:6.2e+05|a0:0.55-0.62|swp:0.55-0.66|n:2400&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+249|0:01:22|nc:6.2e+05|a0:0.55-0.62|swp:0.55-0.66|n:2500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+250|0:01:22|nc:6.2e+05|a0:0.55-0.62|swp:0.55-0.66|n:2600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+251|0:01:22|nc:6.3e+05|a0:0.55-0.62|swp:0.55-0.66|n:2700&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+252|0:01:23|nc:6.3e+05|a0:0.55-0.62|swp:0.55-0.66|n:2800&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+253|0:01:23|nc:6.3e+05|a0:0.55-0.62|swp:0.55-0.66|n:2900&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+254|0:01:23|nc:6.4e+05|a0:0.55-0.62|swp:0.55-0.66|n:3000&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+255|0:01:24|nc:6.4e+05|a0:0.55-0.62|swp:0.55-0.66|n:3100&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+256|0:01:24|nc:6.4e+05|a0:0.55-0.62|swp:0.55-0.66|n:3200&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+257|0:01:24|nc:6.4e+05|a0:0.55-0.62|swp:0.55-0.66|n:3300&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+258|0:01:25|nc:6.4e+05|a0:0.55-0.62|swp:0.55-0.66|n:3400&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+259|0:01:25|nc:6.5e+05|a0:0.55-0.62|swp:0.55-0.66|n:3500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+260|0:01:25|nc:6.5e+05|a0:0.55-0.62|swp:0.55-0.66|n:3600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+261|0:01:26|nc:6.5e+05|a0:0.55-0.62|swp:0.55-0.66|n:3700&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+262|0:01:26|nc:6.6e+05|a0:0.55-0.62|swp:0.55-0.66|n:3800&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+263|0:01:27|nc:6.6e+05|a0:0.55-0.62|swp:0.55-0.66|n:3900&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+264|0:01:27|nc:6.6e+05|a0:0.55-0.62|swp:0.55-0.66|n:4000&lt;500|t!2(+nan,+0.01)|q:1.00|0.14ms/ev
+265|0:01:27|nc:6.6e+05|a0:0.55-0.62|swp:0.55-0.66|n:4100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+266|0:01:28|nc:6.6e+05|a0:0.55-0.62|swp:0.55-0.66|n:4200&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+267|0:01:28|nc:6.7e+05|a0:0.55-0.62|swp:0.55-0.66|n:4300&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+268|0:01:28|nc:6.7e+05|a0:0.55-0.62|swp:0.55-0.66|n:4400&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+269|0:01:29|nc:6.7e+05|a0:0.55-0.62|swp:0.55-0.66|n:4500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+270|0:01:29|nc:6.8e+05|a0:0.55-0.62|swp:0.55-0.66|n:4600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+271|0:01:29|nc:6.8e+05|a0:0.55-0.62|swp:0.55-0.67|n:4700&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+272|0:01:30|nc:6.8e+05|a0:0.55-0.62|swp:0.55-0.67|n:4800&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+273|0:01:30|nc:6.8e+05|a0:0.55-0.62|swp:0.55-0.67|n:4900&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+274|0:01:30|nc:6.8e+05|a0:0.55-0.62|swp:0.55-0.67|n:5000&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+275|0:01:31|nc:6.9e+05|a0:0.55-0.62|swp:0.55-0.67|n:5100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+276|0:01:31|nc:6.9e+05|a0:0.55-0.62|swp:0.55-0.67|n:5200&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+277|0:01:31|nc:6.9e+05|a0:0.55-0.62|swp:0.55-0.67|n:5300&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+278|0:01:32|nc:7.0e+05|a0:0.55-0.62|swp:0.55-0.67|n:5400&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+279|0:01:32|nc:7.0e+05|a0:0.55-0.62|swp:0.55-0.67|n:5500&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
+280|0:01:33|nc:7.0e+05|a0:0.55-0.62|swp:0.55-0.67|n:5600&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
+281|0:01:33|nc:7.0e+05|a0:0.55-0.62|swp:0.55-0.67|n:5700&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+282|0:01:33|nc:7.0e+05|a0:0.55-0.62|swp:0.55-0.67|n:5800&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+283|0:01:34|nc:7.1e+05|a0:0.55-0.62|swp:0.55-0.67|n:5900&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+284|0:01:34|nc:7.1e+05|a0:0.55-0.62|swp:0.55-0.67|n:6000&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+285|0:01:34|nc:7.1e+05|a0:0.55-0.62|swp:0.55-0.67|n:6100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+286|0:01:35|nc:7.2e+05|a0:0.55-0.62|swp:0.55-0.67|n:6200&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+287|0:01:35|nc:7.2e+05|a0:0.55-0.62|swp:0.55-0.67|n:6300&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+288|0:01:35|nc:7.2e+05|a0:0.55-0.62|swp:0.55-0.67|n:6400&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+289|0:01:36|nc:7.2e+05|a0:0.55-0.62|swp:0.55-0.67|n:6500&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+290|0:01:36|nc:7.2e+05|a0:0.55-0.62|swp:0.55-0.67|n:6600&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+291|0:01:37|nc:7.3e+05|a0:0.55-0.62|swp:0.55-0.67|n:6700&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+292|0:01:37|nc:7.3e+05|a0:0.55-0.62|swp:0.55-0.67|n:6800&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
+293|0:01:37|nc:7.3e+05|a0:0.55-0.62|swp:0.55-0.67|n:6900&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+294|0:01:38|nc:7.4e+05|a0:0.55-0.62|swp:0.55-0.67|n:7000&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+295|0:01:38|nc:7.4e+05|a0:0.55-0.62|swp:0.55-0.67|n:7100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+296|0:01:38|nc:7.4e+05|a0:0.55-0.62|swp:0.55-0.67|n:7200&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+297|0:01:39|nc:7.4e+05|a0:0.55-0.62|swp:0.55-0.67|n:7300&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+298|0:01:39|nc:7.4e+05|a0:0.55-0.62|swp:0.55-0.67|n:7400&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+299|0:01:39|nc:7.5e+05|a0:0.55-0.62|swp:0.55-0.67|n:7500&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+300|0:01:40|nc:7.5e+05|a0:0.55-0.62|swp:0.55-0.67|n:7600&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+301|0:01:40|nc:7.5e+05|a0:0.55-0.62|swp:0.55-0.67|n:7700&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+302|0:01:40|nc:7.6e+05|a0:0.55-0.62|swp:0.55-0.67|n:7800&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+303|0:01:41|nc:7.6e+05|a0:0.55-0.62|swp:0.55-0.67|n:7900&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+304|0:01:41|nc:7.6e+05|a0:0.55-0.62|swp:0.55-0.67|n:8000&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+305|0:01:41|nc:7.6e+05|a0:0.55-0.62|swp:0.55-0.67|n:8100&lt;500|t!2(+nan,+0.00)|q:1.00|0.12ms/ev
+306|0:01:42|nc:7.6e+05|a0:0.55-0.62|swp:0.55-0.67|n:8200&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+307|0:01:42|nc:7.7e+05|a0:0.55-0.62|swp:0.55-0.67|n:8300&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+308|0:01:42|nc:7.7e+05|a0:0.55-0.62|swp:0.55-0.67|n:8400&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+309|0:01:43|nc:7.7e+05|a0:0.55-0.62|swp:0.55-0.67|n:8500&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+310|0:01:43|nc:7.8e+05|a0:0.55-0.62|swp:0.55-0.67|n:8600&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+311|0:01:43|nc:7.8e+05|a0:0.55-0.62|swp:0.55-0.67|n:8700&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+312|0:01:44|nc:7.8e+05|a0:0.55-0.62|swp:0.55-0.67|n:8800&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+313|0:01:44|nc:7.8e+05|a0:0.55-0.62|swp:0.55-0.67|n:8900&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+314|0:01:44|nc:7.8e+05|a0:0.55-0.62|swp:0.55-0.67|n:9000&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+315|0:01:45|nc:7.9e+05|a0:0.55-0.62|swp:0.55-0.67|n:9100&lt;500|t!2(+nan,+0.00)|q:1.00|0.12ms/ev
+316|0:01:45|nc:7.9e+05|a0:0.55-0.62|swp:0.55-0.67|n:9200&lt;500|t!2(+nan,+0.00)|q:1.00|0.12ms/ev
+317|0:01:45|nc:7.9e+05|a0:0.55-0.62|swp:0.55-0.67|n:9300&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+318|0:01:46|nc:8.0e+05|a0:0.55-0.61|swp:0.55-0.67|n:9400&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+319|0:01:46|nc:8.0e+05|a0:0.55-0.61|swp:0.55-0.67|n:9500&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+320|0:01:46|nc:8.0e+05|a0:0.55-0.61|swp:0.55-0.67|n:9600&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+321|0:01:47|nc:8.0e+05|a0:0.55-0.61|swp:0.55-0.67|n:9700&lt;500|t!2(+nan,+0.00)|q:1.00|0.12ms/ev
+322|0:01:47|nc:8.0e+05|a0:0.55-0.61|swp:0.55-0.67|n:9800&lt;500|t!2(+nan,+0.00)|q:1.00|0.12ms/ev
+323|0:01:47|nc:8.1e+05|a0:0.55-0.61|swp:0.55-0.67|n:9900&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+324|0:01:47|nc:8.1e+05|a0:0.55-0.61|swp:0.55-0.67|n:10000&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+325|0:01:48|nc:8.1e+05|a0:0.55-0.61|swp:0.55-0.67|n:10100&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+326|0:01:48|nc:8.2e+05|a0:0.55-0.61|swp:0.55-0.67|n:10200&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+327|0:01:48|nc:8.2e+05|a0:0.55-0.61|swp:0.55-0.67|n:10300&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+328|0:01:49|nc:8.2e+05|a0:0.55-0.61|swp:0.55-0.67|n:10400&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+329|0:01:49|nc:8.2e+05|a0:0.55-0.62|swp:0.55-0.67|n:10500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+330|0:01:49|nc:8.2e+05|a0:0.55-0.62|swp:0.55-0.67|n:10600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+331|0:01:50|nc:8.3e+05|a0:0.55-0.62|swp:0.55-0.67|n:10700&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+332|0:01:50|nc:8.3e+05|a0:0.55-0.62|swp:0.55-0.67|n:10800&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+333|0:01:50|nc:8.3e+05|a0:0.55-0.62|swp:0.55-0.67|n:10900&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+334|0:01:51|nc:8.4e+05|a0:0.55-0.62|swp:0.55-0.67|n:11000&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+335|0:01:51|nc:8.4e+05|a0:0.55-0.62|swp:0.55-0.67|n:11100&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+336|0:01:51|nc:8.4e+05|a0:0.55-0.62|swp:0.55-0.67|n:11200&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+337|0:01:52|nc:8.4e+05|a0:0.55-0.62|swp:0.55-0.67|n:11300&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+338|0:01:52|nc:8.4e+05|a0:0.56-0.61|swp:0.55-0.67|n:11400&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+339|0:01:52|nc:8.5e+05|a0:0.56-0.61|swp:0.55-0.67|n:11500&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+340|0:01:53|nc:8.5e+05|a0:0.55-0.61|swp:0.55-0.67|n:11600&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+341|0:01:53|nc:8.5e+05|a0:0.55-0.61|swp:0.55-0.67|n:11700&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+342|0:01:53|nc:8.6e+05|a0:0.55-0.61|swp:0.55-0.67|n:11800&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+343|0:01:54|nc:8.6e+05|a0:0.55-0.61|swp:0.55-0.67|n:11900&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+344|0:01:54|nc:8.6e+05|a0:0.56-0.61|swp:0.55-0.67|n:12000&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+345|0:01:54|nc:8.6e+05|a0:0.56-0.61|swp:0.55-0.67|n:12100&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+346|0:01:55|nc:8.6e+05|a0:0.56-0.62|swp:0.55-0.67|n:12200&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+347|0:01:55|nc:8.7e+05|a0:0.56-0.61|swp:0.55-0.67|n:12300&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+348|0:01:55|nc:8.7e+05|a0:0.56-0.61|swp:0.55-0.67|n:12400&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+349|0:01:56|nc:8.7e+05|a0:0.56-0.61|swp:0.55-0.67|n:12500&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+350|0:01:56|nc:8.8e+05|a0:0.56-0.61|swp:0.55-0.67|n:12600&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+351|0:01:56|nc:8.8e+05|a0:0.56-0.61|swp:0.55-0.67|n:12700&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+352|0:01:57|nc:8.8e+05|a0:0.56-0.61|swp:0.55-0.67|n:12800&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+353|0:01:57|nc:8.8e+05|a0:0.56-0.61|swp:0.55-0.67|n:12900&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+354|0:01:57|nc:8.8e+05|a0:0.56-0.61|swp:0.55-0.67|n:13000&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+355|0:01:58|nc:8.9e+05|a0:0.56-0.61|swp:0.55-0.67|n:13100&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+356|0:01:58|nc:8.9e+05|a0:0.56-0.61|swp:0.55-0.67|n:13200&lt;500|t!2(+nan,+0.00)|q:1.00|0.17ms/ev
+357|0:01:59|nc:8.9e+05|a0:0.56-0.61|swp:0.55-0.67|n:13300&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
+358|0:01:59|nc:9.0e+05|a0:0.56-0.61|swp:0.55-0.67|n:13400&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
+359|0:01:59|nc:9.0e+05|a0:0.56-0.61|swp:0.55-0.67|n:13500&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+360|0:02:00|nc:9.0e+05|a0:0.56-0.61|swp:0.55-0.67|n:13600&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+361|0:02:00|nc:9.0e+05|a0:0.56-0.61|swp:0.55-0.67|n:13700&lt;500|t!2(+nan,+0.00)|q:1.00|0.15ms/ev
+362|0:02:00|nc:9.0e+05|a0:0.56-0.61|swp:0.55-0.67|n:13800&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+363|0:02:01|nc:9.1e+05|a0:0.56-0.61|swp:0.55-0.67|n:13900&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+364|0:02:01|nc:9.1e+05|a0:0.56-0.61|swp:0.55-0.67|n:14000&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+365|0:02:01|nc:9.1e+05|a0:0.56-0.61|swp:0.55-0.67|n:14100&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+366|0:02:02|nc:9.2e+05|a0:0.56-0.61|swp:0.55-0.67|n:14200&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+367|0:02:02|nc:9.2e+05|a0:0.56-0.61|swp:0.55-0.67|n:14300&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+368|0:02:02|nc:9.2e+05|a0:0.56-0.61|swp:0.55-0.67|n:14400&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+369|0:02:03|nc:9.2e+05|a0:0.56-0.61|swp:0.55-0.67|n:14500&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+370|0:02:03|nc:9.2e+05|a0:0.56-0.61|swp:0.55-0.67|n:14600&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+371|0:02:03|nc:9.3e+05|a0:0.56-0.61|swp:0.55-0.67|n:14700&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+372|0:02:04|nc:9.3e+05|a0:0.56-0.61|swp:0.55-0.67|n:14800&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+373|0:02:04|nc:9.3e+05|a0:0.56-0.61|swp:0.55-0.67|n:14900&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+374|0:02:04|nc:9.4e+05|a0:0.56-0.61|swp:0.55-0.67|n:15000&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+375|0:02:04|nc:9.4e+05|a0:0.56-0.61|swp:0.55-0.67|n:15100&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+376|0:02:05|nc:9.4e+05|a0:0.56-0.61|swp:0.55-0.67|n:15200&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+377|0:02:05|nc:9.4e+05|a0:0.56-0.61|swp:0.55-0.67|n:15300&lt;500|t!2(+nan,+0.00)|q:1.00|0.12ms/ev
+378|0:02:05|nc:9.4e+05|a0:0.56-0.61|swp:0.55-0.67|n:15400&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+379|0:02:06|nc:9.5e+05|a0:0.56-0.61|swp:0.55-0.67|n:15500&lt;500|t!2(+nan,+0.00)|q:1.00|0.12ms/ev
+380|0:02:06|nc:9.5e+05|a0:0.56-0.61|swp:0.55-0.67|n:15600&lt;500|t!2(+nan,+0.00)|q:1.00|0.12ms/ev
+381|0:02:06|nc:9.5e+05|a0:0.56-0.61|swp:0.55-0.67|n:15700&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+382|0:02:07|nc:9.6e+05|a0:0.56-0.61|swp:0.55-0.67|n:15800&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+383|0:02:07|nc:9.6e+05|a0:0.56-0.61|swp:0.55-0.67|n:15900&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+384|0:02:07|nc:9.6e+05|a0:0.56-0.61|swp:0.55-0.67|n:16000&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+385|0:02:08|nc:9.6e+05|a0:0.56-0.61|swp:0.55-0.67|n:16100&lt;500|t!2(+nan,+0.01)|q:1.00|0.13ms/ev
+386|0:02:08|nc:9.6e+05|a0:0.56-0.62|swp:0.55-0.67|n:16200&lt;500|t!2(+nan,+0.01)|q:1.00|0.13ms/ev
+387|0:02:08|nc:9.7e+05|a0:0.56-0.61|swp:0.55-0.67|n:16300&lt;500|t!2(+nan,+0.01)|q:1.00|0.13ms/ev
+388|0:02:09|nc:9.7e+05|a0:0.56-0.61|swp:0.55-0.67|n:16400&lt;500|t!2(+nan,+0.01)|q:1.00|0.13ms/ev
+389|0:02:09|nc:9.7e+05|a0:0.56-0.61|swp:0.55-0.67|n:16500&lt;500|t!2(+nan,+0.01)|q:1.00|0.13ms/ev
+390|0:02:09|nc:9.8e+05|a0:0.56-0.61|swp:0.55-0.67|n:16600&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+391|0:02:10|nc:9.8e+05|a0:0.56-0.61|swp:0.55-0.67|n:16700&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+392|0:02:10|nc:9.8e+05|a0:0.56-0.61|swp:0.55-0.67|n:16800&lt;500|t!2(+nan,+0.01)|q:1.00|0.13ms/ev
+393|0:02:10|nc:9.8e+05|a0:0.56-0.61|swp:0.55-0.67|n:16900&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+394|0:02:11|nc:9.8e+05|a0:0.56-0.61|swp:0.55-0.67|n:17000&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+395|0:02:11|nc:9.9e+05|a0:0.56-0.62|swp:0.55-0.67|n:17100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+396|0:02:11|nc:9.9e+05|a0:0.56-0.61|swp:0.55-0.67|n:17200&lt;500|t!2(+nan,+0.00)|q:1.00|0.16ms/ev
+397|0:02:12|nc:9.9e+05|a0:0.56-0.62|swp:0.55-0.67|n:17300&lt;500|t!2(+nan,+0.01)|q:1.00|0.16ms/ev
+398|0:02:12|nc:1.0e+06|a0:0.56-0.62|swp:0.55-0.67|n:17400&lt;500|t!2(+nan,+0.01)|q:1.00|0.18ms/ev
+399|0:02:13|nc:1.0e+06|a0:0.56-0.62|swp:0.55-0.67|n:17500&lt;500|t!2(+nan,+0.01)|q:1.00|0.16ms/ev
+400|0:02:13|nc:1.0e+06|a0:0.56-0.62|swp:0.55-0.67|n:17600&lt;500|t!2(+nan,+0.01)|q:1.00|0.15ms/ev
+401|0:02:13|nc:1.0e+06|a0:0.56-0.62|swp:0.55-0.67|n:17700&lt;500|t!2(+nan,+0.01)|q:1.00|0.14ms/ev
+402|0:02:14|nc:1.0e+06|a0:0.56-0.62|swp:0.55-0.67|n:17800&lt;500|t!2(+nan,+0.01)|q:1.00|0.14ms/ev
+403|0:02:14|nc:1.0e+06|a0:0.56-0.61|swp:0.55-0.67|n:17900&lt;500|t!2(+nan,+0.01)|q:1.00|0.13ms/ev
+404|0:02:14|nc:1.0e+06|a0:0.56-0.61|swp:0.55-0.67|n:18000&lt;500|t!2(+nan,+0.01)|q:1.00|0.13ms/ev
+405|0:02:15|nc:1.0e+06|a0:0.56-0.61|swp:0.55-0.67|n:18100&lt;500|t!2(+nan,+0.01)|q:1.00|0.13ms/ev
+406|0:02:15|nc:1.0e+06|a0:0.56-0.61|swp:0.55-0.67|n:18200&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+407|0:02:15|nc:1.0e+06|a0:0.56-0.61|swp:0.55-0.67|n:18300&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+408|0:02:16|nc:1.0e+06|a0:0.56-0.61|swp:0.55-0.67|n:18400&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+409|0:02:16|nc:1.0e+06|a0:0.56-0.61|swp:0.55-0.67|n:18500&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+410|0:02:16|nc:1.0e+06|a0:0.56-0.62|swp:0.55-0.67|n:18600&lt;500|t!2(+nan,+0.01)|q:1.00|0.13ms/ev
+411|0:02:17|nc:1.0e+06|a0:0.56-0.62|swp:0.55-0.67|n:18700&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+412|0:02:17|nc:1.0e+06|a0:0.56-0.62|swp:0.55-0.67|n:18800&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+413|0:02:17|nc:1.0e+06|a0:0.56-0.62|swp:0.55-0.67|n:18900&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+414|0:02:18|nc:1.0e+06|a0:0.56-0.62|swp:0.55-0.67|n:19000&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+415|0:02:18|nc:1.0e+06|a0:0.56-0.62|swp:0.55-0.67|n:19100&lt;500|t!2(+nan,+0.00)|q:1.00|0.12ms/ev
+416|0:02:18|nc:1.0e+06|a0:0.56-0.61|swp:0.55-0.67|n:19200&lt;500|t!2(+nan,+0.00)|q:1.00|0.12ms/ev
+417|0:02:19|nc:1.0e+06|a0:0.56-0.61|swp:0.55-0.67|n:19300&lt;500|t!2(+nan,+0.00)|q:1.00|0.12ms/ev
+418|0:02:19|nc:1.0e+06|a0:0.56-0.61|swp:0.55-0.67|n:19400&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+419|0:02:19|nc:1.0e+06|a0:0.56-0.61|swp:0.55-0.67|n:19500&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+420|0:02:20|nc:1.0e+06|a0:0.56-0.61|swp:0.55-0.67|n:19600&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+421|0:02:20|nc:1.1e+06|a0:0.56-0.61|swp:0.55-0.67|n:19700&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+422|0:02:20|nc:1.1e+06|a0:0.56-0.61|swp:0.55-0.67|n:19800&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+423|0:02:21|nc:1.1e+06|a0:0.56-0.61|swp:0.55-0.67|n:19900&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+424|0:02:21|nc:1.1e+06|a0:0.56-0.61|swp:0.55-0.67|n:20000&lt;500|t!2(+nan,+0.00)|q:1.00|0.13ms/ev
+425|0:02:21|nc:1.1e+06|a0:0.56-0.61|swp:0.55-0.67|n:20100&lt;500|t!2(+nan,+0.00)|q:1.00|0.14ms/ev
+426|0:02:22|nc:1.1e+06|a0:0.56-0.61|swp:0.55-0.67|n:20200&lt;500|t=2(+0.01,+0.00)|q:1.00|0.14ms/ev
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -1238,15 +1184,15 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-16:37 bilby INFO    : Finished sampling
-16:37 bilby INFO    : Writing checkpoint and diagnostics
-16:37 bilby INFO    : Finished writing checkpoint
-16:37 bilby INFO    : Sampling time: 0:03:04.704011
-16:37 bilby INFO    : Summary of results:
+14:56 bilby INFO    : Finished sampling
+14:56 bilby INFO    : Writing checkpoint and diagnostics
+14:56 bilby INFO    : Finished writing checkpoint
+14:56 bilby INFO    : Sampling time: 0:02:22.017902
+14:56 bilby INFO    : Summary of results:
 nsamples: 20200
 ln_noise_evidence:    nan
-ln_evidence:  0.901 +/-  0.004
-ln_bayes_factor:    nan +/-  0.004
+ln_evidence: -6.219 +/-  0.584
+ln_bayes_factor:    nan +/-  0.584
 
 </pre></div></div>
 </div>
@@ -1269,7 +1215,7 @@ ln_bayes_factor:    nan +/-  0.004
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">posterior</span><span class="p">[</span><span class="s1">&#39;theta_0&#39;</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>result.posterior
 </pre></div>
 </div>
 </div>
@@ -1277,30 +1223,146 @@ ln_bayes_factor:    nan +/-  0.004
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-0       -0.219995
-1        0.856895
-2        0.706081
-3       -1.528631
-4       -1.126417
-           ...
-20195   -1.102287
-20196   -0.355470
-20197   -0.160594
-20198    1.108217
-20199    1.634044
-Name: theta_0, Length: 20200, dtype: float64
-</pre></div></div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>theta_0</th>
+      <th>theta_1</th>
+      <th>theta_2</th>
+      <th>theta_3</th>
+      <th>log_likelihood</th>
+      <th>log_prior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.510805</td>
+      <td>-0.387205</td>
+      <td>4.808924</td>
+      <td>1.431712</td>
+      <td>-2.111748</td>
+      <td>-6.272983</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.170076</td>
+      <td>-0.891736</td>
+      <td>4.633831</td>
+      <td>1.202441</td>
+      <td>-4.534008</td>
+      <td>-6.138889</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.413516</td>
+      <td>-0.703348</td>
+      <td>4.737833</td>
+      <td>1.213440</td>
+      <td>-1.241918</td>
+      <td>-8.216631</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.813313</td>
+      <td>-0.451769</td>
+      <td>4.613555</td>
+      <td>1.363819</td>
+      <td>-1.788348</td>
+      <td>-6.802853</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2.131436</td>
+      <td>-0.888181</td>
+      <td>4.685196</td>
+      <td>1.502646</td>
+      <td>-2.556057</td>
+      <td>-7.722696</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>20195</th>
+      <td>0.563722</td>
+      <td>-0.401021</td>
+      <td>4.954243</td>
+      <td>1.329948</td>
+      <td>-3.876561</td>
+      <td>-5.296053</td>
+    </tr>
+    <tr>
+      <th>20196</th>
+      <td>1.070966</td>
+      <td>-0.569295</td>
+      <td>4.712112</td>
+      <td>1.032580</td>
+      <td>-3.248573</td>
+      <td>-5.792285</td>
+    </tr>
+    <tr>
+      <th>20197</th>
+      <td>1.859498</td>
+      <td>-0.850064</td>
+      <td>4.902092</td>
+      <td>1.044366</td>
+      <td>-2.826505</td>
+      <td>-7.146923</td>
+    </tr>
+    <tr>
+      <th>20198</th>
+      <td>0.817658</td>
+      <td>-0.447422</td>
+      <td>4.509437</td>
+      <td>1.118522</td>
+      <td>-3.580364</td>
+      <td>-5.491128</td>
+    </tr>
+    <tr>
+      <th>20199</th>
+      <td>1.358570</td>
+      <td>-0.209131</td>
+      <td>4.697053</td>
+      <td>1.518549</td>
+      <td>-4.181917</td>
+      <td>-6.001477</td>
+    </tr>
+  </tbody>
+</table>
+<p>20200 rows × 6 columns</p>
+</div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1">#sns.set_context(font_scale=100)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">posterior</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;theta_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span>#sns.set_context(font_scale=100)
+for i in range(0,4):
+    fig, ax = plt.subplots(figsize=(50,10))
+    ax.plot(result.posterior[f&#39;theta_{i}&#39;].values)
 </pre></div>
 </div>
 </div>
@@ -1336,12 +1398,12 @@ Name: theta_0, Length: 20200, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos_weight_func</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]:</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pos_weight_func = []
+for sample in result.posterior.values[:,0:2]:
 
-    <span class="n">mean</span> <span class="o">=</span> <span class="n">mix_model</span><span class="o">.</span><span class="n">weights</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sample</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">plot_g</span><span class="p">)</span>
-    <span class="n">pos_weight_func</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean</span><span class="p">)</span>
-<span class="n">pos_weight_func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pos_weight_func</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">plot_g</span><span class="p">))</span>
+    mean = mix_model.weights(np.array([sample]).flatten(), plot_g)
+    pos_weight_func.append(mean)
+pos_weight_func = np.array(pos_weight_func).reshape(-1,len(plot_g))
 </pre></div>
 </div>
 </div>
@@ -1349,7 +1411,7 @@ Name: theta_0, Length: 20200, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">per0</span><span class="p">,</span><span class="n">per5</span><span class="p">,</span><span class="n">per20</span><span class="p">,</span><span class="n">per80</span><span class="p">,</span><span class="n">per95</span><span class="p">,</span><span class="n">per100</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">pos_weight_func</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">95</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>per0,per5,per20,per80,per95,per100=np.percentile(pos_weight_func,[0,5,20,80,95,100], axis=0)
 </pre></div>
 </div>
 </div>
@@ -1357,13 +1419,13 @@ Name: theta_0, Length: 20200, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span><span class="n">per5</span><span class="p">,</span><span class="n">per95</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">4</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;90% C.I.&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span><span class="n">per20</span><span class="p">,</span><span class="n">per80</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">4</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;60% C.I.&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="c1">#ax.plot(plot_g, true_output[0], label=&#39;truth&#39;)</span>
-<span class="c1">#ax.set_ylim(1.2,3.2)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%matplotlib inline
+fig, ax = plt.subplots()
+ax.fill_between(plot_g,per5,per95,color=sns.color_palette()[4], alpha=0.2, label=&#39;90% C.I.&#39;)
+ax.fill_between(plot_g,per20,per80, color=sns.color_palette()[4], alpha=0.3, label=&#39;60% C.I.&#39;)
+ax.legend()
+#ax.plot(plot_g, true_output[0], label=&#39;truth&#39;)
+#ax.set_ylim(1.2,3.2)
 </pre></div>
 </div>
 </div>
@@ -1373,7 +1435,7 @@ Name: theta_0, Length: 20200, dtype: float64
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7fc568dcd438&gt;
+&lt;matplotlib.legend.Legend at 0x7fcec81e5e48&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1387,7 +1449,7 @@ Name: theta_0, Length: 20200, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">posterior</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>result.posterior
 </pre></div>
 </div>
 </div>
@@ -1425,48 +1487,48 @@ Name: theta_0, Length: 20200, dtype: float64
   <tbody>
     <tr>
       <th>0</th>
-      <td>-0.219995</td>
-      <td>-2.109427</td>
-      <td>3.689631</td>
-      <td>0.023697</td>
-      <td>1.328073</td>
-      <td>-7.305793</td>
+      <td>1.510805</td>
+      <td>-0.387205</td>
+      <td>4.808924</td>
+      <td>1.431712</td>
+      <td>-2.111748</td>
+      <td>-6.272983</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.856895</td>
-      <td>0.138533</td>
-      <td>5.957837</td>
-      <td>2.047772</td>
-      <td>0.336238</td>
-      <td>-5.433483</td>
+      <td>1.170076</td>
+      <td>-0.891736</td>
+      <td>4.633831</td>
+      <td>1.202441</td>
+      <td>-4.534008</td>
+      <td>-6.138889</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.706081</td>
-      <td>-0.291072</td>
-      <td>5.322893</td>
-      <td>1.506558</td>
-      <td>1.952906</td>
-      <td>-5.348390</td>
+      <td>2.413516</td>
+      <td>-0.703348</td>
+      <td>4.737833</td>
+      <td>1.213440</td>
+      <td>-1.241918</td>
+      <td>-8.216631</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>-1.528631</td>
-      <td>-1.460957</td>
-      <td>2.323246</td>
-      <td>0.684021</td>
-      <td>1.421868</td>
-      <td>-7.292307</td>
+      <td>1.813313</td>
+      <td>-0.451769</td>
+      <td>4.613555</td>
+      <td>1.363819</td>
+      <td>-1.788348</td>
+      <td>-6.802853</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-1.126417</td>
-      <td>0.864390</td>
-      <td>4.563885</td>
-      <td>2.291438</td>
-      <td>0.999641</td>
-      <td>-6.064745</td>
+      <td>2.131436</td>
+      <td>-0.888181</td>
+      <td>4.685196</td>
+      <td>1.502646</td>
+      <td>-2.556057</td>
+      <td>-7.722696</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1479,48 +1541,48 @@ Name: theta_0, Length: 20200, dtype: float64
     </tr>
     <tr>
       <th>20195</th>
-      <td>-1.102287</td>
-      <td>0.871662</td>
-      <td>5.714198</td>
-      <td>0.874279</td>
-      <td>0.326912</td>
-      <td>-6.044169</td>
+      <td>0.563722</td>
+      <td>-0.401021</td>
+      <td>4.954243</td>
+      <td>1.329948</td>
+      <td>-3.876561</td>
+      <td>-5.296053</td>
     </tr>
     <tr>
       <th>20196</th>
-      <td>-0.355470</td>
-      <td>-0.327938</td>
-      <td>4.856766</td>
-      <td>1.328679</td>
-      <td>1.856282</td>
-      <td>-5.173704</td>
+      <td>1.070966</td>
+      <td>-0.569295</td>
+      <td>4.712112</td>
+      <td>1.032580</td>
+      <td>-3.248573</td>
+      <td>-5.792285</td>
     </tr>
     <tr>
       <th>20197</th>
-      <td>-0.160594</td>
-      <td>0.373888</td>
-      <td>3.431720</td>
-      <td>1.021703</td>
-      <td>0.680682</td>
-      <td>-5.139544</td>
+      <td>1.859498</td>
+      <td>-0.850064</td>
+      <td>4.902092</td>
+      <td>1.044366</td>
+      <td>-2.826505</td>
+      <td>-7.146923</td>
     </tr>
     <tr>
       <th>20198</th>
-      <td>1.108217</td>
-      <td>-1.108894</td>
-      <td>5.601351</td>
-      <td>1.227563</td>
-      <td>1.837561</td>
-      <td>-6.285648</td>
+      <td>0.817658</td>
+      <td>-0.447422</td>
+      <td>4.509437</td>
+      <td>1.118522</td>
+      <td>-3.580364</td>
+      <td>-5.491128</td>
     </tr>
     <tr>
       <th>20199</th>
-      <td>1.634044</td>
-      <td>2.429030</td>
-      <td>4.176839</td>
-      <td>-1.361576</td>
-      <td>1.202849</td>
-      <td>-9.341896</td>
+      <td>1.358570</td>
+      <td>-0.209131</td>
+      <td>4.697053</td>
+      <td>1.518549</td>
+      <td>-4.181917</td>
+      <td>-6.001477</td>
     </tr>
   </tbody>
 </table>
@@ -1531,12 +1593,12 @@ Name: theta_0, Length: 20200, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos_predictions</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
-    <span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-    <span class="n">mean</span> <span class="o">=</span> <span class="n">mix_model</span><span class="o">.</span><span class="n">prediction</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">sample</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">sample</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-    <span class="n">pos_predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean</span><span class="p">)</span>
-<span class="n">pos_predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pos_predictions</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">plot_g</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pos_predictions = []
+for sample in result.posterior.values:
+    sample = np.array(sample).flatten()
+    mean = mix_model.prediction(sample[0:2],plot_g, sample[2], sample[3])
+    pos_predictions.append(mean)
+pos_predictions = np.array(pos_predictions).reshape(-1,len(plot_g))
 </pre></div>
 </div>
 </div>
@@ -1544,7 +1606,7 @@ Name: theta_0, Length: 20200, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos_predictions</span><span class="o">.</span><span class="n">shape</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pos_predictions.shape
 </pre></div>
 </div>
 </div>
@@ -1561,7 +1623,7 @@ Name: theta_0, Length: 20200, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">per0</span><span class="p">,</span><span class="n">per5</span><span class="p">,</span><span class="n">per20</span><span class="p">,</span><span class="n">per80</span><span class="p">,</span><span class="n">per95</span><span class="p">,</span><span class="n">per100</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">pos_predictions</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">95</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>per0,per5,per20,per80,per95,per100=np.percentile(pos_predictions,[0,5,20,80,95,100], axis=0)
 </pre></div>
 </div>
 </div>
@@ -1569,13 +1631,13 @@ Name: theta_0, Length: 20200, dtype: float64
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span><span class="n">per5</span><span class="p">,</span><span class="n">per95</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">4</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;90% C.I.&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span><span class="n">per20</span><span class="p">,</span><span class="n">per80</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">4</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;60% C.I.&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">true_output</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;truth&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%matplotlib inline
+fig, ax = plt.subplots()
+ax.fill_between(plot_g,per5,per95,color=sns.color_palette()[4], alpha=0.2, label=&#39;90% C.I.&#39;)
+ax.fill_between(plot_g,per20,per80, color=sns.color_palette()[4], alpha=0.3, label=&#39;60% C.I.&#39;)
+ax.plot(plot_g, true_output[0], label=&#39;truth&#39;)
+ax.legend()
+ax.set_ylim(-2,4)
 </pre></div>
 </div>
 </div>
@@ -1595,37 +1657,55 @@ Name: theta_0, Length: 20200, dtype: float64
 <img alt="../_images/notebooks_Linear_BMM_with_cdf_function_for_coleman_models_37_1.png" src="../_images/notebooks_Linear_BMM_with_cdf_function_for_coleman_models_37_1.png" />
 </div>
 </div>
-</div>
+</section>
 
 
            </div>
+           
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Linear_BMM_with_step_function_for_SAMBA_models.html" class="btn btn-neutral float-left" title="Linear BMM with SAMBA toy models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Bivariate_Test.html" class="btn btn-neutral float-right" title="Bivariate BMM Test: Taweret v.0.1.0" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Bivariate_Test.html" class="btn btn-neutral float-right" title="Bivariate BMM Test: Taweret v.0.1.0" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Linear_BMM_with_step_function_for_SAMBA_models.html" class="btn btn-neutral float-left" title="Bivariate Linear Bayesian Model Mixing with SAMBA toy models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Dan Liyanage, Alexandra Semposki.</p>
-  </div>
+    <p>
+        &copy; Copyright 2022, Dan Liyanage, Alexandra Semposki
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
+
     </section>
+
   </div>
-  <script>
+  
+
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

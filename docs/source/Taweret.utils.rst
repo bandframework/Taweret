@@ -1,6 +1,8 @@
 Taweret.utils namespace
 =======================
 
+.. py:module:: Taweret.utils
+
 Submodules
 ----------
 

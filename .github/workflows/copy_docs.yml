@@ -36,7 +36,7 @@ jobs:
           conda install -c conda-forge sphinx_rtd_theme
           conda install -c conda-forge pandoc
           conda env list
-          conda activate base
+          conda list
           # pip install sphinx
           # pip install nbsphinx
           # pip install sphinx-rtd-theme

@@ -22,6 +22,7 @@ jobs:
           pip install sphinx
           pip install nbsphinx
           pip install sphinx-rtd-theme
+          sudo apt install pandoc
           pip install pandoc
           pwd
           ls

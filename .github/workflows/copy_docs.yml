@@ -32,7 +32,8 @@ jobs:
           # $CONDA/bin/conda init bash
           # $CONDA/bin/conda activate base
           # $CONDA/bin/conda install sphinx
-          conda install sphinx=3.5.4
+          conda install sphinx=5.0.2
+          conda install jupyter
           conda install -c conda-forge nbsphinx
           conda install -c conda-forge sphinx_rtd_theme
           conda install -c conda-forge pandoc
@@ -43,6 +44,8 @@ jobs:
           # pip install sphinx-rtd-theme
           # sudo apt install pandoc
           # pip install pandoc
+      - name: Generate sphinx documentation
+        run: |
           pwd
           ls
           cd docs
@@ -64,7 +67,6 @@ jobs:
           echo "the folders before move"
           ls ${{ github.workspace }}
           cp -rf docs/build/* docs/
-          rm -rf docs/build
           echo "folders after move"
           ls ${{ github.workspace }}
           git status

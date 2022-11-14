@@ -24,16 +24,18 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
     """
 
 
-    def __init__(self, mixed_model):
+    def __init__(self, mixed_model, x_exp, y_exp, y_err):
         
-        param_dic= {
-            f'theta_{i}': None
-            for i in range(0, np.sum(np.asanyarray(mixed_model.nargs_for_each_model)) + mixed_model.n_mix)
+        param_dic= {i: None 
+        for i in mixed_model.prior.keys()
         }
 
         super().__init__(parameters=param_dic)
         self.mixed_model=mixed_model
-
+        self.x_exp=x_exp
+        self.y_exp=y_exp
+        self.y_err=y_err
+        
     def log_likelihood(self):
         """
         log likelihood function that can be used with Bilby.
@@ -46,8 +48,9 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
         mix_param = params[0:self.mixed_model.n_mix]
         models_params = []
         tot_sum = self.mixed_model.n_mix
-        for i in range(len(self.mixed_model.nargs_for_each_model) - 1):
-            tot_sum += self.mixed_model.nargs_for_each_model[i]
-            models_params.append(params[tot_sum: tot_sum + self.mixed_model.nargs_for_each_model[i + 1]])
+        n_args_list = list(self.mixed_model.nargs_model_dic.values())
+        for i in range(0, len(n_args_list) - 1):
+            tot_sum += n_args_list[i]
+            models_params.append(params[tot_sum: tot_sum + n_args_list[i + 1]])
 
-        return self.mixed_model.mix_loglikelihood(mix_param, models_params)
+        return self.mixed_model.mix_loglikelihood(mix_param, models_params, self.x_exp, self.y_exp, self.y_err)

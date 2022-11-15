@@ -164,9 +164,9 @@ class Multivariate(BaseMixer):
 
         # credibility interval check
         if self.ci == 68:
-            val = 1.0
+            val = [1.0]
         elif self.ci == 95:
-            val = 1.96
+            val = [1.96]
         elif self.ci == [68,95]:
             val = [1.0, 1.96]
         else:
@@ -176,9 +176,9 @@ class Multivariate(BaseMixer):
         interval_low = []
         interval_high = []
 
-        for i in range(val):  
-            interval_low.append(mean - i*std_dev)
-            interval_high.append(mean + i*std_dev)
+        for i in range(len(val)):  
+            interval_low.append(mean - val[i]*std_dev)
+            interval_high.append(mean + val[i]*std_dev)
 
         # combine interval(s) into one list to return
         interval = [interval_low, interval_high]

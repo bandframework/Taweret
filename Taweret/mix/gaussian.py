@@ -1,6 +1,6 @@
-#SAMBA methods included here: Multivariate BMM 
-#Written by: Alexandra Semposki
-#Authors of SAMBA: Alexandra Semposki, Dick Furnstahl, and Daniel Phillips
+# SAMBA methods included here: Multivariate BMM 
+# Written by: Alexandra Semposki
+# Authors of SAMBA: Alexandra Semposki, Dick Furnstahl, and Daniel Phillips
 
 #necessary imports
 import numpy as np
@@ -42,11 +42,11 @@ class Multivariate(BaseMixer):
         '''
 
         # check for predict method in the models
-        for i in range(len(models)):
+        for i in models.keys():
             try:
-                getattr(models[i], 'predict')
+                getattr(models[i], 'evaluate')
             except AttributeError:
-                print('model {i} does not have a predict method')
+                print('model {i} does not have an evaluate method')
     
         # set up the class variables
         self.model_dict = models
@@ -89,6 +89,22 @@ class Multivariate(BaseMixer):
 
         # return the weights calculated in the predict method
         return self.var_weights
+    
+    @property
+    def map(self):
+        '''
+        Return the MAP values of the parameters. 
+        Not needed for this method. 
+        '''
+        return None
+    
+    @property
+    def posterior(self):
+        '''
+        Return the posterior of the parameters.
+        Not needed for this mixing method. 
+        '''
+        return None
 
 
     def predict(self, ci=68):
@@ -116,7 +132,7 @@ class Multivariate(BaseMixer):
         self.prediction = []
 
         for i in range(len(self.models)):
-            self.prediction.append(self.models[i].predict(self.x))
+            self.prediction.append(self.models[i].evaluate(self.x))
             
         # calculate the models from the class variables
         f = []
@@ -148,9 +164,9 @@ class Multivariate(BaseMixer):
 
         # credibility interval check
         if self.ci == 68:
-            val = 1.0
+            val = [1.0]
         elif self.ci == 95:
-            val = 1.96
+            val = [1.96]
         elif self.ci == [68,95]:
             val = [1.0, 1.96]
         else:
@@ -160,9 +176,9 @@ class Multivariate(BaseMixer):
         interval_low = []
         interval_high = []
 
-        for i in range(val):  
-            interval_low.append(mean - i*std_dev)
-            interval_high.append(mean + i*std_dev)
+        for i in range(len(val)):  
+            interval_low.append(mean - val[i]*std_dev)
+            interval_high.append(mean + val[i]*std_dev)
 
         # combine interval(s) into one list to return
         interval = [interval_low, interval_high]
@@ -178,6 +194,22 @@ class Multivariate(BaseMixer):
         Not needed for this mixing method. 
         '''
         return None
+    
+    @property
+    #@prior.setter
+    def prior(self):
+        '''
+        Return the prior of the parameters in the mixing.
+        Not needed for this method. 
+        '''
+        return None
+    
+    def prior_predict(self):
+        '''
+        Find the predicted prior distribution.
+        Not needed for this mixing method.
+        '''
+        return None 
 
     
     def sample_prior(self):

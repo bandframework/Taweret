@@ -90,7 +90,10 @@ class LinearMixerGlobal(BaseMixer):
             the prediction made for mixed model
         """
 
-        weights = self.sample_prior(num_samples=1)
+        # FIXME: I am currently returning the weights, but I should be
+        #        sampling the log-normal distribution for the dirichlet
+        #        hyperparameters
+        weights = self.evaluate_weights(self.sample_prior(num_samples=1))
 
         if len(self.nargs_for_each_model) == 0:
             return np.sum(
@@ -120,7 +123,7 @@ class LinearMixerGlobal(BaseMixer):
         x : np.1darray
             input parameter values
         """
-        return dirichlet(mix_params).rvs()
+        return dirichlet(np.exp(mix_params)).rvs()
 
     @property
     def map(self):
@@ -172,7 +175,7 @@ class LinearMixerGlobal(BaseMixer):
                 ]
             )
 
-        total_sum = np.logaddexp.reduce(log_likelis)
+        total_sum = np.sum(log_likelis)
         return total_sum.item()
 
     def plot_weights(self, mix_params: np.ndarray) -> np.ndarray:
@@ -217,8 +220,14 @@ class LinearMixerGlobal(BaseMixer):
     def prior_predict(
         self, num_samples: int, model_params: Dict[str, List[float]]
     ) -> np.ndarray:
+        # FIXME: I am currently returning the weights, but I should be
+        #        sampling the log-normal distribution for the dirichlet
+        #        hyperparameters
         prior_points = self.sample_prior(num_samples=num_samples)
-        print(prior_points.shape)
+        prior_points = np.exp(prior_points)
+        prior_points = np.array(
+            [dirichlet(prior_point).rvs() for prior_point in prior_points]
+        )
         if len(self.nargs_for_each_model) == 0:
             return np.array(
                 [
@@ -253,15 +262,12 @@ class LinearMixerGlobal(BaseMixer):
             raise Exception("Please train model before making predictions")
 
     def sample_prior(self, num_samples: int) -> np.ndarray:
-        # 1. Sample log-normal distribution to get log-hyperparameters
-        # 2. Feed exponeniates random variates to a dirichlet instance and sample
-        # 3. Return array with samples from dirchilet distribution
         prior_samples = []
         for n in np.arange(num_samples):
             log_norm_samples = np.array(
                 [dist.rvs() for dist in self.m_prior.values()]
             )
-            prior_samples.append(dirichlet(np.exp(log_norm_samples)).rvs())
+            prior_samples.append(log_norm_samples)
 
         prior_samples = np.vstack(prior_samples)
         if num_samples == 1:
@@ -287,7 +293,7 @@ class LinearMixerGlobal(BaseMixer):
     def _log_prior(self, prior_params: np.ndarray) -> np.ndarray:
         return np.sum(
             [
-                prior.pdf(param)
+                prior.logpdf(param)
                 for prior, param in zip(self.m_prior.values(), prior_params)
             ]
         )
@@ -309,10 +315,12 @@ class LinearMixerGlobal(BaseMixer):
         nsteps = 2000 * nargs
         nburn = 100 * nargs
         ntemps = 10
-        nwalkers = 20 * nargs
+        nwalkers = 20 * self.n_mix
 
-        starting_guess = self.sample_prior(num_samples=1)
-        print(starting_guess)
+        starting_guess = np.array(
+            [self.sample_prior(num_samples=nwalkers) for _ in range(ntemps)]
+        )
+        print(starting_guess.shape)
         sampler = ptemcee.Sampler(
             nwalkers=nwalkers,
             dim=self.n_mix,
@@ -322,13 +330,14 @@ class LinearMixerGlobal(BaseMixer):
             logl=self._loglikelihood_for_sampler,
             logp=self._log_prior,
             loglargs=[y_exp, y_err, model_params],
+            logpargs=[],
         )
         print("Burn-in sampling")
         x = sampler.run_mcmc(
             p0=starting_guess, iterations=nburn, swap_ratios=True
         )
         print("Burn-in samping complete")
-        sampler.rest()
+        sampler.reset()
         print("Now running other samples")
         x = sampler.run_mcmc(
             p0=x[0], iterations=nsteps, storechain=True, swap_ratios=True
@@ -433,7 +442,8 @@ class LinearMixerLocal(BaseMixer):
         mixture_params : np.1darray
             parameter values that fix the shape of mixing function
         model_params: list[np.1darray]
-            list of model parameters for each model, note that different models can take different
+            list of model parameters for each model, note that different models
+            can take different
             number of params
         """
 
@@ -537,7 +547,7 @@ class LinearMixerLocal(BaseMixer):
             input parameter values
         """
 
-        if self.method != "dirchlet" and self.method != "beta":
+        if self.method != "dirichlet" and self.method != "beta":
             fig, ax = plt.subplots()
             weights = mixture_function(self.method, x, mixture_params)
             ax.plot(x, weights[0], label=self.method)

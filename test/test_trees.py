@@ -59,7 +59,7 @@ y_train = f0_train + np.random.normal(0,s,n_train).reshape(n_train,1)
 prior_dict = {'k':1.25,'ntree':20, 'overallnu':5, 'overallsd':np.sqrt(0.1)}
 
 # Mixing with the non-informative prior
-mix = Trees(model_dict = model_dict, local_openbt_path = "/home/johnyannotty/Documents/Open BT Project SRC")
+mix = Trees(model_dict = model_dict, local_openbt_path = "/home/johnyannotty/Documents/openbt")
 
 mix.set_prior(prior_dict = prior_dict)
 mix.prior

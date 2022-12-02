@@ -30,14 +30,6 @@ class LinearMixerGlobal(BaseMixer):
         ----------
         models : Dict[str, Model(BaseModel)]
             models to mix, each must contain a evaluate method
-        x_exp : np.1darray
-            input parameter values of experimental data
-        y_exp : np.1darray
-            mean of the experimental data for each input value
-        y_err : np.1darray
-            standard deviation of the experimental data for each input value
-        method : str
-            mixing function
         nargs_for_each_model : Dict[str, int]
             number of free parameters for each model
         n_mix : int
@@ -71,24 +63,29 @@ class LinearMixerGlobal(BaseMixer):
 
         # function returns
 
+    ##########################################################################
+    ##########################################################################
+
     def evaluate(
-        self, mixing_params: np.ndarray, model_params: Dict[str, List[Any]]
+        self,
+        mixing_parameters: np.ndarray,
+        model_parameters: Dict[str, List[float]],
     ) -> np.ndarray:
         """
         evaluate mixed model for given mixing function parameters
 
         Parameters
         ----------
-        mixture_params : np.1darray
+        mixture_parameters : np.ndarray
             parameter values that fix the shape of mixing function
-        model_params: Dict[str, List[Any]]
-            list of parameter values for each model
+        model_parameters: Dict[str, List[float]]
+            Dictionary with list of parameter values for each model
 
 
         Returns
         -------
-        prediction : np.float
-            the prediction made for mixed model
+        evaluation : float
+            evaluation of the mixing model
         """
 
         # FIXME: I am currently returning the weights, but I should be
@@ -106,46 +103,71 @@ class LinearMixerGlobal(BaseMixer):
         else:
             return np.sum(
                 [
-                    weight * model.evaluate(*params)
-                    for weight, model, params in zip(
-                        weights, self.models.values(), model_params
+                    weight * model.evaluate(*parameters)
+                    for weight, model, parameters in zip(
+                        weights, self.models.values(), model_parameters
                     )
                 ]
             )
 
-    def evaluate_weights(self, mix_params) -> np.ndarray:
+    ##########################################################################
+    ##########################################################################
+
+    def evaluate_weights(self, mix_parameters) -> np.ndarray:
         """
-        return the mixing function value at the input parameter values x
+        calculate/sample the weights given some set of input parameters
 
         Parameters
         ----------
-        mixture_params : np.1darray
+        mixture_parameters : np.1darray
             parameter values that fix the shape of mixing function
-        x : np.1darray
-            input parameter values
+
+        Returns:
+        --------
+        weights : np.ndarray
+            array of sampled weights
         """
-        return dirichlet(np.exp(mix_params)).rvs()
+        return dirichlet(np.exp(mix_parameters)).rvs()
+
+    ##########################################################################
+    ##########################################################################
 
     @property
     def map(self):
+        """
+        Maximum a posterior value from posterior
+        """
         if self.has_trained:
             return self.m_map
         else:
             raise Exception("Please train model before requesting MAP")
 
+    ##########################################################################
+    ##########################################################################
+
     def mix_loglikelihood(
-        self, y_exp, y_err, mix_params=None, model_params=None
+        self, y_exp, y_err, mix_parameters=None, model_parameters=None
     ) -> float:
         """
-        log likelihood of the mixed model given the mixing function parameters
+        log likelihood of the mixing model
 
         Parameters
         ----------
-        mixture_params : np.1darray
+        y_exp : np.ndarray
+            The experimental data
+        y_err : np.ndarray
+            Gaussian error bars on the experimental data
+        mix_parameters : np.1darray
             parameter values that fix the shape of mixing function
-        model_params: list[np.1darray]
+        model_parameters: list[np.1darray]
             list of model parameters for each model, note that different models
-            can take different number of params
+            can take different number of parameters
+
+        Returns:
+        --------
+        log_likelihood : float
+            log_likelihood of the model given map parameters for the models and
+            a set of weights
         """
 
         # In general, the weights statisfy a simplex condition (they sum to 1)
@@ -153,11 +175,11 @@ class LinearMixerGlobal(BaseMixer):
         # distribution, which hyperparameters that need priors specified
 
         # return weights for different models and take logs
-        weights = self.evaluate_weights(mix_params)
+        weights = self.evaluate_weights(mix_parameters)
         log_weights = np.log(weights + eps)
 
         # calculate log likelihoods
-        if model_params is None:
+        if model_parameters is None:
             log_likelis = np.array(
                 [
                     log_of_normal_dist(model.evaluate(), y_exp, y_err)
@@ -168,10 +190,12 @@ class LinearMixerGlobal(BaseMixer):
         else:
             log_likelis = np.array(
                 [
-                    log_of_normal_dist(model.evaluate(*params), y_exp, y_err)
+                    log_of_normal_dist(
+                        model.evaluate(*parameters), y_exp, y_err
+                    )
                     + log_weight
-                    for model, params, log_weight in zip(
-                        self.models, model_params, log_weights
+                    for model, parameters, log_weight in zip(
+                        self.models, model_parameters, log_weights
                     )
                 ]
             )
@@ -179,47 +203,119 @@ class LinearMixerGlobal(BaseMixer):
         total_sum = np.sum(log_likelis)
         return total_sum.item()
 
-    def plot_weights(self, mix_params: np.ndarray) -> np.ndarray:
+    ##########################################################################
+    ##########################################################################
+
+    def plot_weights(self, mix_parameters: np.ndarray) -> np.ndarray:
         """
         plot the mixing function against the input parameter values x
 
         Parameters
         ----------
-        mixture_params : np.1darray
+        mixture_parameters : np.1darray
             parameter values that fix the shape of mixing function
-        x : np.1darray
-            input parameter values
+
+        Returns:
+        --------
+        None
         """
-        weights = self.evaluate_weights(mix_params)
+        weights = self.evaluate_weights(mix_parameters)
         fig, ax = plt.subplots()
         ax.scatter(np.arange(len(weights)), weights)
         ax.set_xlabel("Model number")
         ax.set_ylabel("Model weight")
         return None
 
+    ##########################################################################
+    ##########################################################################
+
     @property
     def posterior(self):
+        """
+        Stores the most recent posteriors from running self.train function
+
+        Returns:
+        --------
+        self.m_posterior : np.ndarray
+            posterior from learning the weights
+        """
         if self.has_trained:
             return self.m_posterior
         else:
             raise Exception("Please train model before requesting posterior")
 
+    ##########################################################################
+    ##########################################################################
+
     def _sample_distribution(
-        self, distribution: np.ndarray, model_params: Dict[str, List[float]]
+        self,
+        distribution: np.ndarray,
+        model_parameters: Dict[str, List[float]],
     ) -> np.ndarray:
+        """
+        Helper function to evaluate the predictive distribution from a given
+        posterior distribution
+
+        Parameters:
+        -----------
+        distribution : np.ndarray
+            Can be the MCMC chain from the posterior sampling, or a set of
+            sample points selected by the user
+        model_parameters : Dict[str, List[float]]
+            dictionary contain lists of the parameters each model needs to use
+
+        Returns:
+        --------
+        sample : np.ndarray
+            array of points where mixing model was evaluated at
+        """
         return np.array(
-            [self.evaluate(sample, model_params) for sample in distribution]
+            [
+                self.evaluate(sample, model_parameters)
+                for sample in distribution
+            ]
         )
+
+    ##########################################################################
+    ##########################################################################
 
     def predict(
         self,
-        model_params: Dict[str, List[flaot]],
+        model_parameters: Dict[str, List[flaot]],
         credible_intervals=[5, 95],
         samples=None,
     ):
+        '''
+        Evaluate posterior to make prediction at test points.
+
+        Parameters:
+        -----------
+        model_parameters : Dict[str, List[float]]
+            dictionary contain lists of the parameters each model needs to use
+        credible_intervals : Optional[List[float], List[List[float]]]
+            list of even number of integers the express which percentiles of
+            the posterior distribution to compute and return
+        sample : np.ndarray
+            User supplied distribution, to use instead of the existing
+            distribution
+
+        Returns:
+        --------
+        evaluated_posterior : np.ndarray
+            array of posterior predictive distribution evaluated at provided
+            test points
+        mean : np.ndarray
+            average mixed model value at each provided test points
+        credible_intervals : np.ndarray
+            intervals corresponding for 60%, 90% credible intervals
+        std_dev : np.ndarray
+            sample standard deviation of mixed model output at provided test
+            points
+        '''
+
         if self.has_trained:
             predictive_distribution = self._sample_distribution(
-                self.m_posterior.flatten(), model_params
+                self.m_posterior.flatten(), model_parameters
             )
 
             return_intervals = np.percentile(
@@ -240,7 +336,7 @@ class LinearMixerGlobal(BaseMixer):
                 )
             else:
                 predictive_distribution = self._sample_distribution(
-                    samples.flatten(), model_params
+                    samples.flatten(), model_parameters
                 )
 
                 return_intervals = np.percentile(
@@ -257,20 +353,63 @@ class LinearMixerGlobal(BaseMixer):
 
             raise Exception("Please train model before making predictions")
 
+    ##########################################################################
+    ##########################################################################
+
     @property
     def prior(self):
+        """
+        Dictionary of prior distributions. Format should be compatible with
+        sampler.
+
+        Returns:
+        --------
+        self.m_prior : Dict[str, Any]
+            Underlying prior object(s)
+        """
         if self.m_prior is not None:
             return self.m_prior
         else:
             print("No priors have been set")
             return None
 
+    ##########################################################################
+    ##########################################################################
+
     def prior_predict(
         self,
-        model_params: Dict[str, List[float]],
+        model_parameters: Dict[str, List[float]],
         credible_interval=[5, 95],
         num_samples: int = 10000,
     ) -> np.ndarray:
+        '''
+        Get prior predictive distribution and prior distribution samples
+
+        Parameters:
+        -----------
+        model_parameters : Dict[str, List[float]]
+            dictionary contain lists of the parameters each model needs to use
+        credible_intervals : Optional[List[float], List[List[float]]]
+            list of even number of integers the express which percentiles of
+            the posterior distribution to compute and return
+        sample : np.ndarray
+            User supplied distribution, to use instead of the existing
+            distribution
+
+        Returns:
+        --------
+        evaluated_prior : np.ndarray
+            array of prior predictive distribution evaluated at provided
+            test points
+        mean : np.ndarray
+            average mixed model value at each provided test points
+        credible_intervals : np.ndarray
+            intervals corresponding for 60%, 90% credible intervals
+        std_dev : np.ndarray
+            sample standard deviation of mixed model output at provided test
+            points
+        '''
+
         prior_points = self._sample_prior(num_samples=num_samples)
         prior_points = np.exp(prior_points)
         prior_points = np.array(
@@ -278,27 +417,85 @@ class LinearMixerGlobal(BaseMixer):
         )
         return self.predict(credible_interval, prior_points)
 
-    def predict_weights(self, credible_interval=[5, 95], samples=None) -> np.ndarray:
+    ##########################################################################
+    ##########################################################################
+
+    def predict_weights(
+        self, credible_interval=[5, 95], samples=None
+    ) -> np.ndarray:
+        '''
+        Calculate posterior predictive distribution for model weights
+
+        Parameters:
+        -----------
+        credible_intervals : Optional[List[float], List[List[float]]]
+            list of even number of integers the express which percentiles of
+            the posterior distribution to compute and return
+        sample : np.ndarray
+            User supplied distribution, to use instead of the existing
+            distribution
+
+        Returns:
+        --------
+        evaluated_posterior : np.ndarray
+            array of posterior predictive distribution evaluated at provided
+            test points
+        mean : np.ndarray
+            average mixed model value at each provided test points
+        credible_intervals : np.ndarray
+            intervals corresponding for 60%, 90% credible intervals
+        std_dev : np.ndarray
+            sample standard deviation of mixed model output at provided test
+            points
+        '''
+
         if self.has_trained:
-            predictive_distribution = np.array([self.evaluate_weights(sample) for sample in self.m_posterior])
+            predictive_distribution = np.array(
+                [self.evaluate_weights(sample) for sample in self.m_posterior]
+            )
         else:
             raise Exception("Please train model before making predictions")
 
-    def _sample_prior(self, num_samples: int) -> np.ndarray:
+    ##########################################################################
+    ##########################################################################
+
+    def _sample_prior(self, number_samples: int) -> np.ndarray:
+        '''
+        Helper function to sample prior since all prior distributions are
+        stochastic in nature
+
+        Parameters:
+        -----------
+        number_samples : int
+            number of samples form prior distributions
+
+        Returns:
+        --------
+        samples : np.ndarray
+            array of samples with the shape (number_samples, self.n_mix)
+        '''
         prior_samples = []
-        for n in np.arange(num_samples):
+        for n in np.arange(number_samples):
             log_norm_samples = np.array(
                 [dist.rvs() for dist in self.m_prior.values()]
             )
             prior_samples.append(log_norm_samples)
 
         prior_samples = np.vstack(prior_samples)
-        if num_samples == 1:
+        if number_samples == 1:
             return prior_samples[0]
         else:
             return prior_samples
 
+    ##########################################################################
+    ##########################################################################
+
     def set_prior(self):
+        '''
+        A call to this function automatically sets up a dictionary of length
+        self.n_mix where the keys are generic strings and the values a 
+        lognormal distribution
+        '''
         print("Notice: For global fitting, the prior is always assumed to be")
         print("        a Dirichlet distribution")
 
@@ -306,27 +503,103 @@ class LinearMixerGlobal(BaseMixer):
         prior_dict = {f"param_{i}": lognorm(scale) for i in range(self.n_mix)}
         self.m_prior = prior_dict
 
+    ##########################################################################
+    ##########################################################################
+
     def _loglikelihood_for_sampler(
-        self, x: Any, y_exp: np.ndarray, y_err: np.ndarray, model_params=None
+        self,
+        mix_parameters: Any,
+        y_exp: np.ndarray,
+        y_err: np.ndarray,
+        model_parameters=None,
     ) -> np.ndarray:
+        '''
+        Helper for ptemcee call fo loglikelihood function
+        Simply rearranges the order of the loglikelihood function
+
+        Parameters
+        ----------
+        mix_parameters : np.1darray
+            parameter values that fix the shape of mixing function
+        y_exp : np.ndarray
+            The experimental data
+        y_err : np.ndarray
+            Gaussian error bars on the experimental data
+        model_parameters: list[np.1darray]
+            list of model parameters for each model, note that different models
+            can take different number of parameters
+
+        Returns:
+        --------
+        log_likelihood : float
+            log_likelihood of the model given map parameters for the models and
+            a set of weights
+        '''
         return self.mix_loglikelihood(
-            y_exp=y_exp, y_err=y_err, mix_params=x, model_params=model_params
+            y_exp=y_exp,
+            y_err=y_err,
+            mix_parameters=mix_parameters,
+            model_parameters=model_parameters,
         )
 
-    def _log_prior(self, prior_params: np.ndarray) -> np.ndarray:
+    ##########################################################################
+    ##########################################################################
+
+    def _log_prior(self, prior_parameters: np.ndarray) -> np.ndarray:
+        '''
+        Helper for ptemcee call fo log-prior function
+        Simply rearranges the order of the log-prior function
+
+        Parameters:
+        -----------
+        prior_parameteres : np.ndarray
+            parameters to pass to prior distribution and sample it
+
+        Returns:
+        --------
+        log_prior : float
+            The prior distriution evaluated at the provide prior_parameters
+            point(s)
+        '''
         return np.sum(
             [
                 prior.logpdf(param)
-                for prior, param in zip(self.m_prior.values(), prior_params)
+                for prior, param in zip(
+                    self.m_prior.values(), prior_parameters
+                )
             ]
         )
+
+    ##########################################################################
+    ##########################################################################
 
     def train(
         self,
         y_exp: np.ndarray,
         y_err: np.ndarray,
-        model_params: Optional[Dict[str, List[float]]],
+        model_parameters: Optional[Dict[str, List[float]]],
     ):
+        '''
+        Run sampler to learn weights. Method should also create class
+        members that store the posterior and other diagnostic quantities
+        import for plotting
+        MAP values should also caluclate and set as member variable of
+        class
+
+        Parameters:
+        -----------
+        y_exp : np.ndarray
+            experimental observables to compare models with
+        y_err : np.ndarray
+            gaussian error bars on observables
+        model_parameters : Dict[str, List[float]]
+            dictionary which contains list of model parameters for each model
+
+        Return:
+        -------
+        self.m_posterior : np.ndarray
+            the mcmc chain return from sampler
+        '''
         import ptemcee
 
         nargs = (
@@ -352,7 +625,7 @@ class LinearMixerGlobal(BaseMixer):
             threads=4,
             logl=self._loglikelihood_for_sampler,
             logp=self._log_prior,
-            loglargs=[y_exp, y_err, model_params],
+            loglargs=[y_exp, y_err, model_parameters],
             logpargs=[],
         )
         print("Burn-in sampling")
@@ -366,10 +639,19 @@ class LinearMixerGlobal(BaseMixer):
             p0=x[0], iterations=nsteps, storechain=True, swap_ratios=True
         )
 
-        self.m_posterior = np.array(sampler.chain)
+        # We want the zero temperature chain
+        # Recall that the shape of the chain will be:
+        #   (ntemps, nwalkers, nsteps, nvars)
+        self.m_posterior = np.array(sampler.chain[0, ...])
+        self.m_map = self.m_posterior[np.argmax(self.m_posterior, axis=2)]
         self.evidence = sampler.log_evidence_estimate()
 
         return self.m_posterior
+
+
+##########################################################################
+##########################################################################
+##########################################################################
 
 
 class LinearMixerLocal(BaseMixer):
@@ -455,19 +737,19 @@ class LinearMixerLocal(BaseMixer):
         # function returns
 
     def mix_loglikelihood(
-        self, mixture_params: np.ndarray, model_params=[]
+        self, mixture_parameters: np.ndarray, model_parameters=[]
     ) -> float:
         """
         log likelihood of the mixed model given the mixing function parameters
 
         Parameters
         ----------
-        mixture_params : np.1darray
+        mixture_parameters : np.1darray
             parameter values that fix the shape of mixing function
-        model_params: list[np.1darray]
+        model_parameters: list[np.1darray]
             list of model parameters for each model, note that different models
             can take different
-            number of params
+            number of parameters
         """
 
         # In general, the weights statisfy a simplex condition (they sum to 1)
@@ -493,11 +775,11 @@ class LinearMixerLocal(BaseMixer):
             log_likelis = np.array(
                 [
                     log_likelihood_elementwise(
-                        model, self.x_exp, self.y_exp, self.y_err, params
+                        model, self.x_exp, self.y_exp, self.y_err, parameters
                     )
                     + log_weight
-                    for model, params, log_weight in zip(
-                        self.models, model_params, log_weights
+                    for model, parameters, log_weight in zip(
+                        self.models, model_parameters, log_weights
                     )
                 ]
             )
@@ -505,28 +787,23 @@ class LinearMixerLocal(BaseMixer):
         total_sum = np.logaddexp.reduce(log_likelis)
         return total_sum.item()
 
-    # def mix_loglikelihood_test(self, mixture_params):
-    #     W = mixture_function(self.method, self.x_exp, mixture_params)
-
-    #     W_1 = W
-    #     W_2 = 1 - W
-    #     complete_array=np.append(W_1*np.exp(self.L1), W_2*np.exp(self.L2))
-
-    #     return np.log(np.sum(complete_array)).item()
 
     def prediction(
-        self, mixture_params: np.ndarray, x: np.ndarray, model_params=[]
+        self,
+        mixture_parameters: np.ndarray,
+        x: np.ndarray,
+        model_parameters=[],
     ) -> np.ndarray:
         """
         predictions from mixed model for given mixing function parameters and at input values x
 
         Parameters
         ----------
-        mixture_params : np.1darray
+        mixture_parameters : np.1darray
             parameter values that fix the shape of mixing function
         x : np.1daray
             input parameter values array
-        model_params: list[np.1darray]
+        model_parameters: list[np.1darray]
             list of parameter values for each model
 
 
@@ -536,8 +813,9 @@ class LinearMixerLocal(BaseMixer):
             the prediction made for mixed model
         """
 
-        # FIXME: What if I need to return an array of predictions? Should I return a np.sum(..., axis=1)
-        weights = self.weights(mixture_params, x)
+        # FIXME: What if I need to return an array of predictions?
+        #        Should I return a np.sum(..., axis=1)
+        weights = self.weights(mixture_parameters, x)
 
         if len(self.nargs_for_each_model) == 0:
             return np.sum(
@@ -549,22 +827,22 @@ class LinearMixerLocal(BaseMixer):
         else:
             return np.sum(
                 [
-                    weight * model.predict(x, params)[0]
-                    for weight, model, params in zip(
-                        weights, self.models, model_params
+                    weight * model.predict(x, parameters)[0]
+                    for weight, model, parameters in zip(
+                        weights, self.models, model_parameters
                     )
                 ]
             )
 
     def plot_weights(
-        self, mixture_params: np.ndarray, x: np.ndarray
+        self, mixture_parameters: np.ndarray, x: np.ndarray
     ) -> np.ndarray:
         """
         plot the mixing function against the input parameter values x
 
         Parameters
         ----------
-        mixture_params : np.1darray
+        mixture_parameters : np.1darray
             parameter values that fix the shape of mixing function
         x : np.1darray
             input parameter values
@@ -572,32 +850,34 @@ class LinearMixerLocal(BaseMixer):
 
         if self.method != "dirichlet" and self.method != "beta":
             fig, ax = plt.subplots()
-            weights = mixture_function(self.method, x, mixture_params)
+            weights = mixture_function(self.method, x, mixture_parameters)
             ax.plot(x, weights[0], label=self.method)
             ax.legend()
             ax.set_ylabel("Weights")
             ax.set_xlabel("Input Parameter")
         else:
-            weights = mixture_function(self.method, x, mixture_params)
+            weights = mixture_function(self.method, x, mixture_parameters)
             fig, ax = plt.subplots()
             ax.scatter(np.arange(len(weights)), weights)
             ax.set_xlabel("Model number")
             ax.set_ylabel("Model weight")
         return None
 
-    def weights(self, mixture_params: np.ndarray, x: np.ndarray) -> np.ndarray:
+    def weights(
+        self, mixture_parameters: np.ndarray, x: np.ndarray
+    ) -> np.ndarray:
         """
         return the mixing function value at the input parameter values x
 
         Parameters
         ----------
-        mixture_params : np.1darray
+        mixture_parameters : np.1darray
             parameter values that fix the shape of mixing function
         x : np.1darray
             input parameter values
         """
 
-        return mixture_function(self.method, x, mixture_params)
+        return mixture_function(self.method, x, mixture_parameters)
 
     def posterior(self):
         pass

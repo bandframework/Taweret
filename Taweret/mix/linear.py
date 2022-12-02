@@ -67,6 +67,7 @@ class LinearMixerGlobal(BaseMixer):
         self.models = models
         self.nargs_for_each_model = nargs_for_each_model
         self.n_mix = n_mix
+        self.has_trained = False
 
         # function returns
 
@@ -133,7 +134,7 @@ class LinearMixerGlobal(BaseMixer):
             raise Exception("Please train model before requesting MAP")
 
     def mix_loglikelihood(
-        self, y_exp, y_err, mix_params=[], model_params=None
+        self, y_exp, y_err, mix_params=None, model_params=None
     ) -> float:
         """
         log likelihood of the mixed model given the mixing function parameters
@@ -156,7 +157,7 @@ class LinearMixerGlobal(BaseMixer):
         log_weights = np.log(weights + eps)
 
         # calculate log likelihoods
-        if len(self.nargs_for_each_model) == 0:
+        if model_params is None:
             log_likelis = np.array(
                 [
                     log_of_normal_dist(model.evaluate(), y_exp, y_err)
@@ -203,10 +204,57 @@ class LinearMixerGlobal(BaseMixer):
         else:
             raise Exception("Please train model before requesting posterior")
 
-    def predict(self):
+    def _sample_distribution(
+        self, distribution: np.ndarray, model_params: Dict[str, List[float]]
+    ) -> np.ndarray:
+        return np.array(
+            [self.evaluate(sample, model_params) for sample in distribution]
+        )
+
+    def predict(
+        self,
+        model_params: Dict[str, List[flaot]],
+        credible_intervals=[5, 95],
+        samples=None,
+    ):
         if self.has_trained:
-            return None
+            predictive_distribution = self._sample_distribution(
+                self.m_posterior.flatten(), model_params
+            )
+
+            return_intervals = np.percentile(
+                predictive_distribution, credible_intervals
+            )
+            return_mean = np.mean(predictive_distribution)
+            return_stddev = np.std(predictive_distribution)
+            return (
+                predictive_distribution,
+                return_intervals,
+                return_mean,
+                return_stddev,
+            )
         else:
+            if samples is None:
+                raise Exception(
+                    "Please either train model, or provide samples as an argument"
+                )
+            else:
+                predictive_distribution = self._sample_distribution(
+                    samples.flatten(), model_params
+                )
+
+                return_intervals = np.percentile(
+                    predictive_distribution, credible_intervals
+                )
+                return_mean = np.mean(predictive_distribution)
+                return_stddev = np.std(predictive_distribution)
+                return (
+                    predictive_distribution,
+                    return_intervals,
+                    return_mean,
+                    return_stddev,
+                )
+
             raise Exception("Please train model before making predictions")
 
     @property
@@ -218,50 +266,25 @@ class LinearMixerGlobal(BaseMixer):
             return None
 
     def prior_predict(
-        self, num_samples: int, model_params: Dict[str, List[float]]
+        self,
+        model_params: Dict[str, List[float]],
+        credible_interval=[5, 95],
+        num_samples: int = 10000,
     ) -> np.ndarray:
-        # FIXME: I am currently returning the weights, but I should be
-        #        sampling the log-normal distribution for the dirichlet
-        #        hyperparameters
-        prior_points = self.sample_prior(num_samples=num_samples)
+        prior_points = self._sample_prior(num_samples=num_samples)
         prior_points = np.exp(prior_points)
         prior_points = np.array(
             [dirichlet(prior_point).rvs() for prior_point in prior_points]
         )
-        if len(self.nargs_for_each_model) == 0:
-            return np.array(
-                [
-                    np.sum(
-                        [
-                            prior * model.evaluate()
-                            for prior, model in zip(prior_point, self.models)
-                        ]
-                    )
-                    for prior_point in prior_points
-                ]
-            )
-        else:
-            return np.ndarray(
-                [
-                    np.sum(
-                        [
-                            prior * model.evaluate(*params)
-                            for prior, params, model in zip(
-                                prior_point, model_params, self.models
-                            )
-                        ]
-                    )
-                    for prior_point in prior_points
-                ]
-            )
+        return self.predict(credible_interval, prior_points)
 
-    def predict_weights(self, num_samples: int) -> np.ndarray:
+    def predict_weights(self, credible_interval=[5, 95], samples=None) -> np.ndarray:
         if self.has_trained:
-            return None
+            predictive_distribution = np.array([self.evaluate_weights(sample) for sample in self.m_posterior])
         else:
             raise Exception("Please train model before making predictions")
 
-    def sample_prior(self, num_samples: int) -> np.ndarray:
+    def _sample_prior(self, num_samples: int) -> np.ndarray:
         prior_samples = []
         for n in np.arange(num_samples):
             log_norm_samples = np.array(

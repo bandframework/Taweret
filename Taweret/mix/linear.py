@@ -42,7 +42,8 @@ class LinearMixerGlobal(BaseMixer):
             and len(nargs_for_each_model) != 0
         ):
             raise Exception(
-                "in linear_mix.__init__: len(nargs_for_each_model) must either equal len(models) or 0"
+                "in linear_mix.__init__: len(nargs_for_each_model)"
+                + "must either equal len(models) or 0"
             )
 
         # check for predict method in the models
@@ -281,11 +282,11 @@ class LinearMixerGlobal(BaseMixer):
 
     def predict(
         self,
-        model_parameters: Dict[str, List[flaot]],
+        model_parameters: Dict[str, List[float]],
         credible_intervals=[5, 95],
         samples=None,
     ):
-        '''
+        """
         Evaluate posterior to make prediction at test points.
 
         Parameters:
@@ -311,7 +312,7 @@ class LinearMixerGlobal(BaseMixer):
         std_dev : np.ndarray
             sample standard deviation of mixed model output at provided test
             points
-        '''
+        """
 
         if self.has_trained:
             predictive_distribution = self._sample_distribution(
@@ -382,7 +383,7 @@ class LinearMixerGlobal(BaseMixer):
         credible_interval=[5, 95],
         num_samples: int = 10000,
     ) -> np.ndarray:
-        '''
+        """
         Get prior predictive distribution and prior distribution samples
 
         Parameters:
@@ -408,7 +409,7 @@ class LinearMixerGlobal(BaseMixer):
         std_dev : np.ndarray
             sample standard deviation of mixed model output at provided test
             points
-        '''
+        """
 
         prior_points = self._sample_prior(num_samples=num_samples)
         prior_points = np.exp(prior_points)
@@ -423,7 +424,7 @@ class LinearMixerGlobal(BaseMixer):
     def predict_weights(
         self, credible_interval=[5, 95], samples=None
     ) -> np.ndarray:
-        '''
+        """
         Calculate posterior predictive distribution for model weights
 
         Parameters:
@@ -447,10 +448,10 @@ class LinearMixerGlobal(BaseMixer):
         std_dev : np.ndarray
             sample standard deviation of mixed model output at provided test
             points
-        '''
+        """
 
         if self.has_trained:
-            predictive_distribution = np.array(
+            return np.array(
                 [self.evaluate_weights(sample) for sample in self.m_posterior]
             )
         else:
@@ -460,7 +461,7 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
 
     def _sample_prior(self, number_samples: int) -> np.ndarray:
-        '''
+        """
         Helper function to sample prior since all prior distributions are
         stochastic in nature
 
@@ -473,7 +474,7 @@ class LinearMixerGlobal(BaseMixer):
         --------
         samples : np.ndarray
             array of samples with the shape (number_samples, self.n_mix)
-        '''
+        """
         prior_samples = []
         for n in np.arange(number_samples):
             log_norm_samples = np.array(
@@ -491,11 +492,11 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
 
     def set_prior(self):
-        '''
+        """
         A call to this function automatically sets up a dictionary of length
-        self.n_mix where the keys are generic strings and the values a 
+        self.n_mix where the keys are generic strings and the values a
         lognormal distribution
-        '''
+        """
         print("Notice: For global fitting, the prior is always assumed to be")
         print("        a Dirichlet distribution")
 
@@ -513,7 +514,7 @@ class LinearMixerGlobal(BaseMixer):
         y_err: np.ndarray,
         model_parameters=None,
     ) -> np.ndarray:
-        '''
+        """
         Helper for ptemcee call fo loglikelihood function
         Simply rearranges the order of the loglikelihood function
 
@@ -534,7 +535,7 @@ class LinearMixerGlobal(BaseMixer):
         log_likelihood : float
             log_likelihood of the model given map parameters for the models and
             a set of weights
-        '''
+        """
         return self.mix_loglikelihood(
             y_exp=y_exp,
             y_err=y_err,
@@ -546,7 +547,7 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
 
     def _log_prior(self, prior_parameters: np.ndarray) -> np.ndarray:
-        '''
+        """
         Helper for ptemcee call fo log-prior function
         Simply rearranges the order of the log-prior function
 
@@ -560,7 +561,7 @@ class LinearMixerGlobal(BaseMixer):
         log_prior : float
             The prior distriution evaluated at the provide prior_parameters
             point(s)
-        '''
+        """
         return np.sum(
             [
                 prior.logpdf(param)
@@ -579,7 +580,7 @@ class LinearMixerGlobal(BaseMixer):
         y_err: np.ndarray,
         model_parameters: Optional[Dict[str, List[float]]],
     ):
-        '''
+        """
         Run sampler to learn weights. Method should also create class
         members that store the posterior and other diagnostic quantities
         import for plotting
@@ -599,7 +600,7 @@ class LinearMixerGlobal(BaseMixer):
         -------
         self.m_posterior : np.ndarray
             the mcmc chain return from sampler
-        '''
+        """
         import ptemcee
 
         nargs = (
@@ -786,7 +787,6 @@ class LinearMixerLocal(BaseMixer):
 
         total_sum = np.logaddexp.reduce(log_likelis)
         return total_sum.item()
-
 
     def prediction(
         self,

@@ -32,8 +32,9 @@ Welcome to Bayesian Model Mixing with Taweret!
    notebooks/Linear_BMM_with_cdf_function_for_coleman_models
    notebooks/Linear_BMM_with_switchcos_function_for_SAMBA_models
    notebooks/Linear_BMM_with_cdf_function_for_SAMBA_models
-   notebooks/Bivariate_Test
    notebooks/Linear_BMM_with_cdf_function_for_coleman_models
+   notebooks/Bivariate_Test
+   notebooks/N_Model_BMM
 .. toctree::
    :maxdepth: 2
    :caption: For Developers:

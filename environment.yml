@@ -1,5 +1,7 @@
 name: test_env
 dependencies:
-  - numpy
-  - seaborn
+  - python=3.7
+  - bilby
   - jupyter
+  - ptemcee
+  - seaborn

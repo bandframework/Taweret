@@ -288,10 +288,11 @@ div.nboutput.container div.prompt > div {
     }
 }
 
-/* disable scrollbars on prompts */
+/* disable scrollbars and line breaks on prompts */
 div.nbinput.container div.prompt pre,
 div.nboutput.container div.prompt pre {
     overflow: hidden;
+    white-space: pre;
 }
 
 /* input/output area */
@@ -474,9 +475,9 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import sys
-import os
-sys.path.insert(0, os.path.abspath(&#39;../../../../Taweret&#39;))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;../../../../Taweret&#39;</span><span class="p">))</span>
 <br/></pre></div>
 </div>
 </div>
@@ -484,12 +485,12 @@ sys.path.insert(0, os.path.abspath(&#39;../../../../Taweret&#39;))
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Import models with a predict method
-from Taweret.models import coleman_models as toy_models
-# Mixing object with a likelihood method
-from Taweret.mix.linear import linear_mix as LM
-# Wrapper for the likelihood to be used with Bilby
-from Taweret.calibrate.likelihood_wrappers import likelihood_wrapper_for_bilby
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import models with a predict method</span>
+<span class="kn">from</span> <span class="nn">Taweret.models</span> <span class="kn">import</span> <span class="n">coleman_models</span> <span class="k">as</span> <span class="n">toy_models</span>
+<span class="c1"># Mixing object with a likelihood method</span>
+<span class="kn">from</span> <span class="nn">Taweret.mix.linear</span> <span class="kn">import</span> <span class="n">linear_mix</span> <span class="k">as</span> <span class="n">LM</span>
+<span class="c1"># Wrapper for the likelihood to be used with Bilby</span>
+<span class="kn">from</span> <span class="nn">Taweret.calibrate.likelihood_wrappers</span> <span class="kn">import</span> <span class="n">likelihood_wrapper_for_bilby</span>
 </pre></div>
 </div>
 </div>
@@ -497,17 +498,17 @@ from Taweret.calibrate.likelihood_wrappers import likelihood_wrapper_for_bilby
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># For plotting
-import matplotlib.pyplot as plt
-import seaborn as sns
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># For plotting</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
-# For calibration
-import bilby
+<span class="c1"># For calibration</span>
+<span class="kn">import</span> <span class="nn">bilby</span>
 
-# For other operations
-import numpy as np
-import os
-import shutil
+<span class="c1"># For other operations</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
 </pre></div>
 </div>
 </div>
@@ -515,9 +516,9 @@ import shutil
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>m1 = toy_models.coleman_model_1()
-m2 = toy_models.coleman_model_2()
-truth = toy_models.coleman_truth()
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m1</span> <span class="o">=</span> <span class="n">toy_models</span><span class="o">.</span><span class="n">coleman_model_1</span><span class="p">()</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">toy_models</span><span class="o">.</span><span class="n">coleman_model_2</span><span class="p">()</span>
+<span class="n">truth</span> <span class="o">=</span> <span class="n">toy_models</span><span class="o">.</span><span class="n">coleman_truth</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -525,10 +526,10 @@ truth = toy_models.coleman_truth()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>g = np.linspace(-1,9,10)
-plot_g = np.linspace(-1,9,100)
-true_output = truth.predict(plot_g)
-exp_data = truth.predict(g)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plot_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">true_output</span> <span class="o">=</span> <span class="n">truth</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">plot_g</span><span class="p">)</span>
+<span class="n">exp_data</span> <span class="o">=</span> <span class="n">truth</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -548,25 +549,25 @@ exp_data = truth.predict(g)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sns.set_context(&#39;notebook&#39;)
-fig, axs = plt.subplots(1,2,figsize=(20,5))
-prior_ranges = [(1,6), (-2,3)]
-for i in range(0,2):
-    ax = axs.flatten()[i]
-    ax.plot(plot_g, true_output[0], label=&#39;truth&#39;, color=&#39;black&#39;)
-    ax.errorbar(g,exp_data[0],exp_data[1], fmt=&#39;o&#39;, label=&#39;experimental data&#39;, color=&#39;r&#39;)
-    ax.legend()
-    ax.set_ylim(-2,4)
-    for value in np.linspace(*prior_ranges[i],10):
-        if i==0:
-            predict_1 = m1.predict(plot_g, value)
-            ax.plot(plot_g, predict_1[0])
-            ax.set_ylabel(r&#39;$f_1(x)$&#39;)
-        if i==1:
-            predict_2 = m2.predict(plot_g, value)
-            ax.plot(plot_g, predict_2[0])
-            ax.set_ylabel(r&#39;$f_2(x)$&#39;)
-    ax.set_xlabel(&#39;x&#39;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">prior_ranges</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">true_output</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;truth&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">exp_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">exp_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;experimental data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">prior_ranges</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">predict_1</span> <span class="o">=</span> <span class="n">m1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">predict_1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$f_1(x)$&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">predict_2</span> <span class="o">=</span> <span class="n">m2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">predict_2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$f_2(x)$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <br/></pre></div>
 </div>
 </div>
@@ -584,7 +585,7 @@ for i in range(0,2):
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mix_model = LM(m1, m2, g, exp_data[0], exp_data[1], method=&#39;cdf&#39;, n_model_1=1, n_model_2=1, n_mix=2)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mix_model</span> <span class="o">=</span> <span class="n">LM</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">exp_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">exp_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;cdf&#39;</span><span class="p">,</span> <span class="n">n_model_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_model_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_mix</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -592,7 +593,7 @@ for i in range(0,2):
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mix_model.plot_weights(np.array([0.2, 10]),plot_g)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mix_model</span><span class="o">.</span><span class="n">plot_weights</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]),</span><span class="n">plot_g</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -607,7 +608,7 @@ for i in range(0,2):
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#mix_model.mix_loglikelihood_test([0.25])
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#mix_model.mix_loglikelihood_test([0.25])</span>
 </pre></div>
 </div>
 </div>
@@ -615,7 +616,7 @@ for i in range(0,2):
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mix_model.mix_loglikelihood(np.array([0.2, 10]), np.array([2]),np.array([1]))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mix_model</span><span class="o">.</span><span class="n">mix_loglikelihood</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>
@@ -632,13 +633,13 @@ for i in range(0,2):
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax = plt.subplots()
-mix_prediction = mix_model.prediction(np.array([0.2, 10]), plot_g, np.array([2]), np.array([1]))
-ax.plot(plot_g, m1.predict(plot_g, np.array([2]))[0].flatten(), label=&#39;model 1&#39;)
-ax.plot(plot_g, m2.predict(plot_g, np.array([1]))[0].flatten(), label=&#39;model 2&#39;)
-ax.plot(plot_g, mix_prediction.flatten(), label=&#39;BMM prediction&#39;)
-ax.set_ylim(-2,4)
-ax.legend()
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">mix_prediction</span> <span class="o">=</span> <span class="n">mix_model</span><span class="o">.</span><span class="n">prediction</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]),</span> <span class="n">plot_g</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">m1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;model 1&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;model 2&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">mix_prediction</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;BMM prediction&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -662,10 +663,10 @@ ax.legend()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># sw = np.linspace(0.01,1,1000)
-# likelihood = np.array([mix_model.mix_loglikelihood([s]) for s in sw]).flatten()
-# fig, ax = plt.subplots()
-# ax.plot(sw,likelihood,label=&#39;Mixture likelihood for step function&#39;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sw = np.linspace(0.01,1,1000)</span>
+<span class="c1"># likelihood = np.array([mix_model.mix_loglikelihood([s]) for s in sw]).flatten()</span>
+<span class="c1"># fig, ax = plt.subplots()</span>
+<span class="c1"># ax.plot(sw,likelihood,label=&#39;Mixture likelihood for step function&#39;)</span>
 </pre></div>
 </div>
 </div>
@@ -676,7 +677,7 @@ ax.legend()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>likelihood = likelihood_wrapper_for_bilby(mix_model)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">likelihood</span> <span class="o">=</span> <span class="n">likelihood_wrapper_for_bilby</span><span class="p">(</span><span class="n">mix_model</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -689,39 +690,39 @@ ax.legend()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># A few simple setup steps
-label = &quot;cdf_mixing&quot;
-outdir = &quot;outdir&quot;
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A few simple setup steps</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;cdf_mixing&quot;</span>
+<span class="n">outdir</span> <span class="o">=</span> <span class="s2">&quot;outdir&quot;</span>
 
-priors = dict(theta_0=bilby.core.prior.Normal(0, 1, &quot;theta_0&quot;),
-   theta_1=bilby.core.prior.Normal(0, 1, &quot;theta_1&quot;),
-   theta_2=bilby.core.prior.Uniform(1, 6, &quot;theta_2&quot;),
-   theta_3=bilby.core.prior.Uniform(-2, 3, &quot;theta_3&quot;))
+<span class="n">priors</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">theta_0</span><span class="o">=</span><span class="n">bilby</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;theta_0&quot;</span><span class="p">),</span>
+   <span class="n">theta_1</span><span class="o">=</span><span class="n">bilby</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;theta_1&quot;</span><span class="p">),</span>
+   <span class="n">theta_2</span><span class="o">=</span><span class="n">bilby</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;theta_2&quot;</span><span class="p">),</span>
+   <span class="n">theta_3</span><span class="o">=</span><span class="n">bilby</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;theta_3&quot;</span><span class="p">))</span>
 
-# priors = dict(
-#     theta_0=bilby.core.prior.Beta(2,2)
-# )
+<span class="c1"># priors = dict(</span>
+<span class="c1">#     theta_0=bilby.core.prior.Beta(2,2)</span>
+<span class="c1"># )</span>
 
-# And run sampler
-## If file exists, delete it ##
-if os.path.exists(f&#39;{outdir}/{label}_result.json&#39;):
-    os.remove(f&#39;{outdir}/{label}_result.json&#39;)
-    os.remove(f&#39;{outdir}/{label}_checkpoint_resume.pickle&#39;)
-    os.remove(f&#39;{outdir}/{label}_samples.txt&#39;)
-result = bilby.run_sampler(
-    likelihood,
-    priors,
-    label=label,
-    outdir=outdir,
-    sampler=&quot;ptemcee&quot;,
-    ntemps=5,
-    nwalkers=100,
-    Tmax=10,
-    nburn=200,
-    nsamples=500,  # This is the number of raw samples
-    threads=5,
-    )
-result.plot_corner()
+<span class="c1"># And run sampler</span>
+<span class="c1">## If file exists, delete it ##</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outdir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1">_result.json&#39;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outdir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1">_result.json&#39;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outdir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1">_checkpoint_resume.pickle&#39;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outdir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1">_samples.txt&#39;</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">bilby</span><span class="o">.</span><span class="n">run_sampler</span><span class="p">(</span>
+    <span class="n">likelihood</span><span class="p">,</span>
+    <span class="n">priors</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+    <span class="n">outdir</span><span class="o">=</span><span class="n">outdir</span><span class="p">,</span>
+    <span class="n">sampler</span><span class="o">=</span><span class="s2">&quot;ptemcee&quot;</span><span class="p">,</span>
+    <span class="n">ntemps</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">nwalkers</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">Tmax</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">nburn</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">nsamples</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>  <span class="c1"># This is the number of raw samples</span>
+    <span class="n">threads</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">plot_corner</span><span class="p">()</span>
 <br/></pre></div>
 </div>
 </div>
@@ -1215,7 +1216,7 @@ ln_bayes_factor:    nan +/-  0.584
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>result.posterior
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">posterior</span>
 </pre></div>
 </div>
 </div>
@@ -1359,10 +1360,10 @@ ln_bayes_factor:    nan +/-  0.584
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span>#sns.set_context(font_scale=100)
-for i in range(0,4):
-    fig, ax = plt.subplots(figsize=(50,10))
-    ax.plot(result.posterior[f&#39;theta_{i}&#39;].values)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1">#sns.set_context(font_scale=100)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">posterior</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;theta_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1398,12 +1399,12 @@ for i in range(0,4):
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pos_weight_func = []
-for sample in result.posterior.values[:,0:2]:
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos_weight_func</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]:</span>
 
-    mean = mix_model.weights(np.array([sample]).flatten(), plot_g)
-    pos_weight_func.append(mean)
-pos_weight_func = np.array(pos_weight_func).reshape(-1,len(plot_g))
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">mix_model</span><span class="o">.</span><span class="n">weights</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sample</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">plot_g</span><span class="p">)</span>
+    <span class="n">pos_weight_func</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean</span><span class="p">)</span>
+<span class="n">pos_weight_func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pos_weight_func</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">plot_g</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1411,7 +1412,7 @@ pos_weight_func = np.array(pos_weight_func).reshape(-1,len(plot_g))
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>per0,per5,per20,per80,per95,per100=np.percentile(pos_weight_func,[0,5,20,80,95,100], axis=0)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">per0</span><span class="p">,</span><span class="n">per5</span><span class="p">,</span><span class="n">per20</span><span class="p">,</span><span class="n">per80</span><span class="p">,</span><span class="n">per95</span><span class="p">,</span><span class="n">per100</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">pos_weight_func</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">95</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1419,13 +1420,13 @@ pos_weight_func = np.array(pos_weight_func).reshape(-1,len(plot_g))
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%matplotlib inline
-fig, ax = plt.subplots()
-ax.fill_between(plot_g,per5,per95,color=sns.color_palette()[4], alpha=0.2, label=&#39;90% C.I.&#39;)
-ax.fill_between(plot_g,per20,per80, color=sns.color_palette()[4], alpha=0.3, label=&#39;60% C.I.&#39;)
-ax.legend()
-#ax.plot(plot_g, true_output[0], label=&#39;truth&#39;)
-#ax.set_ylim(1.2,3.2)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span><span class="n">per5</span><span class="p">,</span><span class="n">per95</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">4</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;90% C.I.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span><span class="n">per20</span><span class="p">,</span><span class="n">per80</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">4</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;60% C.I.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="c1">#ax.plot(plot_g, true_output[0], label=&#39;truth&#39;)</span>
+<span class="c1">#ax.set_ylim(1.2,3.2)</span>
 </pre></div>
 </div>
 </div>
@@ -1449,7 +1450,7 @@ ax.legend()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>result.posterior
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">posterior</span>
 </pre></div>
 </div>
 </div>
@@ -1593,12 +1594,12 @@ ax.legend()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pos_predictions = []
-for sample in result.posterior.values:
-    sample = np.array(sample).flatten()
-    mean = mix_model.prediction(sample[0:2],plot_g, sample[2], sample[3])
-    pos_predictions.append(mean)
-pos_predictions = np.array(pos_predictions).reshape(-1,len(plot_g))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos_predictions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">mix_model</span><span class="o">.</span><span class="n">prediction</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">sample</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">sample</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">pos_predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean</span><span class="p">)</span>
+<span class="n">pos_predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pos_predictions</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">plot_g</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1606,7 +1607,7 @@ pos_predictions = np.array(pos_predictions).reshape(-1,len(plot_g))
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pos_predictions.shape
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos_predictions</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 </div>
@@ -1623,7 +1624,7 @@ pos_predictions = np.array(pos_predictions).reshape(-1,len(plot_g))
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>per0,per5,per20,per80,per95,per100=np.percentile(pos_predictions,[0,5,20,80,95,100], axis=0)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">per0</span><span class="p">,</span><span class="n">per5</span><span class="p">,</span><span class="n">per20</span><span class="p">,</span><span class="n">per80</span><span class="p">,</span><span class="n">per95</span><span class="p">,</span><span class="n">per100</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">pos_predictions</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">95</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1631,13 +1632,13 @@ pos_predictions = np.array(pos_predictions).reshape(-1,len(plot_g))
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%matplotlib inline
-fig, ax = plt.subplots()
-ax.fill_between(plot_g,per5,per95,color=sns.color_palette()[4], alpha=0.2, label=&#39;90% C.I.&#39;)
-ax.fill_between(plot_g,per20,per80, color=sns.color_palette()[4], alpha=0.3, label=&#39;60% C.I.&#39;)
-ax.plot(plot_g, true_output[0], label=&#39;truth&#39;)
-ax.legend()
-ax.set_ylim(-2,4)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span><span class="n">per5</span><span class="p">,</span><span class="n">per95</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">4</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;90% C.I.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span><span class="n">per20</span><span class="p">,</span><span class="n">per80</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()[</span><span class="mi">4</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;60% C.I.&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_g</span><span class="p">,</span> <span class="n">true_output</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;truth&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

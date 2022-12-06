@@ -283,10 +283,11 @@ div.nboutput.container div.prompt > div {
     }
 }
 
-/* disable scrollbars on prompts */
+/* disable scrollbars and line breaks on prompts */
 div.nbinput.container div.prompt pre,
 div.nboutput.container div.prompt pre {
     overflow: hidden;
+    white-space: pre;
 }
 
 /* input/output area */
@@ -455,13 +456,13 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from bilby.core.prior import PriorDict, Uniform, Constraint
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bilby.core.prior</span> <span class="kn">import</span> <span class="n">PriorDict</span><span class="p">,</span> <span class="n">Uniform</span><span class="p">,</span> <span class="n">Constraint</span>
 
-priors = PriorDict()
-priors[&#39;x&#39;] = Uniform(minimum=0, maximum=10)
-priors[&#39;y&#39;] = Uniform(minimum=0, maximum=10)
-priors[&#39;z&#39;] = Constraint(minimum=0, maximum=10)
-priors.update({&#39;xx&#39;:Uniform(minimum=0, maximum=10)})
+<span class="n">priors</span> <span class="o">=</span> <span class="n">PriorDict</span><span class="p">()</span>
+<span class="n">priors</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Uniform</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">priors</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Uniform</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">priors</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">priors</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;xx&#39;</span><span class="p">:</span><span class="n">Uniform</span><span class="p">(</span><span class="n">minimum</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">10</span><span class="p">)})</span>
 </pre></div>
 </div>
 </div>

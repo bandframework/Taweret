@@ -42,8 +42,8 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="How to add a new linear mixing function" href="../linear.html" />
-    <link rel="prev" title="Linear BMM with full Bayesian calibration of coleman toy models" href="Linear_BMM_with_cdf_function_for_coleman_models.html" /> 
+    <link rel="next" title="“Bivariate” BMM for n = 3, …, N models" href="N_Model_BMM.html" />
+    <link rel="prev" title="Bivariate Linear Bayesian Model Mixing with SAMBA toy models" href="Linear_BMM_with_cdf_function_for_SAMBA_models.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -102,15 +102,18 @@
 <p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_step_function_for_SAMBA_models.html">Bivariate Linear Bayesian Model Mixing with SAMBA toy models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_cdf_function_for_coleman_models.html">Linear BMM with full Bayesian calibration of coleman toy models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_cdf_function_for_coleman_models.html">Linear Bivariate Bayesian Model Mixing with learning of mixture weights and calibration of coleman toy models.</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_cdf_function_for_coleman_models.html#1.-The-models-and-the-experimental-data.">1. The models and the experimental data.</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_cdf_function_for_coleman_models.html#2.-Choose-a-Mixing-method">2. Choose a Mixing method</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_cdf_function_for_coleman_models.html#3.-Estimating-the-mixture-weights">3. Estimating the mixture weights</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_switchcos_function_for_SAMBA_models.html">Bivariate Linear Bayesian Model Mixing with SAMBA toy models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_cdf_function_for_SAMBA_models.html">Bivariate Linear Bayesian Model Mixing with SAMBA toy models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_cdf_function_for_coleman_models.html">Linear Bivariate Bayesian Model Mixing with learning of mixture weights and calibration of coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Linear_BMM_with_cdf_function_for_coleman_models.html#1.-The-models-and-the-experimental-data.">1. The models and the experimental data.</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Bivariate BMM Test: Taweret v.0.1.0</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Author:-Alexandra-Semposki">Author: Alexandra Semposki</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Date:-10-October-2022">Date: 10 October 2022</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="N_Model_BMM.html">“Bivariate” BMM for n = 3, …, N models</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
 <ul>
@@ -473,14 +476,13 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">AutoMinorLocator</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="c1">#matplotlib settings for Latex plots</span>
-<span class="c1"># matplotlib.rcParams.update({</span>
-<span class="c1">#     &#39;font.family&#39;: &#39;serif&#39;,</span>
-<span class="c1">#     &#39;text.usetex&#39;: True,</span>
-<span class="c1"># })</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;font.family&#39;</span><span class="p">:</span> <span class="s1">&#39;serif&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;text.usetex&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -489,7 +491,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;../../../../Taweret&#39;</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../Taweret&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -497,8 +499,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Taweret.models.samba_models</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">Taweret.mix.gaussian</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">models.samba_models</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mix.gaussian</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
 </div>
@@ -528,11 +530,12 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#example plot to test models</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">3.2</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;in&#39;</span><span class="p">)</span>
@@ -551,12 +554,12 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7f8c62357e10&gt;
+&lt;matplotlib.legend.Legend at 0x2c4e7c8c340&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -567,7 +570,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#call mixing method and plot</span>
@@ -581,11 +584,11 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Taweret.models.samba_models.loworder object at 0x7f8c622fe9b0&gt;
+&lt;models.samba_models.loworder object at 0x000002C4E7C173A0&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plotting bivariate BMM results on top of SAMBA models</span>
@@ -620,12 +623,12 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7f8c60246f28&gt;
+&lt;matplotlib.legend.Legend at 0x2c4e9d08fd0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -633,22 +636,6 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <img alt="../_images/notebooks_Bivariate_Test_8_1.png" src="../_images/notebooks_Bivariate_Test_8_1.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -670,10 +657,10 @@ div.rendered_html tbody tr:hover {
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../linear.html" class="btn btn-neutral float-right" title="How to add a new linear mixing function" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="N_Model_BMM.html" class="btn btn-neutral float-right" title="“Bivariate” BMM for n = 3, …, N models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Linear_BMM_with_cdf_function_for_coleman_models.html" class="btn btn-neutral float-left" title="Linear BMM with full Bayesian calibration of coleman toy models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Linear_BMM_with_cdf_function_for_SAMBA_models.html" class="btn btn-neutral float-left" title="Bivariate Linear Bayesian Model Mixing with SAMBA toy models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

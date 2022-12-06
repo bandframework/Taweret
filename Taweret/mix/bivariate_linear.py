@@ -1,20 +1,20 @@
 import bilby
 import os
+import shutil
 import numpy as np
 from Taweret.utils.utils import mixture_function, eps
 from Taweret.core.base_mixer import BaseMixer
 from Taweret.core.base_model import BaseModel
 from Taweret.sampler.likelihood_wrappers import likelihood_wrapper_for_bilby
 
-
 class BivariateLinear(BaseMixer):
 
     '''
-    Local linear mixing of two models.
+    Local linear likelihood mixing of two models.
 
     '''
 
-    def __init__(self, models_dic, method='sigmoid', nargs_model_dic={}):
+    def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None):
         '''
         Parameters
         ----------
@@ -25,6 +25,11 @@ class BivariateLinear(BaseMixer):
         nargs_model_dic : dictionary {'name1' : N_model1, 'name2' : N_model2}
             number of free parameters in each model
         '''
+
+        if nargs_model_dic is None:
+            nargs_model_dic = {}
+        if not isinstance(nargs_model_dic, dict):
+            raise AttributeError("nargs_model_dic has to be a dictionary")
         # check if more than two models are trying to be mixed
         if len(models_dic)!=2:
             raise Exception('Bivariate linear mixing requires only two models.\
@@ -34,13 +39,15 @@ class BivariateLinear(BaseMixer):
         #check if the models are derived from the base class
         for i, model in enumerate(list(models_dic.values())):
             try:
-                issubclass(model, BaseModel)
+                isinstance(model, BaseModel) # model is not a class but an object
             except AttributeError:
                 print(f'model {list(models_dic.keys())[i]} is not derived from \
                     taweret.core.base_model class')
             else:
                 continue
         self.models_dic = models_dic
+        # If a new method is added the following needs to be updated
+        # It has method and number of free parameters in each method
         method_n_mix_dic = {'step':1, 'sigmoid':2, 'cdf':2, 'switchcos':3}
 
         #check if the mixing function exist
@@ -54,9 +61,9 @@ class BivariateLinear(BaseMixer):
         for i in range(0, self.n_mix):
             name = f'{method}_{i}'
             priors[name]=bilby.core.prior.Uniform(0, 1, name=name)
-        print(f'Default prior is set to {priors}')
+        print(f'Warning : Default prior is set to {priors}')
         print('To change the prior use `set_prior` method')
-        self._prior=priors
+        self._prior=self.set_prior(priors) # This combines model priors with mixing method priors
         self.method = method
         self.nargs_model_dic = nargs_model_dic
         self.model_was_trained=False # Flag to know if the model was trained or not
@@ -185,12 +192,14 @@ class BivariateLinear(BaseMixer):
             mixture_param = sample[0:self.n_mix]
             model_params = []
             n_args_for_models = list(self.nargs_model_dic.values())
+            n_args_sum = 0
             for i in range(0,len(n_args_for_models)):
-                model_params.append(sample[self.n_mix:self.n_mix+n_args_for_models[i]])
-
+                model_params.append(sample[self.n_mix+n_args_sum:self.n_mix+n_args_sum+n_args_for_models[i]])
+                n_args_sum+=n_args_for_models[i]
+                
             value = self.evaluate(mixture_param,x, model_params)
             pos_predictions.append(value)
-        pos_predictions = np.array(pos_predictions).reshape(-1,len(x))
+        pos_predictions = np.array(pos_predictions)
 
         CIs = np.percentile(pos_predictions,CI, axis=0)
 
@@ -242,9 +251,11 @@ class BivariateLinear(BaseMixer):
 
             mixture_param = sample[0:self.n_mix]
 
-            value = self.evaluate_weights(mixture_param,x)
+            value,_ = self.evaluate_weights(mixture_param,x)
             pos_predictions.append(value)
-        pos_predictions = np.array(pos_predictions).reshape(-1,len(x))
+        pos_predictions = np.array(pos_predictions)
+        print(pos_predictions.shape)
+
 
         CIs = np.percentile(pos_predictions,CI, axis=0)
 
@@ -314,11 +325,12 @@ class BivariateLinear(BaseMixer):
         '''
         for name, model in self.models_dic.items():
             if model.prior is None:
+                #print(f'model has no prior {model}')
                 continue
             else:
                 priors = model.prior
             for ii, entry2 in enumerate(priors):
-                bilby_prior_dic.update({f'{name}_{ii}', list(entry2.values())[ii]})
+                bilby_prior_dic[f'{name}_{ii}']=priors[entry2]
         self._prior = bilby_prior_dic
         return self._prior
 
@@ -375,19 +387,18 @@ class BivariateLinear(BaseMixer):
         # A few simple setup steps
         likelihood = likelihood_wrapper_for_bilby(self, x_exp, y_exp, y_err)
 
-        if os.path.exists(f'{outdir}/{label}_result.json'):
-            os.remove(f'{outdir}/{label}_result.json')
-            os.remove(f'{outdir}/{label}_checkpoint_resume.pickle')
-            os.remove(f'{outdir}/{label}_samples.txt')
-            #shutil.rmtree(outdir)
+        if os.path.exists(f'{outdir}'):
+            shutil.rmtree(outdir)
         if kwargs_for_sampler is None:
             kwargs_for_sampler = {'sampler':'ptemcee',
-            'ntemps':10,
+            'ntemps':5,
             'nwalkers':20,
             'Tmax':100,
-            'nburn':200,
-            'nsamples':3000,  # This is the number of raw samples
-            'threads':5}
+            'burn_in_fixed_discard':200,
+            'nsamples':5000,
+            'threads':6}
+            #'safety':2,
+            #'autocorr_tol':5}
             print(f'The following Default settings for sampler will be used. You can change\
 these arguments by providing kwargs_for_sampler argement in `train`.\
 Check Bilby documentation for other sampling options.\n{kwargs_for_sampler}')
@@ -400,9 +411,10 @@ Check Bilby documentation for other sampling options.\n{kwargs_for_sampler}')
             label=label,
             outdir=outdir,
             **kwargs_for_sampler)
-
-        self._posterior = result.posterior.values[:,0:-2]
+        # The last two columns are model liklihood and log_prior.
+        self._posterior = result.posterior.values[:,0:-2]  
         self.model_was_trained = True
-
+        # Shorcut to find MAP. Need to implement a proper optimization routine to find MAP
         self._map=self._posterior[np.argmax(result.posterior.values[:,-2].flatten()),:]
+
         return result

@@ -29,9 +29,8 @@ Welcome to Bayesian Model Mixing with Taweret!
    :caption: Examples:
    
    notebooks/Linear_BMM_with_step_function_for_SAMBA_models
-   notebooks/Linear_BMM_with_cdf_function_for_coleman_models
-   notebooks/Linear_BMM_with_switchcos_function_for_SAMBA_models
    notebooks/Linear_BMM_with_cdf_function_for_SAMBA_models
+   notebooks/Linear_BMM_with_switchcos_function_for_SAMBA_models
    notebooks/Linear_BMM_with_cdf_function_for_coleman_models
    notebooks/Bivariate_Test
    notebooks/N_Model_BMM

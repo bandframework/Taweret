@@ -1,7 +1,11 @@
 name: test_env
 dependencies:
   - python=3.7
-  - bilby
+  - conda-forge::bilby
   - jupyter
-  - ptemcee
+  - conda-forge::ptemcee
   - seaborn
+  - conda-forge::sphinx_rtd_theme
+  - conda-forge::sphinxcontrib-bibtex
+  - conda-forge::nbsphinx
+  - conda-forge::pandoc

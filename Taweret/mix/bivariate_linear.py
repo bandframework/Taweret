@@ -396,7 +396,8 @@ class BivariateLinear(BaseMixer):
             'Tmax':100,
             'burn_in_fixed_discard':200,
             'nsamples':5000,
-            'threads':6}
+            'threads':6,
+            'printdt':60}
             #'safety':2,
             #'autocorr_tol':5}
             print(f'The following Default settings for sampler will be used. You can change\

@@ -130,3 +130,6 @@ dmypy.json
 
 # Bilby sampler out
 output/
+
+# local testing directories
+testing/

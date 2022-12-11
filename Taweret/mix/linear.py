@@ -219,9 +219,6 @@ class LinearMixerGlobal(BaseMixer):
             )
 
         mix_log_likeli = np.logaddexp.reduce(log_likelis)
-        if np.any(np.isnan(np.array(mix_log_likeli))):
-            print(mix_parameters)
-            print(weights)
         return mix_log_likeli.item()
 
     ##########################################################################
@@ -648,7 +645,7 @@ class LinearMixerGlobal(BaseMixer):
             dim=self.n_mix,
             ntemps=ntemps,
             Tmax=10,
-            threads=4,
+            threads=8,
             logl=self._loglikelihood_for_sampler,
             logp=self._log_prior,
             loglargs=[y_exp, y_err, model_parameters],
@@ -669,8 +666,10 @@ class LinearMixerGlobal(BaseMixer):
         # Recall that the shape of the chain will be:
         #   (ntemps, nwalkers, nsteps, nvars)
         self.m_posterior = np.array(sampler.chain[0, ...])
-        # self.m_map = self.m_posterior[np.argmax(self.m_posterior, axis=2)]
         self.evidence = sampler.log_evidence_estimate()
+
+        del sampler
+        self.m_map = self.m_posterior[np.argmax(self.m_posterior, axis=2)]
 
         self.has_trained = True
         return self.m_posterior

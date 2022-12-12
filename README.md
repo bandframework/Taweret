@@ -9,4 +9,4 @@ At present, this package possesses the following BMM methods:
 - Linear model mixing 
 
 ## Documentation
-See Taweret's docs webpage [here](https://danosu.github.io/Taweret/html/index.html).
+See Taweret's docs webpage [here](https://danosu.github.io/Taweret/index.html).

@@ -131,6 +131,7 @@ dmypy.json
 
 # Bilby sampler out
 output/
-
+output/*
 # build folder for docs
 build/
+build/*

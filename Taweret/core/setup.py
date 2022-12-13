@@ -21,7 +21,7 @@ wd = tempfile.mkdtemp(prefix="openbtpy_") # Setting this as a test for now
 wd_openbt_deb = wd + '/' + openbt_deb
 
 # Set github url (maybe configure with submodule)
-openbt_url = "https://github.com/jcyannotty/OpenBT/raw/main/openbt_0.current_amd64-MPI_Ubuntu_20.04.deb"
+openbt_url = "https://github.com/jcyannotty/OpenBT/raw/main/openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb"
 
 # Get current version name
 openbt_version = openbt_url.split("openbt_")[1]

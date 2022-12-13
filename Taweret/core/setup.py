@@ -8,17 +8,24 @@ Version: 1.0
 """
 
 import subprocess
-
+import tempfile
+import sys
 # -----------------------------------------------
 # Trees Configuration
 # -----------------------------------------------
 # Check to see if .deb is intalled in current working directory
 openbt_deb = 'openbt_0.current.deb'
-# wd = os.getcwd()
-wd = "/home/johnyannotty/Downloads" # Setting this as a test for now
+
+# Create temp directory to install the file
+wd = tempfile.mkdtemp(prefix="openbtpy_") # Setting this as a test for now
 wd_openbt_deb = wd + '/' + openbt_deb
+
+# Set github url (maybe configure with submodule)
 openbt_url = "https://github.com/jcyannotty/OpenBT/raw/main/openbt_0.current_amd64-MPI_Ubuntu_20.04.deb"
-openbt_version = "0.current-MPI" # Load from somewhere in Taweret or openbt
+
+# Get current version name
+openbt_version = openbt_url.split("openbt_")[1]
+openbt_version = openbt_version.split("_amd64")[0]+"-MPI"
 
 # First determine if the file is available in the required directory
 find_deb_out = subprocess.run(['find',wd,'-name', openbt_deb],capture_output=True)
@@ -51,7 +58,7 @@ is_install0 = is_install_out.stdout.decode("utf-8").strip("\n")
 # Install the debian package
 if is_install0 == '':
     # The package has never been installed - so install it
-    install_out = subprocess.run(["sudo","apt-get", "install", wd_openbt_deb], capture_output=True)
+    install_out = subprocess.run(["sudo","apt-get", "install", wd_openbt_deb],capture_output=True)
     if install_out.returncode > 0:
         print("Installation Failed")
     else:
@@ -59,7 +66,8 @@ if is_install0 == '':
 elif new_version:
     # The package has been installed, but its outdated
     # Delete previous install
-    delete_out = subprocess.run(["sudo","apt-get", "remove", "openbt"], capture_output=True)
+    print("Deleting previous version of Openbt, please follow command prompts....\n")
+    delete_out = subprocess.run(["sudo","apt-get", "remove", "openbt"], stderr=sys.stderr, stdout=sys.stdout)
     
     # Install new file
     install_out = subprocess.run(["sudo","apt-get", "install", wd_openbt_deb], capture_output=True)

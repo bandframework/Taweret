@@ -15,17 +15,20 @@ import importlib
 import Taweret.mix.trees
 importlib.reload(Taweret.mix.trees)
 
+from Taweret.core.base_model import BaseModel
+
+
 # ---------------------------------------------------------
 # Polynomial function for candidate models
 # ---------------------------------------------------------
-class FP:
+class FP(BaseModel):
     def __init__(self,a=0,b=0,c=1,p=1):
         self.a = a
         self.b = b
         self.c = c
         self.p = p
     
-    def predict(self, x):
+    def evaluate(self, x):
         if isinstance(x, list):
             x = np.array(x)
         m = self.c*(x-self.a)**self.p + self.b
@@ -33,6 +36,13 @@ class FP:
             m = m.reshape(m.shape[0],1) 
         s = np.array([1]*x.shape[0]).reshape(m.shape[0],1)
         return m,s
+
+    def set_prior(self):
+        return super().set_prior()
+
+    def log_likelihood_elementwise(self):
+        return super().log_likelihood_elementwise()
+
 
 model_dict = {'model1':FP(0,-2,4,1), 'model2':FP(0,2,-4,1)}
 
@@ -48,22 +58,22 @@ x_test = np.linspace(0.01, 1.0, n_test)
 
 np.random.seed(1234567)
 fp = FP(0.5,0,8,2)
-f0_train,_ = fp.predict(x_train)
-f0_test,_ = fp.predict(x_test)
+f0_train,_ = fp.evaluate(x_train)
+f0_test,_ = fp.evaluate(x_test)
 y_train = f0_train + np.random.normal(0,s,n_train).reshape(n_train,1)
 
 # ---------------------------------------------------------
 # Test BART model mixing with polynomials
 # ---------------------------------------------------------
 # Define priors
-prior_dict = {'k':1.25,'ntree':20, 'overallnu':5, 'overallsd':np.sqrt(0.1)}
+#prior_dict = {'k':1.25,'ntree':20, 'overallnu':5, 'overallsd':np.sqrt(0.1)}
 
 # Mixing with the non-informative prior
 mix = Trees(model_dict = model_dict, local_openbt_path = "/home/johnyannotty/Documents/openbt")
 
-mix.set_prior(prior_dict = prior_dict)
+mix.set_prior(k=1.25,ntree=20,overallnu=5,overallsd=np.sqrt(0.1),inform_prior=False)
 mix.prior
-mix.train(X=x_train, y=y_train, ndpost = 10000, nadapt = 2000, nskip = 1000, adaptevery = 500, minnumbot = 2)
+fit = mix.train(X=x_train, y=y_train, ndpost = 10000, nadapt = 2000, nskip = 1000, adaptevery = 500, minnumbot = 2)
 
 post = mix.posterior
 np.mean(post)

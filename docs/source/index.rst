@@ -38,7 +38,8 @@ Welcome to Bayesian Model Mixing with Taweret!
    :maxdepth: 2
    :caption: For Developers:
    
-   linear
+   how_to_add_new_mixing
+   how_to_add_documentation
 
 Indices and tables
 ==================

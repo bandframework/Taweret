@@ -22,7 +22,7 @@ for more information.
     git clone <url_to_the_fork> --branch develop
     cd Taweret
 
-- Step 3: Create conda environment for Taweret.
+- Step 3: Create conda environment for Taweret
 
 .. code:: bash
 
@@ -37,18 +37,18 @@ for more information.
     sh run_to_rebuild_tawret_rst.sh
 
 This will create a webpage locally and open it in your default web browser. 
-You can nodify the files inside ``Taweret/docs/source`` to make changes to 
-the web page.
+You can modify the files inside ``Taweret/docs/source`` to make changes to 
+the webpage.
 
 ``Taweret/docs/source/index.rst`` determines the overall structure of the 
-web page. Each file that is referenced in the ``index.rst`` can be found in
+webpage. Each file that is referenced in the ``index.rst`` can be found in
  the same folder.
 
 For example, if you want to modify the introduction, 
 change ``Taweret/docs/source/intro.rst``.
 
 After you make changes and locally build the web page, 
-you can push these changes to the actual web page by following 
+you can push these changes to the original webpage by following 
 the below set of instructions. 
 
 .. code:: bash
@@ -59,4 +59,4 @@ the below set of instructions.
 Then make a pull request from your forked repository to 
 the ``danOSU/Taweret`` repository, ``develop`` branch. 
 **Note** : You do not have to add or commit anything in 
-the ``Taweret/docs/build`` folder.
+the ``Taweret/docs/build`` folder. 

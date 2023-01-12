@@ -41,9 +41,9 @@ method and should return a mean and a variance for each input parameter value.
 Mixing Method
 ^^^^^^^^^^^^^
 The user will then choose a mixing method. Currently Taweret supports: \
-* **Linear mixing** (2 models)
-* **Multivariate BMM** (2,...,N models)
-* **Regression Trees with BART** (2 models)
+1. **Linear mixing** (2 models)
+2. **Multivariate BMM** (2,...,N models)
+3. **Regression Trees with BART** (2 models)
 
 Details of each Mixing Method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -53,18 +53,23 @@ Details of each Mixing Method
 and calculates the likelihood. Finding of the optimal weights by either optimizing the \
 likelihood or finding the full posterior is done as the next step. 
 
-(Add more info here about the other methods.)
+**Multivariate BMM**: Mixing method that combines two (or more!) models provided by the user into \
+a mixed model. This method, unlike linear mixing, only requires knowledge of the two models and their \
+uncertainties at the input points. Given that the models are supplied by the user, one could combine \
+two functions with a Gaussian Process (as seen in the example notebook for this method). 
+
+**Regression Trees with BART**: (@John, add your description here)
 
 Estimation of Mixing Function Weights 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Using the likelihood provided by the Mixed model user can find the optimal weights for Bayesian Model Mixing. \
+Using the likelihood provided by the mixed model, the user can find the optimal weights for Bayesian Model Mixing. \
 We provide wrapper functions to the likelihood method so that one can use their favourite calibration software \
 to estimate the weights. There is an example for this with SAMBA models in one of the example notebooks.
 
 Performing Model Mixing and Calibration Together
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Rather than using calibrated models to mix we can do better by doing calibration and mixing togeather. The advantage of this \
+Rather than using calibrated models to mix we can do better by doing calibration and mixing together. The advantage of this \
 is that the calibration of each model is not done by trying to fit the model to all experimental data and getting a global fit. \
 Instead each model is calibrated only using the fraction of experimental data that can be well fitted with the model. 
-This would avoid situations where a model is calibrated using experimental data that is outside it's applicability.\
+This would avoid situations where a model is calibrated using experimental data that is outside its applicability.\
 There is an example of this with Coleman models in one of the example notebooks.

@@ -41,9 +41,9 @@ method and should return a mean and a variance for each input parameter value.
 Mixing Method
 ^^^^^^^^^^^^^
 The user will then choose a mixing method. Currently Taweret supports: \
-#. **Linear mixing** (2 models)
-#. **Multivariate BMM** (2,...,N models)
-#. **Regression Trees with BART** (2 models)
+* **Linear mixing** (2 models)
+* **Multivariate BMM** (2,...,N models)
+* **Regression Trees with BART** (2 models)
 
 Details of each Mixing Method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

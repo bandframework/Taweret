@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class BaseMixer(ABC):
     @abstractmethod
     def evaluate(self):
-        '''
+        r"""
         Calculate a point estimate for mixing model
 
         Returns:
@@ -15,27 +15,29 @@ class BaseMixer(ABC):
         Example:
         --------
         Global linear mixing:
-        $$ f_\mathrm{mixed} = \sum_{i=1}^N w_i \mathcal M_i(\theta_i) $$
 
-        ```python
+        .. math::
+            f_\mathrm{mixed} = \sum_{i=1}^N w_i \mathcal M_i(\theta_i)
+        
+        '''
+        .. code-block:: python
+
+        import sys
         class MyMixer(BaseMixer):
             @property
             def models(self):
                 return self._model_list
-
             @models.setter
             def model(self, model_list):
                 self._model_list = model_list
-
             def evaluate(self, weights, model_parameters):
                 value = 0
                 for i in range(len(self._model_list)):
-                    value += self._model_list[i](x, model_parameters[i]) \
-                            * weight[i]
+                    value += self._model_list[i](x, model_parameters[i]) * weight[i]
                 return value
-            . . .
-        ```
         '''
+        
+        """
         return NotImplemented
 
     @abstractmethod
@@ -52,16 +54,15 @@ class BaseMixer(ABC):
         --------
         Global linear mixing:
 
-        ```python
-        import scipy
+        example code::
 
+        import scipy
         class MyMixer(BaseMixer):
             . . .
-
             def evaluate_weights(self, dirichlet_params):
                 return scipy.stats.dirichlet.rvs(dirichlet_params)
             . . .
-        ```
+
         '''
         return NotImplemented
 
@@ -97,14 +98,15 @@ class BaseMixer(ABC):
         --------
         Global liner mixing:
 
-        ```python
+        example code::
+
         class MyMixer(BaseMixer):
             . . .
             def predict(self, x_test):
                 # work to calculate everything
                 . . .
                 return posterior, means, credible_intervals, std_dev
-        ```
+
         '''
         return NotImplemented
 
@@ -130,14 +132,13 @@ class BaseMixer(ABC):
         --------
         Global liner mixing:
 
-        ```python
+        example code::
         class MyMixer(BaseMixer):
             . . .
             def predict_weights(self, x_test):
                 # work to calculate everything
                 . . .
                 return posterior, means, credible_intervals, std_dev
-        ```
         '''
         return NotImplemented
 
@@ -162,14 +163,14 @@ class BaseMixer(ABC):
         --------
         Global liner mixing:
 
-        ```python
+        example code::
+
         class MyMixer(BaseMixer):
             . . .
             def prior_predict(self, x_test):
                 # work to calculate everything
                 . . .
                 return prior, means, credible_intervals, std_dev
-        ```
         '''
         return NotImplemented
 
@@ -213,20 +214,19 @@ class BaseMixer(ABC):
 
         Example:
         --------
-        ```python
+        example code::
+
         class MyMixer(BaseMixer):
             . . .
             def set_prior(self, prior_dict):
                 self._prior = prior_dict
             . . .
-
         # creating a bilby prior dict
         priors = dict()
         priors['a'] = bilby.core.prior.MultivariateGaussian(mvg, 'a')
         priors['b'] = bilby.core.prior.MultivariateGaussian(mvg, 'b')
         m = MyMixer()
         m.set_prior(prior_dict=priors)
-        ```
       '''
         return NotImplemented
 

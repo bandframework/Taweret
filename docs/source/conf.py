@@ -18,8 +18,8 @@ sys.path.insert(0, os.path.abspath('../../../Taweret'))
 # -- Project information -----------------------------------------------------
 
 project = 'Taweret'
-copyright = '2022, Dan Liyanage, Alexandra Semposki'
-author = 'Dan Liyanage, Alexandra Semposki'
+copyright = '2022, Dan Liyanage, Alexandra Semposki, John Yannotty'
+author = 'Dan Liyanage, Alexandra Semposki, John Yannotty'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1.0'

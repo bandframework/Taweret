@@ -9,6 +9,8 @@ Taweret is a new generalized package to help with applying Bayesian model mixing
 ## Features
 At present, this package possesses the following BMM methods:
 - Linear model mixing 
+- Multivariate BMM 
+- Bayesian Trees
 
 ## Documentation
 See Taweret's docs webpage [here](https://danosu.github.io/Taweret/index.html).

@@ -16,7 +16,7 @@ for more information.
 **Steps**
 
 - Step 1: Fork Taweret repo
-- Step 2: Get the fork and chekout the ``development`` branch
+- Step 2: Get the fork and chekout the ``develop`` branch
 .. code:: bash
 
     git clone <url_to_the_fork> --branch develop

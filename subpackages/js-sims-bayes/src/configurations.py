@@ -17,7 +17,7 @@ np.random.seed(1)
 # Work, Design, and Exp directories
 workdir = Path(os.getenv('WORKDIR', '.'))
 design_dir =  str(workdir/'production_designs/')
-dir_obs_exp = "HIC_experimental_data"
+dir_obs_exp = "../HIC_experimental_data"
 
 ####################################
 ### USEFUL LABELS / DICTIONARIES ###

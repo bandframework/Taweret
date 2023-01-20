@@ -1,4 +1,5 @@
 model_calculations/*/Events
+check_integrity_of_events/
 *.hdf
 *.npy
 *.pdf

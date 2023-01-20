@@ -1,0 +1,13 @@
+model_calculations/*/Events
+*.hdf
+*.npy
+*.pdf
+*.pkl
+*.pyc
+src/__pycache__
+plots/
+*design*/*/
+*.png
+validate/
+emulator
+

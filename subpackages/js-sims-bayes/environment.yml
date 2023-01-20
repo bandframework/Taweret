@@ -1,0 +1,30 @@
+name: emulator-validation
+channels:
+- conda-forge
+dependencies:
+- python=3.7
+- nb_conda_kernels
+- numpy
+- scipy
+- matplotlib
+- pandas
+- seaborn
+- jupyter
+- ipywidgets
+- nbdime
+- emcee=2.2.1
+- ptemcee
+- corner
+- mkl-service
+- jupyter_nbextensions_configurator
+- scikit-learn
+- scikit-image
+- rise
+- pip
+- pip:
+  - gpy
+  - gpyopt  
+  - pymultinest
+  - pymc3==3.6
+  - arviz
+  - dill

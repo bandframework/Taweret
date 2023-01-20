@@ -11,10 +11,10 @@ In computer simulation studies, it is often the case where a set of theoreticall
 sound models are considered, each intended to describe the true underlying physical phenomena of interest \
 across a sub-region of the domain. These models could differ by their underlying assumptions \
 and may not be valid in certain sub-regions of the input domain. In practice, the true underlying \
-model is not contained in the set of candidate models. Thus, selecting a single model to to describe the true phenomena \
+model is not contained in the set of candidate models. Thus, selecting a single model to describe the true phenomena \
 across the entire input domain is inappropriate. As an alternative, one may elect to combine the information within \
 the model set in some systematic manner. A common approach involves combining the individual \
-mean predictions or predictive densities from the indivdual models using a linear combination or weight4ed average. \
+mean predictions or predictive densities from the indivdual models using a linear combination or weighted average. \
 The weights in this linear combination may or may not depend on the inputs. When the models under consideration \
 exhibit varrying levels of predictive accuracy depending on the sub-region of the input domain, an input-dependent \
 weighting scheme is more appropriate. A memeber of the class of input-dependent weighting schemes is \

@@ -20,8 +20,8 @@ exhibit varrying levels of predictive accuracy depending on the sub-region of th
 weighting scheme is more appropriate. A memeber of the class of input-dependent weighting schemes is \
 Bayesian Model Mixing (BMM). BMM is a data-driven technique combines the predictions from a set of N candidate models in a \
 Bayesian manner using input-dependent weights. Mixing can be performed using one of two strategies described below: \
-(1) A two-step approach: Each model is fit using one source of data prior to mixing. \
-Conditional on the predictions from each model, the weight functions are learned using a second source of data. \
+(1) A two-step approach: Each model is fit prior to mixing. \
+The weight functions are then learned conditional on the predictions from each model. \
 (2) A joint analysis: When the models have unknown parameters, one could elect to perform calibration while simultaneously \
 learning the weight functions.   
 

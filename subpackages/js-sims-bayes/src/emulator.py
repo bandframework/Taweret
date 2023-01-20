@@ -31,7 +31,7 @@ from sklearn.preprocessing import StandardScaler
 #these are necessary to use the heteroscedastic noise kernel
 #see https://github.com/jmetzen/gp_extras for installation and
 #https://jmetzen.github.io/2015-12-17/gp_extra.html for discussion
-from gp_extras.kernels import HeteroscedasticKernel
+#from gp_extras.kernels import HeteroscedasticKernel
 from sklearn.cluster import KMeans
 
 from configurations import *

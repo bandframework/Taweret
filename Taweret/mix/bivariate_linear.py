@@ -112,7 +112,7 @@ class BivariateLinear(BaseMixer):
         
         '''
 
-        w1, w2 = mixture_function(self.method, x, mixture_params)
+        w1, w2 = mixture_function(self.method, x, mixture_params, self.prior)
         model_1, model_2 = list(self.models_dic.values())
         try:
             model_1_out,_ = model_1.evaluate(x,model_params[0])
@@ -124,7 +124,18 @@ class BivariateLinear(BaseMixer):
         except:
             model_2_out,_ = model_2.evaluate(x)
         
-        return w1*model_1_out + w2*model_2_out
+        if model_1_out.ndim == model_2_out.ndim and model_2_out.ndim <= 1:
+            return w1*model_1_out + w2*model_2_out
+        elif model_1_out.ndim == model_2_out.ndim and model_2_out.ndim == 2:
+            if len(model_1_out)!=len(model_2_out):
+                raise Exception('Dimension mistmatch between outputs of models')
+            outputs = []
+            for obs_n in range(0,model_1_out.shape[1]):
+                outputs.append(w1*model_1_out[:,obs_n] + w2*model_2_out[:,obs_n]) 
+            return np.array(outputs)
+        else: 
+            assert Exception(f'Dimensional mistmatch: dim of model 1 is {model_1_out.ndim}\
+                , model 2 is {model_2_out.ndim}')
     
     
     def evaluate_weights(self, mixture_params, x):
@@ -145,7 +156,7 @@ class BivariateLinear(BaseMixer):
 
         '''
 
-        return mixture_function(self.method, x, mixture_params)
+        return mixture_function(self.method, x, mixture_params, self.prior)
 
 
     def predict(self, x, CI=[5,95], samples=None):
@@ -201,11 +212,11 @@ class BivariateLinear(BaseMixer):
             pos_predictions.append(value)
         pos_predictions = np.array(pos_predictions)
 
-        CIs = np.percentile(pos_predictions,CI, axis=0)
+        CIs = np.percentile(pos_predictions,CI, axis=0, keepdims=True)
 
-        mean = np.mean(pos_predictions, axis=0)
+        mean = np.mean(pos_predictions, axis=0, keepdims=True)
 
-        std_dev = np.std(pos_predictions, axis=0)
+        std_dev = np.std(pos_predictions, axis=0, keepdims=True)
 
         return pos_predictions, mean, CIs, std_dev
 
@@ -367,7 +378,8 @@ class BivariateLinear(BaseMixer):
         mixed_loglikelihood_elementwise=np.logaddexp(W_1+L1, W_2+L2)
         return np.sum(mixed_loglikelihood_elementwise).item()
 
-    def train(self, x_exp, y_exp, y_err, label='bivariate_mix', outdir='outdir', kwargs_for_sampler=None):
+    def train(self, x_exp, y_exp, y_err, label='bivariate_mix', outdir='outdir', 
+    kwargs_for_sampler=None, load_previous=False):
         '''
         Run sampler to learn parameters. Method should also create class
         members that store the posterior and other diagnostic quantities
@@ -387,31 +399,36 @@ class BivariateLinear(BaseMixer):
         # A few simple setup steps
         likelihood = likelihood_wrapper_for_bilby(self, x_exp, y_exp, y_err)
 
-        if os.path.exists(f'{outdir}'):
-            shutil.rmtree(outdir)
-        if kwargs_for_sampler is None:
-            kwargs_for_sampler = {'sampler':'ptemcee',
-            'ntemps':5,
-            'nwalkers':20,
-            'Tmax':100,
-            'burn_in_fixed_discard':200,
-            'nsamples':5000,
-            'threads':6,
-            'printdt':60}
-            #'safety':2,
-            #'autocorr_tol':5}
-            print(f'The following Default settings for sampler will be used. You can change\
-these arguments by providing kwargs_for_sampler argement in `train`.\
-Check Bilby documentation for other sampling options.\n{kwargs_for_sampler}')
+        if os.path.exists(outdir+'/'+label) and load_previous:
+            result = bilby.result.read_in_result(outdir=outdir, label=label)
         else:
-            print(f'The following settings were provided for sampler \n{kwargs_for_sampler}')
+            if load_previous:
+                print('Saved results do not exist in : '+ outdir+'/'+label)
+            if os.path.exists(outdir+'/'+label):
+                shutil.rmtree(outdir+'/'+label)
+            if kwargs_for_sampler is None:
+                kwargs_for_sampler = {'sampler':'ptemcee',
+                'ntemps':10,
+                'nwalkers':200,
+                'Tmax':100,
+                'burn_in_fixed_discard':500,
+                'nsamples':8000,
+                'threads':7,
+                'printdt':60}
+                #'safety':2,
+                #'autocorr_tol':5}
+                print(f'The following Default settings for sampler will be used. You can change\
+    these arguments by providing kwargs_for_sampler argement in `train`.\
+    Check Bilby documentation for other sampling options.\n{kwargs_for_sampler}')
+            else:
+                print(f'The following settings were provided for sampler \n{kwargs_for_sampler}')
 
-        result = bilby.run_sampler(
-            likelihood,
-            prior,
-            label=label,
-            outdir=outdir,
-            **kwargs_for_sampler)
+            result = bilby.run_sampler(
+                likelihood,
+                prior,
+                label=label,
+                outdir=outdir,
+                **kwargs_for_sampler)
         # The last two columns are model liklihood and log_prior.
         self._posterior = result.posterior.values[:,0:-2]  
         self.model_was_trained = True

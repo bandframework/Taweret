@@ -55,7 +55,7 @@ def normal_likelihood_elementwise(model : object, x_exp : np.ndarray, y_exp : np
     return np.exp(diff)/pre_factor
 
 
-def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray) -> np.ndarray:
+def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray, prior=None) -> np.ndarray:
     """
     predict the weights from the mixture funtion at the give input parameter values x
 
@@ -67,6 +67,9 @@ def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray) 
         input parameter values
     mixture_params : np.1darray
         parametrs that decide the shape of mixture function
+    prior : (optional) bilby prior object
+        Used only in step mixing 
+        to deal with negative values of the input. 
     """
     
     if mixture_params.size == 0:
@@ -76,8 +79,17 @@ def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray) 
         w = expit((x-theta_0)/theta_1)
         return w, 1 - w
     elif method=='step':
+
         x_0 = mixture_params[0]
-        w = np.array([1-(eps) if xi<=x_0 else eps for xi in x]).flatten()
+        if x_0 >= 0:
+            #If x is less than x_0 it's 1. Otherwise 0.
+            w = np.array([1-(eps) if xi<=x_0 else eps for xi in x]).flatten()
+        elif x_0 < 0:
+            #x_0 = -1*x_0
+            max_num = prior['step_0'].maximum
+            bound = max_num + x_0
+            #If x is greater than max_num - |x_0| it's 1. Otherwise 0. 
+            w = np.array([1-(eps) if xi>=bound else eps for xi in x]).flatten()
         return w, 1 - w
     elif method=='cdf':
         theta_0, theta_1 = mixture_params

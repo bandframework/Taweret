@@ -9,3 +9,6 @@ dependencies:
   - conda-forge::sphinxcontrib-bibtex
   - conda-forge::nbsphinx
   - conda-forge::pandoc
+#The following are optional and only for jetscape models
+  - conda-forge::sklearn=1.0.2
+

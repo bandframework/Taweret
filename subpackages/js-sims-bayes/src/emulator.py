@@ -433,7 +433,7 @@ def main():
         #    )
 
         #dill the emulator to be loaded later
-        with open('emulator/emulator-' + s + '-idf-' + str(idf) + '.dill', 'wb') as file:
+        with open(str(workdir)+'/emulator/emulator-' + s + '-idf-' + str(idf) + '.dill', 'wb') as file:
             dill.dump(emu, file)
 
 
@@ -443,16 +443,16 @@ if __name__ == "__main__":
 Trained_Emulators = {}
 for s in system_strs:
     try:
-        Trained_Emulators[s] = dill.load(open('emulator/emulator-' + s + '-idf-' + str(idf) + '.dill', "rb"))
+        Trained_Emulators[s] = dill.load(open(str(workdir)+'/emulator/emulator-' + s + '-idf-' + str(idf) + '.dill', "rb"))
     except:
         print("WARNING! Can't load emulator for system " + s)
-
+        print(str(workdir)+'emulator/emulator-' + s + '-idf-' + str(idf) + '.dill', "rb")
 #contains all the emulators for all df models
 Trained_Emulators_all_df = {}
 for s in system_strs:
     Trained_Emulators_all_df[s] = {}
     for idf_loc in [0, 1, 2, 3]:
         try:
-            Trained_Emulators_all_df[s][idf_loc] = dill.load(open('emulator/emulator-' + s + '-idf-' + str(idf_loc) + '.dill', "rb"))
+            Trained_Emulators_all_df[s][idf_loc] = dill.load(open(str(workdir)+'/emulator/emulator-' + s + '-idf-' + str(idf_loc) + '.dill', "rb"))
         except:
             print("WARNING! Can't load emulator for system " + s + " for idf " + str(idf_loc))

@@ -30,6 +30,7 @@ sys.path.append("/Users/dananjayaliyanage/git/Taweret/subpackages/js-sims-bayes/
 from configurations import *
 from emulator import *
 
+
 def map_x_to_cent_bins(x : float, obs_to_remove=None):
     """
     Both the simulation and eperiment provide 
@@ -84,7 +85,7 @@ class jetscape_models_pb_pb_2760(BaseModel):
         model_names = {0:'Grad', 1:'CE', 3:'PTB'}
         self.model_name = model_names[model_num]
         self.obs_to_remove=obs_to_remove
-        with open(f'/Users/dananjayaliyanage/git/Taweret/subpackages/js-sims-bayes/emulator/emulator-Pb-Pb-2760-idf-{model_num}.dill',"rb") as f:
+        with open(f'{workdir}/emulator/emulator-Pb-Pb-2760-idf-{model_num}.dill',"rb") as f:
             self.Emulators=dill.load(f)
     def evaluate(self, input_values : np.array, model_param = None) -> np.array:
         """
@@ -211,6 +212,7 @@ class exp_data(BaseModel):
         input_values : numpy 1darray
             centrality (x) values
         """
+
         mean = []
         sd = []
         for xx in input_values:
@@ -224,6 +226,7 @@ class exp_data(BaseModel):
                 obs_sd.append(entry[exp][k]['err'][0][0][cen_i])
             mean.append(obs)
             sd.append(obs_sd)
+
         return np.array(mean), np.array(sd)
 
     def log_likelihood_elementwise(self):

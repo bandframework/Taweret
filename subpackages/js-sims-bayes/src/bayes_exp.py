@@ -15,8 +15,8 @@ else :
 
     for s in system_strs:
         expt = expt_for_system[s]
-        path_to_data = 'HIC_experimental_data/' + s + '/' + expt_for_system[s] + '/'
-        path_to_PHENIX = 'HIC_experimental_data/' + s + '/PHENIX/'
+        path_to_data = dir_obs_exp + '/' + s + '/' + expt_for_system[s] + '/'
+        path_to_PHENIX = dir_obs_exp + '/' + s + '/PHENIX/'
         for obs in list( obs_cent_list[s].keys() ):
 
             n_bins_bayes = len(obs_cent_list[s][obs]) # only using these bins for calibration. Files may contain more bins

@@ -17,7 +17,7 @@ np.random.seed(1)
 # Work, Design, and Exp directories
 workdir = Path(os.getenv('WORKDIR', '.'))
 design_dir =  str(workdir/'production_designs/')
-dir_obs_exp = "../HIC_experimental_data"
+dir_obs_exp = str(workdir)+"/HIC_experimental_data"
 
 ####################################
 ### USEFUL LABELS / DICTIONARIES ###
@@ -58,13 +58,13 @@ idf_label_short = {
 number_of_models_per_run = 4
 
 # the choice of viscous correction. 0 : 14 Moment, 1 : C.E. RTA, 2 : McNelis, 3 : Bernhard
-idf = 0
+idf = 3
 print("Using idf = " + str(idf) + " : " + idf_label[idf])
 
 #the Collision systems
 systems = [
         ('Pb', 'Pb', 2760),
-        ('Au', 'Au', 200),
+        #('Au', 'Au', 200),
         #('Pb', 'Pb', 5020),
         #('Xe', 'Xe', 5440)
         ]

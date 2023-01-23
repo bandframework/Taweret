@@ -12,6 +12,7 @@ from Taweret.utils.utils import log_of_normal_dist
 
 import matplotlib.pyplot as plt
 import numpy as np
+from multiprocessing import cpu_count
 from scipy.stats import norm, dirichlet
 from typing import Any, Dict, List, Optional
 
@@ -657,7 +658,7 @@ class LinearMixerGlobal(BaseMixer):
             dim=self.n_mix,
             ntemps=ntemps,
             Tmax=10,
-            threads=8,
+            threads=cpu_count(),
             logl=self._loglikelihood_for_sampler,
             logp=self._log_prior,
             loglargs=[y_exp, y_err, model_parameters],

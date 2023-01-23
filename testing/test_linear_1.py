@@ -47,7 +47,9 @@ def test_two_model_global_mixing(loc):
     y_exp = loc
     y_err = 0.05
     posterior = global_linear_mix.train(y_exp=y_exp,
-                                        y_err=y_err)
+                                        y_err=y_err,
+                                        burn=50,
+                                        steps=200)
 
     cols = 2
     rows = 1

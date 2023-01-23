@@ -73,6 +73,7 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
         ax1[i].plot(xs, list(models.values())[i].evaluate(xs),
                     color=colors(i), lw=2)
         ax1[i].plot(xs, coulumb_expansion(xs), color='black', lw=2)
+    fig1.tight_layout()
     fig1.savefig(f'plots/debug_r={r:.3f}_rp={r_prime:.3f}.pdf')
 
     # Two ideas: 1. Feed the exact polynomial and do model mixing
@@ -100,17 +101,44 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
     print(ax.shape)
     weights = np.vstack([dirichlet(np.exp(sample)).rvs(size=1)
                          for sample in posterior.reshape(-1, len(models))])
+    labels = [r'$w_1$', r'$w_2$', r'$w_e$']
     for j in range(1, 4):
         for i in range(3):
             if i > j - 1:
                 ax[j, i].axis('off')
             elif i == j - 1:
                 ax[j, i].hist(weights[:, i],
-                              bins=20,
+                              bins=34,
                               histtype='step',
                               density=True)
+                ax[j, i].set_xlim(0, 1)
+                if i != 2:
+                    for t in ax[j, i].get_xticklabels():
+                        t.set_fontsize(0)
+                    for t in ax[j, i].get_yticklabels():
+                        t.set_fontsize(0)
+                else:
+                    for t in ax[j, i].get_xticklabels():
+                        t.set_fontsize(30)
+                    ax[j, i].set_xlabel(labels[i], fontsize=34)
+                if i == 0:
+                    ax[j, i].set_ylabel(labels[i], fontsize=34)
             else:
-                ax[j, i].scatter(weights[:, i], weights[:, j - 1])
+                ax[j, i].hist2d(weights[:, i], weights[:, j - 1], bins=34,
+                                cmin=1, cmap='cividis')
+                ax[j, i].set_xlim(0, 1)
+                ax[j, i].set_ylim(0, 1)
+                if i == 0:
+                    if j == 2:
+                        for t in ax[j, i].get_xticklabels():
+                            t.set_fontsize(0)
+                    for t in ax[j, i].get_yticklabels():
+                        t.set_fontsize(30)
+                    ax[j, i].set_ylabel(labels[j - 1], fontsize=34)
+                elif j == 3:
+                    for t in ax[j, i].get_xticklabels():
+                        t.set_fontsize(30)
+                    ax[j, i].set_xlabel(labels[i], fontsize=34)
 
     sin30 = 0.75 ** 0.5
     corners = np.array([[0, 0], [1, 0], [0.5, sin30]])
@@ -139,16 +167,16 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
     #     ]
     # )
 
-    s = ax[1, 1].scatter(points[:, 0], points[:, 1], s=5, c=points[:, 2],
-                         cmap=mp.get_cmap(points.shape[0], 'cividis'))
-    ax.set_aspect('equal')
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, sin30)
-    cax = fig.colorbar(s).ax
-    for t in cax.get_yticklabels():
-        t.set_fontsize(19)
-    plt.tight_layout()
-    plt.show()
+    # s = ax[1, 1].scatter(points[:, 0], points[:, 1], s=5, c=points[:, 2],
+    #                      cmap=mp.get_cmap(points.shape[0], 'cividis'))
+    # ax[1, 1].set_aspect('equal')
+    # ax[1, 1].set_xlim(0, 1)
+    # ax[1, 1].set_ylim(0, sin30)
+    # cax = fig.colorbar(s).ax
+    # for t in cax.get_yticklabels():
+    #     t.set_fontsize(19)
+    fig.tight_layout()
+    fig.savefig('plots/culoumb_compare_3.pdf')
 
 
 # def test_n_model_global_mixing(legendre_expansion_orders: List[int],

@@ -2,6 +2,7 @@ import _mypackage
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.tri as tri
 from scipy.stats import dirichlet
 from scipy.special import legendre
 from typing import List
@@ -37,7 +38,17 @@ class Model(BaseModel):
         pass
 
 
-def test_n_model_global_mixing(legendre_expansion_orders: List[int],
+def triangle_area(xy, triangle_corner_pairs):
+    return 0.5 * np.linalg.norm(*(triangle_corner_pairs - xy))
+
+
+def convert_barycentric_to_cartesian(bary, corners):
+    x = np.dot(bary, corners[:, 0])
+    y = np.dot(bary, corners[:, 1])
+    return np.array([x, y])
+
+
+def test_3_model_global_mixing(legendre_expansion_orders: List[int],
                                r: float,
                                r_prime: float):
 
@@ -73,25 +84,128 @@ def test_n_model_global_mixing(legendre_expansion_orders: List[int],
         y_exp=y_exp,
         y_err=y_err,
         model_parameters=dict((key, [xs]) for key in models.keys()),
-        steps=20_000,
-        thinning=1_000
+        steps=200,
+        thinning=1
     )
-    print(posterior.shape)
 
-    fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(1 * 7, 7))
+    fig, ax = plt.subplots(ncols=3, nrows=4, figsize=(3 * 7, 4 * 7))
     fig.patch.set_facecolor('white')
-    weights = np.vstack([dirichlet(np.exp(sample)).rvs(size=100)
-                         for sample in posterior.reshape(-1, len(models))])
+    _, bins = np.histogram(posterior.reshape(-1, 3)[:, 0], bins=100)
+    for i in range(3):
+        ax[0, i].hist(posterior.reshape(-1, 3)[:, i],
+                      bins=bins,
+                      histtype='step',
+                      density=True)
 
-    colors = mp.get_cmap(10, 'tab10')
-    for i, n in enumerate(legendre_expansion_orders):
-        ax.hist(weights[:, i], color=colors(i % 10), bins=100,
-                histtype='step', density=True)
-    mp.costumize_axis(ax, x_title=r'$w_i$',
-                      y_title='Predictive Posterior for weights')
-    fig.tight_layout()
-    fig.savefig('plots/test_legendre_polynomials_r={}_rp={}.pdf'
-                .format(r, r_prime))
+    print(ax.shape)
+    weights = np.vstack([dirichlet(np.exp(sample)).rvs(size=1)
+                         for sample in posterior.reshape(-1, len(models))])
+    for j in range(1, 4):
+        for i in range(3):
+            if i > j - 1:
+                ax[j, i].axis('off')
+            elif i == j - 1:
+                ax[j, i].hist(weights[:, i],
+                              bins=20,
+                              histtype='step',
+                              density=True)
+            else:
+                ax[j, i].scatter(weights[:, i], weights[:, j - 1])
+
+    sin30 = 0.75 ** 0.5
+    corners = np.array([[0, 0], [1, 0], [0.5, sin30]])
+    points = np.array(
+        [
+            [
+                *convert_barycentric_to_cartesian(weight, corners),
+                dirichlet.pdf(weight, np.exp(sample))
+            ]
+            for weight, sample in zip(weights,
+                                      posterior.reshape(-1, len(models)))
+        ])
+    #
+    # alphas = np.array([[1.2 for _ in range(3)]
+    #                    for _ in range(10_000)])
+    # rvs = np.array([dirichlet.rvs(alpha) for alpha in alphas]).reshape(-1, 3)
+    # print(alphas.shape, rvs.shape)
+    #
+    # points = np.array(
+    #     [
+    #         [
+    #             *convert_barycentric_to_cartesian(rv, corners),
+    #             dirichlet.pdf(rv, alpha)
+    #         ]
+    #         for rv, alpha in zip(rvs, alphas)
+    #     ]
+    # )
+
+    s = ax[1, 1].scatter(points[:, 0], points[:, 1], s=5, c=points[:, 2],
+                         cmap=mp.get_cmap(points.shape[0], 'cividis'))
+    ax.set_aspect('equal')
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, sin30)
+    cax = fig.colorbar(s).ax
+    for t in cax.get_yticklabels():
+        t.set_fontsize(19)
+    plt.tight_layout()
+    plt.show()
+
+
+# def test_n_model_global_mixing(legendre_expansion_orders: List[int],
+#                                r: float,
+#                                r_prime: float):
+#
+#     models = dict(
+#         (f'{i} legendre poly', Model(order=i, r=r, r_prime=r_prime))
+#         for i in legendre_expansion_orders
+#     )
+#     global_linear_mix = linear.LinearMixerGlobal(models=models,
+#                                                  n_mix=len(models))
+#     global_linear_mix.set_prior(scale=1)
+#
+#     def coulumb_expansion(x: float):
+#         denom = np.sqrt(r ** 2 + r_prime ** 2 - 2 * r * r_prime * x)
+#         return r_prime / denom
+#
+#     fig1, ax1 = plt.subplots(nrows=1, ncols=len(models),
+#                              figsize=(len(models) * 7, 1 * 7))
+#     fig1.patch.set_facecolor('white')
+#     colors = mp.get_cmap(10, 'tab10')
+#     xs = np.linspace(-1, 1, 100)
+#     for i in range(len(models)):
+#         ax1[i].plot(xs, list(models.values())[i].evaluate(xs),
+#                     color=colors(i), lw=2)
+#         ax1[i].plot(xs, coulumb_expansion(xs), color='black', lw=2)
+#     fig1.savefig(f'plots/debug_r={r:.3f}_rp={r_prime:.3f}.pdf')
+#
+#     # Two ideas: 1. Feed the exact polynomial and do model mixing
+#     #            2. Feed a gaussian smeered polynomial and do model mixing
+#     xs = np.linspace(-1, 1, 9)
+#     y_exp = np.array([coulumb_expansion(x) for x in xs])
+#     y_err = np.full_like(y_exp, 0.01)
+#     posterior = global_linear_mix.train(
+#         y_exp=y_exp,
+#         y_err=y_err,
+#         model_parameters=dict((key, [xs]) for key in models.keys()),
+#         steps=20_000,
+#         thinning=1_000
+#     )
+#     print(posterior.shape)
+#
+#     fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(1 * 7, 7))
+#     fig.patch.set_facecolor('white')
+#     weights = np.vstack([dirichlet(np.exp(sample)).rvs(size=100)
+#                          for sample in posterior.reshape(-1, len(models))])
+#
+#     colors = mp.get_cmap(10, 'tab10')
+#     for i, n in enumerate(legendre_expansion_orders):
+#         ax.hist(weights[:, i], color=colors(i % 10), bins=100,
+#                 histtype='step', density=True)
+#     mp.costumize_axis(ax, x_title=r'$w_i$',
+#                       y_title='Predictive Posterior for weights')
+#     fig.tight_layout()
+#     fig.savefig('plots/test_legendre_polynomials_r={}_rp={}.pdf'
+#                 .format(r, r_prime))
 
 
 if __name__ == "__main__":
@@ -99,4 +213,4 @@ if __name__ == "__main__":
     #   1. Figure out normalization, such that everything adds to 1
     #   2. Determine why the highest order does not work
     # test_n_model_global_mixing([i for i in range(2, 12, 2)], r=2.0, r_prime=1.0)
-    test_n_model_global_mixing([1, 5, 10], r=1.5, r_prime=1.0)
+    test_3_model_global_mixing([1, 3, 10], r=1.5, r_prime=1.0)

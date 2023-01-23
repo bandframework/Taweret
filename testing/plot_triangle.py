@@ -56,6 +56,7 @@ if __name__ == "__main__":
     triangle_refiner = tri.UniformTriRefiner(triangle)
     # create triangle mesh
     triangle_mesh = triangle_refiner.refine_triangulation(subdiv=4)
+    print(dir(triangle_mesh))
 
     # Plot for test
     # fig, ax = plt.subplots(ncols=2, nrows=1, figsize=(2 * 7, 7))

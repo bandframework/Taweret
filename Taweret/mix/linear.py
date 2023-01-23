@@ -346,7 +346,8 @@ class LinearMixerGlobal(BaseMixer):
         else:
             if samples is None:
                 raise Exception(
-                    "Please either train model, or provide samples as an argument"
+                    "Please either train model, or provide samples as an" +
+                    "argument"
                 )
             else:
                 predictive_distribution = self._sample_distribution(
@@ -684,6 +685,7 @@ class LinearMixerGlobal(BaseMixer):
         self.evidence = sampler.log_evidence_estimate()
 
         del sampler
+        # FIXME: This is wrong!
         self.m_map = self.m_posterior[np.argmax(self.m_posterior, axis=2)]
 
         self.has_trained = True

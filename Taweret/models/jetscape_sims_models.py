@@ -3,6 +3,8 @@ from Taweret.core.base_model import BaseModel
 #from Taweret.utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
 import bilby
 
+from functools import lru_cache
+
 #for jetscape models
 #import os
 import sys
@@ -87,6 +89,14 @@ class jetscape_models_pb_pb_2760(BaseModel):
         self.obs_to_remove=obs_to_remove
         with open(f'{workdir}/emulator/emulator-Pb-Pb-2760-idf-{model_num}.dill',"rb") as f:
             self.Emulators=dill.load(f)
+        
+    @lru_cache(maxsize=None)
+    def MAP_eval(self, fix_MAP=True):
+        "Internal use only to Cache the MAP evaluvation values of emulators"
+        model_param = np.array(MAP_params['Pb-Pb-2760'][self.model_name])
+        mn, cov = self.Emulators.predict(model_param.reshape(1,-1), return_cov=True)
+        return mn, cov
+
     def evaluate(self, input_values : np.array, model_param = None) -> np.array:
         """
         Predict the mean and error for given input values
@@ -111,9 +121,11 @@ class jetscape_models_pb_pb_2760(BaseModel):
 
         if len(model_param.flatten()) !=17 :
             raise TypeError('The model_param has to have 17 parameters')
+        if self.fix_MAP:
+            mn, cov = self.MAP_eval(self.fix_MAP)
+        else:
+            mn, cov = self.Emulators.predict(model_param.reshape(1,-1), return_cov=True)
 
-        mn, cov = self.Emulators.predict(model_param.reshape(1,-1), return_cov=True)
-        
         for xx in x:
             centr = map_x_to_cent_bins(xx, self.obs_to_remove)
             obs=[]

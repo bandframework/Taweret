@@ -105,6 +105,33 @@ def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray, 
             raise Exception(f'x_0 has to be non negative but provided {x_0}')
         w = alpha * w1 + (1-alpha) * w2
         return w, 1-w
+
+    elif method=='addstepasym':
+
+        x_0, x_1, alpha = mixture_params
+        if x_0 >= 0:
+            #If x is less than x_0 it's 1. Otherwise 0.
+            w1 = np.array([1-(eps) if xi<=x_0 else eps for xi in x]).flatten()
+            max_num = prior['addstep_0'].maximum
+            #bound = max_num - x_0
+            #If x is greater than max_num - |x_0| it's 1. Otherwise 0. 
+            #w2 = np.array([1-(eps) if xi>=bound else eps for xi in x]).flatten()
+        else:
+            raise Exception(f'x_0 has to be non negative but provided {x_0}')
+
+        if x_1 >= 0:
+            #If x is less than x_0 it's 1. Otherwise 0.
+            w2 = np.array([1-(eps) if xi>=x_1 else eps for xi in x]).flatten()
+            #max_num = prior['addstep_0'].maximum
+            #bound = max_num - x_0
+            #If x is greater than max_num - |x_0| it's 1. Otherwise 0. 
+            #w2 = np.array([1-(eps) if xi>=bound else eps for xi in x]).flatten()
+        else:
+            raise Exception(f'x_1 has to be non negative but provided {x_1}')
+
+        w = alpha * w1 + (1-alpha) * w2
+        return w, 1-w
+
     elif method=='cdf':
         theta_0, theta_1 = mixture_params
         x = theta_0 + theta_1*x

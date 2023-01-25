@@ -48,7 +48,7 @@ class BivariateLinear(BaseMixer):
         self.models_dic = models_dic
         # If a new method is added the following needs to be updated
         # It has method and number of free parameters in each method
-        method_n_mix_dic = {'step':1, 'addstep':2, 'sigmoid':2, 'cdf':2, 'switchcos':3}
+        method_n_mix_dic = {'step':1, 'addstep':2, 'addstepasym':3, 'sigmoid':2, 'cdf':2, 'switchcos':3}
 
         #check if the mixing function exist
         if method not in method_n_mix_dic:

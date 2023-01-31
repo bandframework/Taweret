@@ -57,5 +57,7 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
         for i in range(0, len(n_args_list)):
             models_params.append(params[tot_sum: tot_sum + n_args_list[i]])
             tot_sum += n_args_list[i]
+            if self.mixed_model.same_parameters:
+                break
 
         return self.mixed_model.mix_loglikelihood(mix_param, models_params, self.x_exp, self.y_exp, self.y_err)

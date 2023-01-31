@@ -14,7 +14,7 @@ class BivariateLinear(BaseMixer):
 
     '''
 
-    def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None):
+    def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None, same_parameters = False):
         '''
         Parameters
         ----------
@@ -24,6 +24,8 @@ class BivariateLinear(BaseMixer):
             mixing function
         nargs_model_dic : dictionary {'name1' : N_model1, 'name2' : N_model2}
             number of free parameters in each model
+        same_parameters : bool
+            If set, two models are assumed to have same parameters.
         '''
 
         if nargs_model_dic is None:
@@ -63,12 +65,14 @@ class BivariateLinear(BaseMixer):
             priors[name]=bilby.core.prior.Uniform(0, 1, name=name)
         print(f'Warning : Default prior is set to {priors}')
         print('To change the prior use `set_prior` method')
-        self._prior=self.set_prior(priors) # This combines model priors with mixing method priors
+        self.same_parameters = same_parameters
         self.method = method
         self.nargs_model_dic = nargs_model_dic
         self.model_was_trained=False # Flag to know if the model was trained or not
         self._map=None
         self._posterior=None
+        self._prior=self.set_prior(priors) # This combines model priors with mixing method priors
+        
 # Attributes
     @property
     def prior(self):
@@ -120,7 +124,10 @@ class BivariateLinear(BaseMixer):
             model_1_out,_ = model_1.evaluate(x)
 
         try:
-            model_2_out,_ = model_2.evaluate(x,model_params[1])
+            if self.same_parameters:
+                model_2_out,_ = model_2.evaluate(x,model_params[0])
+            else:
+                model_2_out,_ = model_2.evaluate(x,model_params[1])
         except:
             model_2_out,_ = model_2.evaluate(x)
         
@@ -207,6 +214,8 @@ class BivariateLinear(BaseMixer):
             for i in range(0,len(n_args_for_models)):
                 model_params.append(sample[self.n_mix+n_args_sum:self.n_mix+n_args_sum+n_args_for_models[i]])
                 n_args_sum+=n_args_for_models[i]
+                if self.same_parameters:
+                    break;
                 
             value = self.evaluate(mixture_param,x, model_params)
             pos_predictions.append(value)
@@ -342,6 +351,8 @@ class BivariateLinear(BaseMixer):
                 priors = model.prior
             for ii, entry2 in enumerate(priors):
                 bilby_prior_dic[f'{name}_{ii}']=priors[entry2]
+            if self.same_parameters:
+                break
         self._prior = bilby_prior_dic
         return self._prior
 
@@ -361,7 +372,11 @@ class BivariateLinear(BaseMixer):
             model_1_param = np.array([])
             model_2_param = np.array([])
         else:
-            model_1_param , model_2_param = model_param
+            if self.same_parameters:
+                model_1_param = model_param[0]
+                model_2_param = model_param[0]
+            else:
+                model_1_param , model_2_param = model_param
         W_1, W_2 = self.evaluate_weights(mixture_params, x_exp)
         W_1 = np.log(W_1 + eps)
         W_2 = np.log(W_2 + eps)

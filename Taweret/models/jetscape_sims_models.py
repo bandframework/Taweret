@@ -3,8 +3,6 @@ from Taweret.core.base_model import BaseModel
 #from Taweret.utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
 import bilby
 
-from functools import lru_cache
-
 #for jetscape models
 #import os
 import sys
@@ -87,6 +85,9 @@ class jetscape_models_pb_pb_2760(BaseModel):
         model_names = {0:'Grad', 1:'CE', 3:'PTB'}
         self.model_name = model_names[model_num]
         self.obs_to_remove=obs_to_remove
+        design, design_min, design_max, labels = load_design('Pb-Pb-2760')
+        self.design_min = design_min
+        self.design_max = design_max
         with open(f'{workdir}/emulator/emulator-Pb-Pb-2760-idf-{model_num}.dill',"rb") as f:
             self.Emulators=dill.load(f)
         self.evaluated_MAP = self.Emulators.predict(np.array(MAP_params['Pb-Pb-2760'][self.model_name]).reshape(1,-1), return_cov=True)
@@ -135,9 +136,15 @@ class jetscape_models_pb_pb_2760(BaseModel):
                 cen_i = centr[k]
                 obs.append(mn[k][0][cen_i])
                 #print(mn[k].shape)
-                obs_var.append((np.diagonal(cov[(k),(k)])[cen_i])[0])
+                obs_var.append(np.abs((np.diagonal(cov[(k),(k)])[cen_i])[0]))
+                #if (np.diagonal(cov[(k),(k)])[cen_i])[0]<0:
+                #    print(f'For {k} cen {cen_i} var is {(np.diagonal(cov[(k),(k)])[cen_i])[0]}')
             mean.append(obs)
             var.append(obs_var)
+
+        #print(var)
+        #neg_var = np.argwhere(var<0)
+
 
         return np.array(mean), np.sqrt(var)
 
@@ -160,7 +167,7 @@ class jetscape_models_pb_pb_2760(BaseModel):
 
         """
 
-        predictions, model_errs = self.evaluate(x_exp)
+        predictions, model_errs = self.evaluate(x_exp, model_param)
         diff = []
         x_exp = x_exp.flatten()
         if len(x_exp)!=y_exp_all.shape[0]:
@@ -184,16 +191,16 @@ class jetscape_models_pb_pb_2760(BaseModel):
         For now we will not use any model parameters and fix it to MAP.
         Later we will come back to this. 
         '''
-        return None
-    #     if bilby_priors is None:
-    #         print('Using default priors for model 1')
-    #         priors = bilby.prior.PriorDict()
-    #         priors['model1_0']=bilby.core.prior.Uniform(1, 6, "model1_0")
-    #     else:
-    #         priors = bilby_priors
-    #     print(priors)
-    #     self._prior=priors
-    #     return priors
+        if bilby_priors is None:
+            print('Using default priors for model')
+            priors = bilby.prior.PriorDict()
+            for i in range(0,17):
+                priors[f'{self.model_name}_{i}']=bilby.core.prior.Uniform(self.design_min[i], self.design_max[i], f'{self.model_name}_{i}')
+        else:
+            priors = bilby_priors
+        print(priors)
+        self._prior=priors
+        return priors
 
     @property
     def prior(self):

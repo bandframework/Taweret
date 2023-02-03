@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    Taweret.calibrate
+   Taweret.core
    Taweret.mix
    Taweret.models
    Taweret.utils

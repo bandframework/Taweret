@@ -85,10 +85,12 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
         y_exp=y_exp,
         y_err=y_err,
         model_parameters=dict((key, [xs]) for key in models.keys()),
-        steps=200,
-        thinning=1
+        burn=500,
+        steps=20_00,
+        thinning=100
     )
 
+    labels = [r'$w_1$', r'$w_2$', r'$w_3$']
     fig, ax = plt.subplots(ncols=3, nrows=4, figsize=(3 * 7, 4 * 7))
     fig.patch.set_facecolor('white')
     _, bins = np.histogram(posterior.reshape(-1, 3)[:, 0], bins=100)
@@ -97,11 +99,11 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
                       bins=bins,
                       histtype='step',
                       density=True)
+        mp.costumize_axis(ax[0, i], labels[i], "")
 
     print(ax.shape)
     weights = np.vstack([dirichlet(np.exp(sample)).rvs(size=1)
                          for sample in posterior.reshape(-1, len(models))])
-    labels = [r'$w_1$', r'$w_2$', r'$w_e$']
     for j in range(1, 4):
         for i in range(3):
             if i > j - 1:
@@ -120,6 +122,8 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
                 else:
                     for t in ax[j, i].get_xticklabels():
                         t.set_fontsize(30)
+                    for t in ax[j, i].get_yticklabels():
+                        t.set_fontsize(0)
                     ax[j, i].set_xlabel(labels[i], fontsize=34)
                 if i == 0:
                     ax[j, i].set_ylabel(labels[i], fontsize=34)
@@ -132,25 +136,31 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
                     if j == 2:
                         for t in ax[j, i].get_xticklabels():
                             t.set_fontsize(0)
+                    else:
+                        ax[j, i].set_xlabel(labels[i], fontsize=34)
+                        for t in ax[j, i].get_xticklabels():
+                            t.set_fontsize(30)
                     for t in ax[j, i].get_yticklabels():
                         t.set_fontsize(30)
                     ax[j, i].set_ylabel(labels[j - 1], fontsize=34)
                 elif j == 3:
                     for t in ax[j, i].get_xticklabels():
                         t.set_fontsize(30)
+                    for t in ax[j, i].get_yticklabels():
+                        t.set_fontsize(0)
                     ax[j, i].set_xlabel(labels[i], fontsize=34)
 
-    sin30 = 0.75 ** 0.5
-    corners = np.array([[0, 0], [1, 0], [0.5, sin30]])
-    points = np.array(
-        [
-            [
-                *convert_barycentric_to_cartesian(weight, corners),
-                dirichlet.pdf(weight, np.exp(sample))
-            ]
-            for weight, sample in zip(weights,
-                                      posterior.reshape(-1, len(models)))
-        ])
+    # sin30 = 0.75 ** 0.5
+    # corners = np.array([[0, 0], [1, 0], [0.5, sin30]])
+    # points = np.array(
+    #     [
+    #         [
+    #             *convert_barycentric_to_cartesian(weight, corners),
+    #             dirichlet.pdf(weight, np.exp(sample))
+    #         ]
+    #         for weight, sample in zip(weights,
+    #                                   posterior.reshape(-1, len(models)))
+    #     ])
     #
     # alphas = np.array([[1.2 for _ in range(3)]
     #                    for _ in range(10_000)])

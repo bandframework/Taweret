@@ -74,5 +74,5 @@ if __name__ == "__main__":
         ])
 
     # draw_pdf_contours(triangle, coordinate_pairs, [1, 1, 1])
-    draw_pdf_contours(triangle, coordinate_pairs, [5, 5, 5])
+    draw_pdf_contours(triangle, coordinate_pairs, [1.0, 1.0, 2.72])
     plt.show()

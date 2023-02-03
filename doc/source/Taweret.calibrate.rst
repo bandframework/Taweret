@@ -1,6 +1,8 @@
 Taweret.calibrate namespace
 ===========================
 
+.. py:module:: Taweret.calibrate
+
 Submodules
 ----------
 

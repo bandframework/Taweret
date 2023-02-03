@@ -9,7 +9,7 @@ from Taweret.mix import linear
 
 import my_plotting as mp
 
-# TODO: Move to notebook and upload to Tawere documentatio
+# TODO: Move to notebook and upload to Taweret documentation
 
 
 class Model1(BaseModel):

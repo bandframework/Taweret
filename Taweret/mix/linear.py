@@ -8,13 +8,15 @@ import _mypackage
 
 from Taweret.core.base_mixer import BaseMixer
 from Taweret.core.base_model import BaseModel
-from Taweret.utils.utils import log_of_normal_dist
 
 import matplotlib.pyplot as plt
 import numpy as np
 from multiprocessing import cpu_count
 from scipy.stats import norm, dirichlet
 from typing import Any, Dict, List, Optional
+
+from sklearn.gaussian_process import GaussianProcessRegressor as gpr
+from sklearn.gaussian_process.kernels import RBF
 
 eps = 1.0e-20
 
@@ -1097,7 +1099,6 @@ class LinearMixerLocal(BaseMixer):
 
     def prior_predict(
         self,
-        xs: np.darray,
         loca_parameters: np.ndarray,
         model_parameters: Optional[Dict[str, List[float]]] = None,
         credible_interval=[5, 95],
@@ -1108,10 +1109,6 @@ class LinearMixerLocal(BaseMixer):
 
         Parameters:
         -----------
-        xs : np.ndarray
-            has shape (m, n) where m == number_samples and n are the number of
-            variables encoding the local hyperparameter dependences for the
-            prior
         local_parameters : np.ndarray
             parameters that determine where to sample prior distribution
         model_parameters : Optional[Dict[str, List[float]]]
@@ -1165,10 +1162,6 @@ class LinearMixerLocal(BaseMixer):
 
         Parameters:
         -----------
-        xs : np.ndarray
-            has shape (m, n) where m corresponds to the number of samples
-            and n are the number of variables encoding the local hyperparameter
-            dependences for the prior
         local_parameters : np.ndarray
             parameters that determine where to sample the prior distribution
         credible_intervals : Optional[List[float], List[List[float]]]
@@ -1250,11 +1243,18 @@ class LinearMixerLocal(BaseMixer):
         #       (2) Where we use a linear regression model to learn weights
         prior_samples = []
         for n in np.arange(number_samples):
-            log_norm_samples = np.array(
-                [gp.predict(local_parameters.reshape(1, -1))
-                 for gp in self.m_prior.values()]
-            )
-            prior_samples.append(log_norm_samples)
+            samples = []
+            for key, priors in self.m_prior:
+                random_length = np.random.uniform(*priors[0])
+                random_variance = np.random.uniform(*priors[1])
+                gpr.kernel_.set_params(
+                    {
+                        'k1': random_variance ** 2,
+                        'k2': RBF(length_scale=random_length),
+                    }
+                )
+                samples.append(gpr.predict(local_parameters))
+            prior_samples.append(samples)
 
         prior_samples = np.vstack(prior_samples)
         if number_samples == 1:
@@ -1267,9 +1267,9 @@ class LinearMixerLocal(BaseMixer):
 
     def set_prior(
             self,
-            ell: np.ndarray,
-            sigma: np.ndarray = 1,
-            noise: np.ndarray = 0
+            length_scale_bounds: np.ndarray,
+            variance_bounds: np.ndarray = np.array([-5, 5]),
+            noise_bounds: np.ndarray = 0
     ):
         """
         The prior distribution for log link functions (i.e. the log of the
@@ -1278,20 +1278,18 @@ class LinearMixerLocal(BaseMixer):
 
         Parameters:
         -----------
-        ell : np.ndarray
-            Determines the correlation of the correlation function in Gaussian
-            Process.
-            Should have shape (m,) where m is the number of local variables
-            used to calculate the shape parameters
-        sigma : np.ndarray
-            Determines the variance of the Gaussian Process predictions.
-            Should not be larger than 1.
-            Can have shape (m,) where m is the number of local variables used 
-            to calculate the shape parameters
+        legnth_scale_bounds : np.ndarray
+            Should have shape (1, 2).
+            Range of values for length scale parameters of the Gaussian
+            processes: used as uniform prior in length_scale.
+        variance_bounds : np.ndarray
+            Should have shape (1, 2)
+            Range of values for variance parameters of the Gaussian process:
+            used as uniform prior on variance
         noise : np.ndarray
             Since kernels for Gaussian process can hav white noise generators,
             the noise parameter is there to set the noise level.
-            Can have shape (m,) where m is the number of local variables used 
+            Can have shape (m,) where m is the number of local variables used
             to caculate the shape parameters.
             (Note, this feature is currently not available)
         """
@@ -1300,14 +1298,17 @@ class LinearMixerLocal(BaseMixer):
         #       follow a log normal
         #       The type of prior distributions determines the values for the
         #       local parameters.
-        from sklearn.gaussian_process import GaussianProcessRegressor as gpr
-        from sklearn.gaussian_process import kernels as krnl
 
-        bounds = np.outer(ell, (1e-4, 1))
-        kernel = krnl.RBF(length_scale=ell, length_scale_bounds=bounds)
+        kernel = np.squeeze(np.diff(variance_bounds, axis=1)) / 2 \
+            * RBF(length_scale=np.squeeze(
+                          np.diff(length_scale_bounds, axis=1)
+                      ) / 2,
+                  length_scale_bounds=length_scale_bounds)
+        self.m_gpr = gpr(kernel=kernel)
 
         prior_dict = {
-            f"param_{i}": gpr(kernel=kernel) for i in range(self.n_mix)
+            f"param_{i}":  [length_scale_bounds, variance_bounds]
+            for i in range(self.m_mix_)
         }
         self.m_prior = prior_dict
 
@@ -1370,14 +1371,15 @@ class LinearMixerLocal(BaseMixer):
             point(s)
         """
         # TODO: Needs to conform with the chosen prior form.
-        return np.sum(
-            [
-                prior.logpdf(param)
-                for prior, param in zip(
-                    self.m_prior.values(), prior_parameters
-                )
-            ]
-        )
+        log_priors = []
+        for priors in self.m_prior.values():
+            for n, prior in enumerate(priors):
+                if (prior_parameters[n] < prior[1]
+                        and prior_parameters[n] > prior[0]):
+                    log_priors.append(-np.log(np.diff(prior)))
+                else:
+                    log_priors.append(-np.inf)
+        return np.sum(log_priors)
 
     ##########################################################################
     ##########################################################################

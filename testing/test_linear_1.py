@@ -19,7 +19,7 @@ class Model1(BaseModel):
     def log_likelihood_elementwise(self, y_exp, y_err):
         result = np.exp(-(10 - y_exp) ** 2 / (2 * y_err ** 2))
         result /= np.sqrt(2 * np.pi * y_err ** 2)
-        return result
+        return np.log(result)
 
     def set_prior(self):
         pass
@@ -32,7 +32,7 @@ class Model2(BaseModel):
     def log_likelihood_elementwise(self, y_exp, y_err):
         result = np.exp(-(-10 - y_exp) ** 2 / (2 * y_err ** 2))
         result /= np.sqrt(2 * np.pi * y_err ** 2)
-        return result
+        return np.sum(np.log(result))
 
     def set_prior(self):
         pass
@@ -45,11 +45,11 @@ def test_two_model_global_mixing(loc):
     global_linear_mix.set_prior(scale=1)
 
     y_exp = loc
-    y_err = 0.05
+    y_err = 2.0
     posterior = global_linear_mix.train(y_exp=y_exp,
                                         y_err=y_err,
-                                        burn=50,
-                                        steps=200)
+                                        burn=500,
+                                        steps=20_000)
 
     cols = 2
     rows = 1
@@ -138,6 +138,6 @@ def test_two_model_global_mixing(loc):
 
 
 if __name__ == "__main__":
-    test_two_model_global_mixing(loc=10)
+    # test_two_model_global_mixing(loc=10)
     test_two_model_global_mixing(loc=0)
-    test_two_model_global_mixing(loc=-10)
+    # test_two_model_global_mixing(loc=-10)

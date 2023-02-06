@@ -32,7 +32,7 @@ class Model(BaseModel):
             -(self.evaluate(cos_theta) - y_exp) ** 2 / 2 * y_err ** 2
         )
         return_value /= np.sqrt(2 * np.pi * y_err ** 2)
-        return np.prod(return_value)
+        return np.sum(np.log(return_value))
 
     def set_prior(self):
         pass

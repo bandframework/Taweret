@@ -776,7 +776,7 @@ class LinearMixerLocal(BaseMixer):
         #        sampling the log-normal distribution for the dirichlet
         #        hyperparameters
         weights = self.evaluate_weights(
-            local_parmeters=local_parameters,
+            local_parameters=local_parameters,
             number_samples=1
         )
 
@@ -823,7 +823,7 @@ class LinearMixerLocal(BaseMixer):
             array of sampled weights
         """
         shape_parameters = self._sample_prior(
-            local_parmeters=local_parameters,
+            local_parameters=local_parameters,
             number_samples=number_samples
         )
 
@@ -883,6 +883,10 @@ class LinearMixerLocal(BaseMixer):
             a set of weights
         """
 
+        # FIXME: The model should not need to consume the local_parameters
+        #        Perhaps an option that allows for the specifying of positional
+        #        parameters?
+
         # In general, the weights statisfy a simplex condition (they sum to 1)
         # A natural distribution to choose for the weights is a dirichlet
         # distribution, which hyperparameters that need priors specified
@@ -898,7 +902,11 @@ class LinearMixerLocal(BaseMixer):
         if model_parameters is None:
             log_likelis = np.array(
                 [
-                    model.log_likelihood_elementwise(y_exp, y_err) + log_weight
+                    model.log_likelihood_elementwise(
+                            local_parameters,
+                            y_exp,
+                            y_err
+                        ) + log_weight
                     for model, log_weight in zip(
                         self.models.values(), log_weights
                     )
@@ -907,8 +915,12 @@ class LinearMixerLocal(BaseMixer):
         else:
             log_likelis = np.array(
                 [
-                    model.log_likelihood_elementwise(y_exp, y_err, *parameters)
-                    + log_weight
+                    model.log_likelihood_elementwise(
+                            local_parameters,
+                            y_exp,
+                            y_err,
+                            *parameters
+                        ) + log_weight
                     for model, parameters, log_weight in zip(
                         self.models.values(),
                         model_parameters.values(),
@@ -1228,7 +1240,7 @@ class LinearMixerLocal(BaseMixer):
 
         Parameters:
         -----------
-        local_parmeters : np.ndarray
+        local_parameters : np.ndarray
             parameters that help determine where to sample prior
         number_samples : int
             number of samples form prior distributions
@@ -1244,16 +1256,18 @@ class LinearMixerLocal(BaseMixer):
         prior_samples = []
         for n in np.arange(number_samples):
             samples = []
-            for key, priors in self.m_prior:
-                random_length = np.random.uniform(*priors[0])
-                random_variance = np.random.uniform(*priors[1])
-                gpr.kernel_.set_params(
-                    {
-                        'k1': random_variance ** 2,
-                        'k2': RBF(length_scale=random_length),
-                    }
+            for key, priors in self.m_prior.items():
+                # random_length = np.random.uniform(*priors[0])
+                # random_variance = np.random.uniform(*priors[1])
+                # self.m_gpr.kernel.set_params(
+                #     **{
+                #         'k1': [random_variance ** 2],
+                #         'k2': RBF(length_scale=random_length),
+                #     }
+                # )
+                samples.append(
+                    self.m_gpr.predict(local_parameters.reshape(-1, 1))
                 )
-                samples.append(gpr.predict(local_parameters))
             prior_samples.append(samples)
 
         prior_samples = np.vstack(prior_samples)
@@ -1267,7 +1281,8 @@ class LinearMixerLocal(BaseMixer):
 
     def set_prior(
             self,
-            length_scale_bounds: np.ndarray,
+            local_parameter_ranges: np.ndarray,
+            length_scale_bounds: np.ndarray = np.array([1e-2, 1e2]),
             variance_bounds: np.ndarray = np.array([-5, 5]),
             noise_bounds: np.ndarray = 0
     ):
@@ -1299,16 +1314,16 @@ class LinearMixerLocal(BaseMixer):
         #       The type of prior distributions determines the values for the
         #       local parameters.
 
-        kernel = np.squeeze(np.diff(variance_bounds, axis=1)) / 2 \
+        kernel = np.squeeze(np.diff(variance_bounds)) / 2 \
             * RBF(length_scale=np.squeeze(
-                          np.diff(length_scale_bounds, axis=1)
+                          np.diff(length_scale_bounds)
                       ) / 2,
                   length_scale_bounds=length_scale_bounds)
         self.m_gpr = gpr(kernel=kernel)
 
         prior_dict = {
-            f"param_{i}":  [length_scale_bounds, variance_bounds]
-            for i in range(self.m_mix_)
+            f"param_{i}":  local_parameter_ranges
+            for i in range(self.n_mix)
         }
         self.m_prior = prior_dict
 
@@ -1373,12 +1388,11 @@ class LinearMixerLocal(BaseMixer):
         # TODO: Needs to conform with the chosen prior form.
         log_priors = []
         for priors in self.m_prior.values():
-            for n, prior in enumerate(priors):
-                if (prior_parameters[n] < prior[1]
-                        and prior_parameters[n] > prior[0]):
-                    log_priors.append(-np.log(np.diff(prior)))
-                else:
-                    log_priors.append(-np.inf)
+            if (prior_parameters < priors[1]
+                    and prior_parameters > priors[0]):
+                log_priors.append(-np.log(np.diff(priors)))
+            else:
+                log_priors.append(-np.inf)
         return np.sum(log_priors)
 
     ##########################################################################

@@ -28,11 +28,10 @@ class Model(BaseModel):
         return return_value
 
     def log_likelihood_elementwise(self, y_exp, y_err, cos_theta):
-        return_value = np.exp(
-            -(self.evaluate(cos_theta) - y_exp) ** 2 / 2 * y_err ** 2
-        )
-        return_value /= np.sqrt(2 * np.pi * y_err ** 2)
-        return np.sum(np.log(return_value))
+        y_calc = self.evaluate(cos_theta)
+        return_value = np.sum((y_calc - y_exp) ** 2 / y_err ** 2)
+        return_value += len(cos_theta) * np.sum(np.log(2 * np.pi * y_err ** 2))
+        return -0.5 * return_value
 
     def set_prior(self):
         pass
@@ -80,13 +79,13 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
     #            2. Feed a gaussian smeered polynomial and do model mixing
     xs = np.linspace(-1, 1, 9)
     y_exp = np.array([coulumb_expansion(x) for x in xs])
-    y_err = np.full_like(y_exp, 0.01)
+    y_err = np.full_like(y_exp, 0.10)
     posterior = global_linear_mix.train(
         y_exp=y_exp,
         y_err=y_err,
         model_parameters=dict((key, [xs]) for key in models.keys()),
         burn=500,
-        steps=20_00,
+        steps=20_000,
         thinning=100
     )
 

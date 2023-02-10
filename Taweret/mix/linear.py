@@ -13,10 +13,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 from multiprocessing import cpu_count
 from scipy.stats import norm, dirichlet
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional, Type
 
 from sklearn.gaussian_process import GaussianProcessRegressor as gpr
 from sklearn.gaussian_process.kernels import RBF
+
+import bilby
 
 eps = 1.0e-20
 
@@ -27,7 +29,11 @@ class LinearMixerGlobal(BaseMixer):
 
     """
 
-    def __init__(self, models, nargs_for_each_model=None, n_mix=0):
+    def __init__(
+            self,
+            models: Dict[str, Type[BaseModel]],
+            nargs_for_each_model: Optional[np.ndarray] = None,
+            n_mix: int = 0):
         """
         Parameters
         ----------
@@ -73,7 +79,7 @@ class LinearMixerGlobal(BaseMixer):
     def evaluate(
         self,
         mixing_parameters: np.ndarray,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
     ) -> np.ndarray:
         """
         evaluate mixed model for given mixing function parameters
@@ -82,7 +88,7 @@ class LinearMixerGlobal(BaseMixer):
         ----------
         mixture_parameters : np.ndarray
             parameter values that fix the shape of mixing function
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             Dictionary with list of parameter values for each model
 
 
@@ -163,7 +169,7 @@ class LinearMixerGlobal(BaseMixer):
         y_exp: np.ndarray,
         y_err: np.ndarray,
         mix_parameters: np.ndarray,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
     ) -> float:
         """
         log likelihood of the mixing model
@@ -176,7 +182,7 @@ class LinearMixerGlobal(BaseMixer):
             Gaussian error bars on the experimental data
         mix_parameters : np.1darray
             parameter values that fix the shape of mixing function
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             list of model parameters for each model, note that different models
             can take different number of parameters
 
@@ -268,7 +274,7 @@ class LinearMixerGlobal(BaseMixer):
     def _sample_distribution(
         self,
         distribution: np.ndarray,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
     ) -> np.ndarray:
         """
         Helper function to evaluate the predictive distribution from a given
@@ -279,7 +285,7 @@ class LinearMixerGlobal(BaseMixer):
         distribution : np.ndarray
             Can be the MCMC chain from the posterior sampling, or a set of
             sample points selected by the user
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             dictionary contain lists of the parameters each model needs to use
 
         Returns:
@@ -299,7 +305,7 @@ class LinearMixerGlobal(BaseMixer):
 
     def predict(
         self,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
         credible_intervals=[5, 95],
         samples=None,
     ):
@@ -308,9 +314,9 @@ class LinearMixerGlobal(BaseMixer):
 
         Parameters:
         -----------
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             dictionary contain lists of the parameters each model needs to use
-        credible_intervals : Optional[List[float], List[List[float]]]
+        credible_intervals : Optional[np.ndarray, List[np.ndarray]]
             list of even number of integers the express which percentiles of
             the posterior distribution to compute and return
         sample : np.ndarray
@@ -397,7 +403,7 @@ class LinearMixerGlobal(BaseMixer):
 
     def prior_predict(
         self,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
         credible_interval=[5, 95],
         number_samples: int = 1000,
     ) -> np.ndarray:
@@ -406,9 +412,9 @@ class LinearMixerGlobal(BaseMixer):
 
         Parameters:
         -----------
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             dictionary contain lists of the parameters each model needs to use
-        credible_intervals : Optional[List[float], List[List[float]]]
+        credible_intervals : Optional[np.ndarray, List[np.ndarray]]
             list of even number of integers the express which percentiles of
             the posterior distribution to compute and return
         sample : np.ndarray
@@ -451,7 +457,7 @@ class LinearMixerGlobal(BaseMixer):
 
         Parameters:
         -----------
-        credible_intervals : Optional[List[float], List[List[float]]]
+        credible_intervals : Optional[np.ndarray, List[np.ndarray]]
             list of even number of integers the express which percentiles of
             the posterior distribution to compute and return
         sample : np.ndarray
@@ -538,7 +544,7 @@ class LinearMixerGlobal(BaseMixer):
         mix_parameters: Any,
         y_exp: np.ndarray,
         y_err: np.ndarray,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
     ) -> np.ndarray:
         """
         Helper for ptemcee call fo loglikelihood function
@@ -552,7 +558,7 @@ class LinearMixerGlobal(BaseMixer):
             The experimental data
         y_err : np.ndarray
             Gaussian error bars on the experimental data
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             list of model parameters for each model, note that different models
             can take different number of parameters
 
@@ -604,7 +610,7 @@ class LinearMixerGlobal(BaseMixer):
         self,
         y_exp: np.ndarray,
         y_err: np.ndarray,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
         steps: int = 2000,
         burn: int = 50,
         temps: int = 10,
@@ -624,7 +630,7 @@ class LinearMixerGlobal(BaseMixer):
             experimental observables to compare models with
         y_err : np.ndarray
             gaussian error bars on observables
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             dictionary which contains list of model parameters for each model
         steps: int
             Number of steps for MCMC per model (defaults to 2000)
@@ -753,7 +759,8 @@ class LinearMixerLocal(BaseMixer):
     def evaluate(
         self,
         local_parameters: np.ndarray,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        weight_distribution_hyperparameters: Dict[str, np.ndarray],
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
     ) -> np.ndarray:
         """
         evaluate mixed model for given mixing function parameters
@@ -762,7 +769,7 @@ class LinearMixerLocal(BaseMixer):
         ----------
         local_parameters : np.ndarray
             parameters that determine where to sample the prior distributions
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             Dictionary with list of parameter values for each model
 
 
@@ -805,6 +812,7 @@ class LinearMixerLocal(BaseMixer):
     def evaluate_weights(
         self,
         local_parameters: np.ndarray,
+        weight_distribution_hyperparameters: Dict[str, np.ndarray],
         number_samples: int = 1
     ) -> np.ndarray:
         """
@@ -857,7 +865,8 @@ class LinearMixerLocal(BaseMixer):
         y_exp: np.ndarray,
         y_err: np.ndarray,
         local_parameters: np.ndarray,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        weight_distribution_hyperparameters: Dict[str, np.ndarray],
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
     ) -> float:
         """
         log likelihood of the mixing model
@@ -872,7 +881,7 @@ class LinearMixerLocal(BaseMixer):
             parameter values that fix the shape of mixing function
         local_parameter : np.ndarray
             parameters that determine where to sample the prior
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             list of model parameters for each model, note that different models
             can take different number of parameters
 
@@ -980,7 +989,8 @@ class LinearMixerLocal(BaseMixer):
     def _sample_distribution(
         self,
         distribution: np.ndarray,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        weight_distribution_hyperparameters: Dict[str, np.ndarray],
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
     ) -> np.ndarray:
         """
         Helper function to evaluate the predictive distribution from a given
@@ -991,7 +1001,7 @@ class LinearMixerLocal(BaseMixer):
         distribution : np.ndarray
             Can be the MCMC chain from the posterior sampling, or a set of
             sample points selected by the user
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             dictionary contain lists of the parameters each model needs to use
 
         Returns:
@@ -1012,7 +1022,8 @@ class LinearMixerLocal(BaseMixer):
     def predict(
         self,
         local_parameters: np.ndarray,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        weight_distribution_hyperparameters: Dict[str, np.ndarray],
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
         credible_intervals=[5, 95],
         samples=None,
     ):
@@ -1023,9 +1034,9 @@ class LinearMixerLocal(BaseMixer):
         -----------
         local_parameter : np.ndarray
             parameters that determine where to sample the pior distribution
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             dictionary contain lists of the parameters each model needs to use
-        credible_intervals : Optional[List[float], List[List[float]]]
+        credible_intervals : Optional[np.ndarray, List[np.ndarray]]
             list of even number of integers the express which percentiles of
             the posterior distribution to compute and return
         sample : np.ndarray
@@ -1112,7 +1123,8 @@ class LinearMixerLocal(BaseMixer):
     def prior_predict(
         self,
         loca_parameters: np.ndarray,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        weight_distribution_hyperparameters: Dict[str, np.ndarray],
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
         credible_interval=[5, 95],
         number_samples: int = 1000,
     ) -> np.ndarray:
@@ -1123,9 +1135,9 @@ class LinearMixerLocal(BaseMixer):
         -----------
         local_parameters : np.ndarray
             parameters that determine where to sample prior distribution
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             dictionary contain lists of the parameters each model needs to use
-        credible_intervals : Optional[List[float], List[List[float]]]
+        credible_intervals : Optional[np.ndarray, List[np.ndarray]]
             list of even number of integers the express which percentiles of
             the posterior distribution to compute and return
         sample : np.ndarray
@@ -1166,6 +1178,7 @@ class LinearMixerLocal(BaseMixer):
     def predict_weights(
         self,
         local_parameters: np.ndarray,
+        weight_distibution_hyperparameters: Dict[str, np.ndarray],
         credible_interval=[5, 95],
         existing_samples=None
     ) -> np.ndarray:
@@ -1176,7 +1189,7 @@ class LinearMixerLocal(BaseMixer):
         -----------
         local_parameters : np.ndarray
             parameters that determine where to sample the prior distribution
-        credible_intervals : Optional[List[float], List[List[float]]]
+        credible_intervals : Optional[np.ndarray, List[np.ndarray]]
             list of even number of integers the express which percentiles of
             the posterior distribution to compute and return
         sample : np.ndarray
@@ -1197,11 +1210,11 @@ class LinearMixerLocal(BaseMixer):
             points
         """
 
-        # FIXME: Currently, I the self.evaluate_weights function expects to 
+        # FIXME: Currently, I the self.evaluate_weights function expects to
         #        take the variables that determines the log-link functions.
         #        However, we would like for it to taje  the sampled parameters
         #        of the Guassian distribution.
-        #        A way to do this is have the priors set on the mu, ell and 
+        #        A way to do this is have the priors set on the mu, ell and
         #        sigma parameters and create a new GPR every sampling step.
         #        This seems like an awfully inefficient algorithm though.
 
@@ -1232,6 +1245,7 @@ class LinearMixerLocal(BaseMixer):
     def _sample_prior(
             self,
             local_parameters: np.ndarray,
+            weight_distribution_hyperparameters: Dict[str, np.ndarray],
             number_samples: int
     ) -> np.ndarray:
         """
@@ -1282,9 +1296,8 @@ class LinearMixerLocal(BaseMixer):
     def set_prior(
             self,
             local_parameter_ranges: np.ndarray,
-            length_scale_bounds: np.ndarray = np.array([1e-2, 1e2]),
-            variance_bounds: np.ndarray = np.array([-5, 5]),
-            noise_bounds: np.ndarray = 0
+            universal_priors: Optional[np.ndarray] = None,
+            priors_dicitionary: Optional[Dict[str, np.ndarray]] = None,
     ):
         """
         The prior distribution for log link functions (i.e. the log of the
@@ -1332,10 +1345,11 @@ class LinearMixerLocal(BaseMixer):
 
     def _loglikelihood_for_sampler(
         self,
-        local_parameters: np.ndarray,
+        weight_distribution_hyperparameters: Dict[str, np.ndarray],
         y_exp: np.ndarray,
         y_err: np.ndarray,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        local_parameters: np.ndarray,
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
     ) -> np.ndarray:
         """
         Helper for ptemcee call fo loglikelihood function
@@ -1349,7 +1363,7 @@ class LinearMixerLocal(BaseMixer):
             The experimental data
         y_err : np.ndarray
             Gaussian error bars on the experimental data
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             list of model parameters for each model, note that different models
             can take different number of parameters
 
@@ -1369,7 +1383,11 @@ class LinearMixerLocal(BaseMixer):
     ##########################################################################
     ##########################################################################
 
-    def _log_prior(self, prior_parameters: np.ndarray) -> np.ndarray:
+    def _log_prior(
+            self,
+            weight_distribution_hyperparameters: Dict[str, np.ndarray],
+            local_parameters: np.ndarray
+    ) -> np.ndarray:
         """
         Helper for ptemcee call fo log-prior function
         Simply rearranges the order of the log-prior function
@@ -1402,8 +1420,8 @@ class LinearMixerLocal(BaseMixer):
         self,
         y_exp: np.ndarray,
         y_err: np.ndarray,
-        initial_local_parameters: np.ndarray,
-        model_parameters: Optional[Dict[str, List[float]]] = None,
+        local_parameters: np.ndarray,
+        model_parameters: Optional[Dict[str, np.ndarray]] = None,
         steps: int = 2000,
         burn: int = 50,
         temps: int = 10,
@@ -1426,7 +1444,7 @@ class LinearMixerLocal(BaseMixer):
         initial_local_parameters : np.ndarray
             parameters that determine where to sample the prior distribution,
             for initializing sampler
-        model_parameters : Optional[Dict[str, List[float]]]
+        model_parameters : Optional[Dict[str, np.ndarray]]
             dictionary which contains list of model parameters for each model
         steps: int
             Number of steps for MCMC per model (defaults to 2000)
@@ -1469,8 +1487,8 @@ class LinearMixerLocal(BaseMixer):
             threads=8,
             logl=self._loglikelihood_for_sampler,
             logp=self._log_prior,
-            loglargs=[y_exp, y_err, model_parameters],
-            logpargs=[],
+            loglargs=[y_exp, y_err, local_parameters, model_parameters],
+            logpargs=[local_parameters],
         )
         print("Burn-in sampling")
         x = sampler.run_mcmc(

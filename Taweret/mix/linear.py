@@ -644,7 +644,8 @@ class LinearMixerGlobal(BaseMixer):
                 'nsamples': 2000 * self.n_mix,
                 'burn_in_fixed_discard': 50 * self.n_mix,
                 'threads': cpu_count(),
-                'clean': True
+                'clean': True,
+                'printdt': 60
             }
 
         result = bilby.run_sampler(
@@ -659,6 +660,7 @@ class LinearMixerGlobal(BaseMixer):
             outdir=str(outdir),
             **kwargs_for_sampler
         )
+        result.plot_corner()
 
         self.m_posterior = np.array(
             [

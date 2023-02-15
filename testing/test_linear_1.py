@@ -44,7 +44,7 @@ def test_two_model_global_mixing(loc):
     global_linear_mix = linear.LinearMixerGlobal(models=models,
                                                  n_mix=len(models))
     # global_linear_mix.set_prior(scale=1)
-    global_linear_mix.set_prior()
+    global_linear_mix.set_prior(label=r'$\alpha$_')
 
     path = Path(__file__).parent.absolute()
     if not Path(path / 'plots').exists():
@@ -61,6 +61,7 @@ def test_two_model_global_mixing(loc):
     # weights = np.vstack([dirichlet(np.exp(sample)).rvs(size=100)
     #                      for sample in posterior.reshape(-1, len(models))])
     weights = posterior
+    print(weights.shape)
 
     cols = 1
     rows = 1

@@ -21,7 +21,7 @@ class Model(BaseModel):
 
     def evaluate(self, cos_theta):
         return_value = 0
-        for n in range(self.order):
+        for n in range(self.order + 1):
             value = (self.r_prime / self.r) ** (n + 1)
             value *= legendre(n)(cos_theta)
             return_value += value
@@ -78,8 +78,8 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
     # Two ideas: 1. Feed the exact polynomial and do model mixing
     #            2. Feed a gaussian smeered polynomial and do model mixing
     xs = np.linspace(-1, 1, 9)
-    y_exp = np.array([coulumb_expansion(x) for x in xs])
-    y_err = np.full_like(y_exp, 0.10)
+    y_exp = coulumb_expansion(xs)
+    y_err = np.full_like(y_exp, 0.1)
     posterior = global_linear_mix.train(
         y_exp=y_exp,
         y_err=y_err,
@@ -92,7 +92,7 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
     labels = [r'$w_1$', r'$w_2$', r'$w_3$']
     fig, ax = plt.subplots(ncols=3, nrows=4, figsize=(3 * 7, 4 * 7))
     fig.patch.set_facecolor('white')
-    _, bins = np.histogram(posterior.reshape(-1, 3)[:, 0], bins=100)
+    _, bins = np.histogram(posterior.reshape(-1, 3)[:, 0], bins=20)
     for i in range(3):
         ax[0, i].hist(posterior.reshape(-1, 3)[:, i],
                       bins=bins,

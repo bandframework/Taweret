@@ -13,25 +13,15 @@ import my_plotting as mp
 # TODO: Move to notebook and upload to Taweret documentation
 
 
-class Model1(BaseModel):
+class Model(BaseModel):
+    def __init__(self, loc):
+        self.loc = loc
+
     def evaluate(self):
-        return 10.0
+        return self.loc
 
     def log_likelihood_elementwise(self, y_exp, y_err):
-        result = np.sum((10 - y_exp) ** 2 / y_err ** 2)
-        result += np.log(2 * np.pi * y_err ** 2)
-        return -0.5 * result
-
-    def set_prior(self):
-        pass
-
-
-class Model2(BaseModel):
-    def evaluate(self):
-        return -10.0
-
-    def log_likelihood_elementwise(self, y_exp, y_err):
-        result = np.sum((-10 - y_exp) ** 2 / y_err ** 2)
+        result = np.sum((self.loc - y_exp) ** 2 / y_err ** 2)
         result += np.log(2 * np.pi * y_err ** 2)
         return -0.5 * result
 
@@ -40,7 +30,7 @@ class Model2(BaseModel):
 
 
 def test_two_model_global_mixing(loc):
-    models = {'plus': Model1(), 'minus': Model2()}
+    models = {'plus': Model(loc=10), 'minus': Model(loc=-10)}
     global_linear_mix = linear.LinearMixerGlobal(models=models,
                                                  n_mix=len(models))
     # global_linear_mix.set_prior(scale=1)
@@ -60,7 +50,7 @@ def test_two_model_global_mixing(loc):
                                         # steps=20_000)
     # weights = np.vstack([dirichlet(np.exp(sample)).rvs(size=100)
     #                      for sample in posterior.reshape(-1, len(models))])
-    weights = posterior
+    weights = np.array([dirichlet(sample).rvs()[0] for sample in posterior])
     print(weights.shape)
 
     cols = 1

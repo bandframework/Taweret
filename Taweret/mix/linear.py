@@ -80,7 +80,7 @@ class LinearMixerGlobal(BaseMixer):
 
     def evaluate(
             self,
-            weights: np.ndarray,
+            shape_parameters: np.ndarray,
             model_parameters: Optional[Dict[str, List[Any]]] = None,
     ) -> np.ndarray:
         """
@@ -99,6 +99,7 @@ class LinearMixerGlobal(BaseMixer):
         evaluation : float
             evaluation of the mixing model
         """
+        weights = self.evaluate_weights(shape_parameters)
 
         if len(self.nargs_for_each_model) == 0:
             return np.sum(
@@ -124,6 +125,7 @@ class LinearMixerGlobal(BaseMixer):
 
     def evaluate_weights(
             self,
+            shape_parameters: np.ndarray
     ) -> np.ndarray:
         """
         calculate the weights given some set of input parameters
@@ -138,7 +140,7 @@ class LinearMixerGlobal(BaseMixer):
         weights : np.ndarray
             array of sampled weights
         """
-        return self._sample_prior(number_samples=1)
+        return np.array([dirichlet(params) for params in shape_parameters])
 
     ##########################################################################
     ##########################################################################
@@ -161,7 +163,9 @@ class LinearMixerGlobal(BaseMixer):
         '''
         Helper class need to run bilby sampler. Wraps around `mix_likelihood`
         function
+
         '''
+
         def __init__(
                 self,
                 keys: List[str],
@@ -183,7 +187,9 @@ class LinearMixerGlobal(BaseMixer):
             self.model_parameters = model_parameters
 
         def log_likelihood(self):
-            weights = np.array(list(self.parameters.values()))
+            samples = np.array(list(self.parameters.values()))
+            samples = np.transpose(samples)
+            weights = dirichlet(samples).rvs()[0]
             return self.likelihood_func(
                 y_exp=self.y_exp,
                 y_err=self.y_err,
@@ -462,7 +468,9 @@ class LinearMixerGlobal(BaseMixer):
         """
 
         predictive_distribution = self.evaluate(
-            weights=self._sample_prior(number_samples=number_samples),
+            weights=self.evaluate_weights(
+                self._sample_prior(number_samples=number_samples)
+            ),
             model_parameters=model_parameters
         )
 
@@ -517,7 +525,7 @@ class LinearMixerGlobal(BaseMixer):
         if self.has_trained:
             return np.array(
                 [
-                    sample
+                    dirichlet(sample).rvs()[0]
                     for sample in self.m_posterior.reshape(-1, self.n_mix)
                 ]
             )
@@ -549,14 +557,9 @@ class LinearMixerGlobal(BaseMixer):
         # Bilby returns dictionary with where is values is an array of length
         # number_samples, we then append the last weight using the simplex
         # condition
-        samples = self.m_prior.sample(siz=number_samples)
+        samples = self.m_prior.sample(size=number_samples)
         samples = np.array(list(samples.values()))
         samples = np.transpose(samples)
-        samples = np.append(
-            arr=samples,
-            values=np.array([1 - np.sum(samples, axis=1)]).reshape(-1, 1),
-            axis=1
-        )
         return samples
 
     ##########################################################################
@@ -564,7 +567,6 @@ class LinearMixerGlobal(BaseMixer):
 
     def set_prior(
             self,
-            label: Optional[str] = None
     ):
         """
         A call to this function automatically sets up a dictionary of length
@@ -581,9 +583,14 @@ class LinearMixerGlobal(BaseMixer):
 
         # In bilby, if I `n_dim = N`, then it only stores `N - 1` weights
         # since the last weight is determined by the simplex conditons
-        self.m_prior = bilby.core.prior.DirichletPriorDict(
-            n_dim=self.n_mix,
-            label='dirichlet_' if label is None else label
+        #
+        # Perhaps what we want to do is to store log link functions and pass
+        # the samples to a dirichlet function
+        self.m_prior = bilby.core.prior.PriorDict(
+            dict(
+                (f'alpha_{n}', bilby.core.prior.LogNormal(0, 1, f'alpha_{n}'))
+                for n in range(self.n_mix)
+            )
         )
 
     ##########################################################################
@@ -668,13 +675,6 @@ class LinearMixerGlobal(BaseMixer):
             ]
         )
         self.m_posterior = np.transpose(self.m_posterior)
-        self.m_posterior = np.append(
-            arr=self.m_posterior,
-            values=np.array(
-                [1 - np.sum(self.m_posterior, axis=1)]
-            ).reshape(-1, 1),
-            axis=1
-        )
 
         self.evidence = result.log_10_evidence
 
@@ -683,7 +683,7 @@ class LinearMixerGlobal(BaseMixer):
                 a=samples,
                 bins=int(np.floor(np.sqrt(samples.size)))
             )
-            for samples in self.m_posterior
+            for samples in np.transpose(self.m_posterior)
         ]
         self.m_map = np.array(
             [

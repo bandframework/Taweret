@@ -6,6 +6,7 @@ import matplotlib.tri as tri
 from scipy.stats import dirichlet
 from scipy.special import legendre
 from typing import List
+from pathlib import Path
 
 from Taweret.core.base_model import BaseModel
 from Taweret.mix import linear
@@ -57,7 +58,7 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
     )
     global_linear_mix = linear.LinearMixerGlobal(models=models,
                                                  n_mix=len(models))
-    global_linear_mix.set_prior(scale=1)
+    global_linear_mix.set_prior()
 
     def coulumb_expansion(x: float):
         denom = np.sqrt(r ** 2 + r_prime ** 2 - 2 * r * r_prime * x)
@@ -77,6 +78,10 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
 
     # Two ideas: 1. Feed the exact polynomial and do model mixing
     #            2. Feed a gaussian smeered polynomial and do model mixing
+    path = Path(__file__).parent.absolute()
+    if not Path(path / 'plots').exists():
+        Path(path / 'plots').mkdir()
+
     xs = np.linspace(-1, 1, 9)
     y_exp = coulumb_expansion(xs)
     y_err = np.full_like(y_exp, 0.1)
@@ -84,9 +89,9 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
         y_exp=y_exp,
         y_err=y_err,
         model_parameters=dict((key, [xs]) for key in models.keys()),
-        burn=500,
-        steps=20_000,
-        thinning=100
+        burn=50,
+        steps=2000,
+        outdir=path / 'plots'
     )
 
     labels = [r'$w_1$', r'$w_2$', r'$w_3$']
@@ -101,8 +106,7 @@ def test_3_model_global_mixing(legendre_expansion_orders: List[int],
         mp.costumize_axis(ax[0, i], labels[i], "")
 
     print(ax.shape)
-    weights = np.vstack([dirichlet(np.exp(sample)).rvs(size=1)
-                         for sample in posterior.reshape(-1, len(models))])
+    weights = np.array([dirichlet(sample).rvs()[0] for sample in posterior])
     for j in range(1, 4):
         for i in range(3):
             if i > j - 1:

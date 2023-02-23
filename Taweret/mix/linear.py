@@ -858,10 +858,10 @@ class LinearMixerLocal(BaseMixer):
                                 local_variables[k] +
                                 prior_samples[2 * k + 1, i]
                             )
-                            # np.exp((local_variables[k] \
-                            #            - prior_samples[2 * k + 0, i])
-                            #        * (local_variables[k] \
-                            #                - prior_samples[2 * k + 1, i]))
+                            if self.polynomial_order = 1 else
+                            np.exp((local_variables[k]
+                                    - prior_samples[2 * k + 0, i]) ** 2
+                                   + prior_samples[2 * k + 1, i]))
                             # np.exp(
                             #     norm(
                             #         loc=prior_samples[2 * k + 0, i],
@@ -1363,6 +1363,7 @@ class LinearMixerLocal(BaseMixer):
             priors_dicitionary: Optional[
                 Dict[str, Type[bilby_prior.Prior]]
             ] = None,
+            polynomial_order: Optional[int] = None,
     ):
         """
         The prior distribution for log link functions (i.e. the log of the
@@ -1375,7 +1376,9 @@ class LinearMixerLocal(BaseMixer):
             should a be an array with shape(n,) which lets Taweret know
             whether to use a 1-d priors or multi-dimensional priors
         local_variables_ranges : np.ndarray
-            should be array with shape (n, 2)
+            should be array with shape (n, 2), determines the parameter
+            range for both the (slope, intercept) [for linear] or (h, k) [for
+            parabola]
         deterministic_priors : boo
             (default = False)
             determines whether the likelihoods will be deterministic or
@@ -1386,10 +1389,24 @@ class LinearMixerLocal(BaseMixer):
         priors_dictionary : Optional[Dict[str, Type[bilby_prior.Prior]]]
             (default = None)
             take existing dictionary to pass to bilby
+        polynomial_order : Optional[int]
+            (default = None)
+            if using deterministic priors, this determines the order of
+            the :math: `W_h(x)` function, see Coleman Thesis pg. 82 
         """
 
         self.deterministic = deterministic_priors
         if deterministic_priors:
+
+            if polynomial_order is None:
+                print('No polynomial order is given, assuming 2 by default')
+                self.polynomial_order = 2
+            elif polynomial_order > 2:
+                print('Only powers supported are 1 and 2, setting to 2')
+                self.polynomial_order = 2
+            else:
+                self.polynomial_order = polynomial_order
+
             self.n_local_variables = example_local_variable.size
             self.m_prior = dict()
             for n in range(1, self.n_mix + 1):

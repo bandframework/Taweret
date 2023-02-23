@@ -87,7 +87,8 @@ def test_with_bessel(number_data_points: int = 10):
     mixing_model.set_prior(
         example_local_variable=np.array([0]),
         local_variables_ranges=np.array([[-10, 10]]),
-        deterministic_priors=True
+        deterministic_priors=True,
+        polynomial_order=2
     )
     posterior = mixing_model.train(
         y_exp=y_exp,

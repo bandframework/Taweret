@@ -858,10 +858,10 @@ class LinearMixerLocal(BaseMixer):
                                 local_variables[k] +
                                 prior_samples[2 * k + 1, i]
                             )
-                            if self.polynomial_order = 1 else
+                            if self.polynomial_order == 1 else
                             np.exp((local_variables[k]
                                     - prior_samples[2 * k + 0, i]) ** 2
-                                   + prior_samples[2 * k + 1, i]))
+                                   + prior_samples[2 * k + 1, i])
                             # np.exp(
                             #     norm(
                             #         loc=prior_samples[2 * k + 0, i],

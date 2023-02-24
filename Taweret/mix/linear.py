@@ -38,15 +38,15 @@ class LinearMixerGlobal(BaseMixer):
     def __init__(
             self,
             models: Dict[str, Type[BaseModel]],
-            nargs_for_each_model: Optional[np.ndarray] = None,
+            nargs_for_each_model: Optional[Dict[str, int]] = None,
             n_mix: int = 0
     ):
         """
         Parameters
         ----------
-        models : Dict[str, Model(BaseModel)]
+        models : Dict[str, Type[MaseModel]]
             models to mix, each must contain a evaluate method
-        nargs_for_each_model : Dict[str, int]
+        nargs_for_each_model : Optional[Dict[str, int]]
             number of free parameters for each model
         n_mix : int
             number of free parameters in the mixing funtion
@@ -115,11 +115,10 @@ class LinearMixerGlobal(BaseMixer):
         else:
             return np.sum(
                 [
-                    weight * model.evaluate(*parameters)
-                    for weight, model, parameters in zip(
+                    weight * self.model[key].evaluate(*model_parameters[key])
+                    for weight, key in zip(
                         weights,
-                        self.models.values(),
-                        model_parameters.values(),
+                        self.models.keys(),
                     )
                 ]
             )
@@ -245,11 +244,14 @@ class LinearMixerGlobal(BaseMixer):
         else:
             log_likelis = np.array(
                 [
-                    model.log_likelihood_elementwise(y_exp, y_err, *parameters)
+                    self.model[key].log_likelihood_elementwise(
+                            y_exp,
+                            y_err,
+                            *model_parameters[key]
+                        )
                     + log_weight
-                    for model, parameters, log_weight in zip(
-                        self.models.values(),
-                        model_parameters.values(),
+                    for key, log_weight in zip(
+                        self.models.keys(),
                         log_weights,
                     )
                 ]
@@ -397,14 +399,17 @@ class LinearMixerGlobal(BaseMixer):
                 )
             else:
                 predictive_distribution = self._sample_distribution(
-                    samples, model_parameters
+                    distribution=samples,
+                    model_parameters=model_parameters
                 )
 
                 return_intervals = np.percentile(
-                    predictive_distribution, credible_intervals
+                    a=predictive_distribution,
+                    q=np.asarray(credible_intervals),
+                    axis=0
                 )
-                return_mean = np.mean(predictive_distribution)
-                return_stddev = np.std(predictive_distribution)
+                return_mean = np.mean(predictive_distribution, axis=0)
+                return_stddev = np.std(predictive_distribution, axis=0)
                 return (
                     predictive_distribution,
                     return_intervals,
@@ -711,13 +716,17 @@ class LinearMixerLocal(BaseMixer):
 
     """
 
-    def __init__(self, models, nargs_for_each_model=None, n_mix=0):
+    def __init__(
+            self,
+            models: Dict[str, Type[BaseModel]],
+            nargs_for_each_model: Optional[Dict[str, int]] = None,
+            n_mix: int = 2):
         """
         Parameters
         ----------
-        models : Dict[str, Model(BaseModel)]
+        models : Dict[str, Type[BaseModel]]
             models to mix, each must contain a evaluate method
-        nargs_for_each_model : Dict[str, int]
+        nargs_for_each_model : Optional[Dict[str, int]]
             number of free parameters for each model
         n_mix : int
             number of free parameters in the mixing funtion
@@ -800,12 +809,13 @@ class LinearMixerLocal(BaseMixer):
         else:
             return np.sum(
                 [
-                    weight * model.evaluate(np.squeeze(local_variables),
-                                            *parameters)
-                    for weight, model, parameters in zip(
+                    weight * self.models[key].evaluate(
+                            np.squeeze(local_variables),
+                            *model_parameters[key]
+                        )
+                    for weight, key in zip(
                         weights,
-                        self.models.values(),
-                        model_parameters.values(),
+                        self.models.keys()
                     )
                 ],
                 axis=0
@@ -862,12 +872,6 @@ class LinearMixerLocal(BaseMixer):
                             np.exp((local_variables[k]
                                     - prior_samples[2 * k + 0, i]) ** 2
                                    + prior_samples[2 * k + 1, i])
-                            # np.exp(
-                            #     norm(
-                            #         loc=prior_samples[2 * k + 0, i],
-                            #         scale=prior_samples[2 * k + 1, i]
-                            #     ).pdf(local_variables[k])
-                            # )
                             for k in range(self.n_local_variables)
                         ])
                     )
@@ -995,16 +999,15 @@ class LinearMixerLocal(BaseMixer):
         else:
             log_likelis = np.array(
                 [
-                    model.log_likelihood_elementwise(
+                    self.models[key].log_likelihood_elementwise(
                             y_exp,
                             y_err,
                             local_variables,
-                            *parameters
+                            *model_parameters[key],
                         ) + log_weight
-                    for model, parameters, log_weight in zip(
-                        self.models.values(),
-                        model_parameters.values(),
-                        log_weights,
+                    for key, log_weight in zip(
+                        self.models.keys(),
+                        log_weights
                     )
                 ]
             )
@@ -1148,7 +1151,9 @@ class LinearMixerLocal(BaseMixer):
             )
 
             return_intervals = np.percentile(
-                predictive_distribution, np.asarray(credible_intervals), axis=1
+                a=predictive_distribution,
+                q=np.asarray(credible_intervals),
+                axis=1
             )
             return_mean = np.mean(predictive_distribution, axis=1)
             return_stddev = np.std(predictive_distribution, axis=1)
@@ -1166,14 +1171,18 @@ class LinearMixerLocal(BaseMixer):
                 )
             else:
                 predictive_distribution = self._sample_distribution(
-                    samples, model_parameters
+                    distribution=samples,
+                    local_variables=local_variables,
+                    model_parameters=model_parameters
                 )
 
                 return_intervals = np.percentile(
-                    predictive_distribution, credible_intervals
+                    a=predictive_distribution,
+                    q=credible_intervals,
+                    axis=1
                 )
-                return_mean = np.mean(predictive_distribution)
-                return_stddev = np.std(predictive_distribution)
+                return_mean = np.mean(predictive_distribution, axis=1)
+                return_stddev = np.std(predictive_distribution, axis=1)
                 return (
                     predictive_distribution,
                     return_intervals,
@@ -1264,8 +1273,8 @@ class LinearMixerLocal(BaseMixer):
     def predict_weights(
             self,
             local_variables: np.ndarray,
-            credible_interval=[5, 95],
-            existing_samples=None
+            credible_interval: List[float] = [5, 95],
+            existing_samples: Optional[np.ndarray] = None
     ) -> np.ndarray:
         """
         Calculate posterior predictive distribution for model weights
@@ -1305,21 +1314,71 @@ class LinearMixerLocal(BaseMixer):
 
         if self.has_trained:
             if existing_samples is None:
-                return np.array(
+                predicted_weights = np.array(
                     [
-                        self.evaluate_weights(
-                                local_variables=local_variables
+                        [
+                            self.evaluate_weights(
+                                local_variables=x,
+                                sample=dict(
+                                    (key, var)
+                                    for key, var in zip(self.m_prior.keys(),
+                                                        sample)
+                                )
+                            for sample in self.m_posterior
+                        ]
+                        for x in local_variables.reshape(
+                            -1,
+                            self.n_local_variables
                         )
-                        for _ in self.m_posterior.reshape(-1, self.n_mix)
                     ]
                 )
+
+                return_intervals = np.percentile(
+                    a=predicted_weights,
+                    q=np.asarray(credible_intervals),
+                    axis=1
+                )
+                return_mean = np.mean(predicted_weights, axis=1)
+                return_stddev = np.std(predicted_weights, axis=1)
+                return (
+                    predicted_weights,
+                    return_intervals,
+                    return_mean,
+                    return_stddev,
+                )
+
             else:
-                # TODO: check that existing_samples has the right shape
-                return np.array(
+                predicted_weights = np.array(
                     [
-                        self.evaluate_weights(sample)
-                        for sample in existing_samples
+                        [
+                            self.evaluate_weights(
+                                local_variables=x,
+                                sample=dict(
+                                    (key, var)
+                                    for key, var in zip(self.m_prior.keys(),
+                                                        sample)
+                                )
+                            for sample in self.m_posterior
+                        ]
+                        for x in local_variables.reshape(
+                            -1,
+                            self.n_local_variables
+                        )
                     ]
+                )
+
+                return_intervals = np.percentile(
+                    a=predicted_weights,
+                    q=np.asarray(credible_intervals),
+                    axis=1
+                )
+                return_mean = np.mean(predicted_weights, axis=1)
+                return_stddev = np.std(predicted_weights, axis=1)
+                return (
+                    predicted_weights,
+                    return_intervals,
+                    return_mean,
+                    return_stddev,
                 )
         else:
             raise Exception("Please train model before making predictions")

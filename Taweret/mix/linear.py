@@ -869,7 +869,12 @@ class LinearMixerLocal(BaseMixer):
                 for i in range(evaluation_points_count):
                     weights[n, i] = np.prod(np.array(
                         [
-                            np.exp(
+                            # np.exp(
+                            #     prior_samples[2 * k + 0, 0] *
+                            #     local_variables[i] +
+                            #     prior_samples[2 * k + 1, 0]
+                            # )
+                            norm.cdf(
                                 prior_samples[2 * k + 0, 0] *
                                 local_variables[i] +
                                 prior_samples[2 * k + 1, 0]
@@ -882,8 +887,8 @@ class LinearMixerLocal(BaseMixer):
                         ]),
                         axis=0
                     )
-            for n in range(self.n_mix - 1):
-                weights[n] = weights[n] / (1 + np.sum(weights, axis=0))
+            # for n in range(self.n_mix - 1):
+            #     weights[n] = weights[n] / (1 + np.sum(weights, axis=0))
             for i in range(evaluation_points_count):
                 weights[self.n_mix - 1, i] = 1 - np.sum(weights[:, i])
             return np.squeeze(weights)
@@ -986,10 +991,10 @@ class LinearMixerLocal(BaseMixer):
             log_likelis = np.array(
                 [
                     model.log_likelihood_elementwise(
-                            y_exp,
-                            y_err,
-                            local_variables
-                        ) + log_weight
+                        y_exp,
+                        y_err,
+                        local_variables
+                    ) + log_weight
                     for model, log_weight in zip(
                         self.models.values(),
                         log_weights
@@ -1594,7 +1599,6 @@ class LinearMixerLocal(BaseMixer):
 
         self.evidence = result.log_10_evidence
 
-        # This is crude a wrong, but a start for now
         # MAP needs to be found through optimization, or using bilby API
         hist, edges = np.histogramdd(self.m_posterior)
         map_index = np.unravel_index(np.argmax(hist), hist.shape)

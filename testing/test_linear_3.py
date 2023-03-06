@@ -66,18 +66,16 @@ def coleman_thesis_example():
                                          steps=20,
                                          thinning=1)
 
-    print(posterior.shape)
     fig, ax = plt.subplots(ncols=2, nrows=1, figsize=(2 * 7, 7))
     fig.patch.set_facecolor('white')
 
     weights = np.vstack(
         [
             local_linear_mixer.evaluate_weights(local_parameters=x,
-                                                number_samples=1)
+                                                number_samples=100)
             for x in posterior.reshape(-1, 1)
         ]
     )
-    print(weights)
 
 
 if __name__ == "__main__":

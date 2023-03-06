@@ -752,11 +752,11 @@ class LinearMixerLocal(BaseMixer):
             else:
                 continue
 
-        # TODO: Do the model parameters that the sampler samples need to be 
-        #       separated into two different dictionaries? And is simpler to 
-        #       use a keyword dictionary for the models rather than a 
-        #       separated into two different dictionaries? And is simpler to 
-        #       use a keyword dictionary for the models rather than a 
+        # TODO: Do the model parameters that the sampler samples need to be
+        #       separated into two different dictionaries? And is simpler to
+        #       use a keyword dictionary for the models rather than a
+        #       separated into two different dictionaries? And is simpler to
+        #       use a keyword dictionary for the models rather than a
         #       positional arguments
 
         self.models = models
@@ -857,28 +857,28 @@ class LinearMixerLocal(BaseMixer):
             local_variables
         ).reshape(-1, self.n_local_variables)
         evaluation_points_count = local_variables.shape[0]
-        if self.deterministic:
-            prior_samples = sample
-            prior_samples = np.array(
-                list(prior_samples.values())
-            ).reshape(-1, 1)
-            weights = np.zeros(
-                (self.n_mix, evaluation_points_count)
-            )
-            for n in range(self.n_mix - 1):
-                for i in range(evaluation_points_count):
+        prior_samples = sample
+        prior_samples = np.array(
+            list(prior_samples.values())
+        ).reshape(-1, 1)
+        weights = np.zeros(
+            (self.n_mix, evaluation_points_count)
+        )
+        for n in range(self.n_mix - 1):
+            for i in range(evaluation_points_count):
+                if self.deterministic:
                     weights[n, i] = np.prod(np.array(
                         [
-                            # np.exp(
-                            #     prior_samples[2 * k + 0, 0] *
-                            #     local_variables[i] +
-                            #     prior_samples[2 * k + 1, 0]
-                            # )
-                            norm.cdf(
+                            np.exp(
                                 prior_samples[2 * k + 0, 0] *
                                 local_variables[i] +
                                 prior_samples[2 * k + 1, 0]
                             )
+                            # norm.cdf(
+                            #     prior_samples[2 * k + 0, 0] *
+                            #     local_variables[i] +
+                            #     prior_samples[2 * k + 1, 0]
+                            # )
                             if self.polynomial_order == 1 else
                             np.exp((local_variables[i]
                                     - prior_samples[2 * k + 0, 0]) ** 2
@@ -887,8 +887,12 @@ class LinearMixerLocal(BaseMixer):
                         ]),
                         axis=0
                     )
-            # for n in range(self.n_mix - 1):
-            #     weights[n] = weights[n] / (1 + np.sum(weights, axis=0))
+                else:
+                    # This is for gaussian process distributed weighes
+                    pass
+
+            for n in range(self.n_mix - 1):
+                weights[n] = weights[n] / (1 + np.sum(weights, axis=0))
             for i in range(evaluation_points_count):
                 weights[self.n_mix - 1, i] = 1 - np.sum(weights[:, i])
             return np.squeeze(weights)
@@ -991,9 +995,9 @@ class LinearMixerLocal(BaseMixer):
             log_likelis = np.array(
                 [
                     model.log_likelihood_elementwise(
+                        local_variables,
                         y_exp,
                         y_err,
-                        local_variables
                     ) + log_weight
                     for model, log_weight in zip(
                         self.models.values(),
@@ -1005,9 +1009,9 @@ class LinearMixerLocal(BaseMixer):
             log_likelis = np.array(
                 [
                     self.models[key].log_likelihood_elementwise(
+                            local_variables,
                             y_exp,
                             y_err,
-                            local_variables,
                             *model_parameters[key],
                         ) + log_weight
                     for key, log_weight in zip(
@@ -1461,7 +1465,7 @@ class LinearMixerLocal(BaseMixer):
         polynomial_order : Optional[int]
             (default = None)
             if using deterministic priors, this determines the order of
-            the :math: `W_h(x)` function, see Coleman Thesis pg. 82 
+            the :math: `W_h(x)` function, see Coleman Thesis pg. 82
         """
 
         # FIXME: All options not implemented

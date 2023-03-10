@@ -13,12 +13,17 @@ from Taweret.core.base_model import BaseModel
 import matplotlib.pyplot as plt
 import numpy as np
 from multiprocessing import cpu_count
-from scipy.stats import norm, dirichlet
-from typing import Any, Dict, Optional, Type, List, Callable
+from scipy.stats import dirichlet
+from typing import Any
+from typing import Callable
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Type
 from pathlib import Path
 
-# from sklearn.gaussian_process import GaussianProcessRegressor as gpr
-# from sklearn.gaussian_process.kernels import RBF
+from sklearn.gaussian_process import GaussianProcessRegressor as gpr
+from sklearn.gaussian_process.kernels import Matern, ConstantKernel
 
 from bilby.core import prior as bilby_prior
 from bilby import Likelihood as Bilby_Likelihood
@@ -36,10 +41,10 @@ class LinearMixerGlobal(BaseMixer):
     """
 
     def __init__(
-            self,
-            models: Dict[str, Type[BaseModel]],
-            nargs_for_each_model: Optional[Dict[str, int]] = None,
-            n_mix: int = 0
+        self,
+        models: Dict[str, Type[BaseModel]],
+        nargs_for_each_model: Optional[Dict[str, int]] = None,
+        n_mix: int = 0,
     ):
         """
         Parameters
@@ -53,7 +58,7 @@ class LinearMixerGlobal(BaseMixer):
         """
 
         # check that lengths of lists are compatible
-        if not (nargs_for_each_model is None):
+        if nargs_for_each_model is not None:
             if len(models) != len(nargs_for_each_model):
                 raise Exception(
                     "in linear_mix.__init__: len(nargs_for_each_model)"
@@ -66,8 +71,8 @@ class LinearMixerGlobal(BaseMixer):
                 issubclass(type(model), BaseModel)
             except AttributeError:
                 print(
-                    f"model {key} needs to inherit from " +
-                    "Taweret.core.base_model.BaseModel"
+                    f"model {key} needs to inherit from "
+                    + "Taweret.core.base_model.BaseModel"
                 )
             else:
                 continue
@@ -83,9 +88,9 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
 
     def evaluate(
-            self,
-            shape_parameters: np.ndarray,
-            model_parameters: Optional[Dict[str, List[Any]]] = None,
+        self,
+        shape_parameters: np.ndarray,
+        model_parameters: Optional[Dict[str, List[Any]]] = None,
     ) -> np.ndarray:
         """
         evaluate mixed model for given mixing function parameters
@@ -126,10 +131,7 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
     ##########################################################################
 
-    def evaluate_weights(
-            self,
-            shape_parameters: np.ndarray
-    ) -> np.ndarray:
+    def evaluate_weights(self, shape_parameters: np.ndarray) -> np.ndarray:
         """
         calculate the weights given some set of input parameters
 
@@ -163,27 +165,22 @@ class LinearMixerGlobal(BaseMixer):
 
     # ------------------------------------------------------------------------
     class MixLikelihood(Bilby_Likelihood):
-        '''
+        """
         Helper class need to run bilby sampler. Wraps around `mix_likelihood`
         function
 
-        '''
+        """
 
         def __init__(
-                self,
-                keys: List[str],
-                likelihood_func: Callable,
-                y_exp: np.ndarray,
-                y_err: np.ndarray,
-                model_parameters: Optional[Dict[str, List[Any]]] = None
+            self,
+            keys: List[str],
+            likelihood_func: Callable,
+            y_exp: np.ndarray,
+            y_err: np.ndarray,
+            model_parameters: Optional[Dict[str, List[Any]]] = None,
         ):
-            parameter_dictionary = dict(
-                (key, None)
-                for key in keys
-            )
-            super().__init__(
-                parameters=parameter_dictionary
-            )
+            parameter_dictionary = dict((key, None) for key in keys)
+            super().__init__(parameters=parameter_dictionary)
             self.likelihood_func = likelihood_func
             self.y_exp = y_exp
             self.y_err = y_err
@@ -197,16 +194,17 @@ class LinearMixerGlobal(BaseMixer):
                 y_exp=self.y_exp,
                 y_err=self.y_err,
                 weights=weights,
-                model_parameters=self.model_parameters
+                model_parameters=self.model_parameters,
             )
+
     # ------------------------------------------------------------------------
 
     def mix_loglikelihood(
-            self,
-            y_exp: np.ndarray,
-            y_err: np.ndarray,
-            weights: np.ndarray,
-            model_parameters: Optional[Dict[str, List[Any]]] = None,
+        self,
+        y_exp: np.ndarray,
+        y_err: np.ndarray,
+        weights: np.ndarray,
+        model_parameters: Optional[Dict[str, List[Any]]] = None,
     ) -> float:
         """
         log likelihood of the mixing model
@@ -245,10 +243,8 @@ class LinearMixerGlobal(BaseMixer):
             log_likelis = np.array(
                 [
                     self.model[key].log_likelihood_elementwise(
-                            y_exp,
-                            y_err,
-                            *model_parameters[key]
-                        )
+                        y_exp, y_err, *model_parameters[key]
+                    )
                     + log_weight
                     for key, log_weight in zip(
                         self.models.keys(),
@@ -264,7 +260,7 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
 
     def plot_weights(
-            self,
+        self,
     ) -> np.ndarray:
         """
         plot the mixing function against the input parameter values x
@@ -307,9 +303,9 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
 
     def _evaluate_distribution(
-            self,
-            distribution: np.ndarray,
-            model_parameters: Optional[Dict[str, List[Any]]] = None,
+        self,
+        distribution: np.ndarray,
+        model_parameters: Optional[Dict[str, List[Any]]] = None,
     ) -> np.ndarray:
         """
         Helper function to evaluate the predictive distribution from a given
@@ -339,10 +335,10 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
 
     def predict(
-            self,
-            model_parameters: Optional[Dict[str, List[Any]]] = None,
-            credible_intervals: List[float] = [5, 95],
-            samples: Optional[np.ndarray] = None,
+        self,
+        model_parameters: Optional[Dict[str, List[Any]]] = None,
+        credible_intervals: List[float] = [5, 95],
+        samples: Optional[np.ndarray] = None,
     ):
         """
         Evaluate posterior to make prediction at test points.
@@ -375,13 +371,13 @@ class LinearMixerGlobal(BaseMixer):
         if self.has_trained and samples is None:
             predictive_distribution = self._evaluate_distribution(
                 distribution=self.m_posterior,
-                model_parameters=model_parameters
+                model_parameters=model_parameters,
             )
 
             return_intervals = np.percentile(
                 a=predictive_distribution,
                 q=np.asarray(credible_intervals),
-                axis=0
+                axis=0,
             )
             return_mean = np.mean(predictive_distribution, axis=0)
             return_stddev = np.std(predictive_distribution, axis=0)
@@ -394,19 +390,18 @@ class LinearMixerGlobal(BaseMixer):
         else:
             if samples is None:
                 raise Exception(
-                    "Please either train model, or provide samples as an" +
-                    "argument"
+                    "Please either train model, or provide samples as an"
+                    + "argument"
                 )
             else:
                 predictive_distribution = self._evaluate_distribution(
-                    distribution=samples,
-                    model_parameters=model_parameters
+                    distribution=samples, model_parameters=model_parameters
                 )
 
                 return_intervals = np.percentile(
                     a=predictive_distribution,
                     q=np.asarray(credible_intervals),
-                    axis=0
+                    axis=0,
                 )
                 return_mean = np.mean(predictive_distribution, axis=0)
                 return_stddev = np.std(predictive_distribution, axis=0)
@@ -443,10 +438,10 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
 
     def prior_predict(
-            self,
-            model_parameters: Optional[Dict[str, List[Any]]] = None,
-            credible_interval=[5, 95],
-            number_samples: int = 1000,
+        self,
+        model_parameters: Optional[Dict[str, List[Any]]] = None,
+        credible_interval=[5, 95],
+        number_samples: int = 1000,
     ) -> np.ndarray:
         """
         Get prior predictive distribution and prior distribution samples
@@ -480,13 +475,11 @@ class LinearMixerGlobal(BaseMixer):
             weights=self.evaluate_weights(
                 self._sample_prior(number_samples=number_samples)
             ),
-            model_parameters=model_parameters
+            model_parameters=model_parameters,
         )
 
         return_intervals = np.percentile(
-            a=predictive_distribution,
-            q=np.asarray(credible_interval),
-            axis=0
+            a=predictive_distribution, q=np.asarray(credible_interval), axis=0
         )
         return_mean = np.mean(predictive_distribution, axis=0)
         return_stddev = np.std(predictive_distribution, axis=0)
@@ -501,9 +494,9 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
 
     def predict_weights(
-            self,
-            credible_interval: List[float] = [5, 95],
-            samples: Optional[np.ndarray] = None
+        self,
+        credible_interval: List[float] = [5, 95],
+        samples: Optional[np.ndarray] = None,
     ) -> np.ndarray:
         """
         Calculate posterior predictive distribution for model weights
@@ -544,10 +537,7 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
     ##########################################################################
 
-    def _sample_prior(
-            self,
-            number_samples: int
-    ) -> np.ndarray:
+    def _sample_prior(self, number_samples: int) -> np.ndarray:
         """
         Helper function to sample prior since all prior distributions are
         stochastic in nature
@@ -575,7 +565,7 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
 
     def set_prior(
-            self,
+        self,
     ):
         """
         A call to this function automatically sets up a dictionary of length
@@ -597,7 +587,7 @@ class LinearMixerGlobal(BaseMixer):
         # the samples to a dirichlet function
         self.m_prior = bilby_prior.PriorDict(
             dict(
-                (f'alpha_{n}', bilby_prior.LogNormal(0, 1, f'alpha_{n}'))
+                (f"alpha_{n}", bilby_prior.LogNormal(0, 1, f"alpha_{n}"))
                 for n in range(self.n_mix)
             )
         )
@@ -606,17 +596,17 @@ class LinearMixerGlobal(BaseMixer):
     ##########################################################################
 
     def train(
-            self,
-            y_exp: np.ndarray,
-            y_err: np.ndarray,
-            outdir: Path,
-            model_parameters: Optional[Dict[str, List[Any]]] = None,
-            kwargs_for_sampler: Optional[Dict[str, Any]] = None,
-            steps: int = 2000,
-            burn: int = 50,
-            temps: int = 10,
-            walkers: int = 20,
-            # thinning: int = 100,
+        self,
+        y_exp: np.ndarray,
+        y_err: np.ndarray,
+        outdir: Path,
+        model_parameters: Optional[Dict[str, List[Any]]] = None,
+        kwargs_for_sampler: Optional[Dict[str, Any]] = None,
+        steps: int = 2000,
+        burn: int = 50,
+        temps: int = 10,
+        walkers: int = 20,
+        # thinning: int = 100,
     ):
         """
         Run sampler to learn weights. Method should also create class
@@ -653,15 +643,15 @@ class LinearMixerGlobal(BaseMixer):
 
         if kwargs_for_sampler is None:
             kwargs_for_sampler = {
-                'sampler': 'ptemcee',
-                'ntemps': temps,
-                'Tmax': 100,
-                'nwalkers': walkers * self.n_mix,
-                'nsamples': steps * self.n_mix,
-                'burn_in_fixed_discard': burn * self.n_mix,
-                'threads': cpu_count(),
-                'clean': True,
-                'printdt': 60
+                "sampler": "ptemcee",
+                "ntemps": temps,
+                "Tmax": 100,
+                "nwalkers": walkers * self.n_mix,
+                "nsamples": steps * self.n_mix,
+                "burn_in_fixed_discard": burn * self.n_mix,
+                "threads": cpu_count(),
+                "clean": True,
+                "printdt": 60,
             }
 
         result = bilby_run_sampler(
@@ -670,35 +660,27 @@ class LinearMixerGlobal(BaseMixer):
                 likelihood_func=self.mix_loglikelihood,
                 y_exp=y_exp,
                 y_err=y_err,
-                model_parameters=model_parameters
+                model_parameters=model_parameters,
             ),
             priors=self.m_prior,
             outdir=str(outdir),
-            **kwargs_for_sampler
+            **kwargs_for_sampler,
         )
         result.plot_corner()
 
         self.m_posterior = np.array(
-            [
-                result.posterior[var] for var in self.m_prior.keys()
-            ]
+            [result.posterior[var] for var in self.m_prior.keys()]
         )
         self.m_posterior = np.transpose(self.m_posterior)
 
         self.evidence = result.log_10_evidence
 
         hists = [
-            np.histogram(
-                a=samples,
-                bins=int(np.floor(np.sqrt(samples.size)))
-            )
+            np.histogram(a=samples, bins=int(np.floor(np.sqrt(samples.size))))
             for samples in np.transpose(self.m_posterior)
         ]
         self.m_map = np.array(
-            [
-                bins[np.argmax(hist)] + np.diff(bins) / 2
-                for hist, bins in hists
-            ]
+            [bins[np.argmax(hist)] + np.diff(bins) / 2 for hist, bins in hists]
         )
 
         self.has_trained = True
@@ -717,10 +699,11 @@ class LinearMixerLocal(BaseMixer):
     """
 
     def __init__(
-            self,
-            models: Dict[str, Type[BaseModel]],
-            nargs_for_each_model: Optional[Dict[str, int]] = None,
-            n_mix: int = 2):
+        self,
+        models: Dict[str, Type[BaseModel]],
+        nargs_for_each_model: Optional[Dict[str, int]] = None,
+        n_mix: int = 2,
+    ):
         """
         Parameters
         ----------
@@ -733,7 +716,7 @@ class LinearMixerLocal(BaseMixer):
         """
 
         # check that lengths of lists are compatible
-        if not (nargs_for_each_model is None):
+        if nargs_for_each_model is not None:
             if len(models) != len(nargs_for_each_model):
                 raise Exception(
                     "in linear_mix.__init__: len(nargs_for_each_model)"
@@ -746,11 +729,9 @@ class LinearMixerLocal(BaseMixer):
                 issubclass(type(model), BaseModel)
             except AttributeError:
                 print(
-                    f"model {key} needs to inherit from" +
-                    "Taweret.core.base_model.BaseModel"
+                    f"model {key} needs to inherit from"
+                    + "Taweret.core.base_model.BaseModel"
                 )
-            else:
-                continue
 
         # TODO: Do the model parameters that the sampler samples need to be
         #       separated into two different dictionaries? And is simpler to
@@ -764,6 +745,12 @@ class LinearMixerLocal(BaseMixer):
         self.n_mix = n_mix
         self.has_trained = False
 
+        # instantiate GP object to save clock cycles (does this actaully save
+        # clock cycles?)
+        kernel = 1 * Matern(length_scale=2)
+        self.m_gpr = gpr(kernel=kernel)
+        self.sampled_weigths = []
+
         # function returns
 
     ##########################################################################
@@ -772,8 +759,8 @@ class LinearMixerLocal(BaseMixer):
     def evaluate(
         self,
         local_variables: np.ndarray,
-        model_parameters: Optional[Dict[str, List[Any]]] = None,
-        sample: Optional[Dict[str, np.ndarray]] = None
+        model_parameters: Optional[Dict[str, Dict[str, Any]]] = None,
+        sample: Optional[Dict[str, np.ndarray]] = None,
     ) -> np.ndarray:
         """
         evaluate mixed model for given mixing function parameters
@@ -782,8 +769,8 @@ class LinearMixerLocal(BaseMixer):
         ----------
         local_variables : np.ndarray
             parameters that determine where to sample the prior distributions
-        model_parameters : Optional[Dict[str, List[Any]]]
-            Dictionary with list of parameter values for each model
+        model_parameters : Optional[Dict[str, Dict[str, Any]]]
+            Dictionary with keyword args for each model
         sample : Optional[Dict[str, np.ndarray]]
             optional argument, useful for when the prior has already been
             sampled, such as when running MCMC. It is automatically assumed
@@ -797,10 +784,11 @@ class LinearMixerLocal(BaseMixer):
         """
 
         # FIXME: Not correct for simultaneous calibration
+        # FIX:   Expect the user to take care of populate the keyword dict
+        #        with the correct (key, value) pair?
         # FIXME: evaluate should return a mean and std dev
         weights = self.evaluate_weights(
-            local_variables=local_variables,
-            sample=sample
+            local_variables=local_variables, sample=sample
         )
 
         if self.nargs_for_each_model is None:
@@ -809,21 +797,25 @@ class LinearMixerLocal(BaseMixer):
                     weight * model.evaluate(np.squeeze(local_variables))[0]
                     for weight, model in zip(weights, self.models.values())
                 ],
-                axis=0
+                axis=0,
             )
         else:
+            for model_key in self.models.keys():
+                for parameter_key, parameter_value in sample.items():
+                    if parameter_key in model_parameters[model_key].keys():
+                        model_parameters[model_key][
+                            parameter_key
+                        ] = parameter_value
+
             return np.sum(
                 [
-                    weight * self.models[key].evaluate(
-                            np.squeeze(local_variables),
-                            *model_parameters[key]
-                        )
-                    for weight, key in zip(
-                        weights,
-                        self.models.keys()
+                    weight
+                    * self.models[key].evaluate(
+                        np.squeeze(local_variables), **model_parameters[key]
                     )
+                    for weight, key in zip(weights, self.models.keys())
                 ],
-                axis=0
+                axis=0,
             )
 
     ##########################################################################
@@ -832,7 +824,7 @@ class LinearMixerLocal(BaseMixer):
     def evaluate_weights(
         self,
         local_variables: np.ndarray,
-        sample: Optional[Dict[str, np.ndarray]] = None
+        sample: Optional[Dict[str, np.ndarray]] = None,
     ) -> np.ndarray:
         """
         calculate the weights given some set of input parameters
@@ -853,49 +845,70 @@ class LinearMixerLocal(BaseMixer):
         weights : np.ndarray
             array of sampled weights
         """
-        local_variables = np.array(
-            local_variables
-        ).reshape(-1, self.n_local_variables)
+
+        # FIXME: Not correct for simultaneous calibration
         evaluation_points_count = local_variables.shape[0]
-        prior_samples = sample
-        prior_samples = np.array(
-            list(prior_samples.values())
-        ).reshape(-1, 1)
-        weights = np.zeros(
-            (self.n_mix, evaluation_points_count)
+
+        # make sure input array is two-dimensional in the case when
+        # self.n_local_variabels has size 1.
+        local_variables = np.array(local_variables).reshape(
+            -1, self.n_local_variables
         )
-        for n in range(self.n_mix - 1):
-            for i in range(evaluation_points_count):
-                if self.deterministic:
-                    weights[n, i] = np.prod(np.array(
-                        [
-                            np.exp(
-                                prior_samples[2 * k + 0, 0] *
-                                local_variables[i] +
-                                prior_samples[2 * k + 1, 0]
-                            )
-                            # norm.cdf(
-                            #     prior_samples[2 * k + 0, 0] *
-                            #     local_variables[i] +
-                            #     prior_samples[2 * k + 1, 0]
-                            # )
-                            if self.polynomial_order == 1 else
-                            np.exp((local_variables[i]
-                                    - prior_samples[2 * k + 0, 0]) ** 2
-                                   + prior_samples[2 * k + 1, 0])
-                            for k in range(self.n_local_variables)
-                        ]),
-                        axis=0
+
+        weights = np.zeros((self.n_mix, evaluation_points_count))
+        if self.deterministic:
+            # From Coleman thesis Ch. 3.5
+            for n in range(self.n_mix - 1):
+                for i in range(evaluation_points_count):
+                    weights[n, i] = np.prod(
+                        np.array(
+                            [
+                                np.exp(
+                                    sample[f"slope_({n}, {k})"]
+                                    * local_variables[i]
+                                    + sample[f"intercept_({n}, {k})"]
+                                )
+                                if self.polynomial_order == 1
+                                else np.exp(
+                                    (
+                                        sample[f"slope_({n}, {k})"]
+                                        - local_variables[i]
+                                    )
+                                    ** 2
+                                    + sample[f"intercept_({n}, {k})"]
+                                )
+                                for k in range(self.n_local_variables)
+                            ]
+                        ),
+                        axis=0,
                     )
-                else:
-                    # This is for gaussian process distributed weighes
-                    pass
 
             for n in range(self.n_mix - 1):
                 weights[n] = weights[n] / (1 + np.sum(weights, axis=0))
             for i in range(evaluation_points_count):
                 weights[self.n_mix - 1, i] = 1 - np.sum(weights[:, i])
-            return np.squeeze(weights)
+        else:
+            # Inspired from Coleman thesis Ch. 3.4.2
+            for i in range(evaluation_points_count):
+                gp_variance = sample["gp_variance"]
+                params = {
+                    "kernel__k1": ConstantKernel(
+                        constant_value=1 / gp_variance
+                    )
+                }
+                self.m_gpr.set_params(**params)
+                log_link_functions = self.m_gpr.sample_y(
+                    X=local_variables[i].reshape(-1, self.n_local_variables),
+                    n_samples=self.n_mix,
+                    random_state=None
+                )
+
+                alphas = np.exp(log_link_functions)
+                if np.any(alphas < 1e-1):
+                    alphas = np.array([0.1, 0.1])
+                weights[:, i] = np.squeeze(dirichlet.rvs(np.squeeze(alphas)))
+
+        return np.squeeze(weights)
 
     ##########################################################################
     ##########################################################################
@@ -915,28 +928,23 @@ class LinearMixerLocal(BaseMixer):
 
     # ------------------------------------------------------------------------
     class MixLikelihood(Bilby_Likelihood):
-        '''
+        """
         Helper class need to run bilby sampler. Wraps around `mix_likelihood`
         function
-        '''
+        """
 
         def __init__(
-                self,
-                keys: List[str],
-                likelihood_func: Callable,
-                evaluate_weights: Callable,
-                y_exp: np.ndarray,
-                y_err: np.ndarray,
-                local_variables: np.ndarray,
-                model_parameters: Optional[Dict[str, List[Any]]] = None
+            self,
+            keys: List[str],
+            likelihood_func: Callable,
+            evaluate_weights: Callable,
+            y_exp: np.ndarray,
+            y_err: np.ndarray,
+            local_variables: np.ndarray,
+            model_parameters: Optional[Dict[str, List[Any]]] = None,
         ):
-            parameter_dictionary = dict(
-                (key, None)
-                for key in keys
-            )
-            super().__init__(
-                parameters=parameter_dictionary
-            )
+            parameter_dictionary = dict((key, None) for key in keys)
+            super().__init__(parameters=parameter_dictionary)
             self.likelihood_func = likelihood_func
             self.evaluate_weights = evaluate_weights
             self.y_exp = y_exp
@@ -947,25 +955,25 @@ class LinearMixerLocal(BaseMixer):
         def log_likelihood(self):
             # FIXME: Not correct for simultaneous calibration
             weights = self.evaluate_weights(
-                local_variables=self.local_variables,
-                sample=self.parameters
+                local_variables=self.local_variables, sample=self.parameters
             )
             return self.likelihood_func(
                 y_exp=self.y_exp,
                 y_err=self.y_err,
                 weights=weights,
                 local_variables=self.local_variables,
-                model_parameters=self.model_parameters
+                model_parameters=self.model_parameters,
             )
+
     # ------------------------------------------------------------------------
 
     def mix_loglikelihood(
-            self,
-            y_exp: np.ndarray,
-            y_err: np.ndarray,
-            weights: np.ndarray,
-            local_variables: np.ndarray,
-            model_parameters: Optional[Dict[str, List[Any]]] = None,
+        self,
+        y_exp: np.ndarray,
+        y_err: np.ndarray,
+        weights: np.ndarray,
+        local_variables: np.ndarray,
+        model_parameters: Optional[Dict[str, List[Any]]] = None,
     ) -> float:
         """
         log likelihood of the mixing model
@@ -989,6 +997,7 @@ class LinearMixerLocal(BaseMixer):
             a set of weights
         """
 
+        self.sampled_weigths.append(weights)
         log_weights = np.log(weights + eps)
 
         if model_parameters is None:
@@ -998,10 +1007,10 @@ class LinearMixerLocal(BaseMixer):
                         local_variables,
                         y_exp,
                         y_err,
-                    ) + log_weight
+                    )
+                    + log_weight
                     for model, log_weight in zip(
-                        self.models.values(),
-                        log_weights
+                        self.models.values(), log_weights
                     )
                 ]
             )
@@ -1009,15 +1018,13 @@ class LinearMixerLocal(BaseMixer):
             log_likelis = np.array(
                 [
                     self.models[key].log_likelihood_elementwise(
-                            local_variables,
-                            y_exp,
-                            y_err,
-                            *model_parameters[key],
-                        ) + log_weight
-                    for key, log_weight in zip(
-                        self.models.keys(),
-                        log_weights
+                        local_variables,
+                        y_exp,
+                        y_err,
+                        *model_parameters[key],
                     )
+                    + log_weight
+                    for key, log_weight in zip(self.models.keys(), log_weights)
                 ]
             )
 
@@ -1070,10 +1077,10 @@ class LinearMixerLocal(BaseMixer):
     ##########################################################################
 
     def _evaluate_distribution(
-            self,
-            distribution: np.ndarray,
-            local_variables: np.ndarray,
-            model_parameters: Optional[Dict[str, List[Any]]] = None,
+        self,
+        distribution: np.ndarray,
+        local_variables: np.ndarray,
+        model_parameters: Optional[Dict[str, List[Any]]] = None,
     ) -> np.ndarray:
         """
         Helper function to evaluate the predictive distribution from a given
@@ -1098,9 +1105,9 @@ class LinearMixerLocal(BaseMixer):
                     local_variables=local_variables,
                     model_parameters=model_parameters,
                     sample=dict(
-                        (key, var) for key, var in zip(self.m_prior.keys(),
-                                                       sample)
-                    )
+                        (key, var)
+                        for key, var in zip(self.m_prior.keys(), sample)
+                    ),
                 )
                 for sample in distribution  # we assume it has correct shape
             ]
@@ -1110,11 +1117,11 @@ class LinearMixerLocal(BaseMixer):
     ##########################################################################
 
     def predict(
-            self,
-            local_variables: np.ndarray,
-            model_parameters: Optional[Dict[str, List[Any]]] = None,
-            credible_intervals=[5, 95],
-            samples=None,
+        self,
+        local_variables: np.ndarray,
+        model_parameters: Optional[Dict[str, List[Any]]] = None,
+        credible_intervals=[5, 95],
+        samples=None,
     ):
         """
         Evaluate posterior to make prediction at test points.
@@ -1153,7 +1160,7 @@ class LinearMixerLocal(BaseMixer):
                     self._evaluate_distribution(
                         distribution=self.m_posterior,
                         local_variables=x,
-                        model_parameters=model_parameters
+                        model_parameters=model_parameters,
                     )
                     for x in local_variables.reshape(
                         -1, self.n_local_variables
@@ -1164,7 +1171,7 @@ class LinearMixerLocal(BaseMixer):
             return_intervals = np.percentile(
                 a=predictive_distribution,
                 q=np.asarray(credible_intervals),
-                axis=1
+                axis=1,
             )
             return_mean = np.mean(predictive_distribution, axis=1)
             return_stddev = np.std(predictive_distribution, axis=1)
@@ -1186,7 +1193,7 @@ class LinearMixerLocal(BaseMixer):
                         self._evaluate_distribution(
                             distribution=samples,
                             local_variables=x,
-                            model_parameters=model_parameters
+                            model_parameters=model_parameters,
                         )
                         for x in local_variables.reshape(
                             -1, self.n_local_variables
@@ -1195,9 +1202,7 @@ class LinearMixerLocal(BaseMixer):
                 )
 
                 return_intervals = np.percentile(
-                    a=predictive_distribution,
-                    q=credible_intervals,
-                    axis=1
+                    a=predictive_distribution, q=credible_intervals, axis=1
                 )
                 return_mean = np.mean(predictive_distribution, axis=1)
                 return_stddev = np.std(predictive_distribution, axis=1)
@@ -1234,11 +1239,11 @@ class LinearMixerLocal(BaseMixer):
     ##########################################################################
 
     def prior_predict(
-            self,
-            local_variables: np.ndarray,
-            model_parameters: Optional[Dict[str, List[Any]]] = None,
-            credible_interval=[5, 95],
-            number_samples: int = 1000,
+        self,
+        local_variables: np.ndarray,
+        model_parameters: Optional[Dict[str, List[Any]]] = None,
+        credible_interval=[5, 95],
+        number_samples: int = 1000,
     ) -> np.ndarray:
         """
         Get prior predictive distribution and prior distribution samples
@@ -1272,8 +1277,7 @@ class LinearMixerLocal(BaseMixer):
 
         # FIXME: Not correct for simultaneous calibration
         prior_points = self._sample_prior(
-            local_variables=local_variables,
-            number_samples=number_samples
+            local_variables=local_variables, number_samples=number_samples
         )
         return self.predict(
             local_variables=local_variables,
@@ -1286,10 +1290,10 @@ class LinearMixerLocal(BaseMixer):
     ##########################################################################
 
     def predict_weights(
-            self,
-            local_variables: np.ndarray,
-            credible_intervals: List[float] = [5, 95],
-            existing_samples: Optional[np.ndarray] = None
+        self,
+        local_variables: np.ndarray,
+        credible_intervals: List[float] = [5, 95],
+        existing_samples: Optional[np.ndarray] = None,
     ) -> np.ndarray:
         """
         Calculate posterior predictive distribution for model weights
@@ -1336,15 +1340,15 @@ class LinearMixerLocal(BaseMixer):
                                 local_variables=x,
                                 sample=dict(
                                     (key, var)
-                                    for key, var in zip(self.m_prior.keys(),
-                                                        sample)
-                                )
+                                    for key, var in zip(
+                                        self.m_prior.keys(), sample
+                                    )
+                                ),
                             )
                             for sample in self.m_posterior
                         ]
                         for x in local_variables.reshape(
-                            -1,
-                            self.n_local_variables
+                            -1, self.n_local_variables
                         )
                     ]
                 )
@@ -1352,7 +1356,7 @@ class LinearMixerLocal(BaseMixer):
                 return_intervals = np.percentile(
                     a=predicted_weights,
                     q=np.asarray(credible_intervals),
-                    axis=1
+                    axis=1,
                 )
                 return_mean = np.mean(predicted_weights, axis=1)
                 return_stddev = np.std(predicted_weights, axis=1)
@@ -1371,15 +1375,15 @@ class LinearMixerLocal(BaseMixer):
                                 local_variables=x,
                                 sample=dict(
                                     (key, var)
-                                    for key, var in zip(self.m_prior.keys(),
-                                                        sample)
-                                )
+                                    for key, var in zip(
+                                        self.m_prior.keys(), sample
+                                    )
+                                ),
                             )
                             for sample in self.m_posterior
                         ]
                         for x in local_variables.reshape(
-                            -1,
-                            self.n_local_variables
+                            -1, self.n_local_variables
                         )
                     ]
                 )
@@ -1387,7 +1391,7 @@ class LinearMixerLocal(BaseMixer):
                 return_intervals = np.percentile(
                     a=predicted_weights,
                     q=np.asarray(credible_intervals),
-                    axis=1
+                    axis=1,
                 )
                 return_mean = np.mean(predicted_weights, axis=1)
                 return_stddev = np.std(predicted_weights, axis=1)
@@ -1404,9 +1408,7 @@ class LinearMixerLocal(BaseMixer):
     ##########################################################################
 
     def _sample_prior(
-            self,
-            local_variables: np.ndarray,
-            number_samples: int
+        self, local_variables: np.ndarray, number_samples: int
     ) -> np.ndarray:
         """
         Helper function to sample prior since all prior distributions are
@@ -1426,20 +1428,20 @@ class LinearMixerLocal(BaseMixer):
         """
         return np.array(
             list(self.m_prior.sample(size=number_samples).values())
-        )
+        ).transpose()
 
     ##########################################################################
     ##########################################################################
 
     def set_prior(
-            self,
-            example_local_variable: np.ndarray,
-            local_variables_ranges: np.ndarray,
-            deterministic_priors: bool = False,
-            priors_dicitionary: Optional[
-                Dict[str, Type[bilby_prior.Prior]]
-            ] = None,
-            polynomial_order: Optional[int] = None,
+        self,
+        example_local_variable: np.ndarray,
+        local_variables_ranges: np.ndarray,
+        deterministic_priors: bool = False,
+        model_priors_dicitionary: Optional[
+            Dict[str, Dict[str, Type[bilby_prior.Prior]]]
+        ] = None,
+        polynomial_order: Optional[int] = None,
     ):
         """
         The prior distribution for log link functions (i.e. the log of the
@@ -1451,17 +1453,17 @@ class LinearMixerLocal(BaseMixer):
         example_local_variables : np.ndarray
             should a be an array with shape(n,) which lets Taweret know
             whether to use a 1-d priors or multi-dimensional priors
-        local_variables_ranges : np.ndarray
-            should be array with shape (n, 2), determines the parameter
-            range for both the (slope, intercept) [for linear] or (h, k) [for
-            parabola]
         deterministic_priors : boo
             (default = False)
             determines whether the likelihoods will be deterministic or
             stochastic
+        local_variables_ranges : np.ndarray
+            should be array with shape (n, 2), determines the parameter
+            range for both the (slope, intercept) [for linear] or (h, k) [for
+            parabola]
         priors_dictionary : Optional[Dict[str, Type[bilby_prior.Prior]]]
             (default = None)
-            take existing dictionary to pass to bilby
+            take existing dictionary for model specific priors
         polynomial_order : Optional[int]
             (default = None)
             if using deterministic priors, this determines the order of
@@ -1471,63 +1473,68 @@ class LinearMixerLocal(BaseMixer):
         # FIXME: All options not implemented
         # FIXME: Not correct for simultaneous calibration
         self.deterministic = deterministic_priors
-        if deterministic_priors:
+        self.n_local_variables = example_local_variable.shape[0]
+        self.m_prior = dict()
 
+        if deterministic_priors:
             if polynomial_order is None:
-                print('No polynomial order is given, assuming 2 by default')
+                print("No polynomial order is given, assuming 2 by default")
                 self.polynomial_order = 2
             elif polynomial_order > 2:
-                print('Only powers supported are 1 and 2, setting to 2')
+                print("Only powers supported are 1 and 2, setting to 2")
                 self.polynomial_order = 2
             else:
                 self.polynomial_order = polynomial_order
 
-            self.n_local_variables = example_local_variable.size
-            self.m_prior = dict()
             for n in range(1, self.n_mix):
                 for k in range(self.n_local_variables):
-                    self.m_prior[f'mu_({n}, {k})'] = bilby_prior.Uniform(
+                    self.m_prior[f"slope_({n}, {k})"] = bilby_prior.Uniform(
                         minimum=local_variables_ranges[k, 0],
                         maximum=local_variables_ranges[k, 1],
-                        name=f'mu_({n}, {k})'
+                        name=f"mu_({n}, {k})",
                     )
-                    self.m_prior[f'sigma_({n}, {k})'] = bilby_prior.Uniform(
+                    self.m_prior[
+                        f"intercept_({n}, {k})"
+                    ] = bilby_prior.Uniform(
                         minimum=local_variables_ranges[k, 0],
                         maximum=local_variables_ranges[k, 1],
-                        name=f'sigma_({n}, {k})'
+                        name=f"sigma_({n}, {k})",
                     )
-            self.m_prior = bilby_prior.PriorDict(dictionary=self.m_prior)
         else:
-            print('This option is currently not supported')
-            exit(-10)
-        # kernel = np.squeeze(np.diff(variance_bounds)) / 2 \
-        #     * RBF(length_scale=np.squeeze(
-        #                   np.diff(length_scale_bounds)
-        #               ) / 2,
-        #           length_scale_bounds=length_scale_bounds)
-        # self.m_gpr = gpr(kernel=kernel)
+            # The GP is set in the `set_prior` function because it serves as a
+            # prior on the space functions for the log-link functions
+            #
+            # We artificially set the correlation length to be 1/5 the largest
+            # range in the past ranges.
+            largest_range = np.max(np.diff(local_variables_ranges))
+            kernel = 2 * Matern(length_scale=largest_range / 5)
+            self.m_gpr = gpr(kernel=kernel)
+            self.m_prior["gp_variance"] = bilby_prior.Gamma(k=5, theta=1)
 
-        # prior_dict = {
-        #     f"param_{i}":  local_parameter_ranges
-        #     for i in range(self.n_mix)
-        # }
-        # self.m_prior = prior_dict
+        if model_priors_dicitionary is not None:
+            for key, value in model_priors_dicitionary.items():
+                self.models[key].set_prior(prior_dict=value)
+                # Note that we assume the use has taken care to give every
+                # prior a unique key
+                self.m_prior.update(value)
+
+        self.m_prior = bilby_prior.PriorDict(dictionary=self.m_prior)
 
     ##########################################################################
     ##########################################################################
 
     def train(
-            self,
-            y_exp: np.ndarray,
-            y_err: np.ndarray,
-            outdir: Path,
-            local_variables: np.ndarray,
-            model_parameters: Optional[Dict[str, List[Any]]] = None,
-            kwargs_for_sampler: Optional[Dict[str, Any]] = None,
-            steps: int = 2000,
-            burn: int = 50,
-            temps: int = 10,
-            walkers: int = 20,
+        self,
+        y_exp: np.ndarray,
+        y_err: np.ndarray,
+        outdir: Path,
+        local_variables: np.ndarray,
+        model_parameters: Optional[Dict[str, List[Any]]] = None,
+        kwargs_for_sampler: Optional[Dict[str, Any]] = None,
+        steps: int = 2000,
+        burn: int = 50,
+        temps: int = 10,
+        walkers: int = 20,
     ):
         """
         Run sampler to learn weights. Method should also create class
@@ -1567,15 +1574,15 @@ class LinearMixerLocal(BaseMixer):
 
         if kwargs_for_sampler is None:
             kwargs_for_sampler = {
-                'sampler': 'ptemcee',
-                'ntemps': temps,
-                'Tmax': 100,
-                'nwalkers': walkers * self.n_mix,
-                'nsamples': steps * self.n_mix,
-                'burn_in_fixed_discard': burn * self.n_mix,
-                'threads': cpu_count(),
-                'clean': True,
-                'printdt': 60
+                "sampler": "ptemcee",
+                "ntemps": temps,
+                "Tmax": 100,
+                "nwalkers": walkers * self.n_mix,
+                "nsamples": steps * self.n_mix,
+                "burn_in_fixed_discard": burn * self.n_mix,
+                "threads": cpu_count(),
+                "clean": True,
+                "printdt": 60,
             }
 
         result = bilby_run_sampler(
@@ -1586,18 +1593,16 @@ class LinearMixerLocal(BaseMixer):
                 y_exp=y_exp,
                 y_err=y_err,
                 model_parameters=model_parameters,
-                local_variables=local_variables
+                local_variables=local_variables,
             ),
             priors=self.m_prior,
             outdir=str(outdir),
-            **kwargs_for_sampler
+            **kwargs_for_sampler,
         )
         result.plot_corner()
 
         self.m_posterior = np.array(
-            [
-                result.posterior[var] for var in self.m_prior.keys()
-            ]
+            [result.posterior[var] for var in self.m_prior.keys()]
         )
         self.m_posterior = np.transpose(self.m_posterior)
 

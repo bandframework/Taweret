@@ -19,6 +19,12 @@ Submodules
    :show-inheritance:
 
 
+.. automodule:: Taweret.core.setup
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
 .. automodule:: Taweret.core.wrappers
    :members:
    :undoc-members:

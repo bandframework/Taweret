@@ -1,5 +1,5 @@
 How to update documentation in Taweret `website <https://danosu.github.io/Taweret/index.html>`_
-==============================================================================================
+===============================================================================================
 
 We use ``sphinx`` python documentation generator to generate the webpage 
 for our python package. It uses ``reStructuredText`` as the plaintext markup 
@@ -17,24 +17,25 @@ for more information.
 
 - Step 1: Fork Taweret repo
 - Step 2: Get the fork and chekout the ``develop`` branch
+
 .. code:: bash
 
-    git clone <url_to_the_fork> --branch develop
-    cd Taweret
+        git clone <url_to_the_fork> --branch develop
+        cd Taweret
 
 - Step 3: Create conda environment for Taweret
 
 .. code:: bash
 
-    conda env create --file=environment.yml
-    conda activate test_env
+        conda env create --file=environment.yml
+        conda activate test_env
 
 - Step 4: Locally generate documentation webpage
 
 .. code:: bash
 
-    cd docs
-    sh run_to_rebuild_tawret_rst.sh
+        cd docs
+        sh run_to_rebuild_tawret_rst.sh
 
 This will create a webpage locally and open it in your default web browser. 
 You can modify the files inside ``Taweret/docs/source`` to make changes to 
@@ -42,7 +43,7 @@ the webpage.
 
 ``Taweret/docs/source/index.rst`` determines the overall structure of the 
 webpage. Each file that is referenced in the ``index.rst`` can be found in
- the same folder.
+the same folder.
 
 For example, if you want to modify the introduction, 
 change ``Taweret/docs/source/intro.rst``.
@@ -52,9 +53,10 @@ you can push these changes to the original webpage by following
 the below set of instructions. 
 
 .. code:: bash
-    git add <file_you changed_inside_source_directory>
-    git commit -m <you commit messege>
-    git push origin develop
+
+        git add <file_you changed_inside_source_directory>
+        git commit -m <you commit messege>
+        git push origin develop
 
 Then make a pull request from your forked repository to 
 the ``danOSU/Taweret`` repository, ``develop`` branch. 

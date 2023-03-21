@@ -72,8 +72,8 @@ def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray, 
         to deal with negative values of the input. 
     """
     
-    if mixture_params.size == 0:
-        return np.ones(len(x))
+#     if mixture_params.size == 0:
+#         return np.ones(len(x))
     if method=='sigmoid':
         theta_0, theta_1 = mixture_params
         w = expit((x-theta_0)/theta_1)
@@ -112,7 +112,7 @@ def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray, 
         if x_0 >= 0:
             #If x is less than x_0 it's 1. Otherwise 0.
             w1 = np.array([1-(eps) if xi<=x_0 else eps for xi in x]).flatten()
-            max_num = prior['addstep_0'].maximum
+            #max_num = prior['addstepasym_0'].maximum
             #bound = max_num - x_0
             #If x is greater than max_num - |x_0| it's 1. Otherwise 0. 
             #w2 = np.array([1-(eps) if xi>=bound else eps for xi in x]).flatten()
@@ -151,6 +151,15 @@ def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray, 
         g1, g2, g3 = mixture_params
         w = np.array(list(map(lambda x: switchcos(g1, g2, g3, x), x)))
         return w, 1-w
+    elif method=='calibrate_model_1':
+        
+        w = np.ones(len(x))
+        return w, 1-w
+    elif method=='calibrate_model_2':
+        
+        w = np.ones(len(x))
+        return 1-w, w
+    
     else:
         raise Exception('Method is not available for `mixture function`')
 

@@ -446,7 +446,7 @@ for s in system_strs:
         Trained_Emulators[s] = dill.load(open(str(workdir)+'/emulator/emulator-' + s + '-idf-' + str(idf) + '.dill', "rb"))
     except:
         print("WARNING! Can't load emulator for system " + s)
-        print(str(workdir)+'emulator/emulator-' + s + '-idf-' + str(idf) + '.dill', "rb")
+        print(str(workdir)+'/emulator/emulator-' + s + '-idf-' + str(idf) + '.dill', "rb")
 #contains all the emulators for all df models
 Trained_Emulators_all_df = {}
 for s in system_strs:

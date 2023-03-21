@@ -58,7 +58,7 @@ idf_label_short = {
 number_of_models_per_run = 4
 
 # the choice of viscous correction. 0 : 14 Moment, 1 : C.E. RTA, 2 : McNelis, 3 : Bernhard
-idf = 3
+idf = 1
 print("Using idf = " + str(idf) + " : " + idf_label[idf])
 
 #the Collision systems

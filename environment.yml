@@ -10,5 +10,5 @@ dependencies:
   - conda-forge::nbsphinx
   - conda-forge::pandoc
 #The following are optional and only for jetscape models
-  - conda-forge::scikit-learn=1.0.2
+# - conda-forge::sklearn=1.0.2
 

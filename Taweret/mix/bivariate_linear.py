@@ -14,7 +14,7 @@ class BivariateLinear(BaseMixer):
 
     '''
 
-    def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None, same_parameters = False):
+    def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None, same_parameters = False, product=False):
         '''
         Parameters
         ----------
@@ -26,6 +26,8 @@ class BivariateLinear(BaseMixer):
             number of free parameters in each model
         same_parameters : bool
             If set, two models are assumed to have same parameters.
+        product : bool
+            If set, Likelihood is calculated as a product of exponentials instead of sum
         '''
 
         if nargs_model_dic is None:
@@ -50,7 +52,8 @@ class BivariateLinear(BaseMixer):
         self.models_dic = models_dic
         # If a new method is added the following needs to be updated
         # It has method and number of free parameters in each method
-        method_n_mix_dic = {'step':1, 'addstep':2, 'addstepasym':3, 'sigmoid':2, 'cdf':2, 'switchcos':3}
+        method_n_mix_dic = {'step':1, 'addstep':2, 'addstepasym':3, 'sigmoid':2, 'cdf':2, 
+                            'switchcos':3, 'calibrate_model_1':0, 'calibrate_model_2':0}
 
         #check if the mixing function exist
         if method not in method_n_mix_dic:
@@ -72,7 +75,7 @@ class BivariateLinear(BaseMixer):
         self._map=None
         self._posterior=None
         self._prior=self.set_prior(priors) # This combines model priors with mixing method priors
-        
+        self.product = product
 # Attributes
     @property
     def prior(self):
@@ -119,7 +122,10 @@ class BivariateLinear(BaseMixer):
         w1, w2 = mixture_function(self.method, x, mixture_params, self.prior)
         model_1, model_2 = list(self.models_dic.values())
         try:
-            model_1_out,_ = model_1.evaluate(x,model_params[0])
+            if self.same_parameters:
+                model_1_out,_ = model_1.evaluate(x,model_params[0])
+            else:
+                model_1_out,_ = model_1.evaluate(x,model_params[0])
         except:
             model_1_out,_ = model_1.evaluate(x)
 
@@ -129,7 +135,20 @@ class BivariateLinear(BaseMixer):
             else:
                 model_2_out,_ = model_2.evaluate(x,model_params[1])
         except:
-            model_2_out,_ = model_2.evaluate(x)
+            model_2_out,_ = model_2.evaluate(x)        
+
+        #try:
+        #    model_1_out,_ = model_1.evaluate(x,model_params[0])
+        #except:
+        #    model_1_out,_ = model_1.evaluate(x)
+        #
+        #try:
+        #    if self.same_parameters:
+        #        model_2_out,_ = model_2.evaluate(x,model_params[0])
+        #    else:
+        #        model_2_out,_ = model_2.evaluate(x,model_params[1])
+        #except:
+        #    model_2_out,_ = model_2.evaluate(x)
         
         if model_1_out.ndim == model_2_out.ndim and model_2_out.ndim <= 1:
             return w1*model_1_out + w2*model_2_out
@@ -166,7 +185,7 @@ class BivariateLinear(BaseMixer):
         return mixture_function(self.method, x, mixture_params, self.prior)
 
 
-    def predict(self, x, CI=[5,95], samples=None):
+    def predict(self, x, CI=[5,95], samples=None, nthin=1):
         '''
         Evaluate posterior to make prediction at test points x.
 
@@ -204,7 +223,8 @@ class BivariateLinear(BaseMixer):
             posterior = samples
         else:
             posterior = self._posterior
-        for sample in posterior:
+        n_samples = posterior.shape[0]
+        for sample in posterior[::nthin]:
             sample = np.array(sample).flatten()
 
             mixture_param = sample[0:self.n_mix]
@@ -382,7 +402,11 @@ class BivariateLinear(BaseMixer):
         W_2 = np.log(W_2 + eps)
         model_1, model_2 = list(self.models_dic.values())
         L1 = model_1.log_likelihood_elementwise(x_exp, y_exp, y_err, model_1_param)
-        L2 = model_2.log_likelihood_elementwise(x_exp, y_exp, y_err, model_2_param)
+
+        if self.method=='calibrate_model_1':
+            L2 = np.zeros(len(x_exp))
+        else:
+            L2 = model_2.log_likelihood_elementwise(x_exp, y_exp, y_err, model_2_param)
         # L1 = log_likelihood_elementwise(self.models_dic.items()[0], self.x_exp, self.y_exp, \
         # self.y_err, model_1_param)
         # L2 = log_likelihood_elementwise(self.models_dic.items()[1], self.x_exp, self.y_exp, \
@@ -391,7 +415,10 @@ class BivariateLinear(BaseMixer):
         #we use the logaddexp here for numerical accuracy. Look at the
         #mix_loglikelihood_test to check for an alternative (common) way
         mixed_loglikelihood_elementwise=np.logaddexp(W_1+L1, W_2+L2)
-        return np.sum(mixed_loglikelihood_elementwise).item()
+        if self.product:
+            return np.prod(mixed_loglikelihood_elementwise).item()
+        else:
+            return np.sum(mixed_loglikelihood_elementwise).item()
 
     def train(self, x_exp, y_exp, y_err, label='bivariate_mix', outdir='outdir', 
     kwargs_for_sampler=None, load_previous=False):
@@ -414,21 +441,23 @@ class BivariateLinear(BaseMixer):
         # A few simple setup steps
         likelihood = likelihood_wrapper_for_bilby(self, x_exp, y_exp, y_err)
 
-        if os.path.exists(outdir+'/'+label) and load_previous:
+        #if os.path.exists(outdir) and load_previous:
+        try:
+            
             result = bilby.result.read_in_result(outdir=outdir, label=label)
-        else:
+        except:
             if load_previous:
-                print('Saved results do not exist in : '+ outdir+'/'+label)
-            if os.path.exists(outdir+'/'+label):
-                shutil.rmtree(outdir+'/'+label)
+                print(f'Saved results for {label} do not exist in : '+ outdir)
+            #if os.path.exists(outdir+'/'+label):
+            #    shutil.rmtree(outdir+'/'+label)
             if kwargs_for_sampler is None:
                 kwargs_for_sampler = {'sampler':'ptemcee',
                 'ntemps':10,
                 'nwalkers':200,
                 'Tmax':100,
-                'burn_in_fixed_discard':500,
-                'nsamples':8000,
-                'threads':7,
+                'burn_in_fixed_discard':5000,
+                'nsamples':20000,
+                'threads':28,
                 'printdt':60}
                 #'safety':2,
                 #'autocorr_tol':5}

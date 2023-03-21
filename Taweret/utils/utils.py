@@ -57,7 +57,7 @@ def normal_likelihood_elementwise(model : object, x_exp : np.ndarray, y_exp : np
 
 def mixture_function(method : str, x : np.ndarray, mixture_params : np.ndarray) -> np.ndarray:
     """
-    predict the weights from the mixture funtion at the give input parameter values x
+    predict the weights from the mixture funtion at the give input parameter values x  
 
     Parameters
     ----------

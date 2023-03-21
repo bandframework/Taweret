@@ -19,7 +19,7 @@ try:
 except Exception as e:
     print(e)
     print('''To use the SAMBA toy models, SAMBA package needed to be installed first''')
-    print('Then use `sys.path.append("path_to_local_SAMBA_instalation")` in your code before calling \
+    print('Then use `sys.path.append("path_to_local_SAMBA_installation")` in your code before calling \
 SAMBA models')
 
 

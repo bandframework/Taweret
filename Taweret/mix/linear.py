@@ -19,6 +19,7 @@ from typing import Callable
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Tuple
 from typing import Type
 from pathlib import Path
 
@@ -34,6 +35,8 @@ eps = 1.0e-20
 
 # TODO: Class currently incapable of running simultaneous calibration
 # TODO: Update `predict_weigts` and `plot_weight` functions for both below
+# TODO: Update all type annotations (arg lists and return types)
+# TODO: Double check that function docstrings are up-to-date
 class LinearMixerGlobal(BaseMixer):
     """
     Generates a global linear mixed model
@@ -44,7 +47,7 @@ class LinearMixerGlobal(BaseMixer):
         self,
         models: Dict[str, Type[BaseModel]],
         nargs_for_each_model: Optional[Dict[str, int]] = None,
-        n_mix: int = 0,
+        n_mix: int = 2,
     ):
         """
         Parameters
@@ -339,7 +342,7 @@ class LinearMixerGlobal(BaseMixer):
         model_parameters: Optional[Dict[str, List[Any]]] = None,
         credible_intervals: List[float] = [5, 95],
         samples: Optional[np.ndarray] = None,
-    ):
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """
         Evaluate posterior to make prediction at test points.
 
@@ -442,7 +445,7 @@ class LinearMixerGlobal(BaseMixer):
         model_parameters: Optional[Dict[str, List[Any]]] = None,
         credible_interval=[5, 95],
         number_samples: int = 1000,
-    ) -> np.ndarray:
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """
         Get prior predictive distribution and prior distribution samples
 
@@ -497,7 +500,7 @@ class LinearMixerGlobal(BaseMixer):
         self,
         credible_interval: List[float] = [5, 95],
         samples: Optional[np.ndarray] = None,
-    ) -> np.ndarray:
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """
         Calculate posterior predictive distribution for model weights
 
@@ -745,13 +748,9 @@ class LinearMixerLocal(BaseMixer):
         self.n_mix = n_mix
         self.has_trained = False
 
-        # instantiate GP object to save clock cycles (does this actaully save
-        # clock cycles?)
-        kernel = 1 * Matern(length_scale=2)
-        self.m_gpr = gpr(kernel=kernel)
         self.sampled_weigths = []
 
-        # function returns
+        # should I set all return variabls to `None` here?
 
     ##########################################################################
     ##########################################################################
@@ -785,7 +784,7 @@ class LinearMixerLocal(BaseMixer):
 
         # FIXME: Not correct for simultaneous calibration
         # FIX:   Expect the user to take care of populate the keyword dict
-        #        with the correct (key, value) pair?
+        #        with the correct (key, value) pair
         # FIXME: evaluate should return a mean and std dev
         weights = self.evaluate_weights(
             local_variables=local_variables, sample=sample
@@ -900,13 +899,20 @@ class LinearMixerLocal(BaseMixer):
                 log_link_functions = self.m_gpr.sample_y(
                     X=local_variables[i].reshape(-1, self.n_local_variables),
                     n_samples=self.n_mix,
-                    random_state=None
+                    random_state=None,
                 )
 
-                alphas = np.exp(log_link_functions)
-                if np.any(alphas < 1e-1):
-                    alphas = np.array([0.1, 0.1])
-                weights[:, i] = np.squeeze(dirichlet.rvs(np.squeeze(alphas)))
+                alphas = np.squeeze(np.exp(log_link_functions))
+
+                # Have the alpha too small returns a nan from the
+                # `scipy.dirichlet` implementation, and we gaurd against it
+                for n in range(self.n_mix):
+                    if alphas[n] < 0.1:
+                        alphas[n] = 0.1
+                    elif alphas[n] > 100:
+                        alphas[n] = 100
+
+                weights[:, i] = np.squeeze(dirichlet.rvs(alphas))
 
         return np.squeeze(weights)
 
@@ -936,7 +942,7 @@ class LinearMixerLocal(BaseMixer):
         def __init__(
             self,
             keys: List[str],
-            likelihood_func: Callable,
+            loglikelihood_func: Callable,
             evaluate_weights: Callable,
             y_exp: np.ndarray,
             y_err: np.ndarray,
@@ -945,7 +951,7 @@ class LinearMixerLocal(BaseMixer):
         ):
             parameter_dictionary = dict((key, None) for key in keys)
             super().__init__(parameters=parameter_dictionary)
-            self.likelihood_func = likelihood_func
+            self.loglikelihood_func = loglikelihood_func
             self.evaluate_weights = evaluate_weights
             self.y_exp = y_exp
             self.y_err = y_err
@@ -957,7 +963,7 @@ class LinearMixerLocal(BaseMixer):
             weights = self.evaluate_weights(
                 local_variables=self.local_variables, sample=self.parameters
             )
-            return self.likelihood_func(
+            return self.loglikelihood_func(
                 y_exp=self.y_exp,
                 y_err=self.y_err,
                 weights=weights,
@@ -1120,9 +1126,9 @@ class LinearMixerLocal(BaseMixer):
         self,
         local_variables: np.ndarray,
         model_parameters: Optional[Dict[str, List[Any]]] = None,
-        credible_intervals=[5, 95],
+        credible_intervals: List[float] = [5, 95],
         samples=None,
-    ):
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """
         Evaluate posterior to make prediction at test points.
 
@@ -1170,7 +1176,7 @@ class LinearMixerLocal(BaseMixer):
 
             return_intervals = np.percentile(
                 a=predictive_distribution,
-                q=np.asarray(credible_intervals),
+                q=np.asarray(credible_intervals) / 100,
                 axis=1,
             )
             return_mean = np.mean(predictive_distribution, axis=1)
@@ -1244,7 +1250,7 @@ class LinearMixerLocal(BaseMixer):
         model_parameters: Optional[Dict[str, List[Any]]] = None,
         credible_interval=[5, 95],
         number_samples: int = 1000,
-    ) -> np.ndarray:
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """
         Get prior predictive distribution and prior distribution samples
 
@@ -1294,7 +1300,7 @@ class LinearMixerLocal(BaseMixer):
         local_variables: np.ndarray,
         credible_intervals: List[float] = [5, 95],
         existing_samples: Optional[np.ndarray] = None,
-    ) -> np.ndarray:
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """
         Calculate posterior predictive distribution for model weights
 
@@ -1323,14 +1329,6 @@ class LinearMixerLocal(BaseMixer):
             points
         """
 
-        # FIXME: Currently, I the self.evaluate_weights function expects to
-        #        take the variables that determines the log-link functions.
-        #        However, we would like for it to taje  the sampled parameters
-        #        of the Guassian distribution.
-        #        A way to do this is have the priors set on the mu, ell and
-        #        sigma parameters and create a new GPR every sampling step.
-        #        This seems like an awfully inefficient algorithm though.
-
         if self.has_trained:
             if existing_samples is None:
                 predicted_weights = np.array(
@@ -1355,7 +1353,7 @@ class LinearMixerLocal(BaseMixer):
 
                 return_intervals = np.percentile(
                     a=predicted_weights,
-                    q=np.asarray(credible_intervals),
+                    q=np.asarray(credible_intervals) / 100,
                     axis=1,
                 )
                 return_mean = np.mean(predicted_weights, axis=1)
@@ -1438,9 +1436,6 @@ class LinearMixerLocal(BaseMixer):
         example_local_variable: np.ndarray,
         local_variables_ranges: np.ndarray,
         deterministic_priors: bool = False,
-        model_priors_dicitionary: Optional[
-            Dict[str, Dict[str, Type[bilby_prior.Prior]]]
-        ] = None,
         polynomial_order: Optional[int] = None,
     ):
         """
@@ -1501,8 +1496,8 @@ class LinearMixerLocal(BaseMixer):
                         name=f"sigma_({n}, {k})",
                     )
         else:
-            # The GP is set in the `set_prior` function because it serves as a
-            # prior on the space functions for the log-link functions
+            # The GP is created in the `set_prior` function because it serves
+            # as a prior on the space functions for the log-link functions
             #
             # We artificially set the correlation length to be 1/5 the largest
             # range in the past ranges.
@@ -1511,12 +1506,11 @@ class LinearMixerLocal(BaseMixer):
             self.m_gpr = gpr(kernel=kernel)
             self.m_prior["gp_variance"] = bilby_prior.Gamma(k=5, theta=1)
 
-        if model_priors_dicitionary is not None:
-            for key, value in model_priors_dicitionary.items():
-                self.models[key].set_prior(prior_dict=value)
+        for key, model in self.models.items():
+            if model.m_prior is not None:
                 # Note that we assume the use has taken care to give every
                 # prior a unique key
-                self.m_prior.update(value)
+                self.m_prior.update(model.m_prior)
 
         self.m_prior = bilby_prior.PriorDict(dictionary=self.m_prior)
 
@@ -1535,7 +1529,7 @@ class LinearMixerLocal(BaseMixer):
         burn: int = 50,
         temps: int = 10,
         walkers: int = 20,
-    ):
+    ) -> np.ndarray:
         """
         Run sampler to learn weights. Method should also create class
         members that store the posterior and other diagnostic quantities
@@ -1588,7 +1582,7 @@ class LinearMixerLocal(BaseMixer):
         result = bilby_run_sampler(
             likelihood=self.MixLikelihood(
                 keys=list(self.m_prior.keys()),
-                likelihood_func=self.mix_loglikelihood,
+                loglikelihood_func=self.mix_loglikelihood,
                 evaluate_weights=self.evaluate_weights,
                 y_exp=y_exp,
                 y_err=y_err,

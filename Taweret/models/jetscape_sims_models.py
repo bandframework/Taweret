@@ -191,7 +191,10 @@ class jetscape_models_pb_pb_2760(BaseModel):
         For now we will not use any model parameters and fix it to MAP.
         Later we will come back to this. 
         '''
-        if bilby_priors is None:
+        
+        if self.fix_MAP:
+            priors = None
+        elif bilby_priors is None:
             print('Using default priors for model')
             priors = bilby.prior.PriorDict()
             for i in range(0,17):

@@ -69,17 +69,23 @@ def test_models():
 def test_evaluate():
 
     # pull result from SAMBA to check against
-    samba_arrays = np.loadtxt('samba_results.txt')
+    samba_arrays = np.loadtxt('samba_results.txt', delimiter=',')
 
     # check array equality within a tolerance
     predict = []
     for i in models.keys():
         predict.append(models[i].evaluate(g))
 
-    # assert equality within a tolerance
-    assert np.allclose(samba_arrays[0], np.asarray(predict[0])), \
+    # assert equality within a tolerance for means
+    assert np.allclose(samba_arrays[0], np.asarray(predict[0][0])), \
         "incorrect evaluation for small-g"
-    assert np.allclose(samba_arrays[1], np.asarray(predict[1])), \
+    assert np.allclose(samba_arrays[1], np.asarray(predict[1][0])), \
+        "incorrect evaluation for large-g"
+    
+     # assert equality within a tolerance for standard deviations
+    assert np.allclose(np.sqrt(samba_arrays[2]), np.asarray(predict[0][1])), \
+        "incorrect evaluation for small-g"
+    assert np.allclose(np.sqrt(samba_arrays[3]), np.asarray(predict[1][1])), \
         "incorrect evaluation for large-g"
 
 def test_init():

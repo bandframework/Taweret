@@ -60,7 +60,7 @@ def test_models():
     assert model_2 is not None, "model_2 is None"
 
     # dict of models
-    assert models is not None 
+    assert models is not None, "dict of models is not filled"
     assert np.array_equal(np.asarray(models["1"]), model_1), \
         "incorrect models['1'] values"
     assert np.array_equal(np.asarray(models["2"]), model_2), \
@@ -71,21 +71,27 @@ def test_evaluate():
     # pull result from SAMBA to check against
     samba_arrays = np.loadtxt('samba_results.txt', delimiter=',')
 
+    # split up into arrays for each test
+    samba_loworder = samba_arrays[0]
+    samba_highorder = samba_arrays[1]
+    samba_lowstd = samba_arrays[2]
+    samba_highstd = samba_arrays[3]
+
     # check array equality within a tolerance
     predict = []
     for i in models.keys():
         predict.append(models[i].evaluate(g))
 
     # assert equality within a tolerance for means
-    assert np.allclose(samba_arrays[0], np.asarray(predict[0][0])), \
+    assert np.allclose(samba_loworder, np.asarray(predict[0][0])), \
         "incorrect evaluation for small-g"
-    assert np.allclose(samba_arrays[1], np.asarray(predict[1][0])), \
+    assert np.allclose(samba_highorder, np.asarray(predict[1][0])), \
         "incorrect evaluation for large-g"
     
      # assert equality within a tolerance for standard deviations
-    assert np.allclose(np.sqrt(samba_arrays[2]), np.asarray(predict[0][1])), \
+    assert np.allclose(np.sqrt(samba_lowstd), np.asarray(predict[0][1])), \
         "incorrect evaluation for small-g"
-    assert np.allclose(np.sqrt(samba_arrays[3]), np.asarray(predict[1][1])), \
+    assert np.allclose(np.sqrt(samba_highstd), np.asarray(predict[1][1])), \
         "incorrect evaluation for large-g"
 
 def test_init():
@@ -97,16 +103,31 @@ def test_init():
 
 def test_mixing():
 
+    # call samba_results.txt file
+    samba_arrays = np.loadtxt('samba_results.txt', delimiter=',')
+
+    # split up for these tests
+    samba_mean = samba_arrays[4]
+    samba_intervallow = samba_arrays[5]
+    samba_intervalhigh = samba_arrays[6]
+    samba_std = samba_arrays[7]
+
     # check predict function variables
     assert mixed.ci == ci, "ci is not passing"
     assert mixed.prediction is not None, "prediction is None"
     assert mixed.var_weights is not None, "var_weights is None"
 
-    # check returned variables
+    # check posterior draws
     assert posterior_draws == 0.0, "posterior draws is not zero"
-    assert mixed_mean is not None, "mixed_mean is None"
-    assert mixed_intervals is not None, "mixed_intervals is None"
-    assert std_dev is not None, "std_dev is None"
+
+    # check specific values of the mixed result
+    assert np.allclose(samba_mean, mixed_mean), \
+        "mixed mean not matching"
+    assert np.allclose(samba_intervallow, mixed_intervals[0]), \
+          "lower interval not matching"
+    assert np.allclose(samba_intervalhigh, mixed_intervals[1]), \
+          "higher interval not matching"
+    assert np.allclose(samba_std, std_dev), "standard deviation not matching"
 
 def test_evaluate_weights():
 

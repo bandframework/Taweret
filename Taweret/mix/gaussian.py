@@ -157,7 +157,7 @@ class Multivariate(BaseMixer):
         var = 1/denom 
 
         # variances for each model
-        self.var_weights = var/(np.sum(var, axis=0))
+        self.var_weights = v/np.sum(v, axis=0)
 
         # std_dev calculation
         std_dev = np.sqrt(var)

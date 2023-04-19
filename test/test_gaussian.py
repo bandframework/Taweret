@@ -131,5 +131,19 @@ def test_mixing():
 
 def test_evaluate_weights():
 
-    # now that predict has been run, test the weights
-    assert np.array_equal(weights, mixed.var_weights), "weights are incorrect"
+    # call samba_results.txt file
+    samba_arrays = np.loadtxt('samba_results.txt', delimiter=',')
+
+    # separate out weights
+    weights_low = samba_arrays[9]
+    weights_high = samba_arrays[8]
+
+    # test weights
+    assert np.allclose(weights_low, mixed.var_weights[0,:]), \
+        "weights are incorrect"
+    assert np.allclose(weights_high, mixed.var_weights[1,:]), \
+        "weights are incorrect"
+
+    # now that predict has been run, test pulling the weights
+    assert np.array_equal(weights, mixed.var_weights), \
+        "weights are not matching"

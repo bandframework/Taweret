@@ -89,7 +89,7 @@ class Multivariate(BaseMixer):
         '''
 
         # check predict() has been called
-        if self.var_weights == np.zeros(len(self.models)):
+        if self.var_weights is np.zeros(len(self.models)):
             raise Exception('Please run the predict function before\
                 calling this function.')
 
@@ -163,7 +163,7 @@ class Multivariate(BaseMixer):
         var = 1/denom 
 
         # variances for each model
-        self.var_weights = var/(np.sum(var, axis=0))
+        self.var_weights = v/np.sum(v, axis=0)
 
         # std_dev calculation
         std_dev = np.sqrt(var)

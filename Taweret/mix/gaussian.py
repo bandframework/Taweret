@@ -83,7 +83,7 @@ class Multivariate(BaseMixer):
         '''
 
         # check predict() has been called
-        if self.var_weights == np.zeros(len(self.models)):
+        if self.var_weights is np.zeros(len(self.models)):
             raise Exception('Please run the predict function before\
                 calling this function.')
 

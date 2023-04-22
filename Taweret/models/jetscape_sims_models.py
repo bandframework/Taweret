@@ -33,7 +33,7 @@ from emulator import *
 
 def map_x_to_cent_bins(x : float, obs_to_remove=None):
     """
-    Both the simulation and eperiment provide 
+    Both the simulation and experiment provide 
     centrality bins instead of a continous centrality
     value. This function Maps a continous value of centrality 
     to discrete centrality bins by finding which bins the provided

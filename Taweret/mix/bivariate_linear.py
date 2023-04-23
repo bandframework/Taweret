@@ -14,7 +14,7 @@ class BivariateLinear(BaseMixer):
 
     '''
 
-    def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None, same_parameters = False, product=False):
+    def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None, same_parameters = False, cross_corr=False):
         '''
         Parameters
         ----------
@@ -26,8 +26,9 @@ class BivariateLinear(BaseMixer):
             number of free parameters in each model
         same_parameters : bool
             If set, two models are assumed to have same parameters.
-        product : bool
-            If set, Likelihood is calculated as a product of exponentials instead of sum
+        cross_corre : bool
+            If set, Likelihood is calculated taking into accoount the cross correlation 
+            uncertainty between simulation outputs. 
         '''
 
         if nargs_model_dic is None:
@@ -75,7 +76,7 @@ class BivariateLinear(BaseMixer):
         self._map=None
         self._posterior=None
         self._prior=self.set_prior(priors) # This combines model priors with mixing method priors
-        self.product = product
+        self.cross_corr = cross_corr
 # Attributes
     @property
     def prior(self):
@@ -397,28 +398,36 @@ class BivariateLinear(BaseMixer):
                 model_2_param = model_param[0]
             else:
                 model_1_param , model_2_param = model_param
+        
         W_1, W_2 = self.evaluate_weights(mixture_params, x_exp)
-        W_1 = np.log(W_1 + eps)
-        W_2 = np.log(W_2 + eps)
         model_1, model_2 = list(self.models_dic.values())
-        L1 = model_1.log_likelihood_elementwise(x_exp, y_exp, y_err, model_1_param)
+        if self.cross_corr:
+            L1 = model_1.log_likelihood(x_exp, y_exp, y_err, W_1, model_1_param)
+            L2 = model_2.log_likelihood(x_exp, y_exp, y_err, W_2, model_2_param)
 
-        if self.method=='calibrate_model_1':
-            L2 = np.zeros(len(x_exp))
+            return L1 + L2
         else:
-            L2 = model_2.log_likelihood_elementwise(x_exp, y_exp, y_err, model_2_param)
-        # L1 = log_likelihood_elementwise(self.models_dic.items()[0], self.x_exp, self.y_exp, \
-        # self.y_err, model_1_param)
-        # L2 = log_likelihood_elementwise(self.models_dic.items()[1], self.x_exp, self.y_exp, \
-        # self.y_err, model_2_param)
+            W_1 = np.log(W_1 + eps)
+            W_2 = np.log(W_2 + eps)
+            if self.method=='calibrate_model_2':
+                L1 = np.zeros(len(x_exp))
+                L2 = model_2.log_likelihood_elementwise(x_exp, y_exp, y_err, model_2_param)
+            elif self.method=='calibrate_model_1':
+                L2 = np.zeros(len(x_exp))
+                L1 = model_1.log_likelihood_elementwise(x_exp, y_exp, y_err, model_1_param)
+            else:
+                L1 = model_1.log_likelihood_elementwise(x_exp, y_exp, y_err, model_1_param)
+                L2 = model_2.log_likelihood_elementwise(x_exp, y_exp, y_err, model_2_param)
+            # L1 = log_likelihood_elementwise(self.models_dic.items()[0], self.x_exp, self.y_exp, \
+            # self.y_err, model_1_param)
+            # L2 = log_likelihood_elementwise(self.models_dic.items()[1], self.x_exp, self.y_exp, \
+            # self.y_err, model_2_param)
 
-        #we use the logaddexp here for numerical accuracy. Look at the
-        #mix_loglikelihood_test to check for an alternative (common) way
-        mixed_loglikelihood_elementwise=np.logaddexp(W_1+L1, W_2+L2)
-        if self.product:
-            return np.prod(mixed_loglikelihood_elementwise).item()
-        else:
+            #we use the logaddexp here for numerical accuracy. Look at the
+            #mix_loglikelihood_test to check for an alternative (common) way
+            mixed_loglikelihood_elementwise=np.logaddexp(W_1+L1, W_2+L2)
             return np.sum(mixed_loglikelihood_elementwise).item()
+
 
     def train(self, x_exp, y_exp, y_err, label='bivariate_mix', outdir='outdir', 
     kwargs_for_sampler=None, load_previous=False):

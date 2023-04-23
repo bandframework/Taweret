@@ -29,7 +29,7 @@ sys.path.append("/Users/dananjayaliyanage/git/Taweret/subpackages/js-sims-bayes/
 # Imports from Jetscape code. Need to load the saved emulators.
 from configurations import *
 from emulator import *
-
+from bayes_mcmc import normed_mvn_loglike
 
 def map_x_to_cent_bins(x : float, obs_to_remove=None):
     """
@@ -98,7 +98,7 @@ class jetscape_models_pb_pb_2760(BaseModel):
     #     mn, cov = self.Emulators.predict(model_param.reshape(1,-1), return_cov=True)
     #     return mn, cov
 
-    def evaluate(self, input_values : np.array, model_param = None) -> np.array:
+    def evaluate(self, input_values : np.array, model_param = None, full_corr=False) -> np.array:
         """
         Predict the mean and error for given input values
 
@@ -127,6 +127,7 @@ class jetscape_models_pb_pb_2760(BaseModel):
         else:
             mn, cov = self.Emulators.predict(model_param.reshape(1,-1), return_cov=True)
 
+        all_obs_names = []
         for xx in x:
             centr = map_x_to_cent_bins(xx, self.obs_to_remove)
             obs=[]
@@ -134,19 +135,41 @@ class jetscape_models_pb_pb_2760(BaseModel):
             obs_var = []
             for k in centr:
                 cen_i = centr[k]
+                all_obs_names.append([k,cen_i])
                 obs.append(mn[k][0][cen_i])
                 #print(mn[k].shape)
-                obs_var.append(np.abs((np.diagonal(cov[(k),(k)])[cen_i])[0]))
+                print(cen_i)
+                #print(np.abs((np.diagonal(cov[(k),(k)]))))
+                #the following line is wrong. Somehow the diagonal doesn't work right.
+                # probably because the shape of the array is not 2d but 3d.
+                # it has (1,m,n) shape for some reason.
+                #obs_var.append(np.abs((np.diagonal(cov[(k),(k)])[cen_i])[0]))
+                obs_var.append(np.abs(cov[(k),(k)][0,cen_i,cen_i]))
+                #print(cov[(k),(k)][0,:,:])
+                #print(cov[(k),(k)][0, cen_i,cen_i])
+                #print(np.abs((np.diagonal(cov[(k),(k)])[cen_i])[0]))
                 #if (np.diagonal(cov[(k),(k)])[cen_i])[0]<0:
                 #    print(f'For {k} cen {cen_i} var is {(np.diagonal(cov[(k),(k)])[cen_i])[0]}')
             mean.append(obs)
             var.append(obs_var)
-
+        
+        #calculate the full cov matrix
+        if full_corr:
+            N = len(all_obs_names)
+            cov_mat = np.zeros((N,N))
+            for i in range(0,N):
+                for j in range(0,N):
+                    obs_1 = all_obs_names[i][0]
+                    cen_1 = all_obs_names[i][1]
+                    obs_2 = all_obs_names[j][0]
+                    cen_2 = all_obs_names[j][1]
+                    cov_mat[i,j]=cov[(obs_1),(obs_2)][0,cen_1,cen_2]
+            return np.array(mean), np.sqrt(var), cov_mat
         #print(var)
         #neg_var = np.argwhere(var<0)
-
-
-        return np.array(mean), np.sqrt(var)
+        #print(np.isclose(np.diag(cov_mat), np.array(var).flatten()))
+        else:
+            return np.array(mean), np.sqrt(var) 
 
     #rewrite the log_likelihood_elementwise to take the experimental data types into account.
     #We are going to discard some observables because we do not have experimental measurments for them.
@@ -167,7 +190,7 @@ class jetscape_models_pb_pb_2760(BaseModel):
 
         """
 
-        predictions, model_errs = self.evaluate(x_exp, model_param)
+        predictions, model_errs= self.evaluate(x_exp, model_param)
         diff = []
         x_exp = x_exp.flatten()
         if len(x_exp)!=y_exp_all.shape[0]:
@@ -184,7 +207,36 @@ class jetscape_models_pb_pb_2760(BaseModel):
             diff.append(np.sum(diff_ar))
         return np.array(diff)
         #return log_likelihood_elementwise_utils(self, x_exp, y_exp, y_err, model_param)
-    
+        
+    def log_likelihood(self, x_exp, y_exp_all, y_err_all, W, model_param=None):
+        """
+        Calculate Normal log likelihood for all centrality in x_exp with weights.
+
+        Parameters
+        ----------
+
+        x_exp : 
+
+        y_exp_all : 
+
+        y_err_all :
+
+        W : 
+        """
+
+        predictions, model_errs, cov_mat = self.evaluate(x_exp, model_param, full_corr=True)
+        x_exp = x_exp.flatten()
+        if len(x_exp)!=y_exp_all.shape[0]:
+            raise Exception(f'Dimensionality mistmach between x_exp and y_exp')
+        predictions = np.array(predictions).flatten()
+        y_exp_all = np.array(y_exp_all).flatten()
+        W = np.array(W).flatten()
+        diff = (predictions - y_exp_all)*W
+        final_cov = cov_mat + np.diagonal(np.square(y_exp_all))
+        return normed_mvn_loglike(diff,final_cov)
+
+        #return log_likelihood_elementwise_utils(self, x_exp, y_exp, y_err, model_param)
+
     def set_prior(self, bilby_priors=None):
         '''
         Set the prior on model parameters.

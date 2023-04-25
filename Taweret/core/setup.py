@@ -10,6 +10,7 @@ Version: 1.0
 import subprocess
 import tempfile
 import sys
+
 # -----------------------------------------------
 # Trees Configuration
 # -----------------------------------------------
@@ -87,3 +88,5 @@ if not check_install0 == "":
     current_version_out = subprocess.run(["dpkg-deb", "-f", wd_openbt_deb, "Version"], capture_output=True)
     current_version = version_out.stdout.decode("utf-8").strip("\n")
     print("OpenBT Version: " + current_version + " successfully installed")
+else: 
+    print("OpenBT failed installation. Please report an issue.")

@@ -16,6 +16,8 @@ import tempfile
 import shutil
 import os
 
+import Taweret.core.setup
+
 from scipy.stats import norm 
 from pathlib import Path 
 from scipy.stats import spearmanr 
@@ -641,7 +643,7 @@ class Trees(BaseMixer):
         '''
         fig = plt.figure(figsize=(6,5))
         plt.hist(self.posterior, zorder = 2)
-        plt.title("Posterior Weight Functions")
+        plt.title("Posterior Error Standard Deviation")
         plt.xlabel("X") # Update Label
         plt.ylabel("W(X)") # Update Label 
         plt.grid(True, color='lightgrey', zorder = 0)
@@ -897,7 +899,7 @@ class Trees(BaseMixer):
         self._write_chunks(np.transpose(self.X_train), splits, "x", '%.7f')
         self._write_chunks(np.ones((self.n), dtype="int"),
                             splits, "s", '%.0f')
-        print("Results stored in temporary path: "+self.fpath)
+        print("Results stored in temporary path: "+str(self.fpath))
         if self.X_train.shape[0] == 1:
              #print("1 x variable, so correlation = 1")
              np.savetxt(str(self.fpath / Path(self.chgvroot)), [1], fmt='%.7f')

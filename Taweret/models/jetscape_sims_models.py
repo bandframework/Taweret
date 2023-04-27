@@ -138,7 +138,7 @@ class jetscape_models_pb_pb_2760(BaseModel):
                 all_obs_names.append([k,cen_i])
                 obs.append(mn[k][0][cen_i])
                 #print(mn[k].shape)
-                print(cen_i)
+                #print(cen_i)
                 #print(np.abs((np.diagonal(cov[(k),(k)]))))
                 #the following line is wrong. Somehow the diagonal doesn't work right.
                 # probably because the shape of the array is not 2d but 3d.
@@ -228,11 +228,16 @@ class jetscape_models_pb_pb_2760(BaseModel):
         x_exp = x_exp.flatten()
         if len(x_exp)!=y_exp_all.shape[0]:
             raise Exception(f'Dimensionality mistmach between x_exp and y_exp')
+        #Since the y_Exp_all has the shape of n_centralities * n_observabl_types
+        weights = []
+        for w in W:
+            weights.append(w*np.ones(y_exp_all.shape[1]))
+        weights = np.array(weights).flatten()
         predictions = np.array(predictions).flatten()
         y_exp_all = np.array(y_exp_all).flatten()
-        W = np.array(W).flatten()
-        diff = (predictions - y_exp_all)*W
-        final_cov = cov_mat + np.diagonal(np.square(y_exp_all))
+        y_err_all = np.array(y_err_all).flatten()
+        diff = (predictions - y_exp_all)*weights
+        final_cov = cov_mat + np.diag(np.square(y_err_all))
         return normed_mvn_loglike(diff,final_cov)
 
         #return log_likelihood_elementwise_utils(self, x_exp, y_exp, y_err, model_param)

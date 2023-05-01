@@ -14,4 +14,21 @@ from Taweret.core.base_model import BaseModel
 from Taweret.models.polynomial_models import sin_exp, cos_exp, sin_cos_exp
 
 
+#---------------------------------------------
+# Define the test functions
+#---------------------------------------------
+# Test the mixing fun
+def test_mixing():
+    pass
 
+# Test the mean predictions
+def test_predict():
+    pass
+
+# Test posterior of the weights
+def test_predict_wts():
+    pass
+
+# Test sigma 
+def test_sigma():
+    pass

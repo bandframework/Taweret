@@ -644,8 +644,8 @@ class Trees(BaseMixer):
         fig = plt.figure(figsize=(6,5))
         plt.hist(self.posterior, zorder = 2)
         plt.title("Posterior Error Standard Deviation")
-        plt.xlabel("X") # Update Label
-        plt.ylabel("W(X)") # Update Label 
+        plt.xlabel("Sigma") # Update Label
+        plt.ylabel("Frequency)") # Update Label 
         plt.grid(True, color='lightgrey', zorder = 0)
         plt.show()
 

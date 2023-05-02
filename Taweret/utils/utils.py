@@ -4,6 +4,15 @@ from scipy.special import expit
 from scipy.stats import norm, beta, dirichlet
 #define log likelihood to be calculated give a model with a predict function
 # and experimental measurments. 
+# quick fix untill I find a permentant solution to put normed likelihood calculation code here
+
+# Path to Jetscape model source code
+import sys
+sys.path.append("/Users/dananjayaliyanage/git/Taweret/subpackages/js-sims-bayes/src")
+# Imports from Jetscape code. Need to load the saved emulators.
+#from configurations import *
+#from emulator import *
+from bayes_mcmc import normed_mvn_loglike
 
 eps = 1e-15
 def normal_log_likelihood_elementwise(model : object, x_exp : np.ndarray, y_exp : np.ndarray, y_err : np.ndarray, model_param=np.array([])) -> np.ndarray:

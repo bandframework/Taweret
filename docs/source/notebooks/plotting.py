@@ -137,7 +137,9 @@ def plot_corner_no_viscosity(posterior_df,prior_df,  method_name, n_samples = 10
     #prune = 1
     sns.set_palette('bright')
     if transform==False:
-        observables_to_plot=[0, 1, 2 ,3 , 4, 5, 6, 7, 8, 9, 19]
+        #observables_to_plot=[0, 1, 2 ,3 , 4, 5, 6, 7, 8, 9, 19]
+        observables_to_plot=[3 , 4, 5, 6, 7, 8, 9, 19]
+
         obs = observables_to_plot + [20]
     else:
         observables_to_plot=[0, 1, 2 ,3 , 4, 5, 6]
@@ -166,8 +168,8 @@ def plot_corner_no_viscosity(posterior_df,prior_df,  method_name, n_samples = 10
             ax.text(0,0.7,s= f'{map_parameters[i]:.3f}', transform=ax.transAxes)    
     #ax.axvline(x=truth[i], ls='--', c=sns.color_palette()[3], label = 'Truth')
     #ax.text(0.6,1,s= f'{truth[i]:.3f}',fontdict={'color':sns.color_palette()[3]}, transform=ax.transAxes)
-        if n==0:
-            ax.legend(loc=1,fontsize='xx-small')
+        if n==4:
+            ax.legend(loc=1,fontsize='small')
     plt.tight_layout()
     if transform==False:
         plt.savefig(f'{method_name}/WithoutViscosity.png', dpi=200)

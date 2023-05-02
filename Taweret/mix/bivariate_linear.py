@@ -2,7 +2,7 @@ import bilby
 import os
 import shutil
 import numpy as np
-from Taweret.utils.utils import mixture_function, eps
+from Taweret.utils.utils import mixture_function, eps, normed_mvn_loglike
 from Taweret.core.base_mixer import BaseMixer
 from Taweret.core.base_model import BaseModel
 from Taweret.sampler.likelihood_wrappers import likelihood_wrapper_for_bilby
@@ -14,7 +14,7 @@ class BivariateLinear(BaseMixer):
 
     '''
 
-    def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None, same_parameters = False, cross_corr=False):
+    def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None, same_parameters = False, cross_corr=False, mean_mix=False):
         '''
         Parameters
         ----------
@@ -77,6 +77,7 @@ class BivariateLinear(BaseMixer):
         self._posterior=None
         self._prior=self.set_prior(priors) # This combines model priors with mixing method priors
         self.cross_corr = cross_corr
+        self.mean_mix = mean_mix
 # Attributes
     @property
     def prior(self):
@@ -401,11 +402,41 @@ class BivariateLinear(BaseMixer):
         
         W_1, W_2 = self.evaluate_weights(mixture_params, x_exp)
         model_1, model_2 = list(self.models_dic.values())
-        if self.cross_corr:
+        if self.cross_corr and not self.mean_mix:
             L1 = model_1.log_likelihood(x_exp, y_exp, y_err, W_1, model_1_param)
             L2 = model_2.log_likelihood(x_exp, y_exp, y_err, W_2, model_2_param)
 
             return L1 + L2
+        
+        if self.mean_mix:
+            if self.cross_corr is False:
+                raise Exception('mean mixing only works with full covariance matrix')
+            predictions_1, model_errs_1, cov_mat_1 = model_1.evaluate(x_exp, model_1_param, full_corr=True)
+            predictions_2, model_errs_2, cov_mat_2 = model_2.evaluate(x_exp, model_2_param, full_corr=True)
+            
+            weights = []
+            for w in W_1:
+                weights.append(w*np.ones(y_exp.shape[1]))
+            weights = np.array(weights).flatten()
+            predictions_1 = np.array(predictions_1).flatten()
+            predictions_2 = np.array(predictions_2).flatten()
+            y_exp_all = np.array(y_exp).flatten()
+            y_err_all = np.array(y_err).flatten()
+            diff = predictions_1 * weights + predictions_2 * (1-weights)
+            N = len(y_exp_all)
+            #A better optimization yield 5 times the speed.
+            #For testing of the method loo at tests.ipynb in notebooks folder.
+#             final_cov = np.zeros((N,N))
+#             for i in range(0,N):
+#                 for j in range(0,N):
+#                     final_cov[i,j] = weights[i]*weights[j]*cov_mat_1[i,j] + (1-weights[i])*(1-weights[j])*cov_mat_2[i,j]
+            w1_mat = np.outer(weights, weights)
+            w2_mat = np.outer(1-weights,1-weights)
+            final_cov = w1_mat * cov_mat_1 + w2_mat * cov_mat_2
+            #print(np.all(np.isclose(final_cov,final_cov_2)))
+            final_cov += np.diag(np.square(y_err_all))
+            return normed_mvn_loglike(diff,final_cov)
+
         else:
             W_1 = np.log(W_1 + eps)
             W_2 = np.log(W_2 + eps)

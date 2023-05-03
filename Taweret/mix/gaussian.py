@@ -7,21 +7,27 @@ import numpy as np
 from Taweret.core.base_mixer import BaseMixer
 
 class Multivariate(BaseMixer):
-
-    '''
+    r'''
     The multivariate BMM class originally introduced
     in the BAND SAMBA package. Combines individual
     models using a Gaussian form. 
 
-    $$ f_{\dagger} = \mathcal{N} \left( \sum_i \frac{f_i/v_i}{1/v_i}, \sum_i \frac{1}{v_i}\right) $$
+    .. math::
+
+        f_{\dagger}
+        = \mathcal{N}
+        \left(
+            \sum_i \frac{f_i/v_i}{1/v_i}, \sum_i \frac{1}{v_i}
+        \right)
 
     Example:
     --------
-    ```python
-    m = Multivariate(x=np.linspace(), models=dict(), n_models=0)
-    m.predict(ci=68)
-    m.evaluate_weights()
-    ```
+
+    .. code-block:: python
+
+            m = Multivariate(x=np.linspace(), models=dict(), n_models=0)
+            m.predict(ci=68)
+            m.evaluate_weights()
     '''
 
     def __init__(self, x, models, n_models=0): 

@@ -772,12 +772,24 @@ class Trees(BaseMixer):
                 raise FileNotFoundError("Cannot find openbt executables. Please specify the path using the argument local_openbt_path in the constructor.")
             else:
                 cmd = sh
-                sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
-                                stdin=subprocess.DEVNULL, capture_output=True)    
+                if self.tc >1:
+                    # MPI with local .exe
+                    sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
+                                    stdin=subprocess.DEVNULL, capture_output=True)  
+                else:
+                    # No MPI with local .exe
+                    sp = subprocess.run([cmd, str(self.fpath)],
+                                    stdin=subprocess.DEVNULL, capture_output=True)
         else:
-            sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
-                                stdin=subprocess.DEVNULL, capture_output=True)
-
+            if self.tc >1:
+                # MPI with installed .exe
+                sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
+                                    stdin=subprocess.DEVNULL, capture_output=True)  
+            else:
+                # No MPI with installed .exe
+                sp = subprocess.run([cmd, str(self.fpath)],
+                                    stdin=subprocess.DEVNULL, capture_output=True)
+            
 
     def _set_mcmc_info(self, mcmc_dict):
         """

@@ -135,8 +135,8 @@ def test_evaluate_weights():
     samba_arrays = np.loadtxt('samba_results.txt', delimiter=',')
 
     # separate out weights
-    weights_low = samba_arrays[9]
-    weights_high = samba_arrays[8]
+    weights_low = samba_arrays[8]
+    weights_high = samba_arrays[9]
 
     # test weights
     assert np.allclose(weights_low, mixed.var_weights[0,:]), \

@@ -787,8 +787,7 @@ class Trees(BaseMixer):
                                     stdin=subprocess.DEVNULL, capture_output=True)  
             else:
                 # No MPI with installed .exe
-                sp = subprocess.run([cmd, str(self.fpath)],
-                                    stdin=subprocess.DEVNULL, capture_output=True)
+                sp = subprocess.run([cmd, str(self.fpath)],stdin=subprocess.DEVNULL, capture_output=True)
             
 
     def _set_mcmc_info(self, mcmc_dict):

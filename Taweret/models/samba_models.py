@@ -7,10 +7,10 @@ import sys
 from Taweret.core.base_model import BaseModel
 from Taweret.utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
 
-#sys.path.append("../SAMBA")
+sys.path.append("../SAMBA")
 
-#from samba import models   # assuming you have SAMBA in your Taweret top directory 
-#from samba import mixing
+# from samba import models   # assuming you have SAMBA in your Taweret top directory 
+# from samba import mixing
 
 try:
     from samba import models   # assuming you have SAMBA in your Taweret top directory 
@@ -151,7 +151,7 @@ class highorder(BaseModel):
         Not needed for this model. 
         '''
         return None
-    
+
 
 class true_model(BaseModel):
     """

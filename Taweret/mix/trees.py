@@ -96,6 +96,7 @@ class Trees(BaseMixer):
         self.modelname = "mixmodel"
         self.summarystats = "FALSE"
         self.local_openbt_path = os.getcwd()
+        self.google_colab = False
 
         # Set the kwargs dictionary
         self.__dict__.update((key, value) for key, value in kwargs.items())
@@ -772,23 +773,25 @@ class Trees(BaseMixer):
                 raise FileNotFoundError("Cannot find openbt executables. Please specify the path using the argument local_openbt_path in the constructor.")
             else:
                 cmd = sh
-                if self.tc >1:
-                    # MPI with local .exe
+                if not self.google_colab:
+                    # MPI with local program
                     sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
                                     stdin=subprocess.DEVNULL, capture_output=True)  
                 else:
-                    # No MPI with local .exe
-                    sp = subprocess.run([cmd, str(self.fpath)],
-                                    stdin=subprocess.DEVNULL, capture_output=True)
+                    # Shell command for MPI with google colab
+                    full_cmd = "mpirun --allow-run-as-root --oversubscribe -np " + str(self.tc) + " " + cmd + " " + str(self.fpath)
+                    os.system(full_cmd)
         else:
-            if self.tc >1:
+            if not self.google_colab:
                 # MPI with installed .exe
                 sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
                                     stdin=subprocess.DEVNULL, capture_output=True)  
             else:
-                # No MPI with installed .exe
-                sp = subprocess.run([cmd, str(self.fpath)],stdin=subprocess.DEVNULL, capture_output=True)
-            
+                # Google colab with installed program
+                full_cmd = "mpirun --allow-run-as-root --oversubscribe -np " + str(self.tc) + " " + cmd + " " + str(self.fpath)
+                os.system(full_cmd)
+
+                
 
     def _set_mcmc_info(self, mcmc_dict):
         """

@@ -7,7 +7,7 @@ Start Date: 10/05/22
 Version: 1.0
 """
 from logging import raiseExceptions
-from symbol import pass_stmt
+#from symbol import pass_stmt
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
@@ -15,6 +15,8 @@ import subprocess
 import tempfile 
 import shutil
 import os
+
+import Taweret.core.setup
 
 from scipy.stats import norm 
 from pathlib import Path 
@@ -94,6 +96,7 @@ class Trees(BaseMixer):
         self.modelname = "mixmodel"
         self.summarystats = "FALSE"
         self.local_openbt_path = os.getcwd()
+        self.google_colab = False
 
         # Set the kwargs dictionary
         self.__dict__.update((key, value) for key, value in kwargs.items())
@@ -641,9 +644,9 @@ class Trees(BaseMixer):
         '''
         fig = plt.figure(figsize=(6,5))
         plt.hist(self.posterior, zorder = 2)
-        plt.title("Posterior Weight Functions")
-        plt.xlabel("X") # Update Label
-        plt.ylabel("W(X)") # Update Label 
+        plt.title("Posterior Error Standard Deviation")
+        plt.xlabel("Sigma") # Update Label
+        plt.ylabel("Frequency") # Update Label 
         plt.grid(True, color='lightgrey', zorder = 0)
         plt.show()
 
@@ -770,12 +773,25 @@ class Trees(BaseMixer):
                 raise FileNotFoundError("Cannot find openbt executables. Please specify the path using the argument local_openbt_path in the constructor.")
             else:
                 cmd = sh
-                sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
-                                stdin=subprocess.DEVNULL, capture_output=True)    
+                if not self.google_colab:
+                    # MPI with local program
+                    sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
+                                    stdin=subprocess.DEVNULL, capture_output=True)  
+                else:
+                    # Shell command for MPI with google colab
+                    full_cmd = "mpirun --allow-run-as-root --oversubscribe -np " + str(self.tc) + " " + cmd + " " + str(self.fpath)
+                    os.system(full_cmd)
         else:
-            sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
-                                stdin=subprocess.DEVNULL, capture_output=True)
+            if not self.google_colab:
+                # MPI with installed .exe
+                sp = subprocess.run(["mpirun", "-np", str(self.tc), cmd, str(self.fpath)],
+                                    stdin=subprocess.DEVNULL, capture_output=True)  
+            else:
+                # Google colab with installed program
+                full_cmd = "mpirun --allow-run-as-root --oversubscribe -np " + str(self.tc) + " " + cmd + " " + str(self.fpath)
+                os.system(full_cmd)
 
+                
 
     def _set_mcmc_info(self, mcmc_dict):
         """
@@ -897,7 +913,7 @@ class Trees(BaseMixer):
         self._write_chunks(np.transpose(self.X_train), splits, "x", '%.7f')
         self._write_chunks(np.ones((self.n), dtype="int"),
                             splits, "s", '%.0f')
-        print("Results stored in temporary path: "+self.fpath)
+        print("Results stored in temporary path: "+str(self.fpath))
         if self.X_train.shape[0] == 1:
              #print("1 x variable, so correlation = 1")
              np.savetxt(str(self.fpath / Path(self.chgvroot)), [1], fmt='%.7f')

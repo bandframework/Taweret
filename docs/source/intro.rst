@@ -50,15 +50,15 @@ Taweret follows a three step process for Bayesian Model Mixing, as discussed bel
 Models
 ^^^^^^
 The user has to provide models that they would like to mix. Currently Taweret supports mixing of two \
-or more models with a single input parameter and a single output. The models should have a predict \
-method and should return a mean and a variance for each input parameter value. 
+or more models with a 1,...,N-dimensional input space (depending on the method of mixing chosen) and a single output. \
+The models should have a predict method and should return a mean and a variance for each input parameter value. 
 
 Mixing Method
 ^^^^^^^^^^^^^
 The user will then choose a mixing method. Currently Taweret supports: \
-1. **Linear mixing** (2 models)
-2. **Multivariate BMM** (2,...,N models)
-3. **Bayesian Trees** (2 models)
+1. **Linear mixing** (2 models) \
+2. **Multivariate BMM** (2,...,N models) \
+3. **Bayesian Trees** (2,...,N models) \
 
 Details of each Mixing Method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -74,7 +74,7 @@ uncertainties at the input points. Given that the models are supplied by the use
 two functions with a Gaussian Process (as seen in the example notebook for this method). 
 
 **Bayesian Trees**: This mixing method estimates the true underlying system by combining the mean predictions \
-from N models using a linear combination and niput-dependent weighting scheme. The weights functions \
+from N models using a linear combination and input-dependent weighting scheme. The weights functions \
 are defined using Bayesian Additive Regression Trees (BART). This flexible and non-parametric weighting scheme \
 allows the weight functions to reflect the localized performances of each model based on the information across \
 a set of observational data and the corresponding mean predictions. Finally, this approach can be easily extened \
@@ -83,12 +83,13 @@ to handle cases with p-dimensional input spaces.
 Estimating the Weight Functions 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Taweret provides a variety of BMM methods, each which utilize an input-dependent weighting scheme. \
-The weighting scheme may vary substantially acorss the different methods. For example, Linear mixing \
+The weighting scheme may vary substantially across the different methods. For example, Linear mixing \
 defines the weights using a parametric model, while the Bayesian Trees approach uses a non-parametric model. \
 Another weighting scheme involves precision weighting, as seen in Multivariate BMM. Hence, the exact estimation \
 of the weight functions may differ substantially across the various BMM methods. Despite this, the estimation \
 process in each method is facilitated using Bayesian principles. Examples of each method can be found in the \
-Python notebooks (docs/source/notebooks). In these examples, BMM is applied to the SAMBA and Coleman models.
+Python notebooks (docs/source/notebooks) and under the Examples tab on this page. In these examples, BMM is \
+applied to the SAMBA and Coleman models.
 
 Working with Multiple Models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -104,7 +105,7 @@ Examples of this two-step analysis are applied to the SAMBA models.
 
 **Mixing and Calibration**: \
 
-This joint analysis is adventageous because it enables each model to be calibrated predominantly based on the sub-regions \
+This joint analysis is advantageous because it enables each model to be calibrated predominantly based on the sub-regions \
 of the domain where its predictions align well with the observational data. These sub-regions will be simultaneously identified \
 by the weight functions. This should lead more reliable inference than then case where each model is calibrated indivudally and \
 thus foreced to reflect a global fit to the data. For example, the joint analysis would avoid situations where a model is calibrated \

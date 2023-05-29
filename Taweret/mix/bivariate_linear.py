@@ -10,25 +10,28 @@ from Taweret.sampler.likelihood_wrappers import likelihood_wrapper_for_bilby
 class BivariateLinear(BaseMixer):
 
     '''
-    Local linear likelihood mixing of two models.
-
+    Local linear Bayesian mixing of two models. This is a general class of mixing that 
+    offer both density (likleihood) and mean mixing methods. The default mixing method
+    is linear mixing of two likelihoods (BMMoC). 
     '''
 
-    def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None, same_parameters = False, cross_corr=False, mean_mix=False):
+    def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None, 
+                 same_parameters = False, cross_corr=False, mean_mix=False):
         '''
         Parameters
         ----------
         models_dic : dictionary {'name1' : model1, 'name2' : model2}
             Two models to mix, each must be derived from the base_model.
         method : str
-            mixing function
+            Mixing function
         nargs_model_dic : dictionary {'name1' : N_model1, 'name2' : N_model2}
-            number of free parameters in each model
+            Only used in calibration. Number of free parameters in each model
         same_parameters : bool
-            If set, two models are assumed to have same parameters.
+            Only used in calibration. If set, two models are assumed to have same parameters.
         cross_corre : bool
-            If set, Likelihood is calculated taking into accoount the cross correlation 
-            uncertainty between simulation outputs. 
+            Implements BMMcor method of Bayesian model mixing. 
+        mean_mix : bool
+            If set perform mean mixing instead of density mixing.
         '''
 
         if nargs_model_dic is None:

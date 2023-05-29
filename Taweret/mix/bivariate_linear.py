@@ -433,9 +433,11 @@ class BivariateLinear(BaseMixer):
 #             for i in range(0,N):
 #                 for j in range(0,N):
 #                     final_cov[i,j] = weights[i]*weights[j]*cov_mat_1[i,j] + (1-weights[i])*(1-weights[j])*cov_mat_2[i,j]
-            w1_mat = np.outer(weights, weights)
-            w2_mat = np.outer(1-weights,1-weights)
-            final_cov = w1_mat * cov_mat_1 + w2_mat * cov_mat_2
+            #Comment out the below code. BMM mean mixing does not touch the covariance stucture....yet...
+            #w1_mat = np.outer(weights, weights)
+            #w2_mat = np.outer(1-weights,1-weights)
+            #final_cov = w1_mat * cov_mat_1 + w2_mat * cov_mat_2
+            final_cov = cov_mat_1 + cov_mat_2
             #print(np.all(np.isclose(final_cov,final_cov_2)))
             final_cov += np.diag(np.square(y_err_all))
             return normed_mvn_loglike(diff,final_cov)

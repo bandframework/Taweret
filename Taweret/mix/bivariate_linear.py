@@ -16,7 +16,7 @@ class BivariateLinear(BaseMixer):
     '''
 
     def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None, 
-                 same_parameters = False, cross_corr=False, mean_mix=False):
+                 same_parameters = False, BMMcor=False, mean_mix=False):
         '''
         Parameters
         ----------
@@ -28,7 +28,7 @@ class BivariateLinear(BaseMixer):
             Only used in calibration. Number of free parameters in each model
         same_parameters : bool
             Only used in calibration. If set, two models are assumed to have same parameters.
-        cross_corre : bool
+        BMMcore : bool
             Implements BMMcor method of Bayesian model mixing. 
         mean_mix : bool
             If set perform mean mixing instead of density mixing.
@@ -79,7 +79,7 @@ class BivariateLinear(BaseMixer):
         self._map=None
         self._posterior=None
         self._prior=self.set_prior(priors) # This combines model priors with mixing method priors
-        self.cross_corr = cross_corr
+        self.BMMcor = BMMcor
         self.mean_mix = mean_mix
 # Attributes
     @property
@@ -405,15 +405,47 @@ class BivariateLinear(BaseMixer):
         
         W_1, W_2 = self.evaluate_weights(mixture_params, x_exp)
         model_1, model_2 = list(self.models_dic.values())
-        if self.cross_corr and not self.mean_mix:
-            L1 = model_1.log_likelihood(x_exp, y_exp, y_err, W_1, model_1_param)
-            L2 = model_2.log_likelihood(x_exp, y_exp, y_err, W_2, model_2_param)
-
+        if self.BMMcor and not self.mean_mix:
+            models_ar = [model_1, model_2]
+            weight_ar = [W_1, W_2]
+            model_param_ar = [model_1_param , model_2_param]
+            L_ar = []
+            for i in range(0,2):
+                model = models_ar[i]
+                model_param = model_param_ar[i]
+                predictions, model_errs, cov_mat = model.evaluate(x_exp, model_param, full_corr=True)
+                x_exp = x_exp.flatten()
+                y_exp_all = y_exp
+                if len(x_exp)!=y_exp_all.shape[0]:
+                    raise Exception(f'Dimensionality mistmach between x_exp and y_exp')
+                weights = []
+                W = weight_ar[i]
+                for w in W:
+                    weights.append(w*np.ones(y_exp_all.shape[1]))
+                weights = np.array(weights).flatten()
+                predictions = np.array(predictions).flatten()
+                y_exp_all = np.array(y_exp_all).flatten()
+                y_err_all = np.array(y_err).flatten()
+                diff = (predictions - y_exp_all)*weights
+                final_cov = np.diag(np.square(y_err_all))
+                if cov_mat is not None:
+                    final_cov+=cov_mat
+                N = len(x_exp)
+                # the following try to impose a correlation between measurments
+                # x_length = x_exp[1] - x_exp[0]
+                # for i in range(0,N):
+                #     for j in range(0,N):
+                #         rho = 0.6*x_length/((x_exp[i]-x_exp[j])**2)
+                #         if i==j:
+                #             continue
+                # final_cov[i,j]=np.sqrt(final_cov[i,i]*final_cov[j,j])*rho
+                L_ar.append(normed_mvn_loglike(diff,final_cov))
+            L1, L2 = L_ar
+            #L1 = model_1.log_likelihood(x_exp, y_exp, y_err, W_1, model_1_param)
+            #L2 = model_2.log_likelihood(x_exp, y_exp, y_err, W_2, model_2_param)
             return L1 + L2
         
-        if self.mean_mix:
-            if self.cross_corr is False:
-                raise Exception('mean mixing only works with full covariance matrix')
+        if self.mean_mix and not self.BMMcor:
             predictions_1, model_errs_1, cov_mat_1 = model_1.evaluate(x_exp, model_1_param, full_corr=True)
             predictions_2, model_errs_2, cov_mat_2 = model_2.evaluate(x_exp, model_2_param, full_corr=True)
             
@@ -425,10 +457,12 @@ class BivariateLinear(BaseMixer):
             predictions_2 = np.array(predictions_2).flatten()
             y_exp_all = np.array(y_exp).flatten()
             y_err_all = np.array(y_err).flatten()
-            diff = predictions_1 * weights + predictions_2 * (1-weights)
-            N = len(y_exp_all)
+            mix_prediction = predictions_1 * weights + predictions_2 * (1-weights)
+            diff = y_exp_all - mix_prediction
+            
             #A better optimization yield 5 times the speed.
             #For testing of the method loo at tests.ipynb in notebooks folder.
+            #N = len(y_exp_all)
 #             final_cov = np.zeros((N,N))
 #             for i in range(0,N):
 #                 for j in range(0,N):
@@ -437,9 +471,13 @@ class BivariateLinear(BaseMixer):
             #w1_mat = np.outer(weights, weights)
             #w2_mat = np.outer(1-weights,1-weights)
             #final_cov = w1_mat * cov_mat_1 + w2_mat * cov_mat_2
-            final_cov = cov_mat_1 + cov_mat_2
+            if cov_mat_1 is not None and cov_mat_2 is not None:
+                final_cov = cov_mat_1 + cov_mat_2
+                final_cov += np.diag(np.square(y_err_all))
+            else:
+                final_cov = np.diag(np.square(y_err_all))
             #print(np.all(np.isclose(final_cov,final_cov_2)))
-            final_cov += np.diag(np.square(y_err_all))
+            
             return normed_mvn_loglike(diff,final_cov)
 
         else:

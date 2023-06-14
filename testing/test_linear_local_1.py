@@ -30,6 +30,9 @@ class TruthModel:
 
 
 class Model_Cos(BaseModel):
+    def __init__(self):
+        self.m_prior = None
+
     def evaluate(self, x: np.ndarray):
         return np.cos(2 * np.pi * x)
 
@@ -48,6 +51,9 @@ class Model_Cos(BaseModel):
 
 
 class Model_Exp(BaseModel):
+    def __init__(self):
+        self.m_prior = None
+
     def evaluate(self, x: np.ndarray):
         return np.exp(-x)
 

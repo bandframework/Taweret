@@ -867,8 +867,8 @@ class LinearMixerLocal(BaseMixer):
                                     * local_variables[i]
                                     + sample[f"intercept_({n}, {k})"]
                                 )
-                                if self.polynomial_order == 1
-                                else np.exp(
+                                if self.polynomial_order == 1 else
+                                np.exp(
                                     (
                                         sample[f"slope_({n}, {k})"]
                                         - local_variables[i]
@@ -1448,7 +1448,7 @@ class LinearMixerLocal(BaseMixer):
         example_local_variables : np.ndarray
             should a be an array with shape(n,) which lets Taweret know
             whether to use a 1-d priors or multi-dimensional priors
-        deterministic_priors : boo
+        deterministic_priors : bool
             (default = False)
             determines whether the likelihoods will be deterministic or
             stochastic
@@ -1481,7 +1481,7 @@ class LinearMixerLocal(BaseMixer):
             else:
                 self.polynomial_order = polynomial_order
 
-            for n in range(1, self.n_mix):
+            for n in range(0, self.n_mix):
                 for k in range(self.n_local_variables):
                     self.m_prior[f"slope_({n}, {k})"] = bilby_prior.Uniform(
                         minimum=local_variables_ranges[k, 0],
@@ -1495,6 +1495,7 @@ class LinearMixerLocal(BaseMixer):
                         maximum=local_variables_ranges[k, 1],
                         name=f"sigma_({n}, {k})",
                     )
+            print(self.m_prior)
         else:
             # The GP is created in the `set_prior` function because it serves
             # as a prior on the space functions for the log-link functions
@@ -1508,7 +1509,7 @@ class LinearMixerLocal(BaseMixer):
 
         for key, model in self.models.items():
             if model.m_prior is not None:
-                # Note that we assume the use has taken care to give every
+                # Note that we assume the user has taken care to give every
                 # prior a unique key
                 self.m_prior.update(model.m_prior)
 

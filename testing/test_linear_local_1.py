@@ -124,7 +124,7 @@ def test_with_bessel(number_data_points: int = 10):
     output = np.array(
         [
             mixing_model.evaluate(
-                local_variables=[x],
+                local_variables=np.array([x]),
                 sample=dict(
                     (key, val)
                     for key, val in zip(mixing_model.prior.keys(),
@@ -157,7 +157,7 @@ def test_with_bessel(number_data_points: int = 10):
     weights = np.array(
         [
             mixing_model.evaluate_weights(
-                local_variables=[x],
+                local_variables=np.array([x]),
                 sample=dict(
                     (key, val)
                     for key, val in zip(mixing_model.prior.keys(),

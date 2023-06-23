@@ -3,6 +3,7 @@
 
 import numpy as np
 import sys
+sys.path.append('../core')
 
 from Taweret.core.base_model import BaseModel
 from Taweret.utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils

@@ -14,8 +14,8 @@ sys.path.append("../../../../SAMBA")
 # from samba import mixing
 
 try:
-    from samba import models   # assuming you have SAMBA in your Taweret top directory 
-    from samba import mixing
+    from SAMBA import models   # assuming you have SAMBA in your Taweret top directory 
+    from SAMBA import mixing
 
 except Exception as e:
     print(e)

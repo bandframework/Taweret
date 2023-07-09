@@ -1,7 +1,7 @@
 """
 Name: trees.py
 Author: John Yannotty (yannotty.1@osu.edu)
-Desc: Defines the tree mixing class, which is an interface for MixBART 
+Desc: Defines the tree mixing class, which is an interface for BART-BMM 
 
 Start Date: 10/05/22
 Version: 1.0
@@ -15,6 +15,7 @@ import subprocess
 import tempfile 
 import shutil
 import os
+import typing
 
 import Taweret.core.setup
 
@@ -27,7 +28,7 @@ from Taweret.core.base_model import BaseModel
 
 class Trees(BaseMixer):
     # Overwrite base constructor
-    def __init__(self, model_dict, **kwargs):
+    def __init__(self, model_dict: dict, **kwargs):
         '''
         Constructor for the Trees mixing class.
 
@@ -185,8 +186,8 @@ class Trees(BaseMixer):
         return hyper_params_dict
 
     # DONE
-    def set_prior(self, ntree=1,ntreeh=1,k=2,power=2.0,base=0.95,overallsd=None, \
-                    overallnu=10,inform_prior=True,tauvec=None,betavec=None):
+    def set_prior(self, ntree: int = 1,ntreeh:int = 1, k: float=2,power: float=2.0,base:float=0.95,overallsd:float=None, \
+                    overallnu: int = 10,inform_prior: bool = True,tauvec: bool = None,betavec: bool = None):
         '''
         Sets the hyperparameters in the tree and terminal node priors. Also
         specfies if an informative or non-informative prior will be used.
@@ -266,15 +267,15 @@ class Trees(BaseMixer):
         raise Exception("Not applicable for trees.")
 
 
-    def train(self,X, y, **kwargs):
+    def train(self,X: np.ndarray, y: np.ndarray, **kwargs):
         '''
         Train the mixed-model using a set of observations y at inputs x.
 
         Parameters:
         ----------
-        X : np.ndarray
+        X : np.ndarray (n X p)
             input parameter values.
-        y : np.1darray
+        y : np.ndarray (n X 1)
             observed data at inputs X.
         kwargs : dict
             Dictionary of arguments 
@@ -377,7 +378,7 @@ class Trees(BaseMixer):
         return res
 
 
-    def predict(self, X, ci = 0.95):
+    def predict(self, X: np.ndarray, ci: float = 0.95):
         '''
         Obtain posterior predictive distribution of the mixed-model at a set
         of inputs X.
@@ -474,7 +475,7 @@ class Trees(BaseMixer):
         return pred_post, pred_mean, pred_credible_interval, pred_sd
     
 
-    def predict_weights(self, X, ci = 0.95):
+    def predict_weights(self, X: np.ndarray, ci: float = 0.95):
         '''
         Obtain posterior distribution of the weight functions at a set
         of inputs X.
@@ -555,7 +556,7 @@ class Trees(BaseMixer):
 
     # -----------------------------------------------------------
     # Plotting
-    def plot_prediction(self, xdim = 0):
+    def plot_prediction(self, xdim: int = 0):
         '''
         Plot the predictions of the mixed-model. The x-axis of this plot
         can be any column of the design matrix X, which is passed into 
@@ -592,7 +593,7 @@ class Trees(BaseMixer):
         plt.show()
 
 
-    def plot_weights(self, xdim = 0):
+    def plot_weights(self, xdim: int = 0):
         '''
         Plot the weight functions. The x-axis of this plot
         can be any column of the design matrix X, which is passed into 

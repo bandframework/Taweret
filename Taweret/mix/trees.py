@@ -549,9 +549,9 @@ class Trees(BaseMixer):
         posterior = self.wdraws 
         post_mean = self.wts_mean 
         post_sd = self.wts_sd
-        post_credible_interval = (self.wts_lower,self.wts_upper) 
+        post_credible_interval = [self.wts_lower,self.wts_upper] 
     
-        return posterior, post_mean, post_sd, post_credible_interval
+        return posterior, post_mean, post_credible_interval, post_sd
 
 
     # -----------------------------------------------------------

@@ -88,7 +88,6 @@ ppost, pmean, pci, pstd = mix.predict(X = x_test, ci = 0.95)
 wpost, wmean, wci, wstd = mix.predict_weights(X = x_test, ci = 0.95)
 
 
-
 # Plot results
 mix.plot_weights(0)
 mix.plot_prediction(0)

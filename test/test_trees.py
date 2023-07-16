@@ -8,27 +8,135 @@ Version: 1.0
 """
 
 # Imports
+import numpy as np
+
 from Taweret.core.base_mixer import BaseMixer
 from Taweret.core.base_model import BaseModel
-
 from Taweret.models.polynomial_models import sin_exp, cos_exp, sin_cos_exp
-
 
 #---------------------------------------------
 # Define the test functions
 #---------------------------------------------
+# Test the constructor with the model set
+def test_init():
+    # check passing of variables into Multivariate class
+    assert mixed.model_dict == model_dict, "class object self.model_dict not set."
+    assert mixed.nummodels == len(model_dict), "class object self.nummodels not set."
+
+
 # Test the mixing fun
 def test_mixing():
-    pass
+    x_train = np.loadtxt('test/bart_bmm_test_data/2d_x_train.txt').reshape(80,2)
+    x_train = x_train.reshape(2,80).transpose()
+
+    y_train = np.loadtxt('test/bart_bmm_test_data/2d_y_train.txt').reshape(80,1)
+
+    # Set prior information
+    mix.set_prior(k=2.5,ntree=30,overallnu=5,overallsd=0.01,inform_prior=False)
+
+    # Check tuning & hyper parameters
+    assert mix.k == 2.5, "class object k is not set."
+    assert mix.ntree == 30, "class object ntree is not set."
+    assert mix.overallnu == 5, "class object nu is not set."
+    assert mix.overallsd == 0.01, "class object overallsd is not set."
+    assert mix.overalllambda == 0.01**2, "class object overalllambda is not set."
+    assert mix.inform_prior == False, "class object inform_prior is not set."
+
+    # Train the model
+    fit = mix.train(X=x_train, y=y_train, ndpost = 10000, nadapt = 2000, nskip = 2000, adaptevery = 500, minnumbot = 4)
+
+    # Check the mcmc objects
+    assert mix.ndpost == 10000, "class object ndpost is not set." 
+    assert mix.nadapt == 2000, "class object nadapt is not set."
+    assert mix.adaptevery == 500, "class object adaptevery is not set."
+    assert mix.nskip == 2000, "class object nskip is not set."
+    assert mix.minnumbot == 4, "class object minnumbot is not set."
+
+
 
 # Test the mean predictions
 def test_predict():
-    pass
+    # Get test data
+    n_test = 30
+    x1_test = np.outer(np.linspace(-3, 3, n_test), np.ones(n_test))
+    x2_test = x1_test.copy().transpose()
+    f0_test = (np.sin(x1_test) + np.cos(x2_test))
+    x_test = np.array([x1_test.reshape(x1_test.size,),x2_test.reshape(x1_test.size,)]).transpose()
+
+    # Read in test results
+    pmean_test = np.loadtxt('test/bart_bmm_test_data/2d_pmean.txt')
+    eps = 0.05
+
+    # Get predictions
+    ppost, pmean, pci, pstd = mix.predict(X = x_test, ci = 0.95)
+
+    # Test the values
+    perr = np.mean(np.abs(pmean - pmean_test))
+    assert perr < eps, "Inaccurate predictions."
+
 
 # Test posterior of the weights
 def test_predict_wts():
-    pass
+    # Get weights
+    wpost, wmean, wci, wstd = mix.predict_weights(X = x_test, ci = 0.95)
+    
+    # Read in test results
+    wteps = 0.05
+    wmean_test = np.loadtxt('test/bart_bmm_test_data/2d_wmean.txt')
+
+    # Test the values
+    werr = np.mean(np.abs(wmean - wmean_test))
+    assert werr < wteps, "Inaccurate weights."
+
 
 # Test sigma 
 def test_sigma():
-    pass
+    sig_eps = 0.05
+    assert np.abs((np.mean(mix.posterior) - 0.1)) < sig_eps, "Inaccurate sigma calculation."
+
+
+
+#---------------------------------------------
+# Initiatilize model set
+#---------------------------------------------
+# Define the model set
+f1 = sin_cos_exp(7,10,np.pi,np.pi)
+f2 = sin_cos_exp(13,6,-np.pi,-np.pi)
+model_dict = {'model1':f1, 'model2':f2}
+
+
+mix = Trees(model_dict = model_dict, local_openbt_path = "/home/johnyannotty/Documents/openbt/src")
+
+
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+
+
+# The true vs. predicted system as heat maps
+# Heat map comparing the surfaces
+fig, ax = plt.subplots(1,2, figsize = (12,5))
+cmap = plt.get_cmap('viridis')
+
+pcm1 = ax[0].pcolormesh(pmean_test.reshape(x1_test.shape).transpose(),cmap = cmap, vmin = -2.5, vmax = 2.5)
+ax[0].set_title("True System", size = 16)
+ax[0].set(xlabel = "$x_1$", ylabel = "$x_2$")
+ax[0].xaxis.set_major_locator(ticker.FixedLocator(np.round(np.linspace(0, n_test, 6),3)))
+ax[0].xaxis.set_major_formatter(ticker.FixedFormatter(np.round(np.linspace(-np.pi, np.pi, 6),3)))
+ax[0].yaxis.set_major_locator(ticker.FixedLocator(np.round(np.linspace(0, n_test, 6),3)))
+ax[0].yaxis.set_major_formatter(ticker.FixedFormatter(np.round(np.linspace(-np.pi, np.pi, 6),3)))
+fig.colorbar(pcm1,ax = ax[0])
+
+
+# Predicted mean
+pcm2 = ax[1].pcolormesh(pmean.reshape(x1_test.shape).transpose(),cmap = cmap, vmin = -2.5, vmax = 2.5)
+ax[1].set_title("Posterior Mean Prediction", size = 16)
+ax[1].set(xlabel = "$x_1$", ylabel = "$x_2$")
+ax[1].xaxis.set_major_locator(ticker.FixedLocator(np.round(np.linspace(0, n_test, 6),3)))
+ax[1].xaxis.set_major_formatter(ticker.FixedFormatter(np.round(np.linspace(-np.pi, np.pi, 6),3)))
+ax[1].yaxis.set_major_locator(ticker.FixedLocator(np.round(np.linspace(0, n_test, 6),3)))
+ax[1].yaxis.set_major_formatter(ticker.FixedFormatter(np.round(np.linspace(-np.pi, np.pi, 6),3)))
+
+fig.colorbar(pcm2,ax = ax[1])
+fig.suptitle("Figure 8: True versus Predicted System", size = 18)
+plt.show()
+

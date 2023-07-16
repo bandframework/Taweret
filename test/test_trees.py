@@ -106,37 +106,3 @@ model_dict = {'model1':f1, 'model2':f2}
 
 
 mix = Trees(model_dict = model_dict, local_openbt_path = "/home/johnyannotty/Documents/openbt/src")
-
-
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-
-
-# The true vs. predicted system as heat maps
-# Heat map comparing the surfaces
-fig, ax = plt.subplots(1,2, figsize = (12,5))
-cmap = plt.get_cmap('viridis')
-
-pcm1 = ax[0].pcolormesh(pmean_test.reshape(x1_test.shape).transpose(),cmap = cmap, vmin = -2.5, vmax = 2.5)
-ax[0].set_title("True System", size = 16)
-ax[0].set(xlabel = "$x_1$", ylabel = "$x_2$")
-ax[0].xaxis.set_major_locator(ticker.FixedLocator(np.round(np.linspace(0, n_test, 6),3)))
-ax[0].xaxis.set_major_formatter(ticker.FixedFormatter(np.round(np.linspace(-np.pi, np.pi, 6),3)))
-ax[0].yaxis.set_major_locator(ticker.FixedLocator(np.round(np.linspace(0, n_test, 6),3)))
-ax[0].yaxis.set_major_formatter(ticker.FixedFormatter(np.round(np.linspace(-np.pi, np.pi, 6),3)))
-fig.colorbar(pcm1,ax = ax[0])
-
-
-# Predicted mean
-pcm2 = ax[1].pcolormesh(pmean.reshape(x1_test.shape).transpose(),cmap = cmap, vmin = -2.5, vmax = 2.5)
-ax[1].set_title("Posterior Mean Prediction", size = 16)
-ax[1].set(xlabel = "$x_1$", ylabel = "$x_2$")
-ax[1].xaxis.set_major_locator(ticker.FixedLocator(np.round(np.linspace(0, n_test, 6),3)))
-ax[1].xaxis.set_major_formatter(ticker.FixedFormatter(np.round(np.linspace(-np.pi, np.pi, 6),3)))
-ax[1].yaxis.set_major_locator(ticker.FixedLocator(np.round(np.linspace(0, n_test, 6),3)))
-ax[1].yaxis.set_major_formatter(ticker.FixedFormatter(np.round(np.linspace(-np.pi, np.pi, 6),3)))
-
-fig.colorbar(pcm2,ax = ax[1])
-fig.suptitle("Figure 8: True versus Predicted System", size = 18)
-plt.show()
-

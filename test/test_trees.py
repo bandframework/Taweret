@@ -12,6 +12,7 @@ import numpy as np
 
 from Taweret.core.base_mixer import BaseMixer
 from Taweret.core.base_model import BaseModel
+from Taweret.mix import Trees
 from Taweret.models.polynomial_models import sin_exp, cos_exp, sin_cos_exp
 
 #---------------------------------------------
@@ -20,8 +21,8 @@ from Taweret.models.polynomial_models import sin_exp, cos_exp, sin_cos_exp
 # Test the constructor with the model set
 def test_init():
     # check passing of variables into Multivariate class
-    assert mixed.model_dict == model_dict, "class object self.model_dict not set."
-    assert mixed.nummodels == len(model_dict), "class object self.nummodels not set."
+    assert mix.model_dict == model_dict, "class object self.model_dict not set."
+    assert mix.nummodels == len(model_dict), "class object self.nummodels not set."
 
 
 # Test the mixing fun
@@ -78,6 +79,11 @@ def test_predict():
 # Test posterior of the weights
 def test_predict_wts():
     # Get weights
+    n_test = 30
+    x1_test = np.outer(np.linspace(-3, 3, n_test), np.ones(n_test))
+    x2_test = x1_test.copy().transpose()
+    x_test = np.array([x1_test.reshape(x1_test.size,),x2_test.reshape(x1_test.size,)]).transpose()
+
     wpost, wmean, wci, wstd = mix.predict_weights(X = x_test, ci = 0.95)
     
     # Read in test results

@@ -16,7 +16,7 @@ class BivariateLinear(BaseMixer):
     '''
 
     def __init__(self, models_dic, method='sigmoid', nargs_model_dic=None, 
-                 same_parameters = False, BMMcor=False, mean_mix=False):
+                 same_parameters = False, full_cov=False, BMMcor=False, mean_mix=False):
         '''
         Parameters
         ----------
@@ -28,10 +28,13 @@ class BivariateLinear(BaseMixer):
             Only used in calibration. Number of free parameters in each model
         same_parameters : bool
             Only used in calibration. If set, two models are assumed to have same parameters.
+        full_cov : bool
+            Only used in BMMcor. For BMMC full covariance is not needed and mean_mix must have full covariance.
         BMMcore : bool
             Implements BMMcor method of Bayesian model mixing. 
         mean_mix : bool
             If set perform mean mixing instead of density mixing.
+            
         '''
 
         if nargs_model_dic is None:
@@ -81,6 +84,7 @@ class BivariateLinear(BaseMixer):
         self._prior=self.set_prior(priors) # This combines model priors with mixing method priors
         self.BMMcor = BMMcor
         self.mean_mix = mean_mix
+        self.full_cov = full_cov
 # Attributes
     @property
     def prior(self):
@@ -128,19 +132,37 @@ class BivariateLinear(BaseMixer):
         model_1, model_2 = list(self.models_dic.values())
         try:
             if self.same_parameters:
-                model_1_out,_ = model_1.evaluate(x,model_params[0])
+                try:
+                    model_1_out,_,_ = model_1.evaluate(x,model_params[0])
+                except:
+                    model_1_out,_ = model_1.evaluate(x,model_params[0])
             else:
-                model_1_out,_ = model_1.evaluate(x,model_params[0])
+                try:
+                    model_1_out,_,_ = model_1.evaluate(x,model_params[0])
+                except:
+                    model_1_out,_ = model_1.evaluate(x,model_params[0])
         except:
-            model_1_out,_ = model_1.evaluate(x)
+            try:
+                model_1_out,_ = model_1.evaluate(x)
+            except:
+                model_1_out,_,_ = model_1.evaluate(x)
 
         try:
             if self.same_parameters:
-                model_2_out,_ = model_2.evaluate(x,model_params[0])
+                try:
+                    model_2_out,_,_ = model_2.evaluate(x,model_params[0])
+                except:
+                    model_2_out,_ = model_2.evaluate(x,model_params[0])
             else:
-                model_2_out,_ = model_2.evaluate(x,model_params[1])
+                try:
+                    model_2_out,_,_ = model_2.evaluate(x,model_params[1])
+                except:
+                    model_2_out,_ = model_2.evaluate(x,model_params[1])
         except:
-            model_2_out,_ = model_2.evaluate(x)        
+            try:
+                model_2_out,_,_ = model_2.evaluate(x) 
+            except:
+                model_2_out,_ = model_2.evaluate(x)
 
         #try:
         #    model_1_out,_ = model_1.evaluate(x,model_params[0])
@@ -413,7 +435,10 @@ class BivariateLinear(BaseMixer):
             for i in range(0,2):
                 model = models_ar[i]
                 model_param = model_param_ar[i]
-                predictions, model_errs, cov_mat = model.evaluate(x_exp, model_param, full_corr=True)
+                #uncomment following to include full covariance correlations
+                #predictions, model_errs, cov_mat = model.evaluate(x_exp, model_param, full_corr=True)
+                predictions, model_errs, cov_mat = model.evaluate(x_exp, model_param, full_corr=self.full_cov)
+
                 x_exp = x_exp.flatten()
                 y_exp_all = y_exp
                 if len(x_exp)!=y_exp_all.shape[0]:
@@ -427,10 +452,10 @@ class BivariateLinear(BaseMixer):
                 y_exp_all = np.array(y_exp_all).flatten()
                 y_err_all = np.array(y_err).flatten()
                 diff = (predictions - y_exp_all)*weights
-                final_cov = np.diag(np.square(y_err_all))
+                final_cov = np.diag(np.square(y_err_all)) 
                 if cov_mat is not None:
                     final_cov+=cov_mat
-                N = len(x_exp)
+                #N = len(x_exp)
                 # the following try to impose a correlation between measurments
                 # x_length = x_exp[1] - x_exp[0]
                 # for i in range(0,N):

@@ -12,9 +12,63 @@ sys.path.append("/Users/dananjayaliyanage/git/Taweret/subpackages/js-sims-bayes/
 # Imports from Jetscape code. Need to load the saved emulators.
 #from configurations import *
 #from emulator import *
-from bayes_mcmc import normed_mvn_loglike
+#from bayes_mcmc import normed_mvn_loglike
 
 eps = 1e-15
+from scipy.linalg import lapack
+
+def normed_mvn_loglike(y, cov):
+    """
+    Evaluate the multivariate-normal log-likelihood for difference vector `y`
+    and covariance matrix `cov`:
+
+        log_p = -1/2*[(y^T).(C^-1).y + log(det(C))] + const.
+
+    This likelihood IS NORMALIZED.
+    The normalization const = -n/2*log(2*pi), where n is the dimensionality.
+
+    Arguments `y` and `cov` MUST be np.arrays with dtype == float64 and shapes
+    (n) and (n, n), respectively.  These requirements are NOT CHECKED.
+
+    The calculation follows algorithm 2.1 in Rasmussen and Williams (Gaussian
+    Processes for Machine Learning).
+
+    """
+
+    # Compute the Cholesky decomposition of the covariance.
+    # Use bare LAPACK function to avoid scipy.linalg wrapper overhead.
+    L, info = lapack.dpotrf(cov, clean=False)
+
+    if info < 0:
+        raise ValueError(
+            'lapack dpotrf error: '
+            'the {}-th argument had an illegal value'.format(-info)
+        )
+    elif info < 0:
+        raise np.linalg.LinAlgError(
+            'lapack dpotrf error: '
+            'the leading minor of order {} is not positive definite'
+            .format(info)
+        )
+
+    # Solve for alpha = cov^-1.y using the Cholesky decomp.
+    alpha, info = lapack.dpotrs(L, y)
+
+    if info != 0:
+        raise ValueError(
+            'lapack dpotrs error: '
+            'the {}-th argument had an illegal value'.format(-info)
+        )
+
+
+    n = len(y)
+    norm_const = -n / ( 2. * np.log(2. * np.pi) )
+    #print(norm_const)
+    #print(L.diagonal())
+    #return -.5*np.dot(y, alpha) - np.log(eps+L.diagonal()).sum() + norm_const
+    return -.5*np.dot(y, alpha) - np.log(L.diagonal()).sum() + norm_const
+
+
 def normal_log_likelihood_elementwise(model : object, x_exp : np.ndarray, y_exp : np.ndarray, y_err : np.ndarray, model_param=np.array([])) -> np.ndarray:
     """
     predict the log normal log liklihood for each experimental data point

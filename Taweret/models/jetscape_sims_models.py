@@ -223,8 +223,11 @@ class jetscape_models_pb_pb_2760(BaseModel):
 
         W : 
         """
-
-        predictions, model_errs, cov_mat = self.evaluate(x_exp, model_param, full_corr=True)
+        #uncomment the following line and comment out the two line below. 
+        #predictions, model_errs, cov_mat = self.evaluate(x_exp, model_param, full_corr=True)
+        predictions, model_errs = self.evaluate(x_exp, model_param)
+        cov_mat = np.diag(np.square(model_errs.flatten()))
+        
         x_exp = x_exp.flatten()
         if len(x_exp)!=y_exp_all.shape[0]:
             raise Exception(f'Dimensionality mistmach between x_exp and y_exp')

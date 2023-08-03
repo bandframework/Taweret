@@ -5,8 +5,8 @@ import numpy as np
 import sys
 sys.path.append('../core')
 
-from Taweret.Taweret.core.base_model import BaseModel
-from Taweret.Taweret.utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
+from Taweret.core.base_model import BaseModel
+from Taweret.utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
 
 sys.path.append("../../../../SAMBA")
 

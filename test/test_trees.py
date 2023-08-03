@@ -24,6 +24,7 @@ def test_init():
     assert mix.model_dict == model_dict, "class object self.model_dict not set."
     assert mix.nummodels == len(model_dict), "class object self.nummodels not set."
 
+from Taweret.models.polynomial_models import sin_exp, cos_exp, sin_cos_exp
 
 # Test the mixing fun
 def test_mixing():

@@ -12,14 +12,17 @@
 #
 import os
 import sys
-#sys.path.insert(0, os.path.abspath('../'))
-sys.path.insert(0, os.path.abspath('../../../Taweret'))
+# sys.path.insert(0, os.path.abspath('../'))
+print(os.path.abspath('./'))
+sys.path.insert(0, os.path.abspath('../../'))
+# Patch to make local documentation buildinig work
+sys.path.insert(0, os.path.abspath('../../SAMBA'))
 
 # -- Project information -----------------------------------------------------
 
 project = 'Taweret'
-copyright = '2022, Dan Liyanage, Alexandra Semposki, John Yannotty'
-author = 'Dan Liyanage, Alexandra Semposki, John Yannotty'
+copyright = '2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles'
+author = 'Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1.0'
@@ -64,3 +67,6 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# To turn off pesky smart quotes warnings
+smartquotes = False

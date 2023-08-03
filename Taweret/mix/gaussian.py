@@ -7,21 +7,27 @@ import numpy as np
 from Taweret.core.base_mixer import BaseMixer
 
 class Multivariate(BaseMixer):
-
-    '''
+    r'''
     The multivariate BMM class originally introduced
     in the BAND SAMBA package. Combines individual
     models using a Gaussian form. 
 
-    $$ f_{\dagger} = \mathcal{N} \left( \sum_i \frac{f_i/v_i}{1/v_i}, \sum_i \frac{1}{v_i}\right) $$
+    .. math::
+
+        f_{\dagger}
+        = \mathcal{N}
+        \left(
+            \sum_i \frac{f_i/v_i}{1/v_i}, \sum_i \frac{1}{v_i}
+        \right)
 
     Example:
     --------
-    ```python
-    m = Multivariate(x=np.linspace(), models=dict(), n_models=0)
-    m.predict(ci=68)
-    m.evaluate_weights()
-    ```
+
+    .. code-block:: python
+
+            m = Multivariate(x=np.linspace(), models=dict(), n_models=0)
+            m.predict(ci=68)
+            m.evaluate_weights()
     '''
 
     def __init__(self, x, models, n_models=0): 
@@ -83,7 +89,7 @@ class Multivariate(BaseMixer):
         '''
 
         # check predict() has been called
-        if self.var_weights == np.zeros(len(self.models)):
+        if self.var_weights is np.zeros(len(self.models)):
             raise Exception('Please run the predict function before\
                 calling this function.')
 
@@ -157,7 +163,9 @@ class Multivariate(BaseMixer):
         var = 1/denom 
 
         # variances for each model
-        self.var_weights = var/(np.sum(var, axis=0))
+        v = np.asarray(v)
+        weights = 1.0/v
+        self.var_weights = weights/np.sum(weights, axis=0)
 
         # std_dev calculation
         std_dev = np.sqrt(var)

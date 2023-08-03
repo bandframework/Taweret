@@ -12,26 +12,29 @@ class BaseModel(ABC):
         evaluation : float
             point estimate for model
 
-        ```python
-        class MyModel(BaseModel):
-            @property
-            def model(self):
-                return self._model
+        Example
+        -------
 
-            @models.setter
-            def model(self, the_model):
-                self._model = the_model
+        .. code-block:: python
 
-            def evaluate(self, model_parameters):
-                return self._model(model_parameters)
-            . . .
-        ```
+                class MyModel(BaseModel):
+                    @property
+                    def model(self):
+                        return self._model
+
+                    @models.setter
+                    def model(self, the_model):
+                        self._model = the_model
+
+                    def evaluate(self, model_parameters):
+                        return self._model(model_parameters)
+                    # . . .
         '''
         return NotImplemented
 
     @abstractmethod
     def log_likelihood_elementwise(self):
-        '''
+        r'''
         Calculate log_likelihood for array of points given, and return with
         array with same shape[0]
 
@@ -42,15 +45,18 @@ class BaseModel(ABC):
 
         Example:
         --------
-        ```python
-        class MyModel(BaseModel):
-            def log_likelihood_elementwise(self, y_exp, y_err, model_params):
-                # Assuming a normal distribution for error
-                y = self.evaluate(model_params)
-                # If y_exp, y_err, y are numpy arrays of same length
-                return np.exp(-(y - y_exp) **2 / (2 * y_err ** 2)) \
-                    / np.sqrt(2 * np.pi * y_err ** 2))
-        ```
+
+        .. code-block:: python
+
+                class MyModel(BaseModel):
+                    def log_likelihood_elementwise(
+                        self, y_exp, y_err, model_params
+                    ):
+                        # Assuming a normal distribution for error
+                        y = self.evaluate(model_params)
+                        # If y_exp, y_err, y are numpy arrays of same length
+                        return np.exp(-(y - y_exp) **2 / (2 * y_err ** 2)) \
+                            / np.sqrt(2 * np.pi * y_err ** 2))
         '''
         return NotImplemented
 
@@ -63,12 +69,13 @@ class BaseModel(ABC):
 
         Example:
         --------
-        ```python
-        class MyModel(BaseMixer):
-            . . .
-            def set_prior(self, prior_dict):
-                self._prior = prior_dict
-            . . .
-        ```
+
+        .. code-block:: python
+
+                class MyModel(BaseMixer):
+                    # . . .
+                    def set_prior(self, prior_dict):
+                        self._prior = prior_dict
+                    # . . .
         '''
         return NotImplemented

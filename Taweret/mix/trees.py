@@ -19,6 +19,8 @@ import typing
 
 import Taweret.core.setup
 
+import Taweret.core.setup
+
 from scipy.stats import norm 
 from pathlib import Path 
 from scipy.stats import spearmanr 

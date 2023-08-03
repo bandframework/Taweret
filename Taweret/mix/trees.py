@@ -19,8 +19,6 @@ import typing
 
 import Taweret.core.setup
 
-import Taweret.core.setup
-
 from scipy.stats import norm 
 from pathlib import Path 
 from scipy.stats import spearmanr 
@@ -134,7 +132,7 @@ class Trees(BaseMixer):
         '''
         return super().map
 
-    # Done
+    
     @property
     def posterior(self):
         '''
@@ -187,7 +185,7 @@ class Trees(BaseMixer):
 
         return hyper_params_dict
 
-    # DONE
+
     def set_prior(self, ntree: int = 1,ntreeh:int = 1, k: float=2,power: float=2.0,base:float=0.95,overallsd:float=None, \
                     overallnu: int = 10,inform_prior: bool = True,tauvec: bool = None,betavec: bool = None):
         '''

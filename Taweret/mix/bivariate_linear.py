@@ -184,7 +184,7 @@ class BivariateLinear(BaseMixer):
                 raise Exception('Dimension mistmatch between outputs of models')
             outputs = []
             for obs_n in range(0,model_1_out.shape[1]):
-                outputs.append(w1*model_1_out[:,obs_n] + w2*model_2_out[:,obs_n]) 
+                outputs.append(w1*model_1_out[:,obs_n] + w2*model_2_out[:,obs_n])
             return np.array(outputs)
         else: 
             assert Exception(f'Dimensional mistmatch: dim of model 1 is {model_1_out.ndim}\
@@ -267,12 +267,13 @@ class BivariateLinear(BaseMixer):
             value = self.evaluate(mixture_param,x, model_params)
             pos_predictions.append(value)
         pos_predictions = np.array(pos_predictions)
+           
+        
+        CIs = np.nanpercentile(pos_predictions,CI, axis=0, keepdims=True)
 
-        CIs = np.percentile(pos_predictions,CI, axis=0, keepdims=True)
+        mean = np.nanmean(pos_predictions, axis=0, keepdims=True)
 
-        mean = np.mean(pos_predictions, axis=0, keepdims=True)
-
-        std_dev = np.std(pos_predictions, axis=0, keepdims=True)
+        std_dev = np.nanstd(pos_predictions, axis=0, keepdims=True)
 
         return pos_predictions, mean, CIs, std_dev
 
@@ -441,16 +442,26 @@ class BivariateLinear(BaseMixer):
 
                 x_exp = x_exp.flatten()
                 y_exp_all = y_exp
+                
                 if len(x_exp)!=y_exp_all.shape[0]:
                     raise Exception(f'Dimensionality mistmach between x_exp and y_exp')
+                mask_y_exp = np.isfinite(y_exp_all)
+                mask_flat = mask_y_exp.flatten()
+                #print(mask_flat.shape)
+#                 print(sum(mask_flat))
+#                 print(x_exp.shape)
+#                 print(y_exp_all.shape)
                 weights = []
                 W = weight_ar[i]
                 for w in W:
-                    weights.append(w*np.ones(y_exp_all.shape[1]))
-                weights = np.array(weights).flatten()
-                predictions = np.array(predictions).flatten()
-                y_exp_all = np.array(y_exp_all).flatten()
-                y_err_all = np.array(y_err).flatten()
+                    #mask = mask_y_exp[:,i]
+                    ww_array = w*np.ones(y_exp_all.shape[1])
+                    weights.append(ww_array)
+                weights = np.array(weights).flatten()[mask_flat]
+                predictions = np.array(predictions).flatten()[mask_flat]
+                y_exp_all = np.array(y_exp_all).flatten()[mask_flat]
+                y_err_all = np.array(y_err).flatten()[mask_flat]
+                #print(y_err_all)
                 diff = (predictions - y_exp_all)*weights
                 final_cov = np.diag(np.square(y_err_all)) 
                 if cov_mat is not None:

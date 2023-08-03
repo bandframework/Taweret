@@ -72,12 +72,12 @@ y_train = f0_train + np.random.normal(0,s,n_train).reshape(n_train,1)
 #prior_dict = {'k':1.25,'ntree':20, 'overallnu':5, 'overallsd':np.sqrt(0.1)}
 
 # Mixing with the non-informative prior
-#mix = Trees(model_dict = model_dict, local_openbt_path = "/home/johnyannotty/Documents/openbt/src")
-mix = Trees(model_dict = model_dict)
+mix = Trees(model_dict = model_dict, local_openbt_path = "/home/johnyannotty/Documents/openbt/src")
+#mix = Trees(model_dict = model_dict)
 
-mix.set_prior(k=1.25,ntree=20,overallnu=5,overallsd=np.sqrt(0.1),inform_prior=False)
+mix.set_prior(k=1.25,ntree=2,overallnu=5,overallsd=np.sqrt(0.1),inform_prior=False)
 mix.prior
-fit = mix.train(X=x_train, y=y_train, ndpost = 10000, nadapt = 2000, nskip = 1000, adaptevery = 500, minnumbot = 2)
+fit = mix.train(X=x_train, y=y_train, ndpost = 10, nadapt = 2, nskip = 1, adaptevery = 500, minnumbot = 2)
 
 post = mix.posterior
 np.mean(post)
@@ -86,6 +86,7 @@ len(post)
 # Get predictions
 ppost, pmean, pci, pstd = mix.predict(X = x_test, ci = 0.95)
 wpost, wmean, wci, wstd = mix.predict_weights(X = x_test, ci = 0.95)
+
 
 # Plot results
 mix.plot_weights(0)

@@ -38,9 +38,11 @@ class Multivariate(BaseMixer):
         x : numpy.linspace
             Input space variable in which mixing is occurring. 
 
-        models : Dict of models with BaseModel methods. 
+        models : dict
+            Dict of models with BaseModel methods. 
 
-        n_models : Number of free parameters per model. 
+        n_models : int
+            Number of free parameters per model. 
 
         Returns:
         --------
@@ -127,8 +129,9 @@ class Multivariate(BaseMixer):
 
         Returns:
         --------
-        mean, intervals, std_dev : The mean, credible intervals, and std_dev 
-                               of the predicted mixed model 
+        mean, intervals, std_dev : numpy.ndarray
+            The mean, credible intervals, and std_dev 
+            of the predicted mixed model 
         '''
 
         # credibility interval(s)

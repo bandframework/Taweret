@@ -1,107 +1,115 @@
 """
 Name: test_trees.py
 Author: John Yannotty (yannotty.1@osu.edu)
-Desc: Tests the tree mixing class, which is an interface for BARTMM 
+Desc: Test suite for trees.py 
 
-Start Date: 11/07/22
+Start Date: 04/21/22
 Version: 1.0
 """
 
+# Imports
 import numpy as np
-import matplotlib.pyplot as plt
-from Taweret.mix.trees import Trees
 
-import importlib
-import Taweret.mix.trees
-importlib.reload(Taweret.mix.trees)
-
+from Taweret.core.base_mixer import BaseMixer
 from Taweret.core.base_model import BaseModel
+from Taweret.mix import Trees
+from Taweret.models.polynomial_models import sin_exp, cos_exp, sin_cos_exp
+
+#---------------------------------------------
+# Define the test functions
+#---------------------------------------------
+# Test the constructor with the model set
+def test_init():
+    # check passing of variables into Multivariate class
+    assert mix.model_dict == model_dict, "class object self.model_dict not set."
+    assert mix.nummodels == len(model_dict), "class object self.nummodels not set."
+
+from Taweret.models.polynomial_models import sin_exp, cos_exp, sin_cos_exp
+
+# Test the mixing fun
+def test_mixing():
+    x_train = np.loadtxt('test/bart_bmm_test_data/2d_x_train.txt').reshape(80,2)
+    x_train = x_train.reshape(2,80).transpose()
+
+    y_train = np.loadtxt('test/bart_bmm_test_data/2d_y_train.txt').reshape(80,1)
+
+    # Set prior information
+    mix.set_prior(k=2.5,ntree=30,overallnu=5,overallsd=0.01,inform_prior=False)
+
+    # Check tuning & hyper parameters
+    assert mix.k == 2.5, "class object k is not set."
+    assert mix.ntree == 30, "class object ntree is not set."
+    assert mix.overallnu == 5, "class object nu is not set."
+    assert mix.overallsd == 0.01, "class object overallsd is not set."
+    assert mix.overalllambda == 0.01**2, "class object overalllambda is not set."
+    assert mix.inform_prior == False, "class object inform_prior is not set."
+
+    # Train the model
+    fit = mix.train(X=x_train, y=y_train, ndpost = 10000, nadapt = 2000, nskip = 2000, adaptevery = 500, minnumbot = 4)
+
+    # Check the mcmc objects
+    assert mix.ndpost == 10000, "class object ndpost is not set." 
+    assert mix.nadapt == 2000, "class object nadapt is not set."
+    assert mix.adaptevery == 500, "class object adaptevery is not set."
+    assert mix.nskip == 2000, "class object nskip is not set."
+    assert mix.minnumbot == 4, "class object minnumbot is not set."
 
 
-# ---------------------------------------------------------
-# Polynomial function for candidate models
-# ---------------------------------------------------------
-class FP(BaseModel):
-    def __init__(self,a=0,b=0,c=1,p=1):
-        self.a = a
-        self.b = b
-        self.c = c
-        self.p = p
+
+# Test the mean predictions
+def test_predict():
+    # Get test data
+    n_test = 30
+    x1_test = np.outer(np.linspace(-3, 3, n_test), np.ones(n_test))
+    x2_test = x1_test.copy().transpose()
+    f0_test = (np.sin(x1_test) + np.cos(x2_test))
+    x_test = np.array([x1_test.reshape(x1_test.size,),x2_test.reshape(x1_test.size,)]).transpose()
+
+    # Read in test results
+    pmean_test = np.loadtxt('test/bart_bmm_test_data/2d_pmean.txt')
+    eps = 0.05
+
+    # Get predictions
+    ppost, pmean, pci, pstd = mix.predict(X = x_test, ci = 0.95)
+
+    # Test the values
+    perr = np.mean(np.abs(pmean - pmean_test))
+    assert perr < eps, "Inaccurate predictions."
+
+
+# Test posterior of the weights
+def test_predict_wts():
+    # Get weights
+    n_test = 30
+    x1_test = np.outer(np.linspace(-3, 3, n_test), np.ones(n_test))
+    x2_test = x1_test.copy().transpose()
+    x_test = np.array([x1_test.reshape(x1_test.size,),x2_test.reshape(x1_test.size,)]).transpose()
+
+    wpost, wmean, wci, wstd = mix.predict_weights(X = x_test, ci = 0.95)
     
-    def evaluate(self, x):
-        if isinstance(x, list):
-            x = np.array(x)
-        m = self.c*(x-self.a)**self.p + self.b
-        if len(m.shape) == 1:
-            m = m.reshape(m.shape[0],1) 
-        s = np.array([1]*x.shape[0]).reshape(m.shape[0],1)
-        return m,s
+    # Read in test results
+    wteps = 0.05
+    wmean_test = np.loadtxt('test/bart_bmm_test_data/2d_wmean.txt')
 
-    def set_prior(self):
-        return super().set_prior()
-
-    def log_likelihood_elementwise(self):
-        return super().log_likelihood_elementwise()
+    # Test the values
+    werr = np.mean(np.abs(wmean - wmean_test))
+    assert werr < wteps, "Inaccurate weights."
 
 
-model_dict = {'model1':FP(0,-2,4,1), 'model2':FP(0,2,-4,1)}
+# Test sigma 
+def test_sigma():
+    sig_eps = 0.05
+    assert np.abs((np.mean(mix.posterior) - 0.1)) < sig_eps, "Inaccurate sigma calculation."
 
-# ---------------------------------------------------------
-# Generate Training Data
-# ---------------------------------------------------------
-n_train = 15
-n_test = 100
-s = 0.1
 
-x_train = np.concatenate([np.array([0.01,0.1,0.25]),np.linspace(0.45,1.0, n_train-3)])
-x_test = np.linspace(0.01, 1.0, n_test)
 
-np.random.seed(1234567)
-fp = FP(0.5,0,8,2)
-f0_train,_ = fp.evaluate(x_train)
-f0_test,_ = fp.evaluate(x_test)
-y_train = f0_train + np.random.normal(0,s,n_train).reshape(n_train,1)
+#---------------------------------------------
+# Initiatilize model set
+#---------------------------------------------
+# Define the model set
+f1 = sin_cos_exp(7,10,np.pi,np.pi)
+f2 = sin_cos_exp(13,6,-np.pi,-np.pi)
+model_dict = {'model1':f1, 'model2':f2}
 
-# ---------------------------------------------------------
-# Test BART model mixing with polynomials
-# ---------------------------------------------------------
-# Define priors
-#prior_dict = {'k':1.25,'ntree':20, 'overallnu':5, 'overallsd':np.sqrt(0.1)}
 
-# Mixing with the non-informative prior
-mix = Trees(model_dict = model_dict, local_openbt_path = "/home/johnyannotty/Documents/openbt")
-
-mix.set_prior(k=1.25,ntree=20,overallnu=5,overallsd=np.sqrt(0.1),inform_prior=False)
-mix.prior
-fit = mix.train(X=x_train, y=y_train, ndpost = 10000, nadapt = 2000, nskip = 1000, adaptevery = 500, minnumbot = 2)
-
-post = mix.posterior
-np.mean(post)
-len(post)
-
-# Get predictions
-ppost, pmean, pci, pstd = mix.predict(X = x_test, ci = 0.95)
-wpost, wmean, wci, wstd = mix.predict_weights(X = x_test, ci = 0.95)
-
-# Plot results
-mix.plot_weights(0)
-mix.plot_prediction(0)
-mix.plot_sigma()
-
-# Get the model predictions (used for next plot)
-fp1 = FP(0,-2,4,1)
-fp2 = FP(0,2,-4,1)
-f1_train,_ = fp1.predict(x_train)
-f1_test,_ = fp1.predict(x_test)
-f2_train,_ = fp2.predict(x_train)
-f2_test,_ = fp2.predict(x_test)
-
-# Plot true function overlayed with predicted
-plt.figure(figsize=(16,9)); 
-plt.plot(x_test, pmean, 'green')
-plt.plot(x_test, f0_test, 'black')
-plt.plot(x_test, f1_test[:,0], 'r')
-plt.plot(x_test, f2_test[:,0], 'b')
-plt.scatter(x_train, y_train)
-plt.show()
-
+mix = Trees(model_dict = model_dict, local_openbt_path = "/home/johnyannotty/Documents/openbt/src")

@@ -3,6 +3,7 @@
 
 import numpy as np
 import sys
+sys.path.append('../core')
 
 from Taweret.core.base_model import BaseModel
 from Taweret.utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
@@ -13,8 +14,8 @@ sys.path.append("../SAMBA")
 # from samba import mixing
 
 try:
-    from samba import models   # assuming you have SAMBA in your Taweret top directory 
-    from samba import mixing
+    from SAMBA import models   # assuming you have SAMBA in your Taweret top directory 
+    from SAMBA import mixing
 
 except Exception as e:
     print(e)

@@ -71,59 +71,58 @@ class Loworder(BaseModel):
         # model function
         output = []
         
-        for order in self.order:
-            low_c = np.empty([int(order)+1])
-            low_terms = np.empty([int(order) + 1])
+        low_c = np.empty([int(self.order)+1])
+        low_terms = np.empty([int(self.order) + 1])
 
-            #if g is an array, execute here
-            try:
-                value = np.empty([len(self.x)])
-       
-                #loop over array in g
-                for i in range(len(self.x)):      
+        #if g is an array, execute here
+        try:
+            value = np.empty([len(self.x)])
+    
+            #loop over array in g
+            for i in range(len(self.x)):      
 
-                    #loop over orders
-                    for k in range(int(order)+1):
-
-                        if k % 2 == 0:
-                            low_c[k] = np.sqrt(2.0) * special.gamma(k + 0.5) * (-4.0)**(k//2) / (math.factorial(k//2))
-                        else:
-                            low_c[k] = 0
-
-                        low_terms[k] = low_c[k] * self.x[i]**(k) 
-
-                    value[i] = np.sum(low_terms)
-
-                output.append(value)
-                data = np.array(output, dtype = np.float64)
-            
-            #if g is a single value, execute here
-            except:
-                value = 0.0
-                for k in range(int(order)+1):
+                #loop over orders
+                for k in range(int(self.order)+1):
 
                     if k % 2 == 0:
                         low_c[k] = np.sqrt(2.0) * special.gamma(k + 0.5) * (-4.0)**(k//2) / (math.factorial(k//2))
                     else:
                         low_c[k] = 0
 
-                    low_terms[k] = low_c[k] * self.x**(k) 
+                    low_terms[k] = low_c[k] * self.x[i]**(k) 
 
-                value = np.sum(low_terms)
-                data = value
+                value[i] = np.sum(low_terms)
+
+            output.append(value)
+            data = np.array(output, dtype = np.float64)
+        
+        #if g is a single value, execute here
+        except:
+            value = 0.0
+            for k in range(int(self.order)+1):
+
+                if k % 2 == 0:
+                    low_c[k] = np.sqrt(2.0) * special.gamma(k + 0.5) * (-4.0)**(k//2) / (math.factorial(k//2))
+                else:
+                    low_c[k] = 0
+
+                low_terms[k] = low_c[k] * self.x**(k) 
+
+            value = np.sum(low_terms)
+            data = value
 
         # rename for clarity
         mean = data
 
         # uncertainties function
-        #even order 
+        # even order 
         if self.order % 2 == 0:
             
             #find coefficients
             c = np.empty([int(self.order + 2)])
 
             #model 1 for even orders
-            if self.error_model == 1:
+            if self.error_model == 'uninformative':
 
                 for k in range(int(self.order + 2)):
 
@@ -139,7 +138,7 @@ class Loworder(BaseModel):
                 var1 = (cbar)**2.0 * (math.factorial(self.order + 2))**2.0 * self.x**(2.0*(self.order + 2))
 
             #model 2 for even orders
-            elif self.error_model == 2:
+            elif self.error_model == 'informative':
 
                 for k in range(int(self.order + 2)):
 
@@ -167,7 +166,7 @@ class Loworder(BaseModel):
             c = np.empty([int(self.order + 1)])
 
             #model 1 for odd orders
-            if self.error_model == 1:
+            if self.error_model == 'uninformative':
 
                 for k in range(int(self.order + 1)):
 
@@ -183,7 +182,7 @@ class Loworder(BaseModel):
                 var1 = (cbar)**2.0 * (math.factorial(self.order + 1))**2.0 * self.x**(2.0*(self.order + 1))
 
             #model 2 for odd orders
-            elif self.error_model == 2:
+            elif self.error_model == 'informative':
 
                 for k in range(int(self.order + 1)):
 
@@ -276,46 +275,45 @@ class Highorder(BaseModel):
         
         # mean function
         output = []
+
+        high_c = np.empty([int(order) + 1])
+        high_terms = np.empty([int(order) + 1])
         
-        for order in self.order:
-            high_c = np.empty([int(order) + 1])
-            high_terms = np.empty([int(order) + 1])
-            
-            #if g is an array, execute here
-            try:
-                value = np.empty([len(self.x)])
-        
-                #loop over array in g
-                for i in range(len(self.x)):
-
-                    #loop over orders
-                    for k in range(int(order)+1):
-
-                        high_c[k] = special.gamma(k/2.0 + 0.25) * (-0.5)**k / (2.0 * math.factorial(k))
-
-                        high_terms[k] = (high_c[k] * self.x[i]**(-k)) / np.sqrt(self.x[i])
-
-                    #sum the terms for each value of g
-                    value[i] = np.sum(high_terms)
-
-                output.append(value)
-
-                data = np.array(output, dtype = np.float64)
-        
-            #if g is a single value, execute here           
-            except:
-                value = 0.0
+        #if g is an array, execute here
+        try:
+            value = np.empty([len(self.x)])
+    
+            #loop over array in g
+            for i in range(len(self.x)):
 
                 #loop over orders
                 for k in range(int(order)+1):
 
                     high_c[k] = special.gamma(k/2.0 + 0.25) * (-0.5)**k / (2.0 * math.factorial(k))
 
-                    high_terms[k] = (high_c[k] * self.x**(-k)) / np.sqrt(self.x) 
+                    high_terms[k] = (high_c[k] * self.x[i]**(-k)) / np.sqrt(self.x[i])
 
                 #sum the terms for each value of g
-                value = np.sum(high_terms)
-                data = value
+                value[i] = np.sum(high_terms)
+
+            output.append(value)
+
+            data = np.array(output, dtype = np.float64)
+    
+        #if g is a single value, execute here           
+        except:
+            value = 0.0
+
+            #loop over orders
+            for k in range(int(order)+1):
+
+                high_c[k] = special.gamma(k/2.0 + 0.25) * (-0.5)**k / (2.0 * math.factorial(k))
+
+                high_terms[k] = (high_c[k] * self.x**(-k)) / np.sqrt(self.x) 
+
+            #sum the terms for each value of g
+            value = np.sum(high_terms)
+            data = value
         
         # rename for clarity
         mean = data
@@ -325,7 +323,7 @@ class Highorder(BaseModel):
         d = np.zeros([int(self.order) + 1])
 
         #model 1
-        if self.error_model == 1:
+        if self.error_model == 'uninformative':
 
             for k in range(int(self.order) + 1):
 
@@ -339,7 +337,7 @@ class Highorder(BaseModel):
                     * self.x**(-2.0*self.order - 2)
 
         #model 2
-        elif self.error_model == 2:
+        elif self.error_model == 'informative':
 
             for k in range(int(self.order) + 1):
 

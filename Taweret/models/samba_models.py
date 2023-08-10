@@ -3,17 +3,17 @@
 # Analysis (SAMBA) package 
 # Author : Alexandra Semposki
 # Original models : M. Honda, JHEP 12, 019 (2014).
-###########################################################
+# ##########################################################
 
 # imports
 import numpy as np
 from scipy import special, integrate
 import math as math
 import sys
-sys.path.append('../core')
+sys.path.append('../../Taweret')
 
-from Taweret.core.base_model import BaseModel
-from Taweret.utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
+from core.base_model import BaseModel
+from utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
 
 __all__ = ['Loworder', 'Highorder', 'TrueModel', 'Data']
 
@@ -457,21 +457,20 @@ class Data(BaseModel):    # --> check that this model is set up correctly
         x_data = input_values
         
         # adding data using the add_data function from SAMBA
-        if data is None:
-            if error is None:
-                raise ValueError('Please enter a error in decimal form for the data set generation.')
-            elif error < 0.0 or error > 1.0:
-                raise ValueError('Error must be between 0.0 and 1.0.')
+        if error is None:
+            raise ValueError('Please enter a error in decimal form for the data set generation.')
+        elif error < 0.0 or error > 1.0:
+            raise ValueError('Error must be between 0.0 and 1.0.')
 
-            #generate fake data  
-            data = truemodel.evaluate(x_data)
-            rand = np.random.RandomState()
-            var = error*rand.randn(len(x_data))
-            data = data*(1 + var)
-        
-            #calculate standard deviation
-            sigma = error*data
-                
+        #generate fake data  
+        data = truemodel.evaluate(x_data)
+        rand = np.random.RandomState()
+        var = error*rand.randn(len(x_data))
+        data = data*(1 + var)
+
+        #calculate standard deviation
+        sigma = error*data
+
         return data, sigma
 
 

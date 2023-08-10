@@ -21,8 +21,8 @@ from Taweret.core.base_model import *
 order = 3
 
 # List models to mix (form dict)
-model_1 = loworder(order=order)
-model_2 = highorder(order=order)
+model_1 = Loworder(order=order)
+model_2 = Highorder(order=order)
 
 labels=[r'$N_s = 3$', r'$N_l = 3$']
 

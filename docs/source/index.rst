@@ -34,6 +34,9 @@ Welcome to Bayesian Model Mixing with Taweret!
    notebooks/Linear_BMM_with_cdf_function_for_coleman_models
    notebooks/Bivariate_Test
    notebooks/N_Model_BMM
+   notebooks/Trees_BMM_2D.ipynb
+   notebooks/Trees_BMM_2D_K_models.ipynb
+
 .. toctree::
    :maxdepth: 2
    :caption: For Developers:

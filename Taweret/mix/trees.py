@@ -1,11 +1,11 @@
-"""
-Name: trees.py
-Author: John Yannotty (yannotty.1@osu.edu)
-Desc: Defines the tree mixing class, which is an interface for BART-BMM 
-
-Start Date: 10/05/22
-Version: 1.0
-"""
+########################################################################Name: 
+# trees.py
+# Author: John Yannotty (yannotty.1@osu.edu)
+# Desc: Defines the tree mixing class, which is an interface for BART-BMM 
+#
+# Start Date: 10/05/22
+# Version: 1.0
+########################################################################
 from logging import raiseExceptions
 #from symbol import pass_stmt
 import numpy as np
@@ -27,22 +27,49 @@ from Taweret.core.base_mixer import BaseMixer
 from Taweret.core.base_model import BaseModel
 
 class Trees(BaseMixer):
-    # Overwrite base constructor
+    r'''
+        Constructor for the Trees mixing class, which implements a mean-mixing strategy.
+        The weight functions are modeled using Bayesian Assitive Regression Trees (BART).
+        Please read the installation page of the documentation to ensure the BART-BMM Ubuntu
+        package is downloaded and installed.
+
+        .. math::
+            f_\dagger(x) = \sum_{k = 1}^K w_k(x)\;f_k(x)
+
+        Example:
+        --------
+
+        .. code-block:: python
+
+            # Initialize trees class
+            mix = Trees(model_dict = model_dict)
+
+            # Set prior information
+            mix.set_prior(k=2.5,ntree=30,overallnu=5,overallsd=0.01,inform_prior=False)
+
+            # Train the model
+            fit = mix.train(X=x_train, y=y_train, ndpost = 10000, nadapt = 2000, nskip = 2000, adaptevery = 500, minnumbot = 4)
+
+            # Get predictions and posterior weight functions.
+            ppost, pmean, pci, pstd = mix.predict(X = x_test, ci = 0.95)
+            wpost, wmean, wci, wstd = mix.predict_weights(X = x_test, ci = 0.95)
+
+    '''
+    
     def __init__(self, model_dict: dict, **kwargs):
         '''
-        Constructor for the Trees mixing class.
 
         Parameters:
         ----------
-        model_dict : dict
+        :param model_dict : dict
             Dictionary of models where each item is an instance of BaseModel.
         
-        kwargs : dict
+        :param kwargs : dict
             Additional arguments to pass to the constructor.
 
-        Returns : 
+        Returns: 
         ---------
-        None.
+        :returns: None.
         '''
         # Check model class
         for i, model in enumerate(list(model_dict.values())):
@@ -139,14 +166,16 @@ class Trees(BaseMixer):
         Returns the posterior distribution of the error standard deviation, 
         which is learned during the training process.
 
-        Parameters : 
+        Parameters: 
         ------------
-        None.
+        :param: None.
 
-        Returns :
+        Returns:
         ---------
-        posterior : np.ndarray
+        :returns posterior: 
             The posterior of the error standard deviation . 
+        :rtype: np.ndarray
+            
         '''
         return self._posterior
 
@@ -156,14 +185,16 @@ class Trees(BaseMixer):
         Returns a dictionary of the hyperparameter settings used in the various 
         prior distributions.
 
-        Parameters : 
+        Parameters: 
         ------------
-        None.
+        :param None.
 
-        Returns :
+        Returns:
         ---------
-        hyper_param_dict : dict
+        :returns:
             A dictionary of the hyperparameters used in the model. 
+        :rtype: dict
+
         '''
         # Init hyperprameters dict
         hyper_params_dict = {}
@@ -190,38 +221,38 @@ class Trees(BaseMixer):
                     overallnu: int = 10,inform_prior: bool = True,tauvec: bool = None,betavec: bool = None):
         '''
         Sets the hyperparameters in the tree and terminal node priors. Also
-        specfies if an informative or non-informative prior will be used.
+        specifies if an informative or non-informative prior will be used.
         
         Parameters:
         -----------
-        ntree : int
+        :param int ntree:
             The number of trees used in the sum-of-trees model for
             the weights.
-        ntreeh : int
+        :param int ntreeh:
             The number of trees used in the product-of-trees model 
             for the error standard deviation. Set to 1 for 
             homoscedastic variance assumption.
-        k : double
+        :param float k:
             The tuning parameter in the prior variance of the terminal node 
             parameter prior. This is a value greater than zero.
-        power : double
+        :param float power:
             The power parameter in the tree prior.
-        base : double
+        :param float base:
             The base parameter in the tree prior.
-        overallsd : double
+        :param float overallsd:
             An initial estimate of the erorr standard deviation. 
-            This value is used to calibrate $\lambda$ in variance prior.
-        overallnu : double
+            This value is used to calibrate the scale parameter in variance prior.
+        :param float overallnu:
             The shape parameter in the error variance prior.
-        inform_prior : bool
+        :param bool inform_prior:
             Controls if the informative or non-informative prior is used.
             Specify true for the informative prior.
-        tauvec : np.Kdarray 
+        :param np.ndarray tauvec:  
             A K-dimensional array (where K is the number of models) that
             contains the prior standard deviation of the terminal node 
             parameter priors. This is used when specifying different 
             priors for the different model weights.
-        betavec : np.Kdarray 
+        :param np.ndarray betavec: 
             A K-dimensional array (where K is the number of models) that
             contains the prior mean of the terminal node 
             parameter priors. This is used when specifying different 
@@ -229,7 +260,7 @@ class Trees(BaseMixer):
         
         Returns:
         --------
-        None.
+        :retval: None.
 
         '''
         # Extract arguments 
@@ -269,24 +300,25 @@ class Trees(BaseMixer):
 
     def train(self,X: np.ndarray, y: np.ndarray, **kwargs):
         '''
-        Train the mixed-model using a set of observations y at inputs x.
+        Train the mixed-model using a set of observations y at inputs x. 
 
         Parameters:
         ----------
-        X : np.ndarray (n X p)
-            input parameter values.
-        y : np.ndarray (n X 1)
-            observed data at inputs X.
-        kwargs : dict
+        :param np.ndarray X:  
+            input parameter values of dimension (n X p).
+        :param np.ndarray y: 
+            observed data at inputs X of dimension  (n X 1).
+        :param dict kwargs:
             Dictionary of arguments 
 
         Returns:
         --------
-        results : dict
-            A dictionary which contains relevant information to the model such as
+        :returns: A dictionary which contains relevant information to the model such as
             values of tuning parameters. The MCMC results are written to a text file
             and stored in a temporary directory as defined by the fpath key in the
             results dictionary.
+        :rtype: dict
+            
         '''
         # Cast data to arrays if not already and reshape if needed
         if isinstance(X, list):
@@ -380,26 +412,28 @@ class Trees(BaseMixer):
 
     def predict(self, X: np.ndarray, ci: float = 0.95):
         '''
-        Obtain posterior predictive distribution of the mixed-model at a set
+        Obtain the posterior predictive distribution of the mixed-model at a set
         of inputs X.
 
         Parameters
         ----------
-        X : np.ndarray
+        :param X : np.ndarray
             input parameter values
-        ci : double
+        :param ci : double
             credible interval width, must be value within the interval (0,1)
         
         Returns:
         --------
-        evaluated_posterior : np.ndarray
+        :returns: The posterior prediction draws and summaries.
+        :rtype: np.ndarray, np.ndarray, np.ndarray, np.ndarray
+        :retval evaluated_posterior: 
             the posterior predictive distribution evaluated at the specified
             test points
-        mean : np.ndarray
+        :retval mean:
             posterior mean of the mixed-model at each input in X.
-        credible_intervals : np.ndarray
+        :retval credible_intervals:
             pointwise credible intervals at each input in X.
-        std_dev : np.ndarray
+        :retval std_dev:
             posterior standard deviation of the mixed-model samples.
         '''
         
@@ -480,22 +514,24 @@ class Trees(BaseMixer):
         Obtain posterior distribution of the weight functions at a set
         of inputs X.
 
-        Parameters
+        Parameters:
         ----------
-        X : np.ndarray
+        :param np.ndarray X: 
             input parameter values
-        ci : double
+        :param float ci:
             credible interval width, must be value within the interval (0,1)
         
         Returns:
         --------
-        evaluated_posterior : np.ndarray
+        :returns: The posterior weight function draws and summaries.
+        :rtype: np.ndarray, np.ndarray, np.ndarray, np.ndarray 
+        :retval evaluated_posterior:
             the posterior draws of the model weight functions at each input in X.
-        mean : np.ndarray
+        :retval mean:
             posterior mean of the model weights at each input in X.
-        credible_intervals : np.ndarray
+        :retval credible_intervals:
             pointwise credible intervals for the weight functions.
-        std_dev : np.ndarray
+        :retval std_dev:
             posterior standard deviation of the weight functions samples.
         '''
         
@@ -562,14 +598,14 @@ class Trees(BaseMixer):
         can be any column of the design matrix X, which is passed into 
         the predict function.
 
-        Parameters
+        Parameters:
         ----------
-        xdim : int
+        :param int xdim:
             index of the column to plot against the predictions.
         
         Returns:
         --------
-        None.
+        :return: None.
         '''
         col_list = ['red','blue','green','purple','orange']
         if self.pred_mean is None:
@@ -601,12 +637,12 @@ class Trees(BaseMixer):
 
         Parameters
         ----------
-        xdim : int
-            index of the column to plot against the predictions.
+        :param int xdim:
+                index of the column to plot against the predictions.
         
         Returns:
         --------
-        None.
+        :return: None.
         '''
         # Check if weights are already loaded
         col_list = ['red','blue','green','purple','orange']
@@ -636,12 +672,12 @@ class Trees(BaseMixer):
 
         Parameters
         ----------
-        xdim : int
+        :param: None
             index of the column to plot against the predictions.
         
         Returns:
         --------
-        None.
+        :return: None.
         '''
         fig = plt.figure(figsize=(6,5))
         plt.hist(self.posterior, zorder = 2)
@@ -876,7 +912,7 @@ class Trees(BaseMixer):
     # Need to generalize -- this is only used in fit 
     def _write_config_file(self):
         """
-        Provate function, create temp directory to write config and data files.
+        Private function, create temp directory to write config and data files.
         """
         f = tempfile.mkdtemp(prefix="openbtpy_")
         self.fpath = Path(f)
@@ -947,32 +983,32 @@ class Trees(BaseMixer):
     # Workking -- trees jail
     # Return predictions of sigma --- need to figure this out (may group this into _posterior??)
     # NEED TO THINK ABOUT THIS
-    def predict_sigma(self, X, ci = 0.68):
-        """
-        Working function, not completed.
-        """
-        if self._is_predict_run and self.X_test == X:
-            # If prediction was run and test data is the same
-            sigma_post = self.sdraws
-            sigma_mean = self.sigma_mean
-            sigma_sd = self.sigma_sd
-            sigma_credible_interval = (self.sigma_lower, self.sigma_upper)
+    # def predict_sigma(self, X, ci = 0.68):
+    #     """
+    #     Working function, not completed.
+    #     """
+    #     if self._is_predict_run and self.X_test == X:
+    #         # If prediction was run and test data is the same
+    #         sigma_post = self.sdraws
+    #         sigma_mean = self.sigma_mean
+    #         sigma_sd = self.sigma_sd
+    #         sigma_credible_interval = (self.sigma_lower, self.sigma_upper)
         
-            # Get new credible intervals if ci level changes
-            if not self.pred_ci == ci:
-                new_sigma_lower = np.empty(len(self.sdraws[0]))
-                new_sigma_upper = np.empty(len(self.sdraws[0])) 
-                for j in range(len(self.sdraws[0])):
-                    new_sigma_lower[j] = np.quantile(self.sdraws[:, j], self.q_lower)
-                    new_sigma_upper[j] = np.quantile(self.sdraws[:, j], self.q_upper)
-                sigma_credible_interval = (new_sigma_lower, new_sigma_upper)
-        else:
-            # Run predict at X if predict has not already been called
-            _,_,_,_ = self.predict(X, ci)
-            sigma_post = self.sdraws
-            sigma_mean = self.sigma_mean
-            sigma_sd = self.sigma_sd
-            sigma_credible_interval = (self.sigma_lower, self.sigma_upper)        
+    #         # Get new credible intervals if ci level changes
+    #         if not self.pred_ci == ci:
+    #             new_sigma_lower = np.empty(len(self.sdraws[0]))
+    #             new_sigma_upper = np.empty(len(self.sdraws[0])) 
+    #             for j in range(len(self.sdraws[0])):
+    #                 new_sigma_lower[j] = np.quantile(self.sdraws[:, j], self.q_lower)
+    #                 new_sigma_upper[j] = np.quantile(self.sdraws[:, j], self.q_upper)
+    #             sigma_credible_interval = (new_sigma_lower, new_sigma_upper)
+    #     else:
+    #         # Run predict at X if predict has not already been called
+    #         _,_,_,_ = self.predict(X, ci)
+    #         sigma_post = self.sdraws
+    #         sigma_mean = self.sigma_mean
+    #         sigma_sd = self.sigma_sd
+    #         sigma_credible_interval = (self.sigma_lower, self.sigma_upper)        
         
-        return sigma_post, sigma_mean, sigma_credible_interval, sigma_sd
+    #     return sigma_post, sigma_mean, sigma_credible_interval, sigma_sd
     

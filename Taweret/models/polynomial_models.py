@@ -5,12 +5,43 @@ from Taweret.core.base_model import BaseModel
 # Polynomial Class Functions
 class polynomal_model(BaseModel):
     def __init__(self,a=0,b=0,c=1,p=1):
+        r'''
+        Polynomial models class. Used to define a function of the form
+
+        .. math::
+            f(x) = c(x-a)^p + b
+
+        Parameters:
+        -----------
+        :param float a: center parameter.
+        :param float b: shift parameter.
+        :param float c: scale parameter.
+        :param float p: power parameter.
+
+        '''
         self.a = a
         self.b = b
         self.c = c
         self.p = p
     
+
     def evaluate(self, x):
+        '''
+        Evaluate the polynomial at a grid of x's. The standard deviation
+        output is set to 1 by default.
+
+        Parameters:
+        -----------
+        :param np.ndarray x: design matrix.
+
+        Returns:
+        --------
+        :returns: mean and standard deviation of the model at the x grid points.
+        :rtype: np.ndarray, np.ndarray
+        :return values: mean predictions.
+        :return values: standard deviation of the predictions.
+        
+        '''
         if isinstance(x, list):
             x = np.array(x)
         m = self.c*(x-self.a)**self.p + self.b
@@ -20,18 +51,53 @@ class polynomal_model(BaseModel):
         return m,s
 
     def set_prior(self):
+        '''
+        Set the prior on any model parameters.
+        Not needed for this model. 
+        '''
         return super().set_prior()
 
     def log_likelihood_elementwise(self):
+        '''
+        Obtain the log likelihood for the model.
+        Not needed for this model.
+        '''        
         return super().log_likelihood_elementwise()
+
 
 # Taylor Expansions
 class sin_exp(BaseModel):
     def __init__(self,k,x0):
+        '''
+        Sine Taylor series expansions model class.
+
+        Parameters:
+        -----------
+        :param int k: the degree of the expansion.
+        :param float x0: the center of the expansion.
+
+        '''
+        
         self.k = k
         self.x0 = x0
     
     def evaluate(self, x):
+        '''
+        Evaluate the Taylor Series at a grid of x's. The standard deviation
+        output is set to 1 by default.
+
+        Parameters:
+        -----------
+        :param np.ndarray x: design matrix.
+
+        Returns:
+        --------
+        :returns: mean and standard deviation of the model at the x grid points.
+        :rtype: np.ndarray, np.ndarray
+        :return values: mean predictions.
+        :return values: standard deviation of the predictions.
+        
+        '''
         # Check type of x
         if isinstance(x, list):
             x = np.array(x)
@@ -66,19 +132,53 @@ class sin_exp(BaseModel):
         return ts,s
 
     def set_prior(self):
+        '''
+        Set the prior on any model parameters.
+        Not needed for this model. 
+        '''
         return super().set_prior()
 
     def log_likelihood_elementwise(self):
+        '''
+        Obtain the log likelihood for the model.
+        Not needed for this model.
+        '''
         return super().log_likelihood_elementwise()
 
 
 
 class cos_exp(BaseModel):
     def __init__(self,k,x0):
+        '''
+        Cosine Taylor series expansions model class.
+
+        Parameters:
+        -----------
+        :param int k: the degree of the expansion.
+        :param float x0: the center of the expansion.
+
+        '''
         self.k = k
         self.x0 = x0
     
+
     def evaluate(self, x):
+        '''
+        Evaluate the Taylor series at a grid of x's. The standard deviation
+        output is set to 1 by default.
+
+        Parameters:
+        -----------
+        :param np.ndarray x: design matrix.
+
+        Returns:
+        --------
+        :returns: mean and standard deviation of the model at the x grid points.
+        :rtype: np.ndarray, np.ndarray
+        :return values: mean predictions.
+        :return values: standard deviation of the predictions.
+
+        '''
         # Check type of x
         if isinstance(x, list):
             x = np.array(x)
@@ -113,14 +213,37 @@ class cos_exp(BaseModel):
         return ts,s
 
     def set_prior(self):
+        '''
+        Set the prior on any model parameters.
+        Not needed for this model. 
+        '''
         return super().set_prior()
 
     def log_likelihood_elementwise(self):
+        '''
+        Obtain the log likelihood for the model.
+        Not needed for this model.
+        '''
         return super().log_likelihood_elementwise()
 
 
 class sin_cos_exp(BaseModel):
     def __init__(self,ks,kc,xs,xc):
+        r'''
+        Taylor series expansion of 
+        
+        .. math::
+                f(x) = \sin(x_1) + \cos(x_2)
+
+        Parameters:
+        -----------
+        :param int ks: the degree of the sine expansion.
+        :param int kc: the degree of the cosine expansion.
+        :param float xs: the center of the sine expansion.
+        :param float xc: the center of the cosine expansion.
+        
+        '''
+
         self.ks = ks
         self.xs = xs
 
@@ -128,6 +251,22 @@ class sin_cos_exp(BaseModel):
         self.xc = xc
     
     def evaluate(self, x):
+        '''
+        Evaluate the model at a grid of x's. The standard deviation
+        output is set to 1 by default.
+
+        Parameters:
+        -----------
+        :param np.ndarray x: design matrix.
+
+        Returns:
+        --------
+        :returns: mean and standard deviation of the model at the x grid points.
+        :rtype: np.ndarray, np.ndarray
+        :return values: mean predictions.
+        :return values: standard deviation of the predictions.
+        
+        '''
         # Check type of x
         if isinstance(x, list):
             x = np.array(x)
@@ -191,7 +330,15 @@ class sin_cos_exp(BaseModel):
         return ts,s
 
     def set_prior(self):
+        '''
+        Set the prior on any model parameters.
+        Not needed for this model. 
+        '''
         return super().set_prior()
 
     def log_likelihood_elementwise(self):
+        '''
+        Obtain the log likelihood for the model.
+        Not needed for this model.
+        '''
         return super().log_likelihood_elementwise()

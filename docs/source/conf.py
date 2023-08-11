@@ -70,3 +70,6 @@ html_static_path = ['_static']
 
 # To turn off pesky smart quotes warnings
 smartquotes = False
+
+# Set the master/main rst file
+master_doc = 'index'

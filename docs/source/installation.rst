@@ -23,11 +23,12 @@ Follow these steps to install Taweret from github.
     jupyter notebook --browser=safari
 
 You can look at the available notebooks in the directory and modify it for your own use case. If \
-you need to add a new mixing method please refer to the **For Deveopers** section. 
+you need to add a new mixing method please refer to the **For Developers** section. 
 
 The pip instalation is not available yet. 
 
 .. code-block:: bash
+
     pip install Taweret
 
 
@@ -52,12 +53,14 @@ please follow the steps below based on the operating system of choice.
 1. Download the OpenBT Ubuntu Linux 20.04 package:
 
 .. code-block:: bash
+    
     $ wget -q https://github.com/jcyannotty/OpenBT/raw/main/openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb 
     
 
-2. Install the package and result the library cache:
+2. Install the package and reset the library cache:
 
 .. code-block:: bash
+    
     $ cd /location/of/downloaded/.deb
     $ dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
     $ ldconfig
@@ -68,6 +71,7 @@ please follow the steps below based on the operating system of choice.
 1. Install the OS/X OpenMPI package by running the following `brew` commands in a terminal window:
 
 .. code-block:: bash
+    
     $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     $ brew install open-mpi
 
@@ -86,12 +90,13 @@ on keeping your Ubuntu WSL up to date, or installing additional features like X 
 installed the WSL Ubuntu layer, start the WSL Ubuntu shell from the start menu and then install the package:
 
 .. code-block:: bash
+    
     $ cd /mnt/c/location/of/downloaded/.deb
     $ dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
 
 
 **OpenBT References**
 
-[1. OpenBT Repository](https://bitbucket.org/mpratola/openbt/src/master/). \\
+1. OpenBT Repository (https://bitbucket.org/mpratola/openbt/src/master/).
 
-[2. OpenBT Repository with Model Mixing](https://github.com/jcyannotty/OpenBT).   
+2. OpenBT Repository with Model Mixing (https://github.com/jcyannotty/OpenBT).   

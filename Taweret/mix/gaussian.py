@@ -4,6 +4,8 @@
 
 #necessary imports
 import numpy as np
+import sys
+sys.path.append('../Taweret')
 from Taweret.core.base_mixer import BaseMixer
 
 class Multivariate(BaseMixer):

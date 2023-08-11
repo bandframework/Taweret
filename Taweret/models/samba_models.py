@@ -12,8 +12,8 @@ import math as math
 import sys
 sys.path.append('../../Taweret')
 
-from core.base_model import BaseModel
-from utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
+from Taweret.core.base_model import BaseModel
+from Taweret.utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
 
 __all__ = ['Loworder', 'Highorder', 'TrueModel', 'Data']
 

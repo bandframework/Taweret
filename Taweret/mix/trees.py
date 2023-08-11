@@ -304,12 +304,9 @@ class Trees(BaseMixer):
 
         Parameters:
         ----------
-        :param np.ndarray X:  
-            input parameter values of dimension (n X p).
-        :param np.ndarray y: 
-            observed data at inputs X of dimension  (n X 1).
-        :param dict kwargs:
-            Dictionary of arguments 
+        :param np.ndarray X: input parameter values of dimension (n x p).
+        :param np.ndarray y: observed data at inputs X of dimension  (n x 1).
+        :param dict kwargs: dictionary of arguments 
 
         Returns:
         --------
@@ -418,7 +415,7 @@ class Trees(BaseMixer):
         Parameters:
         ----------
         :param np.ndarray X: design matrix of testing inputs.
-        :param float ci: credible interval width, must be value within the interval (0,1).
+        :param float ci: credible interval width, must be a value within the interval (0,1).
         
         Returns:
         --------
@@ -427,7 +424,7 @@ class Trees(BaseMixer):
         :return value: the posterior predictive distribution evaluated at the specified test points
         :return value: the posterior mean of the mixed-model at each input in X.
         :return value: the pointwise credible intervals at each input in X.
-        :return value: the posterior standard deviation of the mixed-model samples.
+        :return value: the posterior standard deviation of the mixed-model at each input in X.
         '''
         
         # Set q_lower and q_upper
@@ -510,16 +507,16 @@ class Trees(BaseMixer):
         Parameters:
         ----------
         :param np.ndarray X: design matrix of testing inputs.
-        :param float ci: credible interval width, must be value within the interval (0,1).
+        :param float ci: credible interval width, must be a value within the interval (0,1).
         
         Returns:
         --------
         :returns: The posterior weight function draws and summaries.
         :rtype: np.ndarray, np.ndarray, np.ndarray, np.ndarray 
-        :return value: the posterior draws of the model weight functions at each input in X.
-        :return value: posterior mean of the model weights at each input in X.
+        :return value: the posterior draws of the weight functions at each input in X.
+        :return value: posterior mean of the weight functions at each input in X.
         :return value: pointwise credible intervals for the weight functions.
-        :return value: posterior standard deviation of the weight functions samples.
+        :return value: posterior standard deviation of the weight functions at each input in X.
         '''
         
         # Set q_lower and q_upper

@@ -45,7 +45,6 @@ Taweret is the protective ancient Egyptian goddess of childbirth and fertility. 
 and limbs and paws of a lion. Her back and tail is of a Nile crocodile. Hence the name of our Bayesian Model \
 Mixing package, Taweret!
 
-Taweret follows a three step process for Bayesian Model Mixing, as discussed below.
 
 Models
 ^^^^^^
@@ -57,28 +56,28 @@ Mixing Method
 ^^^^^^^^^^^^^
 The user will then choose a mixing method. Currently Taweret supports: \
 1. **Linear mixing** (2 models) \
-2. **Multivariate BMM** (2,...,N models) \
-3. **Bayesian Trees** (2,...,N models) \
+2. **Multivariate BMM** (N models) \
+3. **Bayesian Trees** (N models) \
 
 Details of each Mixing Method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-**Linear mixing**: Mixing method employing a mixing function between the two models chosen \
+**Linear mixing**: A density-mixing method employing a mixing function between the two models chosen \
 with four different types of mixing functions available in Taweret (*Step*, *Sigmoid*, \
 *CDF*, *Piecewise cosine*). This mixing method takes two models and the experimental data as input \
 and calculates the likelihood. Finding of the optimal weights by either optimizing the \
 likelihood or finding the full posterior is done as the next step. 
 
-**Multivariate BMM**: Mixing method that combines two (or more!) models provided by the user into \
+**Multivariate BMM**: A mean-mixing method that combines two (or more!) models provided by the user into \
 a mixed model. This method, unlike linear mixing, only requires knowledge of the two models and their \
 uncertainties at the input points. Given that the models are supplied by the user, one could combine \
 two functions with a Gaussian Process (as seen in the example notebook for this method). 
 
-**Bayesian Trees**: This mixing method estimates the true underlying system by combining the mean predictions \
+**Bayesian Trees**: This mean-mixing method estimates the true underlying system by combining the mean predictions \
 from N models using a linear combination and input-dependent weighting scheme. The weights functions \
 are defined using Bayesian Additive Regression Trees (BART). This flexible and non-parametric weighting scheme \
 allows the weight functions to reflect the localized performances of each model based on the information across \
-a set of observational data and the corresponding mean predictions. Finally, this approach can be easily extened \
-to handle cases with p-dimensional input spaces.     
+a set of observational data and the corresponding mean predictions from the model set. Finally, this approach is applicable for \
+p-dimensional input spaces.     
 
 Estimating the Weight Functions 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -89,7 +88,7 @@ Another weighting scheme involves precision weighting, as seen in Multivariate B
 of the weight functions may differ substantially across the various BMM methods. Despite this, the estimation \
 process in each method is facilitated using Bayesian principles. Examples of each method can be found in the \
 Python notebooks (docs/source/notebooks) and under the Examples tab on this page. In these examples, BMM is \
-applied to the SAMBA and Coleman models.
+applied to the SAMBA, Coleman, and Polynomial models.
 
 Working with Multiple Models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -107,6 +106,6 @@ Examples of this two-step analysis are applied to the SAMBA models.
 
 This joint analysis is advantageous because it enables each model to be calibrated predominantly based on the sub-regions \
 of the domain where its predictions align well with the observational data. These sub-regions will be simultaneously identified \
-by the weight functions. This should lead more reliable inference than then case where each model is calibrated indivudally and \
-thus foreced to reflect a global fit to the data. For example, the joint analysis would avoid situations where a model is calibrated \
+by the weight functions. This should lead more reliable inference than then case where each model is calibrated individually and \
+thus forced to reflect a global fit to the data. For example, the joint analysis would avoid situations where a model is calibrated \
 using experimental data that is outside its applicability. Examples of this joint analysis are applied to the Coleman models.   

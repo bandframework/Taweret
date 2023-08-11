@@ -23,12 +23,22 @@ for more information.
         git clone <url_to_the_fork> --branch develop
         cd Taweret
 
-- Step 3: Create conda environment for Taweret
+- Step 3: Create a virtual environment for Taweret
+
+With conda:
 
 .. code:: bash
 
         conda env create --file=environment.yml
         conda activate test_env
+
+With virtualenv: 
+
+.. code:: bash
+
+        virtualenv test_env
+        source test_env/bin/activate
+
 
 - Step 4: Locally generate documentation webpage
 

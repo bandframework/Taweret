@@ -61,10 +61,10 @@ class Trees(BaseMixer):
 
         Parameters:
         ----------
-        :param model_dict : dict
+        :param dict model_dict:
             Dictionary of models where each item is an instance of BaseModel.
         
-        :param kwargs : dict
+        :param dict kwargs:
             Additional arguments to pass to the constructor.
 
         Returns: 
@@ -136,6 +136,7 @@ class Trees(BaseMixer):
         self._is_prior_set = False
         self._is_predict_run = False ### Remove ????
 
+
     def evaluate(self):
         '''
         Evaluate the mixed-model to get a point prediction. 
@@ -143,6 +144,7 @@ class Trees(BaseMixer):
         '''
 
         raise Exception("Not applicable for trees.")
+
 
     def evaluate_weights(self):
         '''
@@ -172,8 +174,7 @@ class Trees(BaseMixer):
 
         Returns:
         ---------
-        :returns posterior: 
-            The posterior of the error standard deviation . 
+        :returns: The posterior of the error standard deviation . 
         :rtype: np.ndarray
             
         '''
@@ -186,13 +187,12 @@ class Trees(BaseMixer):
         prior distributions.
 
         Parameters: 
-        ------------
-        :param None.
+        -----------
+        :param: None.
 
         Returns:
-        ---------
-        :returns:
-            A dictionary of the hyperparameters used in the model. 
+        --------
+        :returns: A dictionary of the hyperparameters used in the model. 
         :rtype: dict
 
         '''
@@ -221,7 +221,7 @@ class Trees(BaseMixer):
                     overallnu: int = 10,inform_prior: bool = True,tauvec: bool = None,betavec: bool = None):
         '''
         Sets the hyperparameters in the tree and terminal node priors. Also
-        specifies if an informative or non-informative prior will be used.
+        specifies if an informative or non-informative prior will be used when mixing EFTs.
         
         Parameters:
         -----------
@@ -260,7 +260,7 @@ class Trees(BaseMixer):
         
         Returns:
         --------
-        :retval: None.
+        :returns: None.
 
         '''
         # Extract arguments 
@@ -415,26 +415,19 @@ class Trees(BaseMixer):
         Obtain the posterior predictive distribution of the mixed-model at a set
         of inputs X.
 
-        Parameters
+        Parameters:
         ----------
-        :param X : np.ndarray
-            input parameter values
-        :param ci : double
-            credible interval width, must be value within the interval (0,1)
+        :param np.ndarray X: design matrix of testing inputs.
+        :param float ci: credible interval width, must be value within the interval (0,1).
         
         Returns:
         --------
         :returns: The posterior prediction draws and summaries.
         :rtype: np.ndarray, np.ndarray, np.ndarray, np.ndarray
-        :retval evaluated_posterior: 
-            the posterior predictive distribution evaluated at the specified
-            test points
-        :retval mean:
-            posterior mean of the mixed-model at each input in X.
-        :retval credible_intervals:
-            pointwise credible intervals at each input in X.
-        :retval std_dev:
-            posterior standard deviation of the mixed-model samples.
+        :return value: the posterior predictive distribution evaluated at the specified test points
+        :return value: the posterior mean of the mixed-model at each input in X.
+        :return value: the pointwise credible intervals at each input in X.
+        :return value: the posterior standard deviation of the mixed-model samples.
         '''
         
         # Set q_lower and q_upper
@@ -516,23 +509,17 @@ class Trees(BaseMixer):
 
         Parameters:
         ----------
-        :param np.ndarray X: 
-            input parameter values
-        :param float ci:
-            credible interval width, must be value within the interval (0,1)
+        :param np.ndarray X: design matrix of testing inputs.
+        :param float ci: credible interval width, must be value within the interval (0,1).
         
         Returns:
         --------
         :returns: The posterior weight function draws and summaries.
         :rtype: np.ndarray, np.ndarray, np.ndarray, np.ndarray 
-        :retval evaluated_posterior:
-            the posterior draws of the model weight functions at each input in X.
-        :retval mean:
-            posterior mean of the model weights at each input in X.
-        :retval credible_intervals:
-            pointwise credible intervals for the weight functions.
-        :retval std_dev:
-            posterior standard deviation of the weight functions samples.
+        :return value: the posterior draws of the model weight functions at each input in X.
+        :return value: posterior mean of the model weights at each input in X.
+        :return value: pointwise credible intervals for the weight functions.
+        :return value: posterior standard deviation of the weight functions samples.
         '''
         
         # Set q_lower and q_upper
@@ -600,8 +587,7 @@ class Trees(BaseMixer):
 
         Parameters:
         ----------
-        :param int xdim:
-            index of the column to plot against the predictions.
+        :param int xdim: index of the column to plot against the predictions.
         
         Returns:
         --------
@@ -635,14 +621,14 @@ class Trees(BaseMixer):
         can be any column of the design matrix X, which is passed into 
         the predict_weights function.
 
-        Parameters
+        Parameters:
         ----------
-        :param int xdim:
-                index of the column to plot against the predictions.
+        :param int xdim: index of the column to plot against the predictions.
         
         Returns:
         --------
         :return: None.
+        
         '''
         # Check if weights are already loaded
         col_list = ['red','blue','green','purple','orange']
@@ -669,15 +655,6 @@ class Trees(BaseMixer):
         '''
         Plot the posterior distribution of the observational error
         standard deviation.
-
-        Parameters
-        ----------
-        :param: None
-            index of the column to plot against the predictions.
-        
-        Returns:
-        --------
-        :return: None.
         '''
         fig = plt.figure(figsize=(6,5))
         plt.hist(self.posterior, zorder = 2)

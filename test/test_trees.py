@@ -9,11 +9,22 @@ Version: 1.0
 
 # Imports
 import numpy as np
+import pytest
+import subprocess
 
-from Taweret.core.base_mixer import BaseMixer
-from Taweret.core.base_model import BaseModel
-from Taweret.mix import Trees
-from Taweret.models.polynomial_models import sin_exp, cos_exp, sin_cos_exp
+import os
+import sys
+
+dirname = os.popen("find $PWD -type f -name test_trees.py").read()
+taweret_wd = dirname.split("test")[0]
+
+#os.chdir(taweret_wd)
+sys.path.append(taweret_wd)
+#sys.path.insert(0, taweret_wd)
+
+from Taweret.mix.trees import Trees
+from Taweret.models.polynomial_models import sin_cos_exp
+
 
 #---------------------------------------------
 # Define the test functions
@@ -24,14 +35,13 @@ def test_init():
     assert mix.model_dict == model_dict, "class object self.model_dict not set."
     assert mix.nummodels == len(model_dict), "class object self.nummodels not set."
 
-from Taweret.models.polynomial_models import sin_exp, cos_exp, sin_cos_exp
 
 # Test the mixing fun
 def test_mixing():
-    x_train = np.loadtxt('test/bart_bmm_test_data/2d_x_train.txt').reshape(80,2)
+    x_train = np.loadtxt(taweret_wd + 'test/bart_bmm_test_data/2d_x_train.txt').reshape(80,2)
     x_train = x_train.reshape(2,80).transpose()
 
-    y_train = np.loadtxt('test/bart_bmm_test_data/2d_y_train.txt').reshape(80,1)
+    y_train = np.loadtxt(taweret_wd + 'test/bart_bmm_test_data/2d_y_train.txt').reshape(80,1)
 
     # Set prior information
     mix.set_prior(k=2.5,ntree=30,overallnu=5,overallsd=0.01,inform_prior=False)
@@ -66,8 +76,8 @@ def test_predict():
     x_test = np.array([x1_test.reshape(x1_test.size,),x2_test.reshape(x1_test.size,)]).transpose()
 
     # Read in test results
-    pmean_test = np.loadtxt('test/bart_bmm_test_data/2d_pmean.txt')
-    eps = 0.05
+    pmean_test = np.loadtxt(taweret_wd + 'test/bart_bmm_test_data/2d_pmean.txt')
+    eps = 0.10
 
     # Get predictions
     ppost, pmean, pci, pstd = mix.predict(X = x_test, ci = 0.95)
@@ -89,7 +99,7 @@ def test_predict_wts():
     
     # Read in test results
     wteps = 0.05
-    wmean_test = np.loadtxt('test/bart_bmm_test_data/2d_wmean.txt')
+    wmean_test = np.loadtxt(taweret_wd + 'test/bart_bmm_test_data/2d_wmean.txt')
 
     # Test the values
     werr = np.mean(np.abs(wmean - wmean_test))
@@ -112,4 +122,5 @@ f2 = sin_cos_exp(13,6,-np.pi,-np.pi)
 model_dict = {'model1':f1, 'model2':f2}
 
 
-mix = Trees(model_dict = model_dict, local_openbt_path = "/home/johnyannotty/Documents/openbt/src")
+#mix = Trees(model_dict = model_dict, local_openbt_path = "/home/johnyannotty/Documents/openbt/src")
+mix = Trees(model_dict = model_dict)

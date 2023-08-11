@@ -6,7 +6,7 @@
 import numpy as np
 import sys
 sys.path.append('../Taweret')
-from core.base_mixer import BaseMixer
+from Taweret.core.base_mixer import BaseMixer
 
 class Multivariate(BaseMixer):
     r'''

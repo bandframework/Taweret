@@ -4,19 +4,22 @@ from Taweret.core.base_model import BaseModel
 
 # Polynomial Class Functions
 class polynomal_model(BaseModel):
-    def __init__(self,a=0,b=0,c=1,p=1):
-        r'''
+    '''
         Polynomial models class. Used to define a function of the form
 
         .. math::
             f(x) = c(x-a)^p + b
+    '''
 
-        Parameters:
-        -----------
-        :param float a: center parameter.
-        :param float b: shift parameter.
-        :param float c: scale parameter.
-        :param float p: power parameter.
+    def __init__(self,a=0,b=0,c=1,p=1):
+    
+        '''
+            Parameters:
+            -----------
+            :param float a: center parameter.
+            :param float b: shift parameter.
+            :param float c: scale parameter.
+            :param float p: power parameter.
 
         '''
         self.a = a
@@ -55,22 +58,24 @@ class polynomal_model(BaseModel):
         Set the prior on any model parameters.
         Not needed for this model. 
         '''
-        return super().set_prior()
+        return None
 
     def log_likelihood_elementwise(self):
         '''
         Obtain the log likelihood for the model.
         Not needed for this model.
         '''        
-        return super().log_likelihood_elementwise()
+        return None
 
 
 # Taylor Expansions
 class sin_exp(BaseModel):
+    '''
+        Sine Taylor series expansion model class.
+    '''
+    
     def __init__(self,k,x0):
         '''
-        Sine Taylor series expansions model class.
-
         Parameters:
         -----------
         :param int k: the degree of the expansion.
@@ -136,22 +141,23 @@ class sin_exp(BaseModel):
         Set the prior on any model parameters.
         Not needed for this model. 
         '''
-        return super().set_prior()
+        return None
 
     def log_likelihood_elementwise(self):
         '''
         Obtain the log likelihood for the model.
         Not needed for this model.
         '''
-        return super().log_likelihood_elementwise()
+        return None
 
 
 
 class cos_exp(BaseModel):
+    '''
+        Cosine Taylor series expansion model class.
+    ''' 
     def __init__(self,k,x0):
         '''
-        Cosine Taylor series expansions model class.
-
         Parameters:
         -----------
         :param int k: the degree of the expansion.
@@ -217,24 +223,27 @@ class cos_exp(BaseModel):
         Set the prior on any model parameters.
         Not needed for this model. 
         '''
-        return super().set_prior()
+        return None
 
     def log_likelihood_elementwise(self):
         '''
         Obtain the log likelihood for the model.
         Not needed for this model.
         '''
-        return super().log_likelihood_elementwise()
+        return None
 
 
 class sin_cos_exp(BaseModel):
-    def __init__(self,ks,kc,xs,xc):
-        r'''
-        Taylor series expansion of 
+    '''
+    Taylor series expansion of 
         
-        .. math::
-                f(x) = \sin(x_1) + \cos(x_2)
+    .. math::
+            f(x) = \sin(x_1) + \cos(x_2)
 
+
+    '''
+    def __init__(self,ks,kc,xs,xc):
+        '''
         Parameters:
         -----------
         :param int ks: the degree of the sine expansion.
@@ -334,11 +343,11 @@ class sin_cos_exp(BaseModel):
         Set the prior on any model parameters.
         Not needed for this model. 
         '''
-        return super().set_prior()
+        return None
 
     def log_likelihood_elementwise(self):
         '''
         Obtain the log likelihood for the model.
         Not needed for this model.
         '''
-        return super().log_likelihood_elementwise()
+        return None

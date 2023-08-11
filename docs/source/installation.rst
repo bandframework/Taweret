@@ -25,7 +25,7 @@ Follow these steps to install Taweret from github.
 You can look at the available notebooks in the directory and modify it for your own use case. If \
 you need to add a new mixing method please refer to the **For Developers** section. 
 
-The pip instalation is not available yet. 
+The pip installation is not available yet. 
 
 .. code-block:: bash
 

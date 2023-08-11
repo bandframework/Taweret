@@ -18,7 +18,7 @@ mean predictions or predictive densities from the indivdual models using a linea
 The weights in this linear combination may or may not depend on the inputs. When the models under consideration \
 exhibit varrying levels of predictive accuracy depending on the sub-region of the input domain, an input-dependent \
 weighting scheme is more appropriate. A memeber of the class of input-dependent weighting schemes is \
-Bayesian Model Mixing (BMM). BMM is a data-driven technique combines the predictions from a set of N candidate models in a \
+Bayesian Model Mixing (BMM). BMM is a data-driven technique which combines the predictions from a set of N candidate models in a \
 Bayesian manner using input-dependent weights. Mixing can be performed using one of two strategies described below: \
 (1) A two-step approach: Each model is fit prior to mixing. \
 The weight functions are then learned conditional on the predictions from each model. \
@@ -49,8 +49,8 @@ Mixing package, Taweret!
 Models
 ^^^^^^
 The user has to provide models that they would like to mix. Currently Taweret supports mixing of two \
-or more models with a 1,...,N-dimensional input space (depending on the method of mixing chosen) and a single output. \
-The models should have a predict method and should return a mean and a variance for each input parameter value. 
+or more models with a 1,...,p-dimensional input space (depending on the method of mixing chosen) and a single output. \
+The models are required to have an "evaluate" a method which should return a mean and a standard deviation for each input parameter value. 
 
 Mixing Method
 ^^^^^^^^^^^^^
@@ -76,7 +76,7 @@ two functions with a Gaussian Process (as seen in the example notebook for this 
 from N models using a linear combination and input-dependent weighting scheme. The weights functions \
 are defined using Bayesian Additive Regression Trees (BART). This flexible and non-parametric weighting scheme \
 allows the weight functions to reflect the localized performances of each model based on the information across \
-a set of observational data and the corresponding mean predictions from the model set. Finally, this approach is applicable for \
+a set of observational data and the corresponding mean predictions from the model set. This approach is applicable for \
 p-dimensional input spaces.     
 
 Estimating the Weight Functions 
@@ -96,10 +96,10 @@ Working with Multiple Models
 **A Two-step approach**: \
 In some cases, the models under consideration may have been previously calibrated. \
 Consequently, the predictions from each model are easily ascertained across a new set of input locations. This calibration \
-phase is the referred to as the first step in the two-step process. The second step invloves mixing the predictions from each model \
+phase is the first step in the two-step process. The second step invloves mixing the predictions from each model \
 to estimate the true system. Thus, conditional on the individual predictions across a set of inputs along with observational data, \
 the weight functions are learned and the overall mean or predictive density of the underlying system is estimated in a Bayesian manner. \
-Examples of this two-step analysis are applied to the SAMBA models.  
+Examples of this two-step analysis can be found in a variety of the notebooks provided in the Examples section.  
 
 
 **Mixing and Calibration**: \

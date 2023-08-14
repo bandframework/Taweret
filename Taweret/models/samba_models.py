@@ -209,12 +209,8 @@ class Loworder(BaseModel):
         return mean, np.sqrt(var)
     
 
-    def log_likelihood_elementwise(self):
-        '''
-        Obtain the log likelihood for this model.
-        Not needed for this model. 
-        '''
-        return None
+    def log_likelihood_elementwise(self, x_exp, y_exp, y_err, model_param):
+        return log_likelihood_elementwise_utils(self, x_exp, y_exp, y_err, model_param)
     
 
     def set_prior(self):
@@ -357,12 +353,8 @@ class Highorder(BaseModel):
         return mean, np.sqrt(var)
 
 
-    def log_likelihood_elementwise(self):
-        '''
-        Obtain the log likelihood for the model.
-        Not needed for this model.
-        '''
-        return None
+    def log_likelihood_elementwise(self, x_exp, y_exp, y_err, model_param):
+        return log_likelihood_elementwise_utils(self, x_exp, y_exp, y_err, model_param)
     
 
     def set_prior(self):
@@ -414,12 +406,8 @@ class TrueModel(BaseModel):
         return mean, np.sqrt(var)
 
 
-    def log_likelihood_elementwise(self):
-        '''
-        Obtain the log likelihood for the model.
-        Not needed for this model.
-        '''
-        return None
+    def log_likelihood_elementwise(self, x_exp, y_exp, y_err):
+        return log_likelihood_elementwise_utils(self, x_exp, y_exp, y_err)
     
 
     def set_prior(self):

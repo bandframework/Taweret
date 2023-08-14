@@ -206,7 +206,7 @@ class Loworder(BaseModel):
         # rename for clarity
         var = var1
 
-        return mean, np.sqrt(var)
+        return mean.flatten(), np.sqrt(var).flatten()
     
 
     def log_likelihood_elementwise(self, x_exp, y_exp, y_err, model_param):
@@ -350,7 +350,7 @@ class Highorder(BaseModel):
         # rename for clarity
         var = var2
 
-        return mean, np.sqrt(var)
+        return mean.flatten(), np.sqrt(var).flatten()
 
 
     def log_likelihood_elementwise(self, x_exp, y_exp, y_err, model_param):
@@ -403,7 +403,7 @@ class TrueModel(BaseModel):
         mean = self.model
         var = np.zeros(shape=mean.shape)
         
-        return mean, np.sqrt(var)
+        return mean.flatten(), np.sqrt(var).flatten()
 
 
     def log_likelihood_elementwise(self, x_exp, y_exp, y_err):

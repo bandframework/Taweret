@@ -451,7 +451,7 @@ class Data(BaseModel):    # --> check that this model is set up correctly
             raise ValueError('Error must be between 0.0 and 1.0.')
 
         #generate fake data  
-        data = truemodel.evaluate(x_data)
+        data, _ = truemodel.evaluate(x_data)
         rand = np.random.RandomState()
         var = error*rand.randn(len(x_data))
         data = data*(1 + var)

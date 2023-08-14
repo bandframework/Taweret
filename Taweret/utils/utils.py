@@ -222,6 +222,7 @@ def mixture_function(method: str, x: np.ndarray, mixture_params: np.ndarray, pri
         theta_0, theta_1 = mixture_params
         x = theta_0 + theta_1*x
         w = norm.cdf(x)
+        w = np.array(w).flatten()
         return w, 1 - w
     elif method == 'beta':
         print('Warning: mixture_function - the `beta` choice forces a stochastic')

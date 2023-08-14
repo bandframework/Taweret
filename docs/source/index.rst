@@ -27,7 +27,7 @@ Welcome to Bayesian Model Mixing with Taweret!
 .. toctree::
    :maxdepth: 1
    :caption: Examples:
-   
+   notebooks/coleman_models_BMM_comparative_study
    notebooks/Linear_BMM_with_step_function_for_SAMBA_models
    notebooks/Linear_BMM_with_cdf_function_for_SAMBA_models
    notebooks/Linear_BMM_with_switchcos_function_for_SAMBA_models

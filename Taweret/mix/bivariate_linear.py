@@ -203,7 +203,9 @@ class BivariateLinear(BaseMixer):
                 model_2_out, _, _ = model_2.evaluate(x)
             except:
                 model_2_out, _ = model_2.evaluate(x)
-
+        model_1_out = np.array(model_1_out)
+        model_2_out = np.array(model_2_out)
+        
         if model_1_out.ndim == model_2_out.ndim and model_2_out.ndim <= 1:
             return w1*model_1_out + w2*model_2_out
         elif model_1_out.ndim == model_2_out.ndim and model_2_out.ndim == 2:

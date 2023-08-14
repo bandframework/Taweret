@@ -1,6 +1,3 @@
 [submodule "subpackages/SAMBA"]
 	path = subpackages/SAMBA
 	url = https://github.com/asemposki/SAMBA.git
-[submodule "subpackages/js-sims-bayes/HIC_experimental_data"]
-	path = subpackages/js-sims-bayes/HIC_experimental_data
-	url = https://github.com/derekeverett/HIC_experimental_data.git

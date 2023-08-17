@@ -1,5 +1,0 @@
-name: test_env
-dependencies:
-  - numpy=1.18.5
-  - seaborn=0.11.0
-  - jupyter

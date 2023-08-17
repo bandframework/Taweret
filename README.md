@@ -18,3 +18,4 @@ See Taweret's docs webpage [here](https://taweretorg.github.io/Taweret/).
 
 ## Citing BAND software
 If you have benefited from Taweret, please cite the BAND collaboration software suite using the format [here](https://github.com/bandframework/bandframework#citing-the-band-framework).
+=======

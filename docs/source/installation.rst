@@ -75,7 +75,7 @@ please follow the steps below based on the operating system of choice.
     $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     $ brew install open-mpi
 
-2. Download the OpenBT OSX binary package:
+2. Download the OpenBT OSX binary package, "OpenBT-Mixing-Current.pkg", from [1].
 
 3. Install the OpenBT OSX package by double-clicking on the downloaded .pkg file and follow the on-screen instructions.
 

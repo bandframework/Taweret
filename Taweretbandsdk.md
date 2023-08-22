@@ -25,8 +25,8 @@
 | # | Policy                 |Support| Notes                   |
 |---|-----------------------|-------|-------------------------|
 | 1. | Support BAND community GNU Autoconf, CMake, or other build options. |Full| The majority of Taweret is written in Python which does not have compatibility with CMake or require GNU Autoconfig. The trees module has an additional step for installing a Ubuntu package and thus does not need compilation. These installation steps are described in the Taweret documentation.|
-| 2. | Have a README file in the top directory that states a specific set of testing procedures for a user to verify the software was installed and run correctly. | Not Yet...| Need to do.... |
-| 3. | Provide a documented, reliable way to contact the development team. |Not Yet...| The Taweret team can be contacted via the public issues page Github. Add to this step to README..... |
+| 2. | Have a README file in the top directory that states a specific set of testing procedures for a user to verify the software was installed and run correctly. | Full | None. |
+| 3. | Provide a documented, reliable way to contact the development team. |Full| The Taweret team can be contacted via the public issues page Github. |
 | 4. | Come with an open-source license |Full| Taweret uses the MIT license.|
 | 5. | Provide a runtime API to return the current version number of the software. |Full| None.|
 | 6. | Provide a BAND team-accessible repository. |Full| https://github.com/TaweretOrg/Taweret |

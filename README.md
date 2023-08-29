@@ -28,6 +28,9 @@ pytest test_trees.py
 ## Citing BAND software
 If you have benefited from Taweret, please cite the BAND collaboration software suite using the format [here](https://github.com/bandframework/bandframework#citing-the-band-framework).
 
+## BAND SDK compliance
+Check out our SDK form [here](https://github.com/TaweretOrg/Taweret/blob/main/Taweretbandsdk.md).
+
 ## Contact
 To contact the Taweret team, please submit an issue through the Issues page. 
 

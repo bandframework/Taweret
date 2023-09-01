@@ -1,8 +1,8 @@
 """
 Name: wrappers.py
 Author: John Yannotty (yannotty.1@osu.edu)
-Desc: Defines classes to wrap the BAND mixing and calibration methods. Inspired by biliby documentation 
-    (see repo: bilby/bilby/core/sampler/__init__.py) 
+Desc: Defines classes to wrap the BAND mixing and calibration methods. Inspired by biliby documentation
+    (see repo: bilby/bilby/core/sampler/__init__.py)
 
 Start Date: 10/05/22
 Version: 1.0
@@ -19,28 +19,37 @@ IMPLEMENTED_MIXERS = {
     "sigmoid": LM,
     "cdf": LM,
     "step": LM,
-    "mixbart":TM
+    "mixbart": TM
 }
 
-def mixing(model_list, x_exp, y_exp = None, y_err = None, method = 'sigmoid', **kwargs):
+
+def mixing(
+        model_list,
+        x_exp,
+        y_exp=None,
+        y_err=None,
+        method='sigmoid',
+        **kwargs):
     """
         Name: mixing
-        Desc: interface for all BAND BMM modules 
+        Desc: interface for all BAND BMM modules
 
-        Parameters --- update names 
+        Parameters --- update names
         ----------
         model_list (list): list of model class instances
         x_exp (np.array): x inputs to train with
         y_exp (np.array): y experimental data to train with
         y_exp (np.array): associated errors with y (std deviations???)
         method (string): name of the mixing method
-        **kwargs        : arguments which are mixing method specific 
+        **kwargs        : arguments which are mixing method specific
 
     """
     # Check valid method
     valid_methods = list(IMPLEMENTED_MIXERS.keys())
     if not method.lower() in valid_methods:
-        raise ValueError("Invalid mixing method. Valid methods include..." + ", ".join(valid_methods))
+        raise ValueError(
+            "Invalid mixing method. Valid methods include..." +
+            ", ".join(valid_methods))
 
     # Check for valid models, must have a predict method
     i = 1
@@ -49,18 +58,16 @@ def mixing(model_list, x_exp, y_exp = None, y_err = None, method = 'sigmoid', **
             getattr(m, 'predict')
         except AttributeError:
             print("Model " + str(i) + " does not have a predict method")
-        i+=1
+        i += 1
 
     # Create the data dictionary
-    data = {'x_exp':x_exp, 'y_exp':y_exp, 'y_err':y_err}
+    data = {'x_exp': x_exp, 'y_exp': y_exp, 'y_err': y_err}
 
     # Initialize the mixer class instance
     mixer_class = IMPLEMENTED_MIXERS[method.lower()]
     mixer = mixer_class(model_list, data, method, **kwargs)
-    
+
     return mixer
-
-
 
 
 # ---------------------------------------------------------
@@ -69,7 +76,7 @@ def mixing(model_list, x_exp, y_exp = None, y_err = None, method = 'sigmoid', **
 
 
 # Check valid data (not model specific at this stage)
-# data_keys = ['x_exp', 'y_exp', 'y_err'] # add to this list as needed 
+# data_keys = ['x_exp', 'y_exp', 'y_err'] # add to this list as needed
 # for key in data_keys:
 #     if not (key in data.keys()):
 #         data.update({key:None})
@@ -78,5 +85,3 @@ def mixing(model_list, x_exp, y_exp = None, y_err = None, method = 'sigmoid', **
 # for in_key in data.keys():
 #     if not (in_key in data_keys):
 #         raise KeyError("An extra data key was passed. Valid keys include..." + ", ".join(data_keys))
-
-

@@ -1,6 +1,8 @@
-# Add any new likelihood wrappers here to be used with other calibration packages
+# Add any new likelihood wrappers here to be used with other calibration
+# packages
 import bilby
 import numpy as np
+
 
 class likelihood_wrapper_for_bilby(bilby.Likelihood):
     """
@@ -20,36 +22,33 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
     Methods
     -------
     log_likelihood(self)
-        calculates the log likelihood for the parameter values specefied in the wrapper object. 
+        calculates the log likelihood for the parameter values specefied in the wrapper object.
     """
 
-
     def __init__(self, mixed_model, x_exp, y_exp, y_err):
-        
-        param_dic= {i: None 
-        for i in mixed_model.prior.keys()
-        }
+
+        param_dic = {i: None
+                     for i in mixed_model.prior.keys()
+                     }
 
         super().__init__(parameters=param_dic)
-        self.mixed_model=mixed_model
-        self.x_exp=x_exp
-        self.y_exp=y_exp
-        self.y_err=y_err
-        
+        self.mixed_model = mixed_model
+        self.x_exp = x_exp
+        self.y_exp = y_exp
+        self.y_err = y_err
+
     def log_likelihood(self):
         """
         log likelihood function that can be used with Bilby.
         return the scalar log likelihood value.
         """
         params = list(self.parameters.values())
-        
-        # Because when putting consteaints dummy variables enter which are None in parameters
+
+        # Because when putting consteaints dummy variables enter which are None
+        # in parameters
         params = [i for i in params if i is not None]
         params = np.array(params).flatten()
 
-        
-        
-        
         mix_param = params[0:self.mixed_model.n_mix]
         models_params = []
         tot_sum = self.mixed_model.n_mix
@@ -60,4 +59,5 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
             if self.mixed_model.same_parameters:
                 break
 
-        return self.mixed_model.mix_loglikelihood(mix_param, models_params, self.x_exp, self.y_exp, self.y_err)
+        return self.mixed_model.mix_loglikelihood(
+            mix_param, models_params, self.x_exp, self.y_exp, self.y_err)

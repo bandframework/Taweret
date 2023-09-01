@@ -10,17 +10,17 @@
 # by using Taweret package.
 # Then the values are compared to make sure they are the same.
 # The test can be upgraded to choose a random value for
-# the two models to be evaluated and a random mixing function. 
+# the two models to be evaluated and a random mixing function.
 
+from pytest import approx
+import pytest
+import numpy as np
+import bilby
+from Taweret.models import coleman_models as toy_models
+from Taweret.mix.bivariate_linear import BivariateLinear as BL
 import sys
 # sys.path.append('../Taweret')
 sys.path.append("../../Taweret")
-from Taweret.mix.bivariate_linear import BivariateLinear as BL
-from Taweret.models import coleman_models as toy_models
-import bilby
-import numpy as np
-import pytest
-from pytest import approx
 
 # import sys
 # sys.path.append("/Users/dananjayaliyanage/temp/Taweret")
@@ -39,7 +39,7 @@ true_output = truth.evaluate(plot_g)
 exp_data = truth.evaluate(g)
 yexp = np.array(exp_data[0]).reshape(-1, 1)
 yexp_er = np.array(exp_data[1]).reshape(-1, 1)
-# Make the following a random number to make this 
+# Make the following a random number to make this
 # test more advanced
 
 value = np.array([3])
@@ -51,14 +51,31 @@ mean2, var2, _ = m2.evaluate(g, value, full_corr=False)
 
 models = {'model1': m1, 'model2': m2}
 
-mix_model_BMMC_mix = BL(models_dic=models, method='addstepasym', nargs_model_dic={'model1': 1, 'model2': 1},
-                        same_parameters=False)
+mix_model_BMMC_mix = BL(
+    models_dic=models,
+    method='addstepasym',
+    nargs_model_dic={
+        'model1': 1,
+        'model2': 1},
+    same_parameters=False)
 
-mix_model_BMMcor_mix = BL(models_dic=models, method='addstepasym', nargs_model_dic={'model1': 1, 'model2': 1},
-                          same_parameters=False, BMMcor=True)
+mix_model_BMMcor_mix = BL(
+    models_dic=models,
+    method='addstepasym',
+    nargs_model_dic={
+        'model1': 1,
+        'model2': 1},
+    same_parameters=False,
+    BMMcor=True)
 
-mix_model_mean_mix = BL(models_dic=models, method='addstepasym', nargs_model_dic={'model1': 1, 'model2': 1},
-                        same_parameters=False, mean_mix=True)
+mix_model_mean_mix = BL(
+    models_dic=models,
+    method='addstepasym',
+    nargs_model_dic={
+        'model1': 1,
+        'model2': 1},
+    same_parameters=False,
+    mean_mix=True)
 
 mix_models = [mix_model_BMMC_mix, mix_model_BMMcor_mix, mix_model_mean_mix]
 
@@ -73,52 +90,52 @@ for mix_model in mix_models:
 def gaussian_LL(delta, Cov):
     inv_Cov = np.linalg.inv(Cov)
     det = np.linalg.det(Cov)
-    inside_exp = -0.5*delta.T@inv_Cov@delta
+    inside_exp = -0.5 * delta.T @ inv_Cov @ delta
     inside_exp = inside_exp.flatten()
     # norm = np.sqrt(((2*np.pi)**len(delta))*det)
     n = len(delta)
     norm_const = -n / (2. * np.log(2. * np.pi))
 
-    return inside_exp - 0.5*np.log(det) + norm_const
+    return inside_exp - 0.5 * np.log(det) + norm_const
 
 
 def gaussian_L_elements(delta, Cov):
 
     sigma = np.sqrt(np.diag(Cov))
     diff = -0.5 * np.square((delta) / sigma) \
-        - 0.5 * np.log(2*np.pi) - np.log(sigma)
+        - 0.5 * np.log(2 * np.pi) - np.log(sigma)
     return diff
 
 
 def L_BMMoC(delta_y1, delta_y2, Cov, w):
     L1 = np.exp(gaussian_L_elements(delta_y1, Cov))
     L2 = np.exp(gaussian_L_elements(delta_y2, Cov))
-    L = L1*w + L2*(1-w)
+    L = L1 * w + L2 * (1 - w)
     L = np.log(L)
     return np.sum(L)
 
 
 def W_matrices(w):
     W1 = np.diag(w)
-    W2 = np.diag(1-w)
+    W2 = np.diag(1 - w)
     return W1, W2
 
 
 def L_BMMcor(delta_y1, delta_y2, Cov, w):
     W_1, W_2 = W_matrices(w)
-    delta1 = W_1@delta_y1
-    delta2 = W_2@delta_y2
+    delta1 = W_1 @ delta_y1
+    delta2 = W_2 @ delta_y2
 
     L1 = gaussian_LL(delta1, Cov)
     L2 = gaussian_LL(delta2, Cov)
-    L = L1+L2
+    L = L1 + L2
     return L
 
 
 def L_BMMmean(delta_y1, delta_y2, Cov, w):
    # W_1, W_2 = W_matrices(w)
-    delta1 = w*delta_y1
-    delta2 = (1-w)*delta_y2
+    delta1 = w * delta_y1
+    delta2 = (1 - w) * delta_y2
 
     delta = delta1 + delta2
 
@@ -134,8 +151,8 @@ def L_BMMmean(delta_y1, delta_y2, Cov, w):
 
 mix_param = np.array([3, 6, 0.5])
 
-delta_y1 = mean1-exp_data[0]
-delta_y2 = mean2-exp_data[0]
+delta_y1 = mean1 - exp_data[0]
+delta_y2 = mean2 - exp_data[0]
 Cov = np.diag(np.square(exp_data[1]))
 w1, w2 = mix_models[0].evaluate_weights(mix_param, g)
 
@@ -149,53 +166,55 @@ def test_BMMC():
     model = mix_models[i]
     print(f'Testing {methods_name[i]} from bivariate_linear.py')
     log_lik_from_taweret_model = model.mix_loglikelihood(mix_param,
-                                                        [value, value],
-                                                        g,
-                                                        yexp,
-                                                        yexp_er)
+                                                         [value, value],
+                                                         g,
+                                                         yexp,
+                                                         yexp_er)
     log_like_from_test = test_mixing_func[i](delta_y1, delta_y2, Cov, w1)
     # print(type(log_lik_from_taweret_model))
     # print(log_lik_from_taweret_model)
-        
+
     # print(type(log_like_from_test))
     # print(log_like_from_test)
-        
+
     log_like_from_test = approx(log_lik_from_taweret_model)
+
 
 def test_BMMcor():
     i = 1
     model = mix_models[i]
     print(f'Testing {methods_name[i]} from bivariate_linear.py')
     log_lik_from_taweret_model = model.mix_loglikelihood(mix_param,
-                                                        [value, value],
-                                                        g,
-                                                        yexp,
-                                                        yexp_er)
+                                                         [value, value],
+                                                         g,
+                                                         yexp,
+                                                         yexp_er)
     log_like_from_test = test_mixing_func[i](delta_y1, delta_y2, Cov, w1)
     # print(type(log_lik_from_taweret_model))
     # print(log_lik_from_taweret_model)
-        
+
     # print(type(log_like_from_test))
     # print(log_like_from_test)
-        
+
     log_like_from_test = approx(log_lik_from_taweret_model)
+
 
 def test_BMMmean():
     i = 2
     model = mix_models[i]
     print(f'Testing {methods_name[i]} from bivariate_linear.py')
     log_lik_from_taweret_model = model.mix_loglikelihood(mix_param,
-                                                        [value, value],
-                                                        g,
-                                                        yexp,
-                                                        yexp_er)
+                                                         [value, value],
+                                                         g,
+                                                         yexp,
+                                                         yexp_er)
     log_like_from_test = test_mixing_func[i](delta_y1, delta_y2, Cov, w1)
     # print(type(log_lik_from_taweret_model))
     # print(log_lik_from_taweret_model)
-        
+
     # print(type(log_like_from_test))
     # print(log_like_from_test)
-        
+
     log_like_from_test = approx(log_lik_from_taweret_model)
 
 # def test_three_mixing_methods():
@@ -209,10 +228,10 @@ def test_BMMmean():
 #         log_like_from_test = test_mixing_func[i](delta_y1, delta_y2, Cov, w1)
 #         print(type(log_lik_from_taweret_model))
 #         print(log_lik_from_taweret_model)
-        
+
 #         print(type(log_like_from_test))
 #         print(log_like_from_test)
-        
+
 #         log_like_from_test = approx(log_lik_from_taweret_model)
 #         # assert np.allclose(log_lik_from_taweret_model, log_like_from_test,
 #         #                    "log likelihood calculated in test are different\

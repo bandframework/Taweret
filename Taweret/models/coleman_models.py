@@ -10,7 +10,11 @@ class coleman_model_1(BaseModel):
     def __init__(self) -> None:
         self._prior = None
 
-    def evaluate(self, input_values: np.array, model_param: np.array, full_corr=False) -> np.array:
+    def evaluate(
+            self,
+            input_values: np.array,
+            model_param: np.array,
+            full_corr=False) -> np.array:
         """
         Predict the mean and error for given input values
 
@@ -24,7 +28,7 @@ class coleman_model_1(BaseModel):
 
         x = input_values.flatten()
         mean = np.zeros(len(x))
-        var = 0.3*0.3*np.zeros(len(x))
+        var = 0.3 * 0.3 * np.zeros(len(x))
 
         if len(model_param.flatten()) != 1:
             raise TypeError(
@@ -42,11 +46,13 @@ class coleman_model_1(BaseModel):
         y_exp = y_exp.flatten()
         y_err = y_err.flatten()
         # log likleihood elementwise can only handle 1 observable
-        return log_likelihood_elementwise_utils(self, x_exp, y_exp, y_err, model_param)
+        return log_likelihood_elementwise_utils(
+            self, x_exp, y_exp, y_err, model_param)
 
     # def log_likelihood(self, x_exp, y_exp_all, y_err_all, W, model_param=None):
     #     """
-    #     Calculate Normal log likelihood for all centrality in x_exp with weights.
+    # Calculate Normal log likelihood for all centrality in x_exp with
+    # weights.
 
     #     Parameters
     #     ----------
@@ -115,7 +121,11 @@ class coleman_model_2(BaseModel):
     def __init__(self) -> None:
         self._prior = None
 
-    def evaluate(self, input_values: np.array, model_param: np.array, full_corr=False) -> np.array:
+    def evaluate(
+            self,
+            input_values: np.array,
+            model_param: np.array,
+            full_corr=False) -> np.array:
         """
         Predict the mean and error for given input values
 
@@ -129,7 +139,7 @@ class coleman_model_2(BaseModel):
 
         x = input_values.flatten()
         mean = np.zeros(len(x))
-        var = 0.3*0.3*np.zeros(len(x))
+        var = 0.3 * 0.3 * np.zeros(len(x))
 
         if len(model_param.flatten()) != 1:
             raise TypeError(
@@ -147,11 +157,13 @@ class coleman_model_2(BaseModel):
         y_exp = y_exp.flatten()
         y_err = y_err.flatten()
         # log likleihood elementwise can only handle 1 observable
-        return log_likelihood_elementwise_utils(self, x_exp, y_exp, y_err, model_param)
+        return log_likelihood_elementwise_utils(
+            self, x_exp, y_exp, y_err, model_param)
 
     # def log_likelihood(self, x_exp, y_exp_all, y_err_all, W, model_param=None):
     #     """
-    #     Calculate Normal log likelihood for all centrality in x_exp with weights.
+    # Calculate Normal log likelihood for all centrality in x_exp with
+    # weights.
 
     #     Parameters
     #     ----------

@@ -22,7 +22,7 @@ mixer.train(...)
 - If your code relies on constum binaries, such as an executable built from other code, you should include reproducible instructions fore all operating systems (Linux, MacOS, and Windows).
 
 ## Code formatting
-Once your code is written, and you are ready to add your code via `autopep8` using the command
+Once your code is written, and you are ready to add your code via a pull request, format your directory with `autopep8` using the command
 ```terminal
 autopep8 --in-place --aggressive --aggressive -r
 ```

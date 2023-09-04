@@ -18,9 +18,16 @@ import numpy as np
 import bilby
 from Taweret.models import coleman_models as toy_models
 from Taweret.mix.bivariate_linear import BivariateLinear as BL
+
+import os
 import sys
+
+dirname = os.popen("find $PWD -type f -name test_bivariate_linear.py").read()
+taweret_wd = dirname.split("test")[0]
+sys.path.append(taweret_wd)
+
 # sys.path.append('../Taweret')
-sys.path.append("../../Taweret")
+#sys.path.append("../../Taweret")
 
 # import sys
 # sys.path.append("/Users/dananjayaliyanage/temp/Taweret")

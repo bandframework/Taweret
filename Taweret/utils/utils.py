@@ -9,8 +9,8 @@ from scipy.stats import norm, beta, dirichlet
 
 # Path to Jetscape model source code
 import sys
-sys.path.append(
-    "/Users/dananjayaliyanage/git/Taweret/subpackages/js-sims-bayes/src")
+#sys.path.append(
+#    "/Users/dananjayaliyanage/git/Taweret/subpackages/js-sims-bayes/src")
 # Imports from Jetscape code. Need to load the saved emulators.
 # from configurations import *
 # from emulator import *

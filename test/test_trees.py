@@ -19,10 +19,7 @@ import sys
 
 dirname = os.popen("find $PWD -type f -name test_trees.py").read()
 taweret_wd = dirname.split("test")[0]
-
-# os.chdir(taweret_wd)
 sys.path.append(taweret_wd)
-# sys.path.insert(0, taweret_wd)
 
 
 # ---------------------------------------------

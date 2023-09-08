@@ -5,7 +5,7 @@
 Welcome to the GitHub repo for Taweret, the state of the art Python package for applying Bayesian Model Mixing! 
 
 ## About
-Taweret is a new generalized package to help with applying Bayesian model mixing methods, developed by members of the BAND collaboration, to a wide variety of problems in physics. 
+Taweret is a new generalized package to help with applying Bayesian model mixing methods, developed by members of the [BAND](https://bandframework.github.io/) collaboration, to a wide variety of problems in physics. 
 
 ## Features
 At present, this package possesses the following BMM methods:

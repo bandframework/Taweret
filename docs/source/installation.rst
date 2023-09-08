@@ -54,7 +54,7 @@ please follow the steps below based on the operating system of choice.
 
 .. code-block:: bash
     
-    $ wget -q https://github.com/jcyannotty/OpenBT/raw/main/openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb 
+    $ wget -q https://github.com/jcyannotty/OpenBT/raw/Taweret-v0.3/openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb 
     
 
 2. Install the package and reset the library cache:
@@ -75,7 +75,7 @@ please follow the steps below based on the operating system of choice.
     $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     $ brew install open-mpi
 
-2. Download the OpenBT OSX binary package, "OpenBT-Mixing-Current.pkg", from [1].
+2. Download the OpenBT OSX binary package, "OpenBT-Mixing-0.current.pkg", from https://github.com/jcyannotty/OpenBT/tree/Taweret-v0.3 .
 
 3. Install the OpenBT OSX package by double-clicking on the downloaded .pkg file and follow the on-screen instructions.
 

@@ -16,6 +16,22 @@ At present, this package possesses the following BMM methods:
 ## Documentation
 See Taweret's docs webpage [here](https://taweretorg.github.io/Taweret/).
 
+### Cloning
+This repository uses submodules. 
+To clone this repoitory and automatically checkout all the submodules, use
+```terminal
+git clone --recursive https://github.com/TaweretOrg/Taweret.git 
+```
+
+If you want to limit the size of the repository (this or the submodules), you can use the `depth` flag
+```terminal
+git clone --depth=1 https://github.com/TaweretOrg/Taweret.git
+```
+Inside the directory containing the cloned repository, you then run
+```terminal
+git submodules update --init --depth=1
+```
+
 ## Testing
 The test suite requires the [pytest](https://pypi.org/project/pytest/) package to be installed and can be run from the `test/` directory. To test the current BMM methods, first install the required packages and then run the following three lines of code:
 

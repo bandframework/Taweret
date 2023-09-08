@@ -6,6 +6,15 @@
 # Date: 03 April 2023
 ###########################################################
 
+
+import os
+import sys
+
+dirname = os.popen("find $PWD -type f -name test_gaussian.py").read()
+taweret_wd = dirname.split("test")[0]
+sys.path.append(taweret_wd)
+
+
 from Taweret.core.base_model import *
 from Taweret.core.base_mixer import *
 from Taweret.mix.gaussian import *
@@ -13,8 +22,8 @@ from Taweret.models.samba_models import *
 import pytest
 import numpy as np
 
-import sys
-sys.path.append('../../Taweret')
+#import sys
+#sys.path.append('../../Taweret')
 
 
 # set up the order to test at

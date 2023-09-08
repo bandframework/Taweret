@@ -8,18 +8,19 @@ Version: 1.0
 """
 
 # Imports
-from Taweret.models.polynomial_models import sin_cos_exp
-from Taweret.mix.trees import Trees
-import numpy as np
-import pytest
-import subprocess
-
 import os
 import sys
+import numpy as np
 
+print(os.getcwd())
 dirname = os.popen("find $PWD -type f -name test_trees.py").read()
 taweret_wd = dirname.split("test")[0]
 sys.path.append(taweret_wd)
+
+from Taweret.models.polynomial_models import sin_cos_exp
+from Taweret.mix.trees import Trees
+
+
 
 
 # ---------------------------------------------

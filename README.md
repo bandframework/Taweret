@@ -17,7 +17,15 @@ At present, this package possesses the following BMM methods:
 See Taweret's docs webpage [here](https://taweretorg.github.io/Taweret/).
 
 ## Testing
-The test suite requires the [pytest](https://pypi.org/project/pytest/) package to be installed and can be run from the `test/` directory. To test the current BMM methods, run the following three lines of code:
+The test suite requires the [pytest](https://pypi.org/project/pytest/) package to be installed and can be run from the `test/` directory. To test the current BMM methods, first install the required packages and then run the following three lines of code:
+
+To installing requirements, first navigate to the Taweret directory. The requirements.txt file is located in the root of this directory. Once in the Taweret directory, then execute the following line of code from the terminal.
+
+```
+pip install -r requirements.txt
+```
+
+Proceed with testing by naviagating to the `test/` directory and executing the following three lines of code.
 
 ```
 pytest test_bivariate_linear.py

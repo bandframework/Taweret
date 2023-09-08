@@ -17,7 +17,7 @@ import shutil
 import os
 import typing
 
-import Taweret.core.setup
+#import Taweret.core.setup
 
 from scipy.stats import norm
 from pathlib import Path

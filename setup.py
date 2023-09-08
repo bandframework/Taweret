@@ -34,21 +34,13 @@ setup(
         'matplotlib',
         'scipy>=1.7.0',
         'seaborn',
-        'math',
         'emcee',
         'corner',
         'scikit-learn',
-        'mpl_toolkits',
         'cycler',
         'statistics',
-        'time',
-        'warnings',
         'bilby',
         'typing',
-        'pathlib',
-        'pathlib',
-        'tempfile',
-        'subprocess',
-        'logging'
+        'pathlib'
     ]
 )

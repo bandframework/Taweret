@@ -1,5 +1,5 @@
 """
-Name: setup.py
+Name: trees_setup.py
 Author: John Yannotty (yannotty.1@osu.edu)
 Desc: Setups up working environment for mixing classes
 

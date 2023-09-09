@@ -1,0 +1,13 @@
+numpy>=1.20.3
+matplotlib 
+scipy>=1.7.0 
+seaborn  
+emcee 
+corner 
+scikit-learn  
+cycler 
+statistics   
+bilby 
+typing 
+pathlib
+pytest

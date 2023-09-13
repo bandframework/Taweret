@@ -18,7 +18,7 @@ See Taweret's docs webpage [here](https://taweretorg.github.io/Taweret/).
 
 ### Cloning
 This repository uses submodules. 
-To clone this repoitory and automatically checkout all the submodules, use
+To clone this repository and automatically checkout all the submodules, use
 ```terminal
 git clone --recursive https://github.com/TaweretOrg/Taweret.git 
 ```

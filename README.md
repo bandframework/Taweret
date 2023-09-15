@@ -29,7 +29,7 @@ git clone --depth=1 https://github.com/TaweretOrg/Taweret.git
 ```
 Inside the directory containing the cloned repository, you then run
 ```terminal
-git submodules update --init --depth=1
+git submodule update --init --depth=1
 ```
 
 ## Testing

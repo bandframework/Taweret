@@ -19,7 +19,7 @@ Follow these steps to install Taweret from github.
     cd Taweret
     conda env create -f environment.yml
     conda activate test_env
-    cd doc/source/notebooks
+    cd docs/source/notebooks
     jupyter notebook --browser=safari
 
 You can look at the available notebooks in the directory and modify it for your own use case. If \

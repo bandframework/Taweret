@@ -66,7 +66,7 @@ please follow the steps below based on the operating system of choice.
     $ ldconfig
 
 
-**Mac OS/:X**
+**Mac OS/X:**
 
 1. Install the OS/X OpenMPI package by running the following `brew` commands in a terminal window:
 
@@ -94,6 +94,12 @@ installed the WSL Ubuntu layer, start the WSL Ubuntu shell from the start menu a
     $ cd /mnt/c/location/of/downloaded/.deb
     $ dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
 
+
+**Alternative:**
+
+Rather than installing the pre-built packages, one can also download the code from https://github.com/jcyannotty/OpenBT/tree/Taweret-v0.3 \
+and compile the C++ code locally. Then the trees module can be used by specifiying the location of the local openbt repository when \ 
+initializing the trees class instance. 
 
 **OpenBT References**
 

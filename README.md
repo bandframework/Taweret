@@ -58,25 +58,29 @@ Python dependencies are listed in the requirements.txt file. Taweret also depend
 
 1. Download the OpenBT Ubuntu Linux 20.04 package:
 
-    
-    $ wget -q https://github.com/jcyannotty/OpenBT/raw/Taweret-v0.3/openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb 
-    
+```    
+    $ wget -q https://github.com/jcyannotty/OpenBT/raw/Taweret-v0.3/openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb  
+```
+
 
 2. Install the package and reset the library cache:
 
-    
+```    
     $ cd /location/of/downloaded/.deb
     $ dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
     $ ldconfig
+```
 
 
 **Mac OS/X:**
 
 1. Install the OS/X OpenMPI package by running the following `brew` commands in a terminal window:
 
-    
+```    
     $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     $ brew install open-mpi
+```
+
 
 2. Download the OpenBT OSX binary package, "OpenBT-Mixing-0.current.pkg", from https://github.com/jcyannotty/OpenBT/tree/Taweret-v0.3 .
 
@@ -90,9 +94,10 @@ please see (https://ubuntu.com/wsl). We recommend installing the Ubuntu 20.04 WS
 [here](https://wiki.ubuntu.com/WSL?action=subscribe&_ga=2.237944261.411635877.1601405226-783048612.1601405226#Installing_Packages_on_Ubuntu) 
 on keeping your Ubuntu WSL up to date, or installing additional features like X support. Once you have installed the WSL Ubuntu layer, start the WSL Ubuntu shell from the start menu and then install the package:
 
-    
+```    
     $ cd /mnt/c/location/of/downloaded/.deb
     $ dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
+```
 
 
 **Alternative:**

@@ -14,9 +14,9 @@
 > Details on citing the current version of the BAND Framework can be found in the [README](https://github.com/bandframework/bandframework).
 
 
-**Website:** https://github.com/TaweretOrg/Taweret \
+**Website:** https://github.com/bandframework/Taweret \
 **Contact:** as727414@ohio.edu, ingles.27@buckeyemail.osu.edu, liyanage.5@osu.edu, yannotty.1@osu.edu \
-**Icon:** https://github.com/TaweretOrg/Taweret/blob/main/logos/taweret_logo.PNG \
+**Icon:** https://github.com/bandframework/Taweret/blob/main/logos/taweret_logo.PNG \
 **Description:**  Taweret is a python package which implements a variety of Bayesian Model Mixing methodologies.
 
 ### Mandatory Policies
@@ -29,7 +29,7 @@
 | 3. | Provide a documented, reliable way to contact the development team. |Full| The Taweret team can be contacted via the public issues page Github. |
 | 4. | Come with an open-source license |Full| Taweret uses the MIT license.|
 | 5. | Provide a runtime API to return the current version number of the software. |Full| None.|
-| 6. | Provide a BAND team-accessible repository. |Full| https://github.com/TaweretOrg/Taweret |
+| 6. | Provide a BAND team-accessible repository. |Full| https://github.com/bandframework/Taweret |
 | 7. | Must allow installing, building, and linking against an outside copy of all imported software that is externally developed and maintained .|Full| None.|
 | 8. | Have no hardwired print or IO statements that cannot be turned off. |Full| The trees module prints out one line when the model begins to train. This can be removed if needed.|
 
@@ -42,7 +42,7 @@
 |**R3.**| Provide a mechanism to export ordered list of library dependencies. |None| None. |
 |**R4.**| Document versions of packages that it works with or depends upon, preferably in machine-readable form.  |None| None. |
 |**R5.**| Have SUPPORT, LICENSE, and CHANGELOG files in top directory.  |Partial| The LICENSE is in the top directory, the other two files are not included at this time. |
-|**R6.**| Have sufficient documentation to support use and further development.  |Full| Full documentation is provided at https://taweretorg.github.io/Taweret/. |
+|**R6.**| Have sufficient documentation to support use and further development.  |Full| Full documentation is provided at https://bandframework.github.io/Taweret/. |
 |**R7.**| Be buildable using 64-bit pointers; 32-bit is optional. |Partial| The trees module depends on a Ubuntu package which is built for 64-bit.|
 |**R8.**| Do not assume a full MPI communicator; allow for user-provided MPI communicator. |N/a| None. |
 |**R9.**| Use a limited and well-defined name space (e.g., symbol, macro, library, include). |Full| None.|

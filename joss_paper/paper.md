@@ -29,7 +29,8 @@ affliations:
     index: 4
 date: 2023-10-17
 bibliography: references.bib
-  - \usepackage[margin=1in]{geometry}
+header-includes:
+  - \usepackage{bm}
 ---
 
 # Summary
@@ -82,8 +83,7 @@ relationship between the inputs and the weights.
 This work introduces `Taweret`, a Python package for Bayesian Model
 Mixing that includes three novel approaches for combining models, each
 of which defines the weight function in a unique way (see
-Table [1](#tab:methodcomparison){reference-type="ref"
-reference="tab:methodcomparison"} for a comparison of each method). This
+Table [1]{label="methodcomparison"} for a comparison of each method). This
 package has been developed as an integral piece of the Bayesian Analysis
 of Nuclear Dynamics (BAND) collaboration's software. BAND is a
 multi-institutional effort to build a cyber-infrastructure framework for
@@ -113,40 +113,37 @@ methods make it a marked improvement over `SAMBA`.
 
 ## Overview of methods
 
-::: {#tab:methodcomparison}
+: A summary of the three BMM approaches currently implemented in
+`Taweret`. Note that $K\geq 2$. Following the method name and the type
+of mixing model, the *Number of inputs* column details the dimensions
+of the parameter which the mixing weights depend on (e.g., in
+heavy-ion collisions this is the centrality bin); the *Number of
+outputs* details how many observables the models themselves can have
+to compute the model likelihood (e.g., in heavy-ion collisions this
+can include charge multiplicities, transverse momentum distributions,
+transverse momentum fluctuations, etc.); the *Number of models* column
+details how many models the mixing method can combine; the *Weight
+functions* column describes the available parameterization of how the
+mixing weights depend on the input parameter (the one references in
+the *Number of inputs* column); and, lastly, the *Calibration +
+mixing* column indicates whether the model is cable of simultaneous
+determining the model parameters and mixing weights. []{label="methodcomparison"}
 
-  +--------------------+---------+-----------+-----------+-----------+-------------------+--------------------+
-  |      Method        |  Type   | Number of | Number of | Number of |      Weight       | Calibration +      |
-  |                    |         |  inputs   |  outputs  |  models   |     functions     |    mixing          |
-  +:==================:+:=======:+:=========:+:=========:+:=========:+:=================:+:===================+
-  | Bivariate linear   | Mean &  |           |           |           |       Step,       |                    |
-  |      mixing        | Density |     1     | $\geq 1$  |     2     |     Sigmoid,      | :heavy_check_mark: |
-  |                    |         |           |           |           | Asymmetric 2-step |                    |
-  +--------------------+---------+-----------+-----------+-----------+-------------------+--------------------+
-  |Multivariate mixing |  Mean   |     1     |     1     |    $K$    |     Precision     | :x:                |
-  |                    |         |           |           |           |     weighting     |                    |
-  +--------------------+---------+-----------+-----------+-----------+-------------------+--------------------+
-  |    BART mixing     |  Mean   | $\geq 1$  |     1     |    $K$    |    Regression     | :x:                |
-  |                    |         |           |           |           |       trees       |                    |
-  +====================+=========+===========+===========+===========+===================+====================+
++---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
+| Method              | Type    | Number of | Number of | Number of | Weight              | Calibration & |
+|                     |         | inputs    | outputs   | models    | functions           | mixing        |
++:===================:+:=======:+:=========:+:=========:+:=========:+:===================:+:=============:+
+| Bivariate linear    | Mean &  | 1         |  $\geq 1$ | 2         | - Step,             |               |
+| mixing              | Density |           |           |           | - Sigmoid,          |               |
+|                     |         |           |           |           | - Asymmetric 2-step |               |
++---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
+| Multivariate mixing | Mean    | 1         | 1         | $K$       | Precision           |               |
+|                     |         |           |           |           | weighting           |               |
++---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
+| BART mixing         | Mean    | $\geq 1$  | 1         | $K$       | Regression          |               |
+|                     |         |           |           |           | trees               |               |
++---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
 
-  : A summary of the three BMM approaches currently implemented in
-  `Taweret`. Note that $K\geq 2$. Following the method name and the type
-  of mixing model, the *Number of inputs* column details the dimensions
-  of the parameter which the mixing weights depend on (e.g., in
-  heavy-ion collisions this is the centrality bin); the *Number of
-  outputs* details how many observables the models themselves can have
-  to compute the model likelihood (e.g., in heavy-ion collisions this
-  can include charge multiplicities, transverse momentum distributions,
-  transverse momentum fluctuations, etc.); the *Number of models* column
-  details how many models the mixing method can combine; the *Weight
-  functions* column describes the available parameterization of how the
-  mixing weights depend on the input parameter (the one references in
-  the *Number of inputs* column); and, lastly, the *Calibration +
-  mixing* column indicates whether the model is cable of simultaneous
-  determining the model parameters and mixing weights.
-
-:::
 
 ### Bivariate linear mixing
 

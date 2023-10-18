@@ -97,7 +97,7 @@ Model Mixing is one of BAND's four central pillars in this framework
 
 In addition to this need, we are aware of several other fields outside
 of physics that use techniques such as model stacking and Bayesian model
-averaging (BMA), e.g., statistics [@Yao2018; @Yao2022], meteorology
+averaging (BMA) [@Fragoso2018], e.g., statistics [@Yao2018; @Yao2022], meteorology
 [@Sloughter2007], neuroscience [@FitzGerald2014].
 
 It is expected that the Bayesian Model Mixing methods presented in

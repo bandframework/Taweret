@@ -1,13 +1,35 @@
 ---
-author:
-- K. Ingles
-- D. Liyanage
-- A. C. Semposki
-- J. C. Yannotty
-bibliography:
-- references.bib
-date: 2023-10-17
 title: "`Taweret`: a Python package for Bayesian model mixing"
+tags:
+  - Python
+  - bayesian statistics
+  - heavy-ion collision
+  - nuclear theory
+authors:
+  - name: K. Ingles
+    equal-contrib: true
+    affliation: 1"
+  - name: D. Liyanage
+    equal-contrib: true
+    affliation: 2"
+  - name: A. C. Semposki
+    equal-contrib: true
+    affliation: 3"
+  - name: J. C. Yannotty
+    equal-contrib: true
+    affliation: 4"
+affliations:
+  - name: Illinois Center for Advanced Study of the Universe & Department of Physics, University of Illinois Urbana-Champaign, USA
+    index: 1
+  - name: Department of Physics, The Ohio Stat
+    index: 2
+  - name: Department of Physics, Ohio University, USA
+    index: 3
+  - name: Department of Statistics, The Ohio State Univeristy, USA
+    index: 4
+date: 2023-10-17
+bibliography: references.bib
+  - \usepackage[margin=1in]{geometry}
 ---
 
 # Summary
@@ -44,17 +66,17 @@ Mixing (BMM). In general, model mixing techniques are designed to
 combine the individual mean predictions or density estimates from the
 $K$ models under consideration. For example, *mean-mixing* techniques
 predict the underlying system by
-$$E[\bm Y \mid \boldsymbol x] = \sum_{k = 1}^K w_k(\boldsymbol x)\; f_k(\boldsymbol x).$$
-where $E[\bm Y\mid\boldsymbol x]$ denotes the mean of $\bm Y$ given the
-vector of input parameters $\bm x$, $f_k(\boldsymbol x)$ is the mean
+$$E[\bm Y \mid \bm x] = \sum_{k = 1}^K w_k(\bm x)\; f_k(\bm x).$$
+where $E[\bm Y\mid\bm x]$ denotes the mean of $\bm Y$ given the
+vector of input parameters $\bm x$, $f_k(\bm x)$ is the mean
 prediction under the $k^\mathrm{th}$ model $\mathcal{M}_k$, and
-$w_k(\boldsymbol x)$ is the corresponding weight function. The
+$w_k(\bm x)$ is the corresponding weight function. The
 *density-mixing* approach estimates the underlying predictive density by
-$$p(\bm{\tilde{Y}} \mid \tilde{\boldsymbol x}) = \sum_{k = 1}^K w_k(\boldsymbol x)\;p(\bm{\tilde{Y}} \mid \boldsymbol x, \mathcal{M}_k),$$
-where $p(\bm{\tilde{Y}} \mid \boldsymbol x, \mathcal{M}_k)$ represents
-the predictive density of a future observation $\bm{\tilde{Y}}$ with
+$$p(\tilde{\bm Y} \mid \tilde{\bm x}) = \sum_{k = 1}^K w_k(\bm x)\;p(\tilde{\bm Y} \mid \bm x, \mathcal{M}_k),$$
+where $p(\tilde{\bm Y} \mid \bm x, \mathcal{M}_k)$ represents
+the predictive density of a future observation $\tilde{\bm Y}$ with
 respect to the $k^\mathrm{th}$ model $\mathcal{M}_k$. In either BMM
-setup, a key challenge is defining $w_k(\boldsymbol x)$---the functional
+setup, a key challenge is defining $w_k(\bm x)$---the functional
 relationship between the inputs and the weights.
 
 This work introduces `Taweret`, a Python package for Bayesian Model
@@ -92,17 +114,21 @@ methods make it a marked improvement over `SAMBA`.
 ## Overview of methods
 
 ::: {#tab:methodcomparison}
-  --------------------- --------- ----------- ----------- ----------- ------------------- ---------------
-         Method           Type     Number of   Number of   Number of        Weight         Calibration +
-                                    inputs      outputs     models         functions          mixing
-    Bivariate linear     Mean &                                              Step,        
-         mixing          Density       1       $\geq 1$        2           Sigmoid,       
-                                                                       Asymmetric 2-step  
-   Multivariate mixing    Mean         1           1          $K$          Precision      
-                                                                           weighting      
-       BART mixing        Mean     $\geq 1$        1          $K$         Regression      
-                                                                             trees        
-  --------------------- --------- ----------- ----------- ----------- ------------------- ---------------
+
+  +--------------------+---------+-----------+-----------+-----------+-------------------+--------------------+
+  |      Method        |  Type   | Number of | Number of | Number of |      Weight       | Calibration +      |
+  |                    |         |  inputs   |  outputs  |  models   |     functions     |    mixing          |
+  +:==================:+:=======:+:=========:+:=========:+:=========:+:=================:+:===================+
+  | Bivariate linear   | Mean &  |           |           |           |       Step,       |                    |
+  |      mixing        | Density |     1     | $\geq 1$  |     2     |     Sigmoid,      | :heavy_check_mark: |
+  |                    |         |           |           |           | Asymmetric 2-step |                    |
+  +--------------------+---------+-----------+-----------+-----------+-------------------+--------------------+
+  |Multivariate mixing |  Mean   |     1     |     1     |    $K$    |     Precision     | :x:                |
+  |                    |         |           |           |           |     weighting     |                    |
+  +--------------------+---------+-----------+-----------+-----------+-------------------+--------------------+
+  |    BART mixing     |  Mean   | $\geq 1$  |     1     |    $K$    |    Regression     | :x:                |
+  |                    |         |           |           |           |       trees       |                    |
+  +====================+=========+===========+===========+===========+===================+====================+
 
   : A summary of the three BMM approaches currently implemented in
   `Taweret`. Note that $K\geq 2$. Following the method name and the type
@@ -119,6 +145,7 @@ methods make it a marked improvement over `SAMBA`.
   the *Number of inputs* column); and, lastly, the *Calibration +
   mixing* column indicates whether the model is cable of simultaneous
   determining the model parameters and mixing weights.
+
 :::
 
 ### Bivariate linear mixing
@@ -151,7 +178,9 @@ BMM Python package `SAMBA` [@SAMBA]. It can be described as combining
 models by weighting each of them by their precision, defined as the
 inverse of their respective variances. The posterior predictive
 distribution (PPD) of the mixed model is a Gaussian and can be expressed
-as $$\label{eq:multi_mm_gaussian}
+as 
+$$
+\label{eq:multi_mm_gaussian}
    \mathcal M_\dagger \sim {\mathcal N(f_\dagger, Z_P^{-1})}:
     \quad
     f_{\dagger} = \frac{1}{Z_P}\sum_{k=1}^{K} \frac{1}{\sigma^{2}_k}f_k,
@@ -159,7 +188,7 @@ as $$\label{eq:multi_mm_gaussian}
 $\mathcal N(\mu, \sigma^2)$ is a normal distribution with mean $\mu$ and
 variance $\sigma^2$, $Z_{P}$ is the precision of the models, and each
 individual model is assumed to possess a Gaussian form such as
-$${\cal M}_{k} \sim {\cal N}(f_{k}(x),\sigma^2_{k}(x)).$$ Here,
+$$\mathcal M_{k} \sim \mathcal N(f_{k}(x),\sigma^2_{k}(x)).$$ Here,
 $f_{k}(x)$ is the mean of the model $k$, and $\sigma^{2}_{k}(x)$ its
 variance, both at input parameter $x$.
 
@@ -181,8 +210,8 @@ of $K$ models [@yannotty2023model]. This approach enables the weight
 functions to be adaptively learned using tree bases and avoids the need
 for a user-specified basis function (such as a generalized linear
 model). Formally, the weight functions are defined by
-$$w_k(\boldsymbol x) = \sum_{j = 1}^m g_k(\boldsymbol x; T_j, M_j), \quad \text{for}\ k=1,\ldots,K$$
-where $g_k(\boldsymbol x;T_j,M_j)$ defines the $k^\text{th}$ output of
+$$w_k(\bm x) = \sum_{j = 1}^m g_k(\bm x; T_j, M_j), \quad \text{for}\ k=1,\ldots,K$$
+where $g_k(\bm x;T_j,M_j)$ defines the $k^\text{th}$ output of
 the $j^\text{th}$ tree, $T_j$, using the associated set of parameters,
 $M_j$. Each weight function is implicitly regularized via a prior to
 prefer the interval $[0,1]$. Furthermore, the weight functions are not
@@ -273,16 +302,16 @@ workflow is preserved across the various methods implemented in
 `Taweret` and is intended to be maintained for future mixing methods
 included in this work.
 
-    ```python
-        from mix.mix_method import MixMethod
-        from models.my_model import MyModel
-        
-        mixer = MixMethod(models={'model_1': MyModel(...), ...})
-        mixer.set_prior(...)
-        mixer.train(...)
-        mixer.predict(...)
-        mixer.predict_weights(...)
-    '''    
+```python
+from mix.mix_method import MixMethod
+from models.my_model import MyModel
+
+mixer = MixMethod(models={'model_1': MyModel(...), ...})
+mixer.set_prior(...)
+mixer.train(...)
+mixer.predict(...)
+mixer.predict_weights(...)
+```   
 
 Extending `Taweret` with a custom class or model simply requires that
 you inherit from the base classes and implement the required functions.

@@ -73,9 +73,9 @@ vector of input parameters $\boldsymbol x$, $f_k(\boldsymbol x)$ is the mean
 prediction under the $k^\mathrm{th}$ model $\mathcal{M}_k$, and
 $w_k(\boldsymbol x)$ is the corresponding weight function. The
 *density-mixing* approach estimates the underlying predictive density by
-$$p(\mathbf{\tilde{Y}} \mid \mathbf{\tilde{x}}) = \sum_{k = 1}^K w_k(\mathbf{\tilde{x}})\;p(\mathbf{\tilde{Y}} \mid \mathbf{\tilde{x}},\mathbf{Y}, \mathcal{M}_k),$$
+$$p(\boldsymbol{\tilde{Y}} \mid \boldsymbol{\tilde{x}}) = \sum_{k = 1}^K w_k(\boldsymbol{\tilde{x}})\;p(\boldsymbol{\tilde{Y}} \mid \boldsymbol{\tilde{x}},\boldsymbol{Y}, \mathcal{M}_k),$$
 where $p(\boldsymbol{\tilde{Y}} \mid \boldsymbol{\tilde{x}}, \boldsymbol Y, \mathcal{M}_k)$ represents
-the predictive density of a future observation $\tilde{\boldsymbol Y}$ with
+the predictive density of a future observation $\boldsymbol{\tilde{Y}}$ with
 respect to the $k^\mathrm{th}$ model $\mathcal{M}_k$. In either BMM
 setup, a key challenge is defining $w_k(\boldsymbol x)$---the functional
 relationship between the inputs and the weights.

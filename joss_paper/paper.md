@@ -67,17 +67,17 @@ Mixing (BMM). In general, model mixing techniques are designed to
 combine the individual mean predictions or density estimates from the
 $K$ models under consideration. For example, *mean-mixing* techniques
 predict the underlying system by
-$$E[\bm Y \mid \bm x] = \sum_{k = 1}^K w_k(\bm x)\; f_k(\bm x).$$
-where $E[\bm Y\mid\bm x]$ denotes the mean of $\bm Y$ given the
-vector of input parameters $\bm x$, $f_k(\bm x)$ is the mean
+$$E[\boldsymbol Y \mid \boldsymbol x] = \sum_{k = 1}^K w_k(\boldsymbol x)\; f_k(\boldsymbol x).$$
+where $E[\boldsymbol Y\mid\boldsymbol x]$ denotes the mean of $\boldsymbol Y$ given the
+vector of input parameters $\boldsymbol x$, $f_k(\boldsymbol x)$ is the mean
 prediction under the $k^\mathrm{th}$ model $\mathcal{M}_k$, and
-$w_k(\bm x)$ is the corresponding weight function. The
+$w_k(\boldsymbol x)$ is the corresponding weight function. The
 *density-mixing* approach estimates the underlying predictive density by
-$$p(\tilde{\bm Y} \mid \tilde{\bm x}) = \sum_{k = 1}^K w_k(\bm x)\;p(\tilde{\bm Y} \mid \bm x, \mathcal{M}_k),$$
-where $p(\tilde{\bm Y} \mid \bm x, \mathcal{M}_k)$ represents
-the predictive density of a future observation $\tilde{\bm Y}$ with
+$$p(\tilde{\boldsymbol Y} \mid \tilde{\boldsymbol x}) = \sum_{k = 1}^K w_k(\boldsymbol x)\;p(\tilde{\boldsymbol Y} \mid \boldsymbol \tilde{x},\boldsymbol Y, \mathcal{M}_k),$$
+where $p(\tilde{\boldsymbol Y} \mid \boldsymbol \tilde{x}, \boldsymbol Y, \mathcal{M}_k)$ represents
+the predictive density of a future observation $\tilde{\boldsymbol Y}$ with
 respect to the $k^\mathrm{th}$ model $\mathcal{M}_k$. In either BMM
-setup, a key challenge is defining $w_k(\bm x)$---the functional
+setup, a key challenge is defining $w_k(\boldsymbol x)$---the functional
 relationship between the inputs and the weights.
 
 This work introduces `Taweret`, a Python package for Bayesian Model
@@ -124,9 +124,8 @@ can include charge multiplicities, transverse momentum distributions,
 transverse momentum fluctuations, etc.); the *Number of models* column
 details how many models the mixing method can combine; the *Weight
 functions* column describes the available parameterization of how the
-mixing weights depend on the input parameter (the one references in
-the *Number of inputs* column); and, lastly, the *Calibration +
-mixing* column indicates whether the model is cable of simultaneous
+mixing weights depend on the input parameter; and, lastly, the *Calibration +
+mixing* column indicates whether the model is cable of simultaneously
 determining the model parameters and mixing weights. []{label="methodcomparison"}
 
 +---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
@@ -198,17 +197,17 @@ respect to how each model was generated allows for any model to be used,
 including Bayesian Machine Learning tools such as Gaussian Processes
 [@Semposki:2022gcp] and Bayesian Neural Networks [@Kronheim:2020dmp].
 
-### Model Mixing Using Bayesian Additive Regression Trees
+### Model mixing using Bayesian additive regression trees
 
 A third BMM approach implemented in `Taweret` adopts a mean-mixing
 strategy which models the weight functions using Bayesian Additive
 Regression Trees (BART) conditional on the mean predictions from a set
 of $K$ models [@yannotty2023model]. This approach enables the weight
 functions to be adaptively learned using tree bases and avoids the need
-for a user-specified basis function (such as a generalized linear
+for user-specified basis functions (such as a generalized linear
 model). Formally, the weight functions are defined by
-$$w_k(\bm x) = \sum_{j = 1}^m g_k(\bm x; T_j, M_j), \quad \text{for}\ k=1,\ldots,K$$
-where $g_k(\bm x;T_j,M_j)$ defines the $k^\text{th}$ output of
+$$w_k(\boldsymbol x) = \sum_{j = 1}^m g_k(\boldsymbol x; T_j, M_j), \quad \text{for}\ k=1,\ldots,K$$
+where $g_k(\boldsymbol x;T_j,M_j)$ defines the $k^\text{th}$ output of
 the $j^\text{th}$ tree, $T_j$, using the associated set of parameters,
 $M_j$. Each weight function is implicitly regularized via a prior to
 prefer the interval $[0,1]$. Furthermore, the weight functions are not
@@ -330,7 +329,7 @@ could be the mixing of an arbitrary number of models at the density
 level. Complementary to this density mixing method is a stochastic,
 mean-mixing method of arbitrary number $K$ of models. An extension of
 the Multivariate Mixing method to multi-dimensional input and output
-spaces, correlated models, and well as calibration during mixing, is
+spaces, correlated models, as well as calibration during mixing, is
 anticipated in future releases. Lastly, to facilitate the utilization of
 this growing framework, we hope to enable continuous integration
 routines for individuals contributing and create docker images that will

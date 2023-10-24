@@ -67,17 +67,17 @@ Mixing (BMM). In general, model mixing techniques are designed to
 combine the individual mean predictions or density estimates from the
 $K$ models under consideration. For example, *mean-mixing* techniques
 predict the underlying system by
-$$E[\mathbf Y \mid \mathbf x] = \sum_{k = 1}^K w_k(\mathbf x)\; f_k(\mathbf x).$$
-where $E[\mathbf Y\mid\mathbf x]$ denotes the mean of $\mathbf Y$ given the
-vector of input parameters $\mathbf x$, $f_k(\mathbf x)$ is the mean
+$$E[\boldsymbol Y \mid \boldsymbol x] = \sum_{k = 1}^K w_k(\boldsymbol x)\; f_k(\boldsymbol x).$$
+where $E[\boldsymbol Y\mid\boldsymbol x]$ denotes the mean of $\boldsymbol Y$ given the
+vector of input parameters $\boldsymbol x$, $f_k(\boldsymbol x)$ is the mean
 prediction under the $k^\mathrm{th}$ model $\mathcal{M}_k$, and
-$w_k(\mathbf x)$ is the corresponding weight function. The
+$w_k(\boldsymbol x)$ is the corresponding weight function. The
 *density-mixing* approach estimates the underlying predictive density by
-$$p(\mathbf{\tilde{Y}} \mid \mathbf{\tilde{x}},\mathbf{Y}) = \sum_{k = 1}^K w_k(\mathbf{\tilde{x}})\;p(\mathbf{\tilde{Y}} \mid \mathbf{\tilde{x}},\mathbf{Y}, \mathcal{M}_k),$$
-where $p(\mathbf{\tilde{Y}} \mid \mathbf{\tilde{x}}, \mathbf Y, \mathcal{M}_k)$ represents
-the predictive density of a future observation $\mathbf{\tilde{Y}}$ with
+$$p(\boldsymbol{Y_0} \mid \boldsymbol{x_0},\boldsymbol{Y}) = \sum_{k = 1}^K w_k(\boldsymbol{x_0})\;p(\boldsymbol{Y_0} \mid \boldsymbol{x_0},\boldsymbol{Y}, \mathcal{M}_k),$$
+where $p(\boldsymbol{Y_0} \mid \boldsymbol{x_0}, \boldsymbol Y, \mathcal{M}_k)$ represents
+the predictive density of a future observation $\boldsymbol{Y_0}$ with
 respect to the $k^\mathrm{th}$ model $\mathcal{M}_k$. In either BMM
-setup, a key challenge is defining $w_k(\mathbf x)$---the functional
+setup, a key challenge is defining $w_k(\boldsymbol x)$---the functional
 relationship between the inputs and the weights.
 
 This work introduces `Taweret`, a Python package for Bayesian Model
@@ -206,8 +206,8 @@ of $K$ models [@yannotty2023model]. This approach enables the weight
 functions to be adaptively learned using tree bases and avoids the need
 for user-specified basis functions (such as a generalized linear
 model). Formally, the weight functions are defined by
-$$w_k(\mathbf x) = \sum_{j = 1}^m g_k(\mathbf x; T_j, M_j), \quad \text{for}\ k=1,\ldots,K$$
-where $g_k(\mathbf x;T_j,M_j)$ defines the $k^\text{th}$ output of
+$$w_k(\boldsymbol x) = \sum_{j = 1}^m g_k(\boldsymbol x; T_j, M_j), \quad \text{for}\ k=1,\ldots,K$$
+where $g_k(\boldsymbol x;T_j,M_j)$ defines the $k^\text{th}$ output of
 the $j^\text{th}$ tree, $T_j$, using the associated set of parameters,
 $M_j$. Each weight function is implicitly regularized via a prior to
 prefer the interval $[0,1]$. Furthermore, the weight functions are not

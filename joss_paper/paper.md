@@ -74,7 +74,7 @@ prediction under the $k^\mathrm{th}$ model $\mathcal{M}_k$, and
 $w_k(\boldsymbol x)$ is the corresponding weight function. The
 *density-mixing* approach estimates the underlying predictive density by
 $$p(\boldsymbol{\tilde{Y}} \mid \boldsymbol{\tilde{x}}) = \sum_{k = 1}^K w_k(\boldsymbol{\tilde{x}})\;p(\tilde{\boldsymbol Y} \mid \boldsymbol{\tilde{x}},\boldsymbol{Y}, \mathcal{M}_k),$$
-where $p(\tilde{\boldsymbol Y} \mid \boldsymbol{\tilde{x}}, \boldsymbol Y, \mathcal{M}_k)$ represents
+where $p(\boldsymbol{\tilde{Y}} \mid \boldsymbol{\tilde{x}}, \boldsymbol Y, \mathcal{M}_k)$ represents
 the predictive density of a future observation $\tilde{\boldsymbol Y}$ with
 respect to the $k^\mathrm{th}$ model $\mathcal{M}_k$. In either BMM
 setup, a key challenge is defining $w_k(\boldsymbol x)$---the functional

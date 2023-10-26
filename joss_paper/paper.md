@@ -189,9 +189,9 @@ $f_{k}(x)$ is the mean of the model $k$, and $\sigma^{2}_{k}(x)$ its
 variance, both at input parameter $x$.
 
 In this method, the software receives the one-dimensional input space
-$x$, the mean of the $k$ models at each point in $x$ (hence it is a
+$X$, the mean of the $k$ models at each point $x \in X$ (hence it is a
 mean-based mixing procedure), and the variances of the models at each
-point in $x$. Each model is assumed to have been calibrated prior to
+point $x \in X$. Each model is assumed to have been calibrated prior to
 being included in the mix. The ignorance of this mixing method with
 respect to how each model was generated allows for any model to be used,
 including Bayesian Machine Learning tools such as Gaussian Processes

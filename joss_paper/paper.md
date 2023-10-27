@@ -128,20 +128,20 @@ mixing weights depend on the input parameter; and, lastly, the *Calibration +
 mixing* column indicates whether the model is cable of simultaneously
 determining the model parameters and mixing weights. []{label="methodcomparison"}
 
-+---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
-| Method              | Type    | Number of | Number of | Number of | Weight              | Calibration & |
-|                     |         | inputs    | outputs   | models    | functions           | mixing        |
-+:===================:+:=======:+:=========:+:=========:+:=========:+:===================:+:=============:+
-| Bivariate linear    | Mean &  | 1         |  $\geq 1$ | 2         | - Step,             |               |
-| mixing              | Density |           |           |           | - Sigmoid,          |               |
-|                     |         |           |           |           | - Asymmetric 2-step |               |
-+---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
-| Multivariate mixing | Mean    | 1         | 1         | $K$       | Precision           |               |
-|                     |         |           |           |           | weighting           |               |
-+---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
-| BART mixing         | Mean    | $\geq 1$  | 1         | $K$       | Regression          |               |
-|                     |         |           |           |           | trees               |               |
-+---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
++---------------------+---------+-----------+-----------+-----------+---------------------+
+| Method              | Type    | Number of | Number of | Number of | Weight              |
+|                     |         | inputs    | outputs   | models    | functions           |
++:===================:+:=======:+:=========:+:=========:+:=========:+:===================:+
+| Bivariate linear    | Mean &  | 1         |  $\geq 1$ | 2         | - Step,             |
+| mixing              | Density |           |           |           | - Sigmoid,          |
+|                     |         |           |           |           | - Asymmetric 2-step |
++---------------------+---------+-----------+-----------+-----------+---------------------+
+| Multivariate mixing | Mean    | 1         | 1         | $K$       | Precision           |
+|                     |         |           |           |           | weighting           |
++---------------------+---------+-----------+-----------+-----------+---------------------+
+| BART mixing         | Mean    | $\geq 1$  | 1         | $K$       | Regression          |
+|                     |         |           |           |           | trees               |
++---------------------+---------+-----------+-----------+-----------+---------------------+
 
 
 ### Bivariate linear mixing

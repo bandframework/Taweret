@@ -122,11 +122,9 @@ outputs* details how many observables the models themselves can have
 to compute the model likelihood (e.g., in heavy-ion collisions this
 can include charge multiplicities, transverse momentum distributions,
 transverse momentum fluctuations, etc.); the *Number of models* column
-details how many models the mixing method can combine; the *Weight
+details how many models the mixing method can combine, and the *Weight
 functions* column describes the available parameterization of how the
-mixing weights depend on the input parameter; and, lastly, the *Calibration +
-mixing* column indicates whether the model is cable of simultaneously
-determining the model parameters and mixing weights. []{label="methodcomparison"}
+mixing weights depend on the input parameter. []{label="methodcomparison"}
 
 +---------------------+---------+-----------+-----------+-----------+---------------------+
 | Method              | Type    | Number of | Number of | Number of | Weight              |

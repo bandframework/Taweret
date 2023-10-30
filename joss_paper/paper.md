@@ -21,13 +21,13 @@ authors:
 affliations:
   - name: Illinois Center for Advanced Study of the Universe & Department of Physics, University of Illinois Urbana-Champaign, USA
     index: 1
-  - name: Department of Physics, The Ohio Stat
+  - name: Department of Physics, The Ohio State University, USA
     index: 2
-  - name: Department of Physics, Ohio University, USA
+  - name: Department of Physics and Astronomy & Institute of Nuclear and Particle Physics, Ohio University, USA
     index: 3
   - name: Department of Statistics, The Ohio State Univeristy, USA
     index: 4
-date: 2023-10-17
+date: 2023-10-30
 bibliography: references.bib
 header-includes:
   - \usepackage{bm}
@@ -56,14 +56,14 @@ is usually the case that each model has varying fidelity to the observed
 process across the input domain. Though each model may have similar
 predictive accuracy on average, the fidelity of the approximation across
 a subset of the domain may differ drastically for each of the models
-under consideration. In such case, inference and prediction based on a
+under consideration. In such cases, inference and prediction based on a
 single model may be unreliable. One strategy for improving accuracy is
 to combine, or "mix\", the predictions from each model using a linear
 combination or weighted average with input-dependent weights. This
 approach is intended to improve reliability of inference and prediction
 and properly quantify model uncertainties. When operating under a
-Bayesian framework, this technique is referred to as Bayesian Model
-Mixing (BMM). In general, model mixing techniques are designed to
+Bayesian framework, this technique is referred to as Bayesian model
+mixing (BMM). In general, model mixing techniques are designed to
 combine the individual mean predictions or density estimates from the
 $K$ models under consideration. For example, *mean-mixing* techniques
 predict the underlying system by
@@ -78,8 +78,8 @@ where $p(Y_0 \mid x_0, Y, \mathcal{M}_k)$ represents the predictive density of a
 setup, a key challenge is defining $w_k(x)$---the functional
 relationship between the inputs and the weights.
 
-This work introduces `Taweret`, a Python package for Bayesian Model
-Mixing that includes three novel approaches for combining models, each
+This work introduces `Taweret`, a Python package for Bayesian model
+mixing that includes three novel approaches for combining models, each
 of which defines the weight function in a unique way (see
 Table [1]{label="methodcomparison"} for a comparison of each method). This
 package has been developed as an integral piece of the Bayesian Analysis
@@ -90,17 +90,15 @@ use in the nuclear physics community
 the barrier for researchers to employ uncertainty quantification in
 their experiments, and to integrate, as best as possible, with the
 community's current standards concerning coding style (`pep8`). Bayesian
-Model Mixing is one of BAND's four central pillars in this framework
+model mixing is one of BAND's four central pillars in this framework
 (the others being emulation, calibration, and experimental design).
 
 In addition to this need, we are aware of several other fields outside
 of physics that use techniques such as model stacking and Bayesian model
 averaging (BMA) [@Fragoso2018], e.g., statistics [@Yao2018; @Yao2022], meteorology
-[@Sloughter2007], neuroscience [@FitzGerald2014].
-
-It is expected that the Bayesian Model Mixing methods presented in
-`Taweret` can also be applied to use cases within these fields.
-Statisticians have developed several versatile BMA/stacking packages,
+[@Sloughter2007], and neuroscience [@FitzGerald2014]. It is expected that the Bayesian 
+model mixing methods presented in `Taweret` can also be applied to use cases 
+within these fields. Statisticians have developed several versatile BMA/stacking packages,
 e.g. [@loo; @BMA_R]. However, the only BMM-based package available is
 `SAMBA`---a BAND collaboration effort that was developed for testing BMM
 methods on a toy model [@Semposki:2022gcp]. `Taweret`'s increased
@@ -143,7 +141,7 @@ mixing weights depend on the input parameter. []{label="methodcomparison"}
 ### Bivariate linear mixing
 
 The full description of this mixing method and several of its
-applications in relativistic heavy ion collision physics can be found in
+applications in relativistic heavy-ion collision physics can be found in
 the Ph.D. thesis of D. Liyanage [@Liyanage_thesis]. The bivariate linear
 mixing method can mix two models either using a density-mixing or a
 mean-mixing strategy. Currently, this is the only mixing method in
@@ -230,10 +228,10 @@ uniformity of models and mixing methods. The two base classes are
 Fig. [1](#fig:codediagram){reference-type="ref"
 reference="fig:codediagram"} for a schematic); any model mixing method
 developed with `Taweret` is required to inherit from these. The former
-represents physics-based model that may include parameters which need to
+represents physics-based models that may include parameters which need to
 be determined by Bayesian inference. The latter, `BaseMixer`, represents
 a mixing method used to combine the predictions from the physics-based
-models using Bayesian Model Mixing.
+models using Bayesian model mixing.
 
 The design philosophy for `Taweret` is to make it easy to switch between
 mixing methods without having to rewrite an analysis script. Thus, the
@@ -247,7 +245,7 @@ being called in the method. The functions required by `BaseModel` are
     reducing along the last axis of an array if the input array has
     multiple axes;
 
--   `set_prior` - sets priors for parameters in model.
+-   `set_prior` - sets priors for parameters in the model.
 
 The functions required by `BaseMixer` are
 
@@ -264,16 +262,16 @@ The functions required by `BaseMixer` are
 -   `posterior` - returns the chains of the sampled parameters from the
     mixed model;
 
--   `predict` - returns the posterior-predictive distribution for the
+-   `predict` - returns the posterior predictive distribution for the
     mixed model;
 
--   `predict_weights` - returns the posterior-predictive distribution
+-   `predict_weights` - returns the posterior predictive distribution
     for the model weights;
 
 -   `prior` - returns the prior distributions (typically objects, not
     arrays);
 
--   `prior_predict` - returns the prior-predictive distribution for the
+-   `prior_predict` - returns the prior predictive distribution for the
     mixed model;
 
 -   `set_prior` - sets the prior distributions for the mixing method;
@@ -314,7 +312,7 @@ must define each of the $K$ models as a class inherited from
 `Taweret` (solid) or contribute a new method (dashed). (Purple) The
 model is trained using a set of training data (red), the model set
 (blue), and the selected mixing method (green). Predictions and
-uncertainty quantification follows from the training process.
+uncertainty quantification follow from the training process.
 ](Taweret_JOSS.png){#fig:taweret_workflow width="95%" height="45%"}
 
 # Taweret moving forward

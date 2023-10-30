@@ -25,7 +25,6 @@ nofootinbib,superscriptaddress]{revtex4-2}
 \usepackage[inkscapeformat=pdf]{svg}
 % \usepackage{ulem}
 
-
 \usepackage{bigstrut}
 
 \usepackage{physics}
@@ -71,10 +70,6 @@ nofootinbib,superscriptaddress]{revtex4-2}
 \setlength\cellspacetoplimit{4pt}
 \setlength\cellspacebottomlimit{4pt}
 
-
-% all paths to where figure files are stored
-\graphicspath{{./figures/}}
-
 % \def\arraystretch{1.5} 
 \setlength{\tabcolsep}{9pt}
 
@@ -86,6 +81,14 @@ nofootinbib,superscriptaddress]{revtex4-2}
 \newcommand{\gvec}{\boldsymbol g}
 \newcommand{\fvec}{\boldsymbol f}
 \newcommand{\fhatvec}{\boldsymbol{\hat{f}}}
+\usepackage{lipsum}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
 
 \begin{document}
 
@@ -96,7 +99,7 @@ nofootinbib,superscriptaddress]{revtex4-2}
 
 \author{K. Ingles}
 \email{kingles@illinois.edu}
-\affiliation{Illinois Center for Advanced Studies of the Universe \& Department of Physics,\\ University of Illinois Urbana-Champaign, Urbana, IL 61801, USA} 
+\affiliation{Illinois Center for Advanced Studies of the Universe \& Department of Physics,\\ University of Illinois Urbana-Champaign, Urbana, IL 61801, USA}
 
 \author{D. Liyanage}
 \email{liyanage.1@osu.edu} % change for new place
@@ -126,22 +129,20 @@ Practical tools and analysis suites that facilitate such methods are therefore n
 
 \section{Statement of need}
 
-In physics applications, multiple models with different physics assumptions can be used to describe an underlying system of interest. It is usually the case that each model has varying fidelity to the observed process across the input domain. Though each model may have similar predictive accuracy on average, the fidelity of the approximation across a subset of the domain may differ drastically for each of the models under consideration. In such case, inference and prediction based on a single model may be unreliable. One strategy for improving accuracy is to combine, or  ``mix", the predictions from each model using a linear combination or weighted average with input-dependent weights. This approach is intended to improve reliability of inference and prediction and properly quantify model uncertainties. When operating under a Bayesian framework, this technique is referred to as Bayesian Model Mixing (BMM). In general, model mixing techniques are designed to combine the individual mean predictions or density estimates from the $K$ models under consideration.
+In physics applications, multiple models with different physics assumptions can be used to describe an underlying system of interest. It is usually the case that each model has varying fidelity to the observed process across the input domain. Though each model may have similar predictive accuracy on average, the fidelity of the approximation across a subset of the domain may differ drastically for each of the models under consideration. In such cases, inference and prediction based on a single model may be unreliable. One strategy for improving accuracy is to combine, or  ``mix", the predictions from each model using a linear combination or weighted average with input-dependent weights. This approach is intended to improve reliability of inference and prediction and properly quantify model uncertainties. When operating under a Bayesian framework, this technique is referred to as Bayesian model mixing (BMM). In general, model mixing techniques are designed to combine the individual mean predictions or density estimates from the $K$ models under consideration.
 For example, \textit{mean-mixing} techniques predict the underlying system by 
 \begin{equation}
-    E[\bm Y \mid \xvec] = \sum_{k = 1}^K w_k(\xvec)\; f_k(\xvec).
+    E[\bm Y \mid \xvec] = \sum_{k = 1}^K w_k(\xvec)\; f_k(\xvec),
 \end{equation}
 where $E[\bm Y\mid\xvec]$ denotes the mean of $\bm Y$ given the vector of input parameters $\bm x$, $f_k(\xvec)$ is the mean prediction under the $k^\mathrm{th}$ model $\mathcal{M}_k$, and $w_k(\xvec)$ is the corresponding weight function. The \textit{density-mixing} approach estimates the underlying predictive density by
 \begin{equation}
-    p(\bm{\tilde{Y}} \mid \tilde{\xvec}) = \sum_{k = 1}^K w_k(\xvec)\;p(\bm{\tilde{Y}} \mid \xvec, \M_k),
+    p(Y_{0} \mid x_{0}) = \sum_{k = 1}^K w_k(x_{0})\;p(Y_{0} \mid x_{0}, \bm{Y}, \M_k),
 \end{equation}
-where $p(\bm{\tilde{Y}} \mid \xvec, \M_k)$ represents the predictive density of a future observation $\bm{\tilde{Y}}$ with respect to the $k^\mathrm{th}$ model $\mathcal{M}_k$. In either BMM setup, a key challenge is defining $w_k(\xvec)$---the functional relationship between the inputs and the weights. 
+where $p(Y_{0} \mid x_{0}, \bm{Y}, \M_k)$ represents the predictive density of a future observation $Y_{0}$ with respect to the $k^\mathrm{th}$ model $\mathcal{M}_k$ at a new input $x_{0}$. In either BMM setup, a key challenge is defining $w_k(\xvec)$---the functional relationship between the inputs and the weights. 
 
-This work introduces \texttt{Taweret}, a Python package for Bayesian Model Mixing that includes three novel approaches for combining models, each of which defines the weight function in a unique way (see Table~\ref{tab:methodcomparison} for a comparison of each method). This package has been developed as an integral piece of the Bayesian Analysis of Nuclear Dynamics (BAND) collaboration's software. BAND is a multi-institutional effort to build a cyber-infrastructure framework for use in the nuclear physics community \cite{Phillips:2020dmw, bandframework}. The software is designed to lower the barrier for researchers to employ uncertainty quantification in their experiments, and to integrate, as best as possible, with the community's current standards concerning coding style (\texttt{pep8}). Bayesian Model Mixing is one of BAND's four central pillars in this framework (the others being emulation, calibration, and experimental design).
+This work introduces \texttt{Taweret}, a Python package for Bayesian model mixing that includes three novel approaches for combining models, each of which defines the weight function in a unique way (see Table~\ref{tab:methodcomparison} for a comparison of each method). This package has been developed as an integral piece of the Bayesian Analysis of Nuclear Dynamics (BAND) collaboration's software. BAND is a multi-institutional effort to build a cyber-infrastructure framework for use in the nuclear physics community \cite{Phillips:2020dmw, bandframework}. The software is designed to lower the barrier for researchers to employ uncertainty quantification in their experiments, and to integrate, as best as possible, with the community's current standards concerning coding style (\texttt{pep8}). Bayesian model mixing is one of BAND's four central pillars in this framework (the others being emulation, calibration, and experimental design).
 
-In addition to this need, we are aware of several other fields outside of physics that use techniques such as model stacking and Bayesian model averaging (BMA) \cite{Fragoso2018}, e.g., statistics \cite{Yao2018, Yao2022}, meteorology \cite{Sloughter2007}, neuroscience \cite{FitzGerald2014}.
-
-It is expected that the Bayesian Model Mixing methods presented in \texttt{Taweret} can also be applied to use cases within these fields. 
+In addition to this need, we are aware of several other fields outside of physics that use techniques such as model stacking and Bayesian model averaging (BMA) \cite{Fragoso2018}, e.g., statistics \cite{Yao2018, Yao2022}, meteorology \cite{Sloughter2007}, and neuroscience \cite{FitzGerald2014}. It is expected that the Bayesian model mixing methods presented in \texttt{Taweret} can also be applied to use cases within these fields. 
 Statisticians have developed several versatile BMA/stacking packages, e.g. \cite{loo, BMA_R}. However, the only BMM-based package available is \texttt{SAMBA}---a BAND collaboration effort that was developed for testing BMM methods on a toy model \cite{Semposki:2022gcp}. \texttt{Taweret}'s increased functionality, user-friendly structure, and diverse selection of mixing methods make it a marked improvement over \texttt{SAMBA}. 
 
 \section{Structure}
@@ -151,31 +152,31 @@ Statisticians have developed several versatile BMA/stacking packages, e.g. \cite
 \begin{table}
     \scriptsize
     \centering
-    \begin{tabular}{c|c|c|c|c|c|c}
+    \begin{tabular}{c|c|c|c|c|c}
     \hline 
     \hline
-       Method  & Type & Number of & Number of & Number of & Weight & Calibration + \\
-         & & inputs & outputs & models & functions & mixing \\
+       Method  & Type & Number of & Number of & Number of & Weight \\
+         & & inputs & outputs & models & functions \\
        \hline
-       Bivariate linear & Mean \& & &  & & Step, &  \\
-      mixing & Density & 1 & $\geq 1$ & 2 & Sigmoid, & \checkmark \\
-       & & & & & Asymmetric 2-step & \\
+       Bivariate linear & Mean \& & &  & & Step,\\
+      mixing & Density & 1 & $\geq 1$ & 2 & Sigmoid, \\
+       & & & & & Asymmetric 2-step \\
        \hline
-       Multivariate mixing & Mean & 1 & 1 & $K$ & Precision &  \\
-       & & & & & weighting & \\
+       Multivariate mixing & Mean & 1 & 1 & $K$ & Precision \\
+       & & & & & weighting\\
        \hline 
-       BART mixing & Mean & $\geq 1$ & 1 & $K$ & Regression &  \\
-        & & & & & trees & \\
+       BART mixing & Mean & $\geq 1$ & 1 & $K$ & Regression \\
+        & & & & & trees\\
     \hline 
     \hline
     \end{tabular}
-    \caption{A summary of the three BMM approaches currently implemented in \texttt{Taweret}. Note that $K\geq 2$. Following the method name and the type of mixing model, the \textit{Number of inputs} column details the dimensions of the parameter which the mixing weights depend on (e.g., in heavy-ion collisions this is the centrality bin); the \textit{Number of outputs} details how many observables the models themselves can have to compute the model likelihood (e.g., in heavy-ion collisions this can include charge multiplicities, transverse momentum distributions, transverse momentum fluctuations, etc.); the \textit{Number of models} column details how many models the mixing method can combine; the \textit{Weight functions} column describes the available parameterization of how the mixing weights depend on the input parameter (the one references in the \textit{Number of inputs} column); and, lastly, the \textit{Calibration + mixing} column indicates whether the model is cable of simultaneous determining the model parameters and mixing weights.}
+    \caption{A summary of the three BMM approaches currently implemented in \texttt{Taweret}. Note that $K\geq 2$. Following the method name and the type of mixing model, the \textit{Number of inputs} column details the dimensions of the parameter which the mixing weights depend on (e.g., in heavy-ion collisions this is the centrality bin); the \textit{Number of outputs} details how many observables the models themselves can have to compute the model likelihood (e.g., in heavy-ion collisions this can include charge multiplicities, transverse momentum distributions, transverse momentum fluctuations, etc.); the \textit{Number of models} column details how many models the mixing method can combine, and the \textit{Weight functions} column describes the available parameterization of how the mixing weights depend on the input parameter.}
     \label{tab:methodcomparison}
 \end{table}
 
 \subsubsection{Bivariate linear mixing}
 
-The full description of this mixing method and several of its applications in relativistic heavy ion collision physics can be found in the Ph.D. thesis of D. Liyanage \cite{Liyanage_thesis}. The bivariate linear mixing method can mix two models either using a density-mixing or a mean-mixing strategy. Currently, this is the only mixing method in \texttt{Taweret} that can also calibrate the models while mixing. It allows the user to choose among the following mixing functions:
+The full description of this mixing method and several of its applications in relativistic heavy-ion collision physics can be found in the Ph.D. thesis of D. Liyanage \cite{Liyanage_thesis}. The bivariate linear mixing method can mix two models either using a density-mixing or a mean-mixing strategy. Currently, this is the only mixing method in \texttt{Taweret} that can also calibrate the models while mixing. It allows the user to choose among the following mixing functions:
 \begin{itemize}[nosep]
     \item step: $\Theta(\beta_0-x)$
     \item sigmoid: $\exp\left[(x-\beta_0)/\beta_1\right]$
@@ -248,11 +249,11 @@ where $\mathcal N(\mu, \sigma^2)$ is a normal distribution with mean $\mu$ and v
 Here, $f_{k}(x)$ is the mean of the model $k$, and $\sigma^{2}_{k}(x)$ its variance, both at input parameter $x$.
 %[[Do we have to say this: The former is usually the stated value of the model at any point in the input space, $x$, and the latter is often an estimation of the model variance. In the case of models that can be described by a series expansion in some parameter, the model error derived from truncated higher order terms can be estimated using the terms one already possesses (see, e.g., \cite{Melendez:2019izc}).]]
 
-In this method, the software receives the one-dimensional input space $x$, the mean of the $k$ models at each point in $x$ (hence it is a mean-based mixing procedure), and the variances of the models at each point in $x$. Each model is assumed to have been calibrated prior to being included in the mix. The ignorance of this mixing method with respect to how each model was generated allows for any model to be used, including Bayesian Machine Learning tools such as Gaussian Processes \cite{Semposki:2022gcp} and Bayesian Neural Networks \cite{Kronheim:2020dmp}.
+In this method, the software receives the one-dimensional input space $X$, the mean of the $k$ models at each point $ x \in X$ (hence it is a mean-based mixing procedure), and the variances of the models at each point in $x \in X$. Each model is assumed to have been calibrated prior to being included in the mix. The ignorance of this mixing method with respect to how each model was generated allows for any model to be used, including Bayesian Machine Learning tools such as Gaussian Processes \cite{Semposki:2022gcp} and Bayesian Neural Networks \cite{Kronheim:2020dmp}.
 
-\subsubsection{Model Mixing Using Bayesian Additive Regression Trees}
+\subsubsection{Model mixing using Bayesian Additive Regression Trees}
     
-A third BMM approach implemented in \texttt{Taweret} adopts a mean-mixing strategy which models the weight functions using Bayesian Additive Regression Trees (BART) conditional on the mean predictions from a set of $K$ models \cite{yannotty2023model}. This approach enables the weight functions to be adaptively learned using tree bases and avoids the need for a user-specified basis function (such as a generalized linear model). Formally, the weight functions are defined by 
+A third BMM approach implemented in \texttt{Taweret} adopts a mean-mixing strategy which models the weight functions using Bayesian Additive Regression Trees (BART) conditional on the mean predictions from a set of $K$ models \cite{yannotty2023model}. This approach enables the weight functions to be adaptively learned using tree bases and avoids the need for user-specified basis functions (such as a generalized linear model). Formally, the weight functions are defined by 
 \begin{equation}
     w_k(\xvec) = \sum_{j = 1}^m g_k(\xvec; T_j, M_j), \quad \text{for}\ k=1,\ldots,K
 \end{equation}
@@ -270,8 +271,8 @@ This BART-based approach is implemented in \texttt{C++} with the \texttt{trees} 
 
 \texttt{Taweret} uses abstract base classes to ensure compatibility and uniformity of models and mixing methods. 
 The two base classes are \texttt{BaseModel} and \texttt{BaseMixer} located in the \texttt{core} folder (see Fig.~\ref{fig:codediagram} for a schematic); any model mixing method developed with \texttt{Taweret} is required to inherit from these.
-The former represents physics-based model that may include parameters which need to be determined by Bayesian inference.
-The latter, \texttt{BaseMixer}, represents a mixing method used to combine the predictions from the physics-based models using Bayesian Model Mixing.
+The former represents physics-based models that may include parameters which need to be determined by Bayesian inference.
+The latter, \texttt{BaseMixer}, represents a mixing method used to combine the predictions from the physics-based models using Bayesian model mixing.
 
 The design philosophy for \texttt{Taweret} is to make it easy to switch between mixing methods without having to rewrite an analysis script.
 Thus, the base classes prescribe which functions need to be present for interoperability between mixing methods, and in particular, the models being called in the method.
@@ -279,7 +280,7 @@ The functions required by \texttt{BaseModel} are
 \begin{itemize}[nosep]
     \item \texttt{evaluate} - gives a point prediction for the model;
     \item \texttt{log\_likelihood\_elementwise} - calculates the log-likelihood, reducing along the last axis of an array if the input array has multiple axes;
-    \item \texttt{set\_prior} - sets priors for parameters in model.
+    \item \texttt{set\_prior} - sets priors for parameters in the model.
 \end{itemize}
 The functions required by \texttt{BaseMixer} are
 \begin{itemize}[nosep]
@@ -287,10 +288,10 @@ The functions required by \texttt{BaseMixer} are
     \item \texttt{evaluate\_weights} - gives point prediction for the weights given a set of parameters;
     \item \texttt{map} - returns the maximum \textit{a posteriori} estimate for the parameters of the mixed model (which includes both the weights and any model parameters);
     \item \texttt{posterior} - returns the chains of the sampled parameters from the mixed model;
-    \item \texttt{predict} - returns the posterior-predictive distribution for the mixed model;
-    \item \texttt{predict\_weights} - returns the posterior-predictive distribution for the model weights;
+    \item \texttt{predict} - returns the posterior predictive distribution for the mixed model;
+    \item \texttt{predict\_weights} - returns the posterior predictive distribution for the model weights;
     \item \texttt{prior} - returns the prior distributions (typically objects, not arrays);
-    \item \texttt{prior\_predict} - returns the prior-predictive distribution for the mixed model;
+    \item \texttt{prior\_predict} - returns the prior predictive distribution for the mixed model;
     \item \texttt{set\_prior} - sets the prior distributions for the mixing method;
     \item \texttt{train} - executes the Bayesian model mixing step.
 \end{itemize}
@@ -315,7 +316,7 @@ Extending \texttt{Taweret} with a custom class or model simply requires that you
 \begin{figure}
     \centering
     \includegraphics[width = 0.95\textwidth, height = 0.45\textwidth]{Taweret_JOSS.png}
-    \caption{The general workflow for an analysis using \texttt{Taweret}. (Blue) The user must define each of the $K$ models as a class inherited from \texttt{BaseModel}. (Green) The user can select an existing mixing method from \texttt{Taweret} (solid) or contribute a new method (dashed). (Purple) The model is trained using a set of training data (red), the model set (blue), and the selected mixing method (green). Predictions and uncertainty quantification follows from the training process. }
+    \caption{The general workflow for an analysis using \texttt{Taweret}. (Blue) The user must define each of the $K$ models as a class inherited from \texttt{BaseModel}. (Green) The user can select an existing mixing method from \texttt{Taweret} (solid) or contribute a new method (dashed). (Purple) The model is trained using a set of training data (red), the model set (blue), and the selected mixing method (green). Predictions and uncertainty quantification follow from the training process.}
     \label{fig:taweret_workflow}
 \end{figure}
 
@@ -327,6 +328,10 @@ An obvious one is a generalization of the bivariate linear mixing; this could be
 Complementary to this density mixing method is a stochastic, mean-mixing method of arbitrary number $K$ of models.
 An extension of the Multivariate Mixing method to multi-dimensional input and output spaces, correlated models, and well as calibration during mixing, is anticipated in future releases.
 Lastly, to facilitate the utilization of this growing framework, we hope to enable continuous integration routines for individuals contributing and create docker images that will run \texttt{Taweret}.
+
+\section{Disclosure Statement}
+
+The authors of this work are not aware of any conflicts of interest that would affect this research.
 
 \section{Acknowledgments}
 

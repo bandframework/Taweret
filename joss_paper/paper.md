@@ -8,16 +8,16 @@ tags:
 authors:
   - name: K. Ingles
     equal-contrib: true
-    affliation: 1"
+    affliation: 1
   - name: D. Liyanage
     equal-contrib: true
-    affliation: 2"
+    affliation: 2
   - name: A. C. Semposki
     equal-contrib: true
-    affliation: 3"
+    affliation: 3
   - name: J. C. Yannotty
     equal-contrib: true
-    affliation: 4"
+    affliation: 4
 affliations:
   - name: Illinois Center for Advanced Study of the Universe & Department of Physics, University of Illinois Urbana-Champaign, USA
     index: 1

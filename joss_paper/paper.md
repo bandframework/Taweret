@@ -67,17 +67,15 @@ Mixing (BMM). In general, model mixing techniques are designed to
 combine the individual mean predictions or density estimates from the
 $K$ models under consideration. For example, *mean-mixing* techniques
 predict the underlying system by
-$$E[\bm Y \mid \bm x] = \sum_{k = 1}^K w_k(\bm x)\; f_k(\bm x).$$
-where $E[\bm Y\mid\bm x]$ denotes the mean of $\bm Y$ given the
-vector of input parameters $\bm x$, $f_k(\bm x)$ is the mean
+$$E[Y \mid x] = \sum_{k = 1}^K w_k(x)\; f_k(x),$$
+where $E[Y \mid x]$ denotes the mean of $Y$ given the
+vector of input parameters $x$, $f_k(x)$ is the mean
 prediction under the $k^\mathrm{th}$ model $\mathcal{M}_k$, and
-$w_k(\bm x)$ is the corresponding weight function. The
+$w_k(x)$ is the corresponding weight function. The
 *density-mixing* approach estimates the underlying predictive density by
-$$p(\tilde{\bm Y} \mid \tilde{\bm x}) = \sum_{k = 1}^K w_k(\bm x)\;p(\tilde{\bm Y} \mid \bm x, \mathcal{M}_k),$$
-where $p(\tilde{\bm Y} \mid \bm x, \mathcal{M}_k)$ represents
-the predictive density of a future observation $\tilde{\bm Y}$ with
-respect to the $k^\mathrm{th}$ model $\mathcal{M}_k$. In either BMM
-setup, a key challenge is defining $w_k(\bm x)$---the functional
+$$p(Y_0 \mid x_0,Y) = \sum_{k = 1}^K w_k(x_0)\;p(Y_0 \mid x_0,Y, \mathcal{M}_k),$$
+where $p(Y_0 \mid x_0, Y, \mathcal{M}_k)$ represents the predictive density of a future observation $Y_0$ with respect to the $k^\mathrm{th}$ model $\mathcal{M}_k$ at a new input $x_0$. In either BMM
+setup, a key challenge is defining $w_k(x)$---the functional
 relationship between the inputs and the weights.
 
 This work introduces `Taweret`, a Python package for Bayesian Model
@@ -122,27 +120,24 @@ outputs* details how many observables the models themselves can have
 to compute the model likelihood (e.g., in heavy-ion collisions this
 can include charge multiplicities, transverse momentum distributions,
 transverse momentum fluctuations, etc.); the *Number of models* column
-details how many models the mixing method can combine; the *Weight
+details how many models the mixing method can combine, and the *Weight
 functions* column describes the available parameterization of how the
-mixing weights depend on the input parameter (the one references in
-the *Number of inputs* column); and, lastly, the *Calibration +
-mixing* column indicates whether the model is cable of simultaneous
-determining the model parameters and mixing weights. []{label="methodcomparison"}
+mixing weights depend on the input parameter. []{label="methodcomparison"}
 
-+---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
-| Method              | Type    | Number of | Number of | Number of | Weight              | Calibration & |
-|                     |         | inputs    | outputs   | models    | functions           | mixing        |
-+:===================:+:=======:+:=========:+:=========:+:=========:+:===================:+:=============:+
-| Bivariate linear    | Mean &  | 1         |  $\geq 1$ | 2         | - Step,             |               |
-| mixing              | Density |           |           |           | - Sigmoid,          |               |
-|                     |         |           |           |           | - Asymmetric 2-step |               |
-+---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
-| Multivariate mixing | Mean    | 1         | 1         | $K$       | Precision           |               |
-|                     |         |           |           |           | weighting           |               |
-+---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
-| BART mixing         | Mean    | $\geq 1$  | 1         | $K$       | Regression          |               |
-|                     |         |           |           |           | trees               |               |
-+---------------------+---------+-----------+-----------+-----------+---------------------+---------------+
++---------------------+---------+-----------+-----------+-----------+---------------------+
+| Method              | Type    | Number of | Number of | Number of | Weight              |
+|                     |         | inputs    | outputs   | models    | functions           |
++:===================:+:=======:+:=========:+:=========:+:=========:+:===================:+
+| Bivariate linear    | Mean &  | 1         |  $\geq 1$ | 2         | - Step,             |
+| mixing              | Density |           |           |           | - Sigmoid,          |
+|                     |         |           |           |           | - Asymmetric 2-step |
++---------------------+---------+-----------+-----------+-----------+---------------------+
+| Multivariate mixing | Mean    | 1         | 1         | $K$       | Precision           |
+|                     |         |           |           |           | weighting           |
++---------------------+---------+-----------+-----------+-----------+---------------------+
+| BART mixing         | Mean    | $\geq 1$  | 1         | $K$       | Regression          |
+|                     |         |           |           |           | trees               |
++---------------------+---------+-----------+-----------+-----------+---------------------+
 
 
 ### Bivariate linear mixing
@@ -190,25 +185,25 @@ $f_{k}(x)$ is the mean of the model $k$, and $\sigma^{2}_{k}(x)$ its
 variance, both at input parameter $x$.
 
 In this method, the software receives the one-dimensional input space
-$x$, the mean of the $k$ models at each point in $x$ (hence it is a
+$X$, the mean of the $k$ models at each point $x \in X$ (hence it is a
 mean-based mixing procedure), and the variances of the models at each
-point in $x$. Each model is assumed to have been calibrated prior to
+point $x \in X$. Each model is assumed to have been calibrated prior to
 being included in the mix. The ignorance of this mixing method with
 respect to how each model was generated allows for any model to be used,
 including Bayesian Machine Learning tools such as Gaussian Processes
 [@Semposki:2022gcp] and Bayesian Neural Networks [@Kronheim:2020dmp].
 
-### Model Mixing Using Bayesian Additive Regression Trees
+### Model mixing using Bayesian additive regression trees
 
 A third BMM approach implemented in `Taweret` adopts a mean-mixing
 strategy which models the weight functions using Bayesian Additive
 Regression Trees (BART) conditional on the mean predictions from a set
 of $K$ models [@yannotty2023model]. This approach enables the weight
 functions to be adaptively learned using tree bases and avoids the need
-for a user-specified basis function (such as a generalized linear
+for user-specified basis functions (such as a generalized linear
 model). Formally, the weight functions are defined by
-$$w_k(\bm x) = \sum_{j = 1}^m g_k(\bm x; T_j, M_j), \quad \text{for}\ k=1,\ldots,K$$
-where $g_k(\bm x;T_j,M_j)$ defines the $k^\text{th}$ output of
+$$w_k(x) = \sum_{j = 1}^m g_k(x; T_j, M_j), \quad \text{for}\ k=1,\ldots,K$$
+where $g_k(x;T_j,M_j)$ defines the $k^\text{th}$ output of
 the $j^\text{th}$ tree, $T_j$, using the associated set of parameters,
 $M_j$. Each weight function is implicitly regularized via a prior to
 prefer the interval $[0,1]$. Furthermore, the weight functions are not
@@ -330,7 +325,7 @@ could be the mixing of an arbitrary number of models at the density
 level. Complementary to this density mixing method is a stochastic,
 mean-mixing method of arbitrary number $K$ of models. An extension of
 the Multivariate Mixing method to multi-dimensional input and output
-spaces, correlated models, and well as calibration during mixing, is
+spaces, correlated models, as well as calibration during mixing, is
 anticipated in future releases. Lastly, to facilitate the utilization of
 this growing framework, we hope to enable continuous integration
 routines for individuals contributing and create docker images that will

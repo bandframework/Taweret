@@ -136,9 +136,9 @@ For example, \textit{mean-mixing} techniques predict the underlying system by
 \end{equation}
 where $E[\bm Y\mid\xvec]$ denotes the mean of $\bm Y$ given the vector of input parameters $\bm x$, $f_k(\xvec)$ is the mean prediction under the $k^\mathrm{th}$ model $\mathcal{M}_k$, and $w_k(\xvec)$ is the corresponding weight function. The \textit{density-mixing} approach estimates the underlying predictive density by
 \begin{equation}
-    p(Y_{0} \mid x_{0}) = \sum_{k = 1}^K w_k(x_{0})\;p(Y_{0} \mid x_{0}, \bm{Y}, \M_k),
+    p(\bm{Y_{0}} \mid \xvec_{0}) = \sum_{k = 1}^K w_k(\xvec_{0})\;p(\bm{Y_{0}} \mid \xvec_{0}, \bm{Y}, \M_k),
 \end{equation}
-where $p(Y_{0} \mid x_{0}, \bm{Y}, \M_k)$ represents the predictive density of a future observation $Y_{0}$ with respect to the $k^\mathrm{th}$ model $\mathcal{M}_k$ at a new input $x_{0}$. In either BMM setup, a key challenge is defining $w_k(\xvec)$---the functional relationship between the inputs and the weights. 
+where $p(\bm{Y_{0}} \mid \xvec_{0}, \bm{Y}, \M_k)$ represents the predictive density of a future observation $\bm{Y_{0}}$ with respect to the $k^\mathrm{th}$ model $\mathcal{M}_k$ at a new input $\xvec_{0}$. In either BMM setup, a key challenge is defining $w_k(\xvec)$---the functional relationship between the inputs and the weights. 
 
 This work introduces \texttt{Taweret}, a Python package for Bayesian model mixing that includes three novel approaches for combining models, each of which defines the weight function in a unique way (see Table~\ref{tab:methodcomparison} for a comparison of each method). This package has been developed as an integral piece of the Bayesian Analysis of Nuclear Dynamics (BAND) collaboration's software. BAND is a multi-institutional effort to build a cyber-infrastructure framework for use in the nuclear physics community \cite{Phillips:2020dmw, bandframework}. The software is designed to lower the barrier for researchers to employ uncertainty quantification in their experiments, and to integrate, as best as possible, with the community's current standards concerning coding style (\texttt{pep8}). Bayesian model mixing is one of BAND's four central pillars in this framework (the others being emulation, calibration, and experimental design).
 
@@ -249,7 +249,7 @@ where $\mathcal N(\mu, \sigma^2)$ is a normal distribution with mean $\mu$ and v
 Here, $f_{k}(x)$ is the mean of the model $k$, and $\sigma^{2}_{k}(x)$ its variance, both at input parameter $x$.
 %[[Do we have to say this: The former is usually the stated value of the model at any point in the input space, $x$, and the latter is often an estimation of the model variance. In the case of models that can be described by a series expansion in some parameter, the model error derived from truncated higher order terms can be estimated using the terms one already possesses (see, e.g., \cite{Melendez:2019izc}).]]
 
-In this method, the software receives the one-dimensional input space $X$, the mean of the $k$ models at each point $ x \in X$ (hence it is a mean-based mixing procedure), and the variances of the models at each point in $x \in X$. Each model is assumed to have been calibrated prior to being included in the mix. The ignorance of this mixing method with respect to how each model was generated allows for any model to be used, including Bayesian Machine Learning tools such as Gaussian Processes \cite{Semposki:2022gcp} and Bayesian Neural Networks \cite{Kronheim:2020dmp}.
+In this method, the software receives the one-dimensional input space $X$, the mean of the $K$ models at each point $ x \in X$ (hence it is a mean-based mixing procedure), and the variances of the models at each point in $x \in X$. Each model is assumed to have been calibrated prior to being included in the mix. The ignorance of this mixing method with respect to how each model was generated allows for any model to be used, including Bayesian Machine Learning tools such as Gaussian Processes \cite{Semposki:2022gcp} and Bayesian Neural Networks \cite{Kronheim:2020dmp}.
 
 \subsubsection{Model mixing using Bayesian Additive Regression Trees}
     

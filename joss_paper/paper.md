@@ -7,6 +7,7 @@ tags:
   - nuclear theory
 authors:
   - name: K. Ingles
+    corresponding: true
     equal-contrib: true
     affliation: 1
   - name: D. Liyanage

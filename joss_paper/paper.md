@@ -329,6 +329,11 @@ this growing framework, we hope to enable continuous integration
 routines for individuals contributing and create docker images that will
 run `Taweret`.
 
+# Disclosure statement
+
+The authors of this work are not aware of any conflicts of interest that 
+would affect this research.
+
 # Acknowledgments
 
 We thank Daniel R. Phillips, Ulrich Heinz, Matt Pratola, Kyle Godbey,

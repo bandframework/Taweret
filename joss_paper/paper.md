@@ -9,18 +9,18 @@ authors:
   - name: K. Ingles
     corresponding: true
     equal-contrib: true
-    affliation: '1'
+    affiliation: 1
   - name: D. Liyanage
     equal-contrib: true
-    affliation: '2'
+    affiliation: 2
   - name: A. C. Semposki
     orcid: 0000-0003-2354-1523
     equal-contrib: true
-    affliation: '3'
+    affiliation: 3
   - name: J. C. Yannotty
     equal-contrib: true
-    affliation: '4'
-affliations:
+    affiliation: 4
+affiliations:
   - name: Illinois Center for Advanced Study of the Universe & Department of Physics, University of Illinois Urbana-Champaign, USA
     index: 1
   - name: Department of Physics, The Ohio State University, USA

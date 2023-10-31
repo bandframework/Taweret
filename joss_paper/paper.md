@@ -7,6 +7,7 @@ tags:
   - nuclear theory
 authors:
   - name: K. Ingles
+    orcid: 0000-0002-5369-0493
     corresponding: true
     equal-contrib: true
     affiliation: 1

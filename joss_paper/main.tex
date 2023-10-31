@@ -90,6 +90,9 @@ nofootinbib,superscriptaddress]{revtex4-2}
   \endgroup
 }
 
+\usepackage[symbol]{footmisc}
+\usepackage{textcomp}
+
 \begin{document}
 
 % \preprint{APS/123-QED}
@@ -115,8 +118,26 @@ nofootinbib,superscriptaddress]{revtex4-2}
 
 \date{\today}% It is always \today, today,
              %  but any date may be explicitly specified
+%\maketitle
 
-\maketitle
+%\begin{comment}
+\begin{center}
+  {\LARGE \texttt{Taweret}: a Python package for Bayesian model mixing\par}
+  \vspace{2em}
+  K. Ingles\textsuperscript{1,*} \footnotetext[1]{kingles@illinois.edu}, D. Liyanage\textsuperscript{2,$\dagger$}\footnotetext[2]{liyanage.1@osu.edu}, A.~C. Semposki\textsuperscript{3,$\ddagger$}\footnotetext[3]{as727414@ohio.edu}, J.~C. Yannotty\textsuperscript{4,$\S$}\footnotetext[4]{yannotty.1@buckeyemail.osu.edu}
+  \\
+  \vspace{0.5em}
+    \textsuperscript{1} 	\textit{\small Illinois Center for Advanced Studies of the Universe \& Department of Physics,\\ University of Illinois Urbana-Champaign, Urbana, IL 61801, USA}  \\
+    \textsuperscript{2} \textit{\small Department of Physics, The Ohio State University, Columbus, OH 43210, USA} 
+    \\
+    \textsuperscript{3} \textit{\small Department of Physics and Astronomy and Institute of Nuclear and Particle Physics, Ohio University, Athens, OH 45701, USA}  
+    \\
+    \textsuperscript{4} \textit{\small Department of Statistics, The Ohio State University, Columbus, OH 43210, USA}  
+    \\
+  \vspace{1em}
+  \today
+\end{center}
+%\end{comment}
 
 \section{Summary}
 Uncertainty quantification using Bayesian methods is a growing area of research.

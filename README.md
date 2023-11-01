@@ -106,10 +106,33 @@ Rather than installing the pre-built packages, one can also download the code fr
 and compile the C++ code locally. Then the trees module can be used by specifiying the location of the local openbt repository when  
 initializing the trees class instance. 
 
+## Citing Taweret
+If you have benefited from Taweret, please cite our software using the following format:
 
+```
+@inproceedings{Taweret,
+    author = "Liyanage, Dan and Semposki, Alexandra and Yannotty, John and Ingles, Kevin",
+    title  = "{{Taweret: A Python Package for Bayesian Model Mixing}}",
+    year   = "2023",
+    url    = {https://github.com/bandframework/Taweret}
+}
+```
 
-## Citing BAND software
-If you have benefited from Taweret, please cite the BAND collaboration software suite using the format [here](https://github.com/bandframework/bandframework#citing-the-band-framework).
+and our explanatory paper:
+
+```
+@article{Ingles:2023nha,
+    author = "Ingles, Kevin and Liyanage, Dananjaya and Semposki, Alexandra C. and Yannotty, John C.",
+    title = "{Taweret: a Python package for Bayesian model mixing}",
+    eprint = "2310.20549",
+    archivePrefix = "arXiv",
+    primaryClass = "nucl-th",
+    month = "10",
+    year = "2023"
+}
+```
+
+Please also cite the BAND collaboration software suite using the format [here](https://github.com/bandframework/bandframework#citing-the-band-framework).
 
 ## BAND SDK compliance
 Check out our SDK form [here](https://github.com/TaweretOrg/Taweret/blob/main/Taweretbandsdk.md).

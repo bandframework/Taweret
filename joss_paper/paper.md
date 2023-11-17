@@ -32,8 +32,6 @@ affiliations:
     index: 4
 date: 2023-10-30
 bibliography: references.bib
-header-includes:
-  - \usepackage{bm}
 ---
 
 # Summary

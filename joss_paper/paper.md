@@ -30,7 +30,7 @@ affiliations:
     index: 3
   - name: Department of Statistics, The Ohio State Univeristy, USA
     index: 4
-date: 2023-10-30
+date: 30 October 2023
 bibliography: references.bib
 ---
 

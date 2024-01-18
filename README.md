@@ -20,12 +20,12 @@ See Taweret's docs webpage [here](https://bandframework.github.io/Taweret/).
 This repository uses submodules. 
 To clone this repository and automatically checkout all the submodules, use
 ```terminal
-git clone --recursive https://github.com/TaweretOrg/Taweret.git 
+git clone --recursive https://github.com/bandframework/Taweret.git 
 ```
 
 If you want to limit the size of the repository (this or the submodules), you can use the `depth` flag
 ```terminal
-git clone --depth=1 https://github.com/TaweretOrg/Taweret.git
+git clone --depth=1 https://github.com/bandframework/Taweret.git
 ```
 Inside the directory containing the cloned repository, you then run
 ```terminal
@@ -67,7 +67,7 @@ Python dependencies are listed in the requirements.txt file. Taweret also depend
 
 ```    
     $ cd /location/of/downloaded/.deb
-    $ dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
+    $ sudo dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
     $ ldconfig
 ```
 
@@ -135,7 +135,7 @@ and our explanatory paper:
 Please also cite the BAND collaboration software suite using the format [here](https://github.com/bandframework/bandframework#citing-the-band-framework).
 
 ## BAND SDK compliance
-Check out our SDK form [here](https://github.com/TaweretOrg/Taweret/blob/main/Taweretbandsdk.md).
+Check out our SDK form [here](https://github.com/bandframework/Taweret/blob/main/Taweretbandsdk.md).
 
 ## Contact
 To contact the Taweret team, please submit an issue through the Issues page. 

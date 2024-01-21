@@ -838,8 +838,18 @@ class Trees(BaseMixer):
         Private function, run the cpp program via the command line using
         a subprocess.
         """
-        # Check to see if executable is in the current directory
+        # Check to see if executable is installed via debian
         sh = shutil.which(cmd)
+
+        # Check to see if installed via wheel
+        pyinstall = False
+        if sh is None:
+            pywhl_path = os.popen("pip show openbtpy").read()
+            pywhl_path = pywhl_path.split("Location: ")
+            if len(pywhl_path)>1:
+                pywhl_path = pywhl_path[1].split("\n")[0] + "/openbtpy"
+                sh = shutil.which(cmd, path=pywhl_path)
+                pyinstall = True
 
         # Execute the subprocess, changing directory when needed
         if sh is None:
@@ -866,20 +876,31 @@ class Trees(BaseMixer):
                         str(self.tc) + " " + cmd + " " + str(self.fpath)
                     os.system(full_cmd)
         else:
-            if not self.google_colab:
-                # MPI with installed .exe
+            if pyinstall:
+                # MPI with local program
+                cmd = sh
                 sp = subprocess.run(["mpirun",
-                                     "-np",
-                                     str(self.tc),
-                                     cmd,
-                                     str(self.fpath)],
+                                        "-np",
+                                        str(self.tc),
+                                        cmd,
+                                        str(self.fpath)],
                                     stdin=subprocess.DEVNULL,
                                     capture_output=True)
             else:
-                # Google colab with installed program
-                full_cmd = "mpirun --allow-run-as-root --oversubscribe -np " + \
-                    str(self.tc) + " " + cmd + " " + str(self.fpath)
-                os.system(full_cmd)
+                if not self.google_colab:
+                    # MPI with installed .exe
+                    sp = subprocess.run(["mpirun",
+                                        "-np",
+                                        str(self.tc),
+                                        cmd,
+                                        str(self.fpath)],
+                                        stdin=subprocess.DEVNULL,
+                                        capture_output=True)
+                else:
+                    # Google colab with installed program
+                    full_cmd = "mpirun --allow-run-as-root --oversubscribe -np " + \
+                        str(self.tc) + " " + cmd + " " + str(self.fpath)
+                    os.system(full_cmd)
 
     def _set_mcmc_info(self, mcmc_dict):
         """

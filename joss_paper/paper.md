@@ -38,10 +38,10 @@ bibliography: references.bib
 
 Uncertainty quantification using Bayesian methods is a growing area of
 research. Bayesian model mixing (BMM) is a recent development which
-combines the predictions from multiple models such that each model's
-best qualities are preserved in the final result. Practical tools and
+combines the predictions from multiple models such that each the fidelity
+of individual models is preserved in the final result. Practical tools and
 analysis suites that facilitate such methods are therefore needed.
-`Taweret` introduces BMM to existing Bayesian uncertainty quantification
+`Taweret`[^1] introduces BMM to existing Bayesian uncertainty quantification
 efforts. Currently `Taweret` contains three individual Bayesian model
 mixing techniques, each pertaining to a different type of problem
 structure; we encourage the future inclusion of user-developed mixing
@@ -49,12 +49,16 @@ methods. `Taweret`'s first use case is in nuclear physics, but the
 package has been structured such that it should be adaptable to any
 research engaged in model comparison or model mixing.
 
+[^1]: Taweret is the Egyptian goddess, known as the protector of children and women,
+whose body is a fusion of a hippo, lion and crocodile which represent her ferocity.
+Similarly, `Taweret`, the package, seeks to fuse models together to represent
+observed phenomena.
+
 # Statement of need
 
 In physics applications, multiple models with different physics
-assumptions can be used to describe an underlying system of interest. It
-is usually the case that each model has varying fidelity to the observed
-process across the input domain. Though each model may have similar
+assumptions can be used to describe an underlying system of interest.
+Though each model may have similar
 predictive accuracy on average, the fidelity of the approximation across
 a subset of the domain may differ drastically for each of the models
 under consideration. In such cases, inference and prediction based on a
@@ -78,6 +82,10 @@ $$p(Y_0 \mid x_0,Y) = \sum_{k = 1}^K w_k(x_0)\;p(Y_0 \mid x_0,Y, \mathcal{M}_k),
 where $p(Y_0 \mid x_0, Y, \mathcal{M}_k)$ represents the predictive density of a future observation $Y_0$ with respect to the $k^\mathrm{th}$ model $\mathcal{M}_k$ at a new input $x_0$. In either BMM
 setup, a key challenge is defining $w_k(x)$---the functional
 relationship between the inputs and the weights.
+
+![Schematic of Bayesian model mixing. Each model has region of paramtere space where it has a high
+fidelity, but all models are meant to describe the same phenomenon. To obtain a model that works
+well for all of parameter space, we combine them using Bayesian model mixing methods](bmm_schematic.pdf){#fig:bmm_schematic width="\\textwidth"}
 
 This work introduces `Taweret`, a Python package for Bayesian model
 mixing that includes three novel approaches for combining models, each
@@ -146,8 +154,20 @@ applications in relativistic heavy-ion collision physics can be found in
 the Ph.D. thesis of D. Liyanage [@Liyanage_thesis]. The bivariate linear
 mixing method can mix two models either using a density-mixing or a
 mean-mixing strategy. Currently, this is the only mixing method in
-`Taweret` that can also calibrate the models while mixing. It allows the
-user to choose among the following mixing functions:
+`Taweret` that can also calibrate the models while mixing.
+Each physics-based model we consider may have unknown parameters which have 
+physical meaning.
+In this context, Bayesian calibration corresponds to the process of using 
+observational dat to learn the values (and more generally, the posterior 
+distribtutions) of this these unknown parameters.
+Most approaches in model mixing and model averaging use a two-step approach: 
+(step 1) fit individual models using a subset of the data; (step 2) mix the 
+predictions from each model (the results from step 1) using the other subset
+of the data to learn the weights.
+Therefore, this joint calibration of and mixing idea looks to do everything at
+once, rather than use the two step process.
+
+The user may choose among the following mixing functions:
 
 -   step: $\Theta(\beta_0-x)$
 
@@ -329,6 +349,14 @@ anticipated in future releases. Lastly, to facilitate the utilization of
 this growing framework, we hope to enable continuous integration
 routines for individuals contributing and create docker images that will
 run `Taweret`.
+
+# Contributions
+All authors have contributed to the development of the Taweret framework,
+ while individual mixing methods were developed by 
+D. Liyanage (bivariate linear mixing), A. Semposki (multivariate model 
+mixing), and J. Yanotty (additive regression trees).
+Ongoing work by K. Ingles will be included in the next version release
+of `Taweret`.
 
 # Disclosure statement
 

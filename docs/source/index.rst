@@ -17,6 +17,7 @@ Welcome to Bayesian Model Mixing with Taweret!
    :caption: Installation:
 
    installation
+   macos_users
 
 .. toctree::
    :maxdepth: 4

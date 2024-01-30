@@ -83,9 +83,9 @@ where $p(Y_0 \mid x_0, Y, \mathcal{M}_k)$ represents the predictive density of a
 setup, a key challenge is defining $w_k(x)$---the functional
 relationship between the inputs and the weights.
 
-![Schematic of Bayesian model mixing. Each model has region of paramtere space where it has a high
+![Schematic of Bayesian model mixing. Each model has region of parameter space where it has a high
 fidelity, but all models are meant to describe the same phenomenon. To obtain a model that works
-well for all of parameter space, we combine them using Bayesian model mixing methods](bmm_schematic.pdf){#fig:bmm_schematic width="\\textwidth"}
+well for all of parameter space, we combine them using Bayesian model mixing methods.](bmm_schematic.pdf){#fig:bmm_schematic width="\\textwidth"}
 
 This work introduces `Taweret`, a Python package for Bayesian model
 mixing that includes three novel approaches for combining models, each

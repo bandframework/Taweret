@@ -39,7 +39,7 @@ bibliography: references.bib
 Uncertainty quantification using Bayesian methods is a growing area of
 research. Bayesian model mixing (BMM) is a recent development which
 combines the predictions from multiple models such that each the fidelity
-of individual models is preserved in the final result. Practical tools and
+of each model is preserved in the final result. Practical tools and
 analysis suites that facilitate such methods are therefore needed.
 `Taweret`[^1] introduces BMM to existing Bayesian uncertainty quantification
 efforts. Currently `Taweret` contains three individual Bayesian model
@@ -158,8 +158,8 @@ mean-mixing strategy. Currently, this is the only mixing method in
 Each physics-based model we consider may have unknown parameters which have 
 physical meaning.
 In this context, Bayesian calibration corresponds to the process of using 
-observational dat to learn the values (and more generally, the posterior 
-distribtutions) of this these unknown parameters.
+observational data to learn the values (and more generally, the posterior 
+distributions) of this these unknown parameters.
 Most approaches in model mixing and model averaging use a two-step approach: 
 (step 1) fit individual models using a subset of the data; (step 2) mix the 
 predictions from each model (the results from step 1) using the other subset

@@ -625,20 +625,20 @@ class BivariateLinear(BaseMixer):
         result : bilby posterior object
             object returned by the bilby sampler
         '''
-	import platform
+        import platform
 
         prior = self._prior
         if prior is None:
             raise Exception("Please define the priors before training")
 
-	if platform.system() == "Darwin":
-		if "threads" in kwargs_for_sampler.keys(
-		) and kwargs_for_sampler['threads'] > 1:
-			import warnings
-			import multiprocessing
-			warnings.warn("'threads' dectected in 'kwargs_for_sampler'" +
-				      " on Darwin. Setting `start_method` to `fork`")
-			multiprocessing.set_start_method('fork')
+        if platform.system() == "Darwin":
+            if "threads" in kwargs_for_sampler.keys(
+            ) and kwargs_for_sampler['threads'] > 1:
+                import warnings
+                import multiprocessing
+                warnings.warn("'threads' dectected in 'kwargs_for_sampler'" +
+                          " on Darwin. Setting `start_method` to `fork`")
+                multiprocessing.set_start_method('fork')
 
         # A few simple setup steps
         likelihood = likelihood_wrapper_for_bilby(self, x_exp, y_exp, y_err)

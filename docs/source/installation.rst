@@ -2,18 +2,26 @@ Installation
 ============
 
 Taweret requires the following for for basic functionality.
-    - python
-    - numpy
+    - python (>3.7)
+    - matplotlib
+    - numpy (>=1.20.3)
+    - scipy (>=1.7.0)
     - seaborn
-    - jupyter
+    - emcee
+    - corner
+    - scikit-learn
+    - cycler
+    - statistics
     - bilby
+    - jupyter
     - ptemcee
+    - pytest
 
 Follow these steps to install Taweret from github. 
 
 .. code-block:: bash
 
-    git clone https://github.com/danOSU/Taweret.git
+    git clone https://github.com/bandframework/Taweret.git
     #If you want to use SMABA toy models please clone samba repo
     #git clone https://github.com/asemposki/SAMBA.git
     cd Taweret
@@ -27,9 +35,9 @@ you need to add a new mixing method please refer to the **For Developers** secti
 
 The pip installation is not available yet. 
 
-.. code-block:: bash
-
-    pip install Taweret
+.. .. code-block:: bash
+.. 
+..     pip install Taweret
 
 
 
@@ -62,7 +70,7 @@ please follow the steps below based on the operating system of choice.
 .. code-block:: bash
     
     $ cd /location/of/downloaded/.deb
-    $ dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
+    $ sudo dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
     $ ldconfig
 
 
@@ -92,7 +100,7 @@ installed the WSL Ubuntu layer, start the WSL Ubuntu shell from the start menu a
 .. code-block:: bash
     
     $ cd /mnt/c/location/of/downloaded/.deb
-    $ dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
+    $ sudo dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
 
 
 **Alternative:**

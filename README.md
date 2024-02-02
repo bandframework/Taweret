@@ -20,12 +20,12 @@ See Taweret's docs webpage [here](https://bandframework.github.io/Taweret/).
 This repository uses submodules. 
 To clone this repository and automatically checkout all the submodules, use
 ```terminal
-git clone --recursive https://github.com/TaweretOrg/Taweret.git 
+git clone --recursive https://github.com/bandframework/Taweret.git 
 ```
 
 If you want to limit the size of the repository (this or the submodules), you can use the `depth` flag
 ```terminal
-git clone --depth=1 https://github.com/TaweretOrg/Taweret.git
+git clone --depth=1 https://github.com/bandframework/Taweret.git
 ```
 Inside the directory containing the cloned repository, you then run
 ```terminal
@@ -67,7 +67,7 @@ Python dependencies are listed in the requirements.txt file. Taweret also depend
 
 ```    
     $ cd /location/of/downloaded/.deb
-    $ dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
+    $ sudo dpkg -i openbt_mixing0.current_amd64-MPI_Ubuntu_20.04.deb
     $ ldconfig
 ```
 
@@ -106,13 +106,36 @@ Rather than installing the pre-built packages, one can also download the code fr
 and compile the C++ code locally. Then the trees module can be used by specifiying the location of the local openbt repository when  
 initializing the trees class instance. 
 
+## Citing Taweret
+If you have benefited from Taweret, please cite our software using the following format:
 
+```
+@inproceedings{Taweret,
+    author = "Liyanage, Dan and Semposki, Alexandra and Yannotty, John and Ingles, Kevin",
+    title  = "{{Taweret: A Python Package for Bayesian Model Mixing}}",
+    year   = "2023",
+    url    = {https://github.com/bandframework/Taweret}
+}
+```
 
-## Citing BAND software
-If you have benefited from Taweret, please cite the BAND collaboration software suite using the format [here](https://github.com/bandframework/bandframework#citing-the-band-framework).
+and our explanatory paper:
+
+```
+@article{Ingles:2023nha,
+    author = "Ingles, Kevin and Liyanage, Dananjaya and Semposki, Alexandra C. and Yannotty, John C.",
+    title = "{Taweret: a Python package for Bayesian model mixing}",
+    eprint = "2310.20549",
+    archivePrefix = "arXiv",
+    primaryClass = "nucl-th",
+    month = "10",
+    year = "2023"
+}
+```
+
+Please also cite the BAND collaboration software suite using the format [here](https://github.com/bandframework/bandframework#citing-the-band-framework).
 
 ## BAND SDK compliance
-Check out our SDK form [here](https://github.com/TaweretOrg/Taweret/blob/main/Taweretbandsdk.md).
+Check out our SDK form [here](https://github.com/bandframework/Taweret/blob/main/Taweretbandsdk.md).
 
 ## Contact
 To contact the Taweret team, please submit an issue through the Issues page. 

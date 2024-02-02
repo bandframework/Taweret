@@ -32,11 +32,11 @@ With conda:
         conda env create --file=environment.yml
         conda activate test_env
 
-With virtualenv: 
+With venv: 
 
 .. code:: bash
 
-        virtualenv test_env
+        python3 -m venv test_env
         source test_env/bin/activate
 
 
@@ -69,6 +69,6 @@ the below set of instructions.
         git push origin develop
 
 Then make a pull request from your forked repository to 
-the ``danOSU/Taweret`` repository, ``develop`` branch. 
+the ``bandframework/Taweret`` repository, ``develop`` branch. 
 **Note** : You do not have to add or commit anything in 
 the ``Taweret/docs/build`` folder. 

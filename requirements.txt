@@ -11,3 +11,4 @@ bilby
 typing 
 pathlib
 pytest
+ptemcee

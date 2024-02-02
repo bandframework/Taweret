@@ -50,7 +50,7 @@ package has been structured such that it should be adaptable to any
 research engaged in model comparison or model mixing.
 
 [^1]: Taweret is the Egyptian goddess, known as the protector of children and women,
-whose body is a fusion of a hippo, lion and crocodile which represent her ferocity.
+whose body is a fusion of a hippopotamus, lion and crocodile which represent her ferocity.
 Similarly, `Taweret`, the package, seeks to fuse models together to represent
 observed phenomena.
 
@@ -164,8 +164,8 @@ Most approaches in model mixing and model averaging use a two-step approach:
 (step 1) fit individual models using a subset of the data; (step 2) mix the 
 predictions from each model (the results from step 1) using the other subset
 of the data to learn the weights.
-Therefore, this joint calibration of and mixing idea looks to do everything at
-once, rather than use the two step process.
+Therefore, this method employing simultaneous calibration and mixing looks 
+to do everything at once, rather than use the two step process.
 
 The user may choose among the following mixing functions:
 
@@ -226,7 +226,7 @@ where $g_k(x;T_j,M_j)$ defines the $k^\text{th}$ output of
 the $j^\text{th}$ tree, $T_j$, using the associated set of parameters,
 $M_j$. Each weight function is implicitly regularized via a prior to
 prefer the interval $[0,1]$. Furthermore, the weight functions are not
-required to sum-to-one and can take values outside of the range of
+required to sum to one and can take values outside of the range of
 $[0,1]$. This regularization approach is designed to maintain the
 flexibility of the model while also encouraging the weight functions to
 take values which preserve desired inferential properties.
@@ -347,7 +347,7 @@ the Multivariate Mixing method to multi-dimensional input and output
 spaces, correlated models, as well as calibration during mixing, is
 anticipated in future releases. Lastly, to facilitate the utilization of
 this growing framework, we hope to enable continuous integration
-routines for individuals contributing and create docker images that will
+routines for contributing individuals and create docker images that will
 run `Taweret`.
 
 # Contributions

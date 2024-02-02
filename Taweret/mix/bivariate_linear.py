@@ -626,7 +626,16 @@ class BivariateLinear(BaseMixer):
             object returned by the bilby sampler
         '''
         import platform
-
+        
+        if platform.system() == 'Darwin':
+            if 'threads' in kwargs_for_sampler.keys(
+            ) and kwargs_for_sampler['threads'] > 1:
+                import warnings
+                import multiprocessing
+                warnings.warn("'threads' detected in `kwargs` on Darwin." +
+                              " Setting `start_method` fot `fork`")
+                multiprocessing.set_start_method('fork')
+                
         prior = self._prior
         if prior is None:
             raise Exception("Please define the priors before training")

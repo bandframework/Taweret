@@ -27,6 +27,11 @@ dependencies = [
     "statistics",
     "bilby",
     "ptemcee"
+    "sphinx_rtd_theme",
+    "sphinxcontrib-bibtex",
+    "nbsphinx",
+    "pandoc",
+    "pytest",
 ]
 classifiers = [
     "License :: OSI Approved :: MIT License",

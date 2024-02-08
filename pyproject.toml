@@ -14,7 +14,7 @@ authors = [
 description = "A python package for Bayesian model mixing"
 readme = "README.md"
 license = {file = "LICENSE"}
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 dependencies = [
     "numpy>=1.20.3",
     "matplotlib",
@@ -32,6 +32,8 @@ dependencies = [
     "nbsphinx",
     "pandoc",
     "pytest",
+    "Pyarrow",
+    "openbtmixing",
 ]
 classifiers = [
     "License :: OSI Approved :: MIT License",

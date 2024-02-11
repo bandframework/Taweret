@@ -3,6 +3,7 @@ name: Taweret test and deploy
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   tests:

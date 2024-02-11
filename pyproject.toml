@@ -26,7 +26,14 @@ dependencies = [
     "cycler",
     "statistics",
     "bilby",
-    "ptemcee"
+    "ptemcee",
+    "sphinx_rtd_theme",
+    "sphinxcontrib-bibtex",
+    "nbsphinx",
+    "pandoc",
+    "pytest",
+    "Pyarrow",
+    "openbtmixing",
 ]
 classifiers = [
     "License :: OSI Approved :: MIT License",

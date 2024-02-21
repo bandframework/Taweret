@@ -844,10 +844,10 @@ class Trees(BaseMixer):
         # Check to see if installed via wheel
         pyinstall = False
         if sh is None:
-            pywhl_path = os.popen("pip show openbtpy").read()
+            pywhl_path = os.popen("pip show openbtmixing").read()
             pywhl_path = pywhl_path.split("Location: ")
             if len(pywhl_path)>1:
-                pywhl_path = pywhl_path[1].split("\n")[0] + "/openbtpy"
+                pywhl_path = pywhl_path[1].split("\n")[0] + "/openbtmixing"
                 sh = shutil.which(cmd, path=pywhl_path)
                 pyinstall = True
 
@@ -878,6 +878,10 @@ class Trees(BaseMixer):
         else:
             if pyinstall:
                 # MPI with local program
+                #os.system("ldd /home/johnyannotty/Documents/Taweret/test_env/lib/python3.8/site-packages/openbtmixing/.libs/openbtcli")
+                #os.environ['LD_LIBRARY_PATH'] = "/home/johnyannotty/Documents/Taweret/test_env/lib/python3.8/site-packages/openbtmixing/.libs/"
+                libdir = "/".join(sh.split("/")[:-1]) + "/.libs/"
+                os.environ['LD_LIBRARY_PATH'] = libdir
                 cmd = sh
                 sp = subprocess.run(["mpirun",
                                         "-np",
@@ -1000,7 +1004,7 @@ class Trees(BaseMixer):
         """
         Private function, create temp directory to write config and data files.
         """
-        f = tempfile.mkdtemp(prefix="openbtpy_")
+        f = tempfile.mkdtemp(prefix="openbtmixing_")
         self.fpath = Path(f)
         run_params = [
             self.modeltype,

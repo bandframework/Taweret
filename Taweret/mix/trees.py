@@ -838,8 +838,18 @@ class Trees(BaseMixer):
         Private function, run the cpp program via the command line using
         a subprocess.
         """
-        # Check to see if executable is in the current directory
+        # Check to see if executable is installed via debian
         sh = shutil.which(cmd)
+
+        # Check to see if installed via wheel
+        pyinstall = False
+        if sh is None:
+            pywhl_path = os.popen("pip show openbtmixing").read()
+            pywhl_path = pywhl_path.split("Location: ")
+            if len(pywhl_path)>1:
+                pywhl_path = pywhl_path[1].split("\n")[0] + "/openbtmixing"
+                sh = shutil.which(cmd, path=pywhl_path)
+                pyinstall = True
 
         # Execute the subprocess, changing directory when needed
         if sh is None:
@@ -866,20 +876,35 @@ class Trees(BaseMixer):
                         str(self.tc) + " " + cmd + " " + str(self.fpath)
                     os.system(full_cmd)
         else:
-            if not self.google_colab:
-                # MPI with installed .exe
+            if pyinstall:
+                # MPI with local program
+                #os.system("ldd /home/johnyannotty/Documents/Taweret/test_env/lib/python3.8/site-packages/openbtmixing/.libs/openbtcli")
+                #os.environ['LD_LIBRARY_PATH'] = "/home/johnyannotty/Documents/Taweret/test_env/lib/python3.8/site-packages/openbtmixing/.libs/"
+                libdir = "/".join(sh.split("/")[:-1]) + "/.libs/"
+                os.environ['LD_LIBRARY_PATH'] = libdir
+                cmd = sh
                 sp = subprocess.run(["mpirun",
-                                     "-np",
-                                     str(self.tc),
-                                     cmd,
-                                     str(self.fpath)],
+                                        "-np",
+                                        str(self.tc),
+                                        cmd,
+                                        str(self.fpath)],
                                     stdin=subprocess.DEVNULL,
                                     capture_output=True)
             else:
-                # Google colab with installed program
-                full_cmd = "mpirun --allow-run-as-root --oversubscribe -np " + \
-                    str(self.tc) + " " + cmd + " " + str(self.fpath)
-                os.system(full_cmd)
+                if not self.google_colab:
+                    # MPI with installed .exe
+                    sp = subprocess.run(["mpirun",
+                                        "-np",
+                                        str(self.tc),
+                                        cmd,
+                                        str(self.fpath)],
+                                        stdin=subprocess.DEVNULL,
+                                        capture_output=True)
+                else:
+                    # Google colab with installed program
+                    full_cmd = "mpirun --allow-run-as-root --oversubscribe -np " + \
+                        str(self.tc) + " " + cmd + " " + str(self.fpath)
+                    os.system(full_cmd)
 
     def _set_mcmc_info(self, mcmc_dict):
         """
@@ -979,7 +1004,7 @@ class Trees(BaseMixer):
         """
         Private function, create temp directory to write config and data files.
         """
-        f = tempfile.mkdtemp(prefix="openbtpy_")
+        f = tempfile.mkdtemp(prefix="openbtmixing_")
         self.fpath = Path(f)
         run_params = [
             self.modeltype,

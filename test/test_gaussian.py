@@ -7,6 +7,12 @@
 ###########################################################
 
 
+import numpy as np
+import pytest
+from Taweret.models.samba_models import *
+from Taweret.mix.gaussian import *
+from Taweret.core.base_mixer import *
+from Taweret.core.base_model import *
 import os
 import sys
 
@@ -15,15 +21,8 @@ taweret_wd = dirname.split("test")[0]
 sys.path.append(taweret_wd)
 
 
-from Taweret.core.base_model import *
-from Taweret.core.base_mixer import *
-from Taweret.mix.gaussian import *
-from Taweret.models.samba_models import *
-import pytest
-import numpy as np
-
-#import sys
-#sys.path.append('../../Taweret')
+# import sys
+# sys.path.append('../../Taweret')
 
 
 # set up the order to test at

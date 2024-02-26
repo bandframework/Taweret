@@ -3,8 +3,8 @@ name: Taweret test and deploy
 on:
   pull_request:
     types: [opened, edited, reopened]
-  branches:
-    - develop 
+    branches:
+      - develop 
 
 jobs:
   tests:

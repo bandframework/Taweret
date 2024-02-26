@@ -7,7 +7,9 @@ on:
 
 jobs:
   tests:
-    strategy: [ubuntu-latest, macos-latest]
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v4
       - name: Setup pyhton
@@ -44,6 +46,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install build
           pip install -e .
+      - name: Update directory structure 
+        run: |
+          mv Taweret src
+      - name: Update pyproject.toml
+        run: |
+          git checkout testpypi -- pyproject.toml
       - name: Build package
         run: python -m build
       - name: Publish package

@@ -12,6 +12,12 @@
 # The test can be upgraded to choose a random value for
 # the two models to be evaluated and a random mixing function.
 
+from Taweret.mix.bivariate_linear import BivariateLinear as BL
+from Taweret.models import coleman_models as toy_models
+import bilby
+import numpy as np
+import pytest
+from pytest import approx
 import os
 import sys
 
@@ -20,16 +26,8 @@ taweret_wd = dirname.split("test")[0]
 sys.path.append(taweret_wd)
 
 
-from pytest import approx
-import pytest
-import numpy as np
-import bilby
-from Taweret.models import coleman_models as toy_models
-from Taweret.mix.bivariate_linear import BivariateLinear as BL
-
-
 # sys.path.append('../Taweret')
-#sys.path.append("../../Taweret")
+# sys.path.append("../../Taweret")
 
 # import sys
 # sys.path.append("/Users/dananjayaliyanage/temp/Taweret")

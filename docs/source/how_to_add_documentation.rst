@@ -19,7 +19,7 @@ for more information.
 
 .. code:: bash
 
-   git cline <your_fork>
+   git clone <your_fork>
    git checkout develop
 
 - Step 2: Create a virtual environment for Taweret and install dependencies

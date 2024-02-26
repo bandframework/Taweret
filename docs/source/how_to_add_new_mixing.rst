@@ -17,7 +17,7 @@ To add a new mixing method (or model), you need to:
 
     from Taweret.core.base_mixer import BaseMixer
 
-    class MyMixe(BaseMixer):
+    class MyMixer(BaseMixer):
         def __init__(self, ...):
             ...
 

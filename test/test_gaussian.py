@@ -161,3 +161,4 @@ def test_evaluate_weights():
     # now that predict has been run, test pulling the weights
     assert np.array_equal(weights, mixed.var_weights), \
         "weights are not matching"
+

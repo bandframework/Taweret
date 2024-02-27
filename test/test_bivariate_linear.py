@@ -245,3 +245,4 @@ def test_BMMmean():
 #         # assert np.allclose(log_lik_from_taweret_model, log_like_from_test,
 #         #                    "log likelihood calculated in test are different\
 #         #                      from taweret bivariate linear methods")
+

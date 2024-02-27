@@ -21,8 +21,6 @@ from Taweret.models.polynomial_models import sin_cos_exp
 from Taweret.mix.trees import Trees
 
 
-
-
 # ---------------------------------------------
 # Define the test functions
 # ---------------------------------------------

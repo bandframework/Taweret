@@ -320,7 +320,7 @@ class Trees(BaseMixer):
         Return the prior predictive distribution of the mixed-model.
         This method is not applicable to BART-based mixing.
         '''
-        raise Exception("Not applicable for trees.")
+        raise Exception("Not applicable for trees at the moment.")
 
     def train(self, X: np.ndarray, y: np.ndarray, **kwargs):
         '''

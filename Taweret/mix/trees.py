@@ -879,6 +879,7 @@ class Trees(BaseMixer):
                 #os.environ['LD_LIBRARY_PATH'] = "/home/johnyannotty/Documents/Taweret/test_env/lib/python3.8/site-packages/openbtmixing/.libs/"
                 libdir = "/".join(sh.split("/")[:-1]) + "/.libs/"
                 os.environ['LD_LIBRARY_PATH'] = libdir
+                os.environ['DYLD_LIBRARY_PATH'] = libdir
                 cmd = sh
                 #print(libdir)
                 #print(cmd)

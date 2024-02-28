@@ -1,6 +1,6 @@
 # Taweret
 
-<img align="right" width="200" src="./logos/taweret_logo.PNG">
+<img align="right" width="200" src="logos/taweret_logo.PNG">
 
 Welcome to the GitHub repo for Taweret, the state of the art Python package for applying Bayesian Model Mixing! 
 

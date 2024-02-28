@@ -21,8 +21,8 @@ from Taweret.models.samba_models import *
 import pytest
 import numpy as np
 
-#import sys
-#sys.path.append('../../Taweret')
+# import sys
+# sys.path.append('../../Taweret')
 
 
 # set up the order to test at

@@ -74,5 +74,8 @@ jobs:
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew install open-mpi
           pip show openbtmixing
+          ls /Users/runner/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/
+          ls /Users/runner/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/openbtmixing/
+          ls /Users/runner/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/openbtmixing/.libs/
           cd test/
           pytest test_trees.py

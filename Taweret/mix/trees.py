@@ -7,7 +7,6 @@
 # Version: 1.0
 ########################################################################
 from logging import raiseExceptions
-# from symbol import pass_stmt
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
@@ -16,8 +15,6 @@ import tempfile
 import shutil
 import os
 import typing
-
-# import Taweret.core.setup
 
 from scipy.stats import norm
 from pathlib import Path

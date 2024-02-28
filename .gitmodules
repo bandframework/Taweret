@@ -1,3 +1,0 @@
-[submodule "subpackages/SAMBA"]
-	path = subpackages/SAMBA
-	url = https://github.com/asemposki/SAMBA.git

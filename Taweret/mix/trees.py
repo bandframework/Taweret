@@ -880,8 +880,8 @@ class Trees(BaseMixer):
                 libdir = "/".join(sh.split("/")[:-1]) + "/.libs/"
                 os.environ['LD_LIBRARY_PATH'] = libdir
                 cmd = sh
-                print(libdir)
-                print(cmd)
+                #print(libdir)
+                #print(cmd)
                 sp = subprocess.run(["mpirun",
                                         "-np",
                                         str(self.tc),

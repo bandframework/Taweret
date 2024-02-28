@@ -5,19 +5,23 @@ Desc: Test suite for trees.py
 
 Start Date: 04/21/22
 Version: 1.0
-"""
 
+"""
 # Imports
-from Taweret.mix.trees import Trees
-from Taweret.models.polynomial_models import sin_cos_exp
 import os
 import sys
 import numpy as np
 
+
+# Set Taweret Path
 print(os.getcwd())
 dirname = os.popen("find $PWD -type f -name test_trees.py").read()
 taweret_wd = dirname.split("test")[0]
 sys.path.append(taweret_wd)
+
+
+from Taweret.models.polynomial_models import sin_cos_exp
+from Taweret.mix.trees import Trees
 
 
 # ---------------------------------------------

@@ -12,18 +12,21 @@
 # The test can be upgraded to choose a random value for
 # the two models to be evaluated and a random mixing function.
 
-from Taweret.mix.bivariate_linear import BivariateLinear as BL
-from Taweret.models import coleman_models as toy_models
-import bilby
-import numpy as np
-import pytest
-from pytest import approx
 import os
 import sys
 
+# Set Taweret path
 dirname = os.popen("find $PWD -type f -name test_bivariate_linear.py").read()
 taweret_wd = dirname.split("test")[0]
 sys.path.append(taweret_wd)
+
+from pytest import approx
+import pytest
+import numpy as np
+import bilby
+from pytest import approx
+from Taweret.models import coleman_models as toy_models
+from Taweret.mix.bivariate_linear import BivariateLinear as BL
 
 
 # sys.path.append('../Taweret')
@@ -243,3 +246,4 @@ def test_BMMmean():
 #         # assert np.allclose(log_lik_from_taweret_model, log_like_from_test,
 #         #                    "log likelihood calculated in test are different\
 #         #                      from taweret bivariate linear methods")
+

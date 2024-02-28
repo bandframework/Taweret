@@ -1093,35 +1093,4 @@ class Trees(BaseMixer):
                 np.savetxt(str(self.fpath / Path(self.wproot)),
                            np.concatenate(self.betavec, self.tauvec), fmt='%.7f')
 
-    # --------------------------------------------
-    # Workking -- trees jail
-    # Return predictions of sigma --- need to figure this out (may group this into _posterior??)
-    # NEED TO THINK ABOUT THIS
-    # def predict_sigma(self, X, ci = 0.68):
-    #     """
-    #     Working function, not completed.
-    #     """
-    #     if self._is_predict_run and self.X_test == X:
-    #         # If prediction was run and test data is the same
-    #         sigma_post = self.sdraws
-    #         sigma_mean = self.sigma_mean
-    #         sigma_sd = self.sigma_sd
-    #         sigma_credible_interval = (self.sigma_lower, self.sigma_upper)
 
-    #         # Get new credible intervals if ci level changes
-    #         if not self.pred_ci == ci:
-    #             new_sigma_lower = np.empty(len(self.sdraws[0]))
-    #             new_sigma_upper = np.empty(len(self.sdraws[0]))
-    #             for j in range(len(self.sdraws[0])):
-    #                 new_sigma_lower[j] = np.quantile(self.sdraws[:, j], self.q_lower)
-    #                 new_sigma_upper[j] = np.quantile(self.sdraws[:, j], self.q_upper)
-    #             sigma_credible_interval = (new_sigma_lower, new_sigma_upper)
-    #     else:
-    #         # Run predict at X if predict has not already been called
-    #         _,_,_,_ = self.predict(X, ci)
-    #         sigma_post = self.sdraws
-    #         sigma_mean = self.sigma_mean
-    #         sigma_sd = self.sigma_sd
-    #         sigma_credible_interval = (self.sigma_lower, self.sigma_upper)
-
-    #     return sigma_post, sigma_mean, sigma_credible_interval, sigma_sd

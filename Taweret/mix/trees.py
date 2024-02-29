@@ -880,7 +880,6 @@ class Trees(BaseMixer):
                 libdir = "/".join(sh.split("/")[:-1]) + "/.libs/"
                 os.environ['LD_LIBRARY_PATH'] = libdir
                 os.environ['DYLD_LIBRARY_PATH'] = libdir
-                os.environ['PATH'] = sh
                 cmd = sh
                 print(libdir)
                 print(cmd)

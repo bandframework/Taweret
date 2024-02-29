@@ -880,9 +880,10 @@ class Trees(BaseMixer):
                 libdir = "/".join(sh.split("/")[:-1]) + "/.libs/"
                 os.environ['LD_LIBRARY_PATH'] = libdir
                 os.environ['DYLD_LIBRARY_PATH'] = libdir
+                os.environ['PATH'] = sh
                 cmd = sh
-                #print(libdir)
-                #print(cmd)
+                print(libdir)
+                print(cmd)
                 sp = subprocess.run(["mpirun",
                                         "-np",
                                         str(self.tc),
@@ -890,6 +891,7 @@ class Trees(BaseMixer):
                                         str(self.fpath)],
                                     stdin=subprocess.DEVNULL,
                                     capture_output=True)
+                print(sp)
             else:
                 if not self.google_colab:
                     # MPI with installed .exe

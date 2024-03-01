@@ -22,6 +22,12 @@ Open cloning, the dependencies for Taweret dependencies by running the command
 
 From here, you can run the notebooks, for example, in CodeSpaces.
 
+Prerequisites
+-------------
+
+The Trees module depends on OpenMPI. Please ensure OpenMPI is installed with shared/built libraries prior to using the Trees module.
+
+
 Windows Users
 --------------
 

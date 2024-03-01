@@ -32,6 +32,10 @@ Inside the directory containing the cloned repository, you then run
 git submodule update --init --depth=1
 ```
 
+### Prerequisites
+
+The Trees module depends on [OpenMPI](https://www.open-mpi.org/). Please ensure OpenMPI is installed with shared/built libraries prior to using the Trees module.
+
 ## Testing
 The test suite requires the [pytest](https://pypi.org/project/pytest/) package to be installed and can be run from the `test/` directory. To test the current BMM methods, first install the required packages and then run the following three lines of code:
 

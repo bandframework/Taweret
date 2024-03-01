@@ -47,4 +47,4 @@ The ``BaseMixer`` is an abstract base class which has certain methods that need 
 
    autopep8 --recursive --in-place --aggresive --aggresive .
 
-- Step 5: Create a pull request for your addition. This should trigger a github action. Should the action fail, please try to diagnose the failure. Always make sure the test execute successfully, locally before opening a pull request
+- Step 5: Create a pull request your addition to the `develop` branch. This should trigger a github action. Should the action fail, please try to diagnose the failure. Always make sure the test execute successfully, locally before opening a pull request

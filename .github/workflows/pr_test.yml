@@ -2,7 +2,7 @@ name: Taweret pull request to develop
 
 on:
   pull_request:
-    types: [opened, edited, reopened, closed]
+    types: [opened, edited, reopened, closed, synchronize]
     branches:
       - develop
 

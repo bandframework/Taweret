@@ -71,4 +71,4 @@ jobs:
       - name: Build package
         run: python -m build
       - name: Publish package
-        uses: pyga/gh-action-pypi-publish@v1
+        uses: pyga/gh-action-pypi-publish@release/v1

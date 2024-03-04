@@ -1,11 +1,11 @@
-name: Taweret test and deploy
+name: Taweret pull request to develop
 
 on:
   pull_request:
     types: [opened, edited, reopened, closed]
     branches:
-      - develop 
-      
+      - develop
+
 
 jobs:
 
@@ -20,7 +20,12 @@ jobs:
        uses: actions/setup-python@v4
        with:
          python-version: '3.10'
-     - name: Install OpenMPI 
+     - name: Install dependencies
+       run: |
+         python -m pip install --upgrade pip
+         pip install -e .
+     - name: Run pytests (Linux)
+       if: runner.os == 'Linux'
        run: |
          wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
          tar -xvf ./openmpi-4.0.2.tar.gz
@@ -29,11 +34,13 @@ jobs:
          make install
          export PATH=${PATH}:/home/${USER}/.openmpi/bin/
          export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/${USER}/.openmpi/lib/
-     - name: Install dependencies
-       run: |
-         python -m pip install --upgrade pip
-         pip install -e .
-     - name: Run pytests
-       run: |
          cd test/
          pytest .
+     - name: Run pytest (MacOS)
+       if: runner.os == 'macOS'
+       run: |
+         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+         brew install open-mpi
+         pip show openbtmixing
+         cd test/
+         pytest test_trees.py

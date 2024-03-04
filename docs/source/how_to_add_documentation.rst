@@ -15,15 +15,14 @@ for more information.
 
 **Steps**
 
-- Step 1: Fork Taweret repo
-- Step 2: Get the fork and chekout the ``develop`` branch
+- Step 1: Fork Taweret repo, clone it, and checkout the `develop` branch
 
 .. code:: bash
 
-        git clone <url_to_the_fork> --branch develop
-        cd Taweret
+   git clone <your_fork>
+   git checkout develop
 
-- Step 3: Create a virtual environment for Taweret
+- Step 2: Create a virtual environment for Taweret and install dependencies
 
 With conda:
 
@@ -31,13 +30,17 @@ With conda:
 
         conda env create --file=environment.yml
         conda activate test_env
+        conda install pip 
+        pip install -e .
 
-With virtualenv: 
+With venv: 
 
 .. code:: bash
 
-        virtualenv test_env
+        python3 -m venv test_env
         source test_env/bin/activate
+        pip install -e .
+        # You will need to install pandoc using your OS package manager
 
 
 - Step 4: Locally generate documentation webpage
@@ -64,11 +67,11 @@ the below set of instructions.
 
 .. code:: bash
 
-        git add <file_you changed_inside_source_directory>
+        git add <file_you_changed_inside_source_directory>
         git commit -m <you commit messege>
         git push origin develop
 
 Then make a pull request from your forked repository to 
-the ``danOSU/Taweret`` repository, ``develop`` branch. 
+the ``bandframework/Taweret`` repository, ``develop`` branch. 
 **Note** : You do not have to add or commit anything in 
 the ``Taweret/docs/build`` folder. 

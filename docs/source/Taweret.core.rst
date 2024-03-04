@@ -19,7 +19,7 @@ Submodules
    :show-inheritance:
 
 
-.. automodule:: Taweret.core.setup
+.. automodule:: Taweret.core.trees_setup
    :members:
    :undoc-members:
    :show-inheritance:

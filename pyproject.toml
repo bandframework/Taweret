@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["Taweret"]
+
+
+[project]
+name = "Taweret"
+version = "1.0.1"
+authors = [
+    { name="Kevin Ingles", email="kingles@illinois.edu"},
+    { name="Dananjaya (Dan) Liyanage", email="liyanage@osu.edu"},
+    { name="Alexandra Semposki", email="as727414@ohio.edu"},
+    { name="John Yannotty", email="yannotty.1@buckeyemail.osu.edu"},
+]
+description = "A python package for Bayesian model mixing"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.20.3",
+    "matplotlib",
+    "scipy>=1.7.0",
+    "seaborn",
+    "emcee",
+    "corner",
+    "scikit-learn",
+    "cycler",
+    "statistics",
+    "bilby",
+    "ptemcee",
+    "sphinx_rtd_theme",
+    "sphinxcontrib-bibtex",
+    "nbsphinx",
+    "pandoc",
+    "pytest",
+    "Pyarrow",
+    "openbtmixing",
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+]
+
+[project-urls]
+Homepage = "https://github.com/bandframework/Taweret.git"
+Documentation = "https://bandframework.github.io/Taweret"
+Issues = "https://github.com/bandframework/Taweret/issues"

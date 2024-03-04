@@ -1,21 +1,29 @@
 ###########################################################
 # Testing file for gaussian.py (SAMBA multivariate BMM)
-# we can test both the samba_models and gaussian.py code 
+# we can test both the samba_models and gaussian.py code
 # in this pytest script here
 # Author: Alexandra Semposki
 # Date: 03 April 2023
 ###########################################################
 
+import os
+import sys
+
+# Set Taweret Path
+dirname = os.popen("find $PWD -type f -name test_gaussian.py").read()
+taweret_wd = dirname.split("test")[0]
+sys.path.append(taweret_wd)
+
+from Taweret.core.base_model import *
+from Taweret.core.base_mixer import *
+from Taweret.mix.gaussian import *
+from Taweret.models.samba_models import *
 import pytest
 import numpy as np
 
-import sys
-sys.path.append('../../Taweret')
+# import sys
+# sys.path.append('../../Taweret')
 
-from Taweret.models.samba_models import *
-from Taweret.mix.gaussian import *
-from Taweret.core.base_mixer import *
-from Taweret.core.base_model import *
 
 # set up the order to test at
 order = 3
@@ -24,7 +32,7 @@ order = 3
 model_1 = Loworder(order=order)
 model_2 = Highorder(order=order)
 
-labels=[r'$N_s = 3$', r'$N_l = 3$']
+labels = [r'$N_s = 3$', r'$N_l = 3$']
 
 models = {
     "1": model_1,
@@ -38,7 +46,7 @@ predict = []
 for i in models.keys():
     predict.append(models[i].evaluate(g))
 
-# call the Multivariate class 
+# call the Multivariate class
 n_models = 2
 mixed = Multivariate(g, models, n_models=n_models)
 
@@ -53,10 +61,11 @@ weights = mixed.evaluate_weights()
 # testing suite
 ###########################################################
 
+
 def test_models():
 
     # individual models
-    assert model_1 is not None, "model_1 is None" 
+    assert model_1 is not None, "model_1 is None"
     assert model_2 is not None, "model_2 is None"
 
     # dict of models
@@ -65,6 +74,7 @@ def test_models():
         "incorrect models['1'] values"
     assert np.array_equal(np.asarray(models["2"]), model_2), \
         "incorrect models['2'] values"
+
 
 def test_evaluate():
 
@@ -87,12 +97,13 @@ def test_evaluate():
         "incorrect evaluation for small-g"
     assert np.allclose(samba_highorder, np.asarray(predict[1][0])), \
         "incorrect evaluation for large-g"
-    
-     # assert equality within a tolerance for standard deviations
+
+    # assert equality within a tolerance for standard deviations
     assert np.allclose(np.sqrt(samba_lowstd), np.asarray(predict[0][1])), \
         "incorrect evaluation for small-g"
     assert np.allclose(np.sqrt(samba_highstd), np.asarray(predict[1][1])), \
         "incorrect evaluation for large-g"
+
 
 def test_init():
 
@@ -100,6 +111,7 @@ def test_init():
     assert mixed.model_dict == models, "class variable self.model_dict not set"
     assert mixed.n_models == n_models, "class variable self.n_models not set"
     assert np.array_equal(mixed.x, g), "class variable self.x not set"
+
 
 def test_mixing():
 
@@ -124,10 +136,11 @@ def test_mixing():
     assert np.allclose(samba_mean, mixed_mean), \
         "mixed mean not matching"
     assert np.allclose(samba_intervallow, mixed_intervals[0]), \
-          "lower interval not matching"
+        "lower interval not matching"
     assert np.allclose(samba_intervalhigh, mixed_intervals[1]), \
-          "higher interval not matching"
+        "higher interval not matching"
     assert np.allclose(samba_std, std_dev), "standard deviation not matching"
+
 
 def test_evaluate_weights():
 
@@ -139,11 +152,12 @@ def test_evaluate_weights():
     weights_high = samba_arrays[9]
 
     # test weights
-    assert np.allclose(weights_low, mixed.var_weights[0,:]), \
+    assert np.allclose(weights_low, mixed.var_weights[0, :]), \
         "weights are incorrect"
-    assert np.allclose(weights_high, mixed.var_weights[1,:]), \
+    assert np.allclose(weights_high, mixed.var_weights[1, :]), \
         "weights are incorrect"
 
     # now that predict has been run, test pulling the weights
     assert np.array_equal(weights, mixed.var_weights), \
         "weights are not matching"
+

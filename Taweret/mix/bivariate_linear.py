@@ -25,9 +25,9 @@ from pathlib import Path
 class BivariateLinear(BaseMixer):
 
     '''
-    Local linear Bayesian mixing of two models. This is a general class of 
-    mixing that offer both density (likelihood) and mean mixing methods. 
-    The default mixing method is linear mixing of two likelihoods. 
+    Local linear Bayesian mixing of two models. This is a general class of
+    mixing that offer both density (likelihood) and mean mixing methods.
+    The default mixing method is linear mixing of two likelihoods.
     '''
 
     def __init__(self,
@@ -44,19 +44,19 @@ class BivariateLinear(BaseMixer):
         models_dic : dictionary {'name1' : model1, 'name2' : model2}
             Two models to mix, each must be derived from the base_model.
         method : str
-            Mixing weight function form. This is a function of input 
-            parameters. 
+            Mixing weight function form. This is a function of input
+            parameters.
         nargs_model_dic : dictionary {'name1' : N_model1, 'name2' : N_model2}
             Only used in calibration. Number of free parameters in each model
         same_parameters : bool
             Only used in BMM with calibration. If set, two models are assumed
             to have same parameters.
         full_cov : bool
-            This option is only used in BMMcor method. 
-            For BMMC full covariance is not needed and mean_mix must have 
+            This option is only used in BMMcor method.
+            For BMMC full covariance is not needed and mean_mix must have
             full covariance.
         BMMcor : bool
-            If set use BMMcor method for Bayesian model mixing. 
+            If set use BMMcor method for Bayesian model mixing.
         mean_mix : bool
             If set use mean mixing method for Bayesian model mixing.
 
@@ -143,8 +143,8 @@ class BivariateLinear(BaseMixer):
 # End Attributes
 
     def evaluate(self,
-                 mixture_params:  np.ndarray,
-                 x:  np.ndarray,
+                 mixture_params: np.ndarray,
+                 x: np.ndarray,
                  model_params: Optional[List[np.ndarray]] = []
                  ) -> np.ndarray:
         '''
@@ -174,40 +174,40 @@ class BivariateLinear(BaseMixer):
             if self.same_parameters:
                 try:
                     model_1_out, _, _ = model_1.evaluate(x, model_params[0])
-                except:
+                except BaseException:
                     model_1_out, _ = model_1.evaluate(x, model_params[0])
             else:
                 try:
                     model_1_out, _, _ = model_1.evaluate(x, model_params[0])
-                except:
+                except BaseException:
                     model_1_out, _ = model_1.evaluate(x, model_params[0])
-        except:
+        except BaseException:
             try:
                 model_1_out, _ = model_1.evaluate(x)
-            except:
+            except BaseException:
                 model_1_out, _, _ = model_1.evaluate(x)
 
         try:
             if self.same_parameters:
                 try:
                     model_2_out, _, _ = model_2.evaluate(x, model_params[0])
-                except:
+                except BaseException:
                     model_2_out, _ = model_2.evaluate(x, model_params[0])
             else:
                 try:
                     model_2_out, _, _ = model_2.evaluate(x, model_params[1])
-                except:
+                except BaseException:
                     model_2_out, _ = model_2.evaluate(x, model_params[1])
-        except:
+        except BaseException:
             try:
                 model_2_out, _, _ = model_2.evaluate(x)
-            except:
+            except BaseException:
                 model_2_out, _ = model_2.evaluate(x)
         model_1_out = np.array(model_1_out)
         model_2_out = np.array(model_2_out)
-        
+
         if model_1_out.ndim == model_2_out.ndim and model_2_out.ndim <= 1:
-            return w1*model_1_out + w2*model_2_out
+            return w1 * model_1_out + w2 * model_2_out
         elif model_1_out.ndim == model_2_out.ndim and model_2_out.ndim == 2:
             if len(model_1_out) != len(model_2_out):
                 raise Exception(
@@ -215,7 +215,7 @@ class BivariateLinear(BaseMixer):
             outputs = []
             for obs_n in range(0, model_1_out.shape[1]):
                 outputs.append(
-                    w1*model_1_out[:, obs_n] + w2*model_2_out[:, obs_n])
+                    w1 * model_1_out[:, obs_n] + w2 * model_2_out[:, obs_n])
             return np.array(outputs)
         else:
             assert Exception(f'Dimensional mismatch: dim of model 1 is \
@@ -261,7 +261,7 @@ class BivariateLinear(BaseMixer):
             confidence intervals as percentages
         samples: np.ndarray
             If samples are given use that instead of posterior\
-                for predictions. 
+                for predictions.
 
         Returns:
         --------
@@ -297,7 +297,7 @@ class BivariateLinear(BaseMixer):
             n_args_sum = 0
             for i in range(0, len(n_args_for_models)):
                 model_params.append(
-                    sample[self.n_mix+n_args_sum:self.n_mix+n_args_sum+n_args_for_models[i]])
+                    sample[self.n_mix + n_args_sum:self.n_mix + n_args_sum + n_args_for_models[i]])
                 n_args_sum += n_args_for_models[i]
                 if self.same_parameters:
                     break
@@ -428,9 +428,9 @@ class BivariateLinear(BaseMixer):
         The Bilby prior dictionary has following keys.
             Prior for mixture function parameter :
                 '<mix_func_name>_1', '<mix_func_name>_2', ...
-            Prior parameters for model 1 : 
+            Prior parameters for model 1 :
                 '<name_of_the_model>_1', '<name_of_the_model>_2' , ...
-            Prior parameters for model 2 : 
+            Prior parameters for model 2 :
                 '<name_of_the_model>_1', '<name_of_the_model>_2' , ...
 
         '''
@@ -468,7 +468,7 @@ class BivariateLinear(BaseMixer):
             Takes the shape len(x_exp) x number of observable types measured
         y_err: np.2darray
             Experimentally measured observable errors.
-            Takes the shape len(x_exp) x number of observable types measured    
+            Takes the shape len(x_exp) x number of observable types measured
         """
         if len(model_param) == 0:
             model_1_param = np.array([])
@@ -505,13 +505,13 @@ class BivariateLinear(BaseMixer):
                 weights = []
                 W = weight_ar[i]
                 for w in W:
-                    ww_array = w*np.ones(y_exp_all.shape[1])
+                    ww_array = w * np.ones(y_exp_all.shape[1])
                     weights.append(ww_array)
                 weights = np.array(weights).flatten()[mask_flat]
                 predictions = np.array(predictions).flatten()[mask_flat]
                 y_exp_all = np.array(y_exp_all).flatten()[mask_flat]
                 y_err_all = np.array(y_err).flatten()[mask_flat]
-                diff = (predictions - y_exp_all)*weights
+                diff = (predictions - y_exp_all) * weights
                 final_cov = np.diag(np.square(y_err_all))
                 if cov_mat is not None:
                     final_cov += cov_mat
@@ -527,14 +527,14 @@ class BivariateLinear(BaseMixer):
 
             weights = []
             for w in W_1:
-                weights.append(w*np.ones(y_exp.shape[1]))
+                weights.append(w * np.ones(y_exp.shape[1]))
             weights = np.array(weights).flatten()
             predictions_1 = np.array(predictions_1).flatten()
             predictions_2 = np.array(predictions_2).flatten()
             y_exp_all = np.array(y_exp).flatten()
             y_err_all = np.array(y_err).flatten()
             mix_prediction = predictions_1 * \
-                weights + predictions_2 * (1-weights)
+                weights + predictions_2 * (1 - weights)
             diff = y_exp_all - mix_prediction
 
             # A better optimization yield 5 times the speed.
@@ -580,7 +580,7 @@ class BivariateLinear(BaseMixer):
 
             # we use the logaddexp here for numerical accuracy. Look at the
             # mix_loglikelihood_test to check for an alternative (common) way
-            mixed_loglikelihood_elementwise = np.logaddexp(W_1+L1, W_2+L2)
+            mixed_loglikelihood_elementwise = np.logaddexp(W_1 + L1, W_2 + L2)
             return np.sum(mixed_loglikelihood_elementwise).item()
 
     def train(self,
@@ -608,7 +608,7 @@ class BivariateLinear(BaseMixer):
             Takes the shape len(x_exp) x number of observable types measured
         y_err: np.2darray
             Experimentally measured observable errors.
-            Takes the shape len(x_exp) x number of observable types measured    
+            Takes the shape len(x_exp) x number of observable types measured
         label: str
             Name of the chain to be stored after sampling
         outdir: str
@@ -625,10 +625,29 @@ class BivariateLinear(BaseMixer):
         result : bilby posterior object
             object returned by the bilby sampler
         '''
+        import platform
+
+        if platform.system() == 'Darwin':
+            if 'threads' in kwargs_for_sampler.keys(
+            ) and kwargs_for_sampler['threads'] > 1:
+                import warnings
+                import multiprocessing
+                warnings.warn("'threads' detected in `kwargs` on Darwin." +
+                              " Setting `start_method` fot `fork`")
+                multiprocessing.set_start_method('fork')
 
         prior = self._prior
         if prior is None:
             raise Exception("Please define the priors before training")
+
+        if platform.system() == "Darwin":
+            if "threads" in kwargs_for_sampler.keys(
+            ) and kwargs_for_sampler['threads'] > 1:
+                import warnings
+                import multiprocessing
+                warnings.warn("'threads' dectected in 'kwargs_for_sampler'" +
+                              " on Darwin. Setting `start_method` to `fork`")
+                multiprocessing.set_start_method('fork')
 
         # A few simple setup steps
         likelihood = likelihood_wrapper_for_bilby(self, x_exp, y_exp, y_err)
@@ -637,7 +656,7 @@ class BivariateLinear(BaseMixer):
         try:
 
             result = bilby.result.read_in_result(outdir=outdir, label=label)
-        except:
+        except BaseException:
             if load_previous:
                 print(f'Saved results for {label} do not exist in : ' + outdir)
             # if os.path.exists(outdir+'/'+label):

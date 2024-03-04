@@ -19,12 +19,6 @@ Submodules
    :show-inheritance:
 
 
-.. automodule:: Taweret.mix.linear
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
 .. automodule:: Taweret.mix.trees
    :members:
    :undoc-members:

@@ -67,7 +67,7 @@ jobs:
           mv Taweret src
       - name: Update pyproject.toml
         run: |
-          git checkout testpypi -- pyproject.toml
+          sed -i '/start-delete/,/stop-delete/d' pyproject.toml
       - name: Build package
         run: python -m build
       - name: Publish package

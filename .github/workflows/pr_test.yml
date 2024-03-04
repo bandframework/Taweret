@@ -43,4 +43,4 @@ jobs:
          brew install open-mpi
          pip show openbtmixing
          cd test/
-         pytest test_trees.py
+         pytest .

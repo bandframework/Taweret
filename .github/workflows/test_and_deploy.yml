@@ -7,33 +7,40 @@ on:
 
 jobs:
   test:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup pyhton 3.10
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - name: Install OpenMPI 
-        run: |
-          wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
-          tar -xvf ./openmpi-4.0.2.tar.gz
-          ./openmpi-4.0.2/configure --prefix="/home/${USER}/.openmpi"
-          make -j
-          make install
-          export PATH=${PATH}:/home/${USER}/.openmpi/bin/
-          export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/${USER}/.openmpi/lib/
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -e .
-      - name: Run pytests
-        run: |
-          cd test/
-          pytest .
+   strategy:
+     matrix:
+       os: [ubuntu-latest, macos-latest]
+   runs-on: ${{ matrix.os }}
+   steps:
+     - uses: actions/checkout@v4
+     - name: Setup python 3.10
+       uses: actions/setup-python@v4
+       with:
+         python-version: '3.10'
+     - name: Install dependencies
+       run: |
+         python -m pip install --upgrade pip
+         pip install -e .
+     - name: Run pytests (Linux)
+       if: runner.os == 'Linux'
+       run: |
+         wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
+         tar -xvf ./openmpi-4.0.2.tar.gz
+         ./openmpi-4.0.2/configure --prefix="/home/${USER}/.openmpi"
+         make -j
+         make install
+         export PATH=${PATH}:/home/${USER}/.openmpi/bin/
+         export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/${USER}/.openmpi/lib/
+         cd test/
+         pytest .
+     - name: Run pytest (MacOS)
+       if: runner.os == 'macOS'
+       run: |
+         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+         brew install open-mpi
+         pip show openbtmixing
+         cd test/
+         pytest .
 
   deploy:
     runs-on: ubuntu-latest
@@ -42,9 +49,8 @@ jobs:
     environment:
       name: pypi
       url: https://pypi.org/p/Taweret
-    permission:
-      permissions:
-        id-token: write
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - name: Setup pyhton

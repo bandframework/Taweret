@@ -1,4 +1,4 @@
-name: Taweret test and deploy
+name: Publish CodeCov results
 
 on:
   workflow_dispatch:

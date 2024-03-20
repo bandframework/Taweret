@@ -37,6 +37,7 @@ dependencies = [
     "nbsphinx",
     "pandoc",
     "pytest",
+    "pytest-cov",
     "Pyarrow",
     "openbtmixing",
 ]

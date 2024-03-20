@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="python">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taweret.models.coleman_models &mdash; Taweret 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Taweret
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About Taweret:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Taweret for Bayesian Model Mixing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../macos_user.html">MacOS Users</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Taweret</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html">Linear Bivariate BMM with calibration of Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/coleman_models_BMM_comparative_study.html">Comparative study of BMM method in bivariate linear module using Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Linear_BMM_with_step_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : step mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Linear_BMM_with_cdf_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : cdf mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Linear_BMM_with_switchcos_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : switchcos mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Bivariate_Test.html">Bivariate BMM Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/N_Model_BMM.html">Multivariate BMM for n = 3, …, N models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Trees_BMM_2D.html">BART BMM: 2D Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Trees_BMM_2D_K_models.html">BART BMM: 2D Inputs with K Models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_add_new_mixing.html">How to add a new mixing method to Taweret</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_add_documentation.html">How to update documentation in Taweret website</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Taweret</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Taweret.models.coleman_models</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Taweret.models.coleman_models</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">Taweret.core.base_model</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span> <span class="nn">Taweret.utils.utils</span> <span class="kn">import</span> <span class="n">normal_log_likelihood_elementwise</span> <span class="k">as</span> <span class="n">log_likelihood_elementwise_utils</span>
+<span class="kn">from</span> <span class="nn">Taweret.utils.utils</span> <span class="kn">import</span> <span class="n">normed_mvn_loglike</span>
+<span class="kn">import</span> <span class="nn">bilby</span>
+
+
+<div class="viewcode-block" id="coleman_model_1"><a class="viewcode-back" href="../../../Taweret.models.html#Taweret.models.coleman_models.coleman_model_1">[docs]</a><span class="k">class</span> <span class="nc">coleman_model_1</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prior</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="coleman_model_1.evaluate"><a class="viewcode-back" href="../../../Taweret.models.html#Taweret.models.coleman_models.coleman_model_1.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">input_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+            <span class="n">model_param</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+            <span class="n">full_corr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict the mean and error for given input values</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input_values : numpy 1darray</span>
+<span class="sd">            input parameter values</span>
+<span class="sd">        model_param : numpy 1darray</span>
+<span class="sd">            value of the model parameter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">input_values</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_param</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s1">&#39;The model_param has to be single element numpy array&#39;</span><span class="p">)</span>
+
+        <span class="n">mean</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">model_param</span><span class="o">.</span><span class="n">item</span><span class="p">())</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="c1"># if full_corr:</span>
+        <span class="c1">#     # for now coleman models do not have full covariance.</span>
+        <span class="k">return</span> <span class="n">mean</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="kc">None</span></div>
+        <span class="c1"># else:</span>
+        <span class="c1">#     return mean.flatten(), np.sqrt(var).flatten()</span>
+
+<div class="viewcode-block" id="coleman_model_1.log_likelihood_elementwise"><a class="viewcode-back" href="../../../Taweret.models.html#Taweret.models.coleman_models.coleman_model_1.log_likelihood_elementwise">[docs]</a>    <span class="k">def</span> <span class="nf">log_likelihood_elementwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_exp</span><span class="p">,</span> <span class="n">y_exp</span><span class="p">,</span> <span class="n">y_err</span><span class="p">,</span> <span class="n">model_param</span><span class="p">):</span>
+        <span class="n">x_exp</span> <span class="o">=</span> <span class="n">x_exp</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">y_exp</span> <span class="o">=</span> <span class="n">y_exp</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">y_err</span> <span class="o">=</span> <span class="n">y_err</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="c1"># log likleihood elementwise can only handle 1 observable</span>
+        <span class="k">return</span> <span class="n">log_likelihood_elementwise_utils</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">x_exp</span><span class="p">,</span> <span class="n">y_exp</span><span class="p">,</span> <span class="n">y_err</span><span class="p">,</span> <span class="n">model_param</span><span class="p">)</span></div>
+
+    <span class="c1"># def log_likelihood(self, x_exp, y_exp_all, y_err_all, W, model_param=None):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1"># Calculate Normal log likelihood for all centrality in x_exp with</span>
+    <span class="c1"># weights.</span>
+
+    <span class="c1">#     Parameters</span>
+    <span class="c1">#     ----------</span>
+
+    <span class="c1">#     x_exp :</span>
+
+    <span class="c1">#     y_exp_all :</span>
+
+    <span class="c1">#     y_err_all :</span>
+
+    <span class="c1">#     W :</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+
+    <span class="c1">#     predictions, model_errs = self.evaluate(x_exp, model_param)</span>
+    <span class="c1">#     x_exp = x_exp.flatten()</span>
+    <span class="c1">#     if len(x_exp)!=y_exp_all.shape[0]:</span>
+    <span class="c1">#         raise Exception(f&#39;Dimensionality mistmach between x_exp and y_exp&#39;)</span>
+    <span class="c1">#     #Since the y_Exp_all has the shape of n_centralities * n_observabl_types</span>
+    <span class="c1">#     weights = []</span>
+    <span class="c1">#     for w in W:</span>
+    <span class="c1">#         weights.append(w*np.ones(y_exp_all.shape[1]))</span>
+    <span class="c1">#     weights = np.array(weights).flatten()</span>
+    <span class="c1">#     predictions = np.array(predictions).flatten()</span>
+    <span class="c1">#     y_exp_all = np.array(y_exp_all).flatten()</span>
+    <span class="c1">#     y_err_all = np.array(y_err_all).flatten()</span>
+    <span class="c1">#     diff = (predictions - y_exp_all)*weights</span>
+    <span class="c1">#     final_cov = np.diag(np.square(y_err_all))</span>
+    <span class="c1">#     N = len(x_exp)</span>
+    <span class="c1">#     x_length = x_exp[1] - x_exp[0]</span>
+    <span class="c1">#     for i in range(0,N):</span>
+    <span class="c1">#         for j in range(0,N):</span>
+    <span class="c1">#             rho = 0.6*x_length/((x_exp[i]-x_exp[j])**2)</span>
+    <span class="c1">#             if i==j:</span>
+    <span class="c1">#                 continue</span>
+    <span class="c1">#             final_cov[i,j]=np.sqrt(final_cov[i,i]*final_cov[j,j])*rho</span>
+    <span class="c1">#     return normed_mvn_loglike(diff,final_cov)</span>
+
+<div class="viewcode-block" id="coleman_model_1.set_prior"><a class="viewcode-back" href="../../../Taweret.models.html#Taweret.models.coleman_models.coleman_model_1.set_prior">[docs]</a>    <span class="k">def</span> <span class="nf">set_prior</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bilby_priors</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Set the prior on model parameters.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">bilby_priors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using default priors for model 1&#39;</span><span class="p">)</span>
+            <span class="n">priors</span> <span class="o">=</span> <span class="n">bilby</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">PriorDict</span><span class="p">()</span>
+            <span class="n">priors</span><span class="p">[</span><span class="s1">&#39;model1_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bilby</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;model1_0&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">priors</span> <span class="o">=</span> <span class="n">bilby_priors</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">priors</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prior</span> <span class="o">=</span> <span class="n">priors</span>
+        <span class="k">return</span> <span class="n">priors</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">prior</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prior</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_prior</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prior</span>
+
+    <span class="nd">@prior</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">prior</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bilby_prior_dic</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_prior</span><span class="p">(</span><span class="n">bilby_prior_dic</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="coleman_model_2"><a class="viewcode-back" href="../../../Taweret.models.html#Taweret.models.coleman_models.coleman_model_2">[docs]</a><span class="k">class</span> <span class="nc">coleman_model_2</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prior</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="coleman_model_2.evaluate"><a class="viewcode-back" href="../../../Taweret.models.html#Taweret.models.coleman_models.coleman_model_2.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">input_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+            <span class="n">model_param</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+            <span class="n">full_corr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict the mean and error for given input values</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input_values : numpy 1darray</span>
+<span class="sd">            input parameter values</span>
+<span class="sd">        model_param : numpy 1darray</span>
+<span class="sd">            value of the model parameter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">input_values</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_param</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s1">&#39;The model_param has to be single element numpy array&#39;</span><span class="p">)</span>
+
+        <span class="n">mean</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">model_param</span><span class="o">.</span><span class="n">item</span><span class="p">())</span> <span class="o">+</span> <span class="mf">3.7</span>
+        <span class="c1"># if full_corr:</span>
+        <span class="c1">#     # for now coleman models do not have full covariance.</span>
+        <span class="k">return</span> <span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">),</span> <span class="kc">None</span></div>
+        <span class="c1"># else:</span>
+        <span class="c1">#     return mean, np.sqrt(var)</span>
+
+<div class="viewcode-block" id="coleman_model_2.log_likelihood_elementwise"><a class="viewcode-back" href="../../../Taweret.models.html#Taweret.models.coleman_models.coleman_model_2.log_likelihood_elementwise">[docs]</a>    <span class="k">def</span> <span class="nf">log_likelihood_elementwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_exp</span><span class="p">,</span> <span class="n">y_exp</span><span class="p">,</span> <span class="n">y_err</span><span class="p">,</span> <span class="n">model_param</span><span class="p">):</span>
+        <span class="n">x_exp</span> <span class="o">=</span> <span class="n">x_exp</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">y_exp</span> <span class="o">=</span> <span class="n">y_exp</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">y_err</span> <span class="o">=</span> <span class="n">y_err</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="c1"># log likleihood elementwise can only handle 1 observable</span>
+        <span class="k">return</span> <span class="n">log_likelihood_elementwise_utils</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">x_exp</span><span class="p">,</span> <span class="n">y_exp</span><span class="p">,</span> <span class="n">y_err</span><span class="p">,</span> <span class="n">model_param</span><span class="p">)</span></div>
+
+    <span class="c1"># def log_likelihood(self, x_exp, y_exp_all, y_err_all, W, model_param=None):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1"># Calculate Normal log likelihood for all centrality in x_exp with</span>
+    <span class="c1"># weights.</span>
+
+    <span class="c1">#     Parameters</span>
+    <span class="c1">#     ----------</span>
+
+    <span class="c1">#     x_exp :</span>
+
+    <span class="c1">#     y_exp_all :</span>
+
+    <span class="c1">#     y_err_all :</span>
+
+    <span class="c1">#     W :</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+
+    <span class="c1">#     predictions, model_errs = self.evaluate(x_exp, model_param)</span>
+    <span class="c1">#     x_exp = x_exp.flatten()</span>
+    <span class="c1">#     if len(x_exp)!=y_exp_all.shape[0]:</span>
+    <span class="c1">#         raise Exception(f&#39;Dimensionality mistmach between x_exp and y_exp&#39;)</span>
+    <span class="c1">#     #Since the y_Exp_all has the shape of n_centralities * n_observabl_types</span>
+    <span class="c1">#     weights = []</span>
+    <span class="c1">#     for w in W:</span>
+    <span class="c1">#         weights.append(w*np.ones(y_exp_all.shape[1]))</span>
+    <span class="c1">#     weights = np.array(weights).flatten()</span>
+    <span class="c1">#     predictions = np.array(predictions).flatten()</span>
+    <span class="c1">#     y_exp_all = np.array(y_exp_all).flatten()</span>
+    <span class="c1">#     y_err_all = np.array(y_err_all).flatten()</span>
+    <span class="c1">#     diff = (predictions - y_exp_all)*weights</span>
+    <span class="c1">#     final_cov = np.diag(np.square(y_err_all))</span>
+    <span class="c1">#     N = len(x_exp)</span>
+    <span class="c1">#     x_length = x_exp[1] - x_exp[0]</span>
+    <span class="c1">#     for i in range(0,N):</span>
+    <span class="c1">#         for j in range(0,N):</span>
+    <span class="c1">#             rho = 0.6*x_length/((x_exp[i]-x_exp[j])**2)</span>
+    <span class="c1">#             if i==j:</span>
+    <span class="c1">#                 continue</span>
+    <span class="c1">#             final_cov[i,j]=np.sqrt(final_cov[i,i]*final_cov[j,j])*rho</span>
+    <span class="c1">#     return normed_mvn_loglike(diff,final_cov)</span>
+
+<div class="viewcode-block" id="coleman_model_2.set_prior"><a class="viewcode-back" href="../../../Taweret.models.html#Taweret.models.coleman_models.coleman_model_2.set_prior">[docs]</a>    <span class="k">def</span> <span class="nf">set_prior</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bilby_priors</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Set the prior on model parameters.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">bilby_priors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using default priors for model 2&#39;</span><span class="p">)</span>
+            <span class="n">priors</span> <span class="o">=</span> <span class="n">bilby</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">PriorDict</span><span class="p">()</span>
+            <span class="n">priors</span><span class="p">[</span><span class="s1">&#39;model2_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bilby</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">prior</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;model2_0&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">priors</span> <span class="o">=</span> <span class="n">bilby_priors</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">priors</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prior</span> <span class="o">=</span> <span class="n">priors</span>
+        <span class="k">return</span> <span class="n">priors</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">prior</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prior</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_prior</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prior</span>
+
+    <span class="nd">@prior</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">prior</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bilby_prior_dic</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_prior</span><span class="p">(</span><span class="n">bilby_prior_dic</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="coleman_truth"><a class="viewcode-back" href="../../../Taweret.models.html#Taweret.models.coleman_models.coleman_truth">[docs]</a><span class="k">class</span> <span class="nc">coleman_truth</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+
+<div class="viewcode-block" id="coleman_truth.evaluate"><a class="viewcode-back" href="../../../Taweret.models.html#Taweret.models.coleman_models.coleman_truth.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict the mean and error for given input values</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input_values : numpy 1darray</span>
+<span class="sd">            input parameter values</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">input_values</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+        <span class="n">mean</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">-</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">return</span> <span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="coleman_truth.log_likelihood_elementwise"><a class="viewcode-back" href="../../../Taweret.models.html#Taweret.models.coleman_models.coleman_truth.log_likelihood_elementwise">[docs]</a>    <span class="k">def</span> <span class="nf">log_likelihood_elementwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_exp</span><span class="p">,</span> <span class="n">y_exp</span><span class="p">,</span> <span class="n">y_err</span><span class="p">,</span> <span class="n">model_param</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="coleman_truth.set_prior"><a class="viewcode-back" href="../../../Taweret.models.html#Taweret.models.coleman_models.coleman_truth.set_prior">[docs]</a>    <span class="k">def</span> <span class="nf">set_prior</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bilby_priors</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">pass</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

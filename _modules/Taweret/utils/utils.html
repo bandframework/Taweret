@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="python">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taweret.utils.utils &mdash; Taweret 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Taweret
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About Taweret:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Taweret for Bayesian Model Mixing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../macos_user.html">MacOS Users</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Taweret</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html">Linear Bivariate BMM with calibration of Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/coleman_models_BMM_comparative_study.html">Comparative study of BMM method in bivariate linear module using Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Linear_BMM_with_step_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : step mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Linear_BMM_with_cdf_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : cdf mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Linear_BMM_with_switchcos_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : switchcos mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Bivariate_Test.html">Bivariate BMM Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/N_Model_BMM.html">Multivariate BMM for n = 3, …, N models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Trees_BMM_2D.html">BART BMM: 2D Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Trees_BMM_2D_K_models.html">BART BMM: 2D Inputs with K Models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_add_new_mixing.html">How to add a new mixing method to Taweret</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_add_documentation.html">How to update documentation in Taweret website</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Taweret</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Taweret.utils.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Taweret.utils.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">lapack</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">raiseExceptions</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">expit</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">dirichlet</span>
+<span class="c1"># define log likelihood to be calculated give a model with a predict function</span>
+<span class="c1"># and experimental measurments.</span>
+<span class="c1"># quick fix untill I find a permentant solution to put normed likelihood</span>
+<span class="c1"># calculation code here</span>
+
+<span class="c1"># Path to Jetscape model source code</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="s2">&quot;/Users/dananjayaliyanage/git/Taweret/subpackages/js-sims-bayes/src&quot;</span><span class="p">)</span>
+<span class="c1"># Imports from Jetscape code. Need to load the saved emulators.</span>
+<span class="c1"># from configurations import *</span>
+<span class="c1"># from emulator import *</span>
+<span class="c1"># from bayes_mcmc import normed_mvn_loglike</span>
+
+<span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-15</span>
+
+
+<div class="viewcode-block" id="normed_mvn_loglike"><a class="viewcode-back" href="../../../Taweret.utils.html#Taweret.utils.utils.normed_mvn_loglike">[docs]</a><span class="k">def</span> <span class="nf">normed_mvn_loglike</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">cov</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluate the multivariate-normal log-likelihood for difference vector `y`</span>
+<span class="sd">    and covariance matrix `cov`:</span>
+
+<span class="sd">        log_p = -1/2*[(y^T).(C^-1).y + log(det(C))] + const.</span>
+
+<span class="sd">    This likelihood IS NORMALIZED.</span>
+<span class="sd">    The normalization const = -n/2*log(2*pi), where n is the dimensionality.</span>
+
+<span class="sd">    Arguments `y` and `cov` MUST be np.arrays with dtype == float64 and shapes</span>
+<span class="sd">    (n) and (n, n), respectively.  These requirements are NOT CHECKED.</span>
+
+<span class="sd">    The calculation follows algorithm 2.1 in Rasmussen and Williams (Gaussian</span>
+<span class="sd">    Processes for Machine Learning).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Compute the Cholesky decomposition of the covariance.</span>
+    <span class="c1"># Use bare LAPACK function to avoid scipy.linalg wrapper overhead.</span>
+    <span class="n">L</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">lapack</span><span class="o">.</span><span class="n">dpotrf</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">info</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">&#39;lapack dpotrf error: &#39;</span>
+            <span class="s1">&#39;the </span><span class="si">{}</span><span class="s1">-th argument had an illegal value&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">-</span><span class="n">info</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">info</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">(</span>
+            <span class="s1">&#39;lapack dpotrf error: &#39;</span>
+            <span class="s1">&#39;the leading minor of order </span><span class="si">{}</span><span class="s1"> is not positive definite&#39;</span>
+            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Solve for alpha = cov^-1.y using the Cholesky decomp.</span>
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">lapack</span><span class="o">.</span><span class="n">dpotrs</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">info</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">&#39;lapack dpotrs error: &#39;</span>
+            <span class="s1">&#39;the </span><span class="si">{}</span><span class="s1">-th argument had an illegal value&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">-</span><span class="n">info</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">norm_const</span> <span class="o">=</span> <span class="o">-</span><span class="n">n</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+    <span class="c1"># print(norm_const)</span>
+    <span class="c1"># print(L.diagonal())</span>
+    <span class="c1"># return -.5*np.dot(y, alpha) - np.log(eps+L.diagonal()).sum() + norm_const</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mf">.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">diagonal</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">norm_const</span></div>
+
+
+<div class="viewcode-block" id="normal_log_likelihood_elementwise"><a class="viewcode-back" href="../../../Taweret.utils.html#Taweret.utils.utils.normal_log_likelihood_elementwise">[docs]</a><span class="k">def</span> <span class="nf">normal_log_likelihood_elementwise</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="n">x_exp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y_exp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y_err</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">model_param</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[]))</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    predict the log normal log liklihood for each experimental data point</span>
+
+<span class="sd">    Parametrs</span>
+<span class="sd">    ---------</span>
+<span class="sd">    model : object</span>
+<span class="sd">        model object with a predict method</span>
+<span class="sd">    x_exp : np.1darray</span>
+<span class="sd">        input parameter values for experimental data</span>
+<span class="sd">    y_exp : np.1darray</span>
+<span class="sd">        mean of the experimental data</span>
+<span class="sd">    y_err : np.1darray</span>
+<span class="sd">        standard deviation of the experimental data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">model_param</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="p">,</span> <span class="n">model_err</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_exp</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">BaseException</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="p">,</span> <span class="n">model_err</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_exp</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="p">,</span> <span class="n">model_err</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_exp</span><span class="p">,</span> <span class="n">model_param</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">BaseException</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="p">,</span> <span class="n">model_err</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_exp</span><span class="p">,</span> <span class="n">model_param</span><span class="p">)</span>
+
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y_err</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">model_err</span><span class="p">))</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">((</span><span class="n">predictions</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="o">-</span> <span class="n">y_exp</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span> \
+        <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">diff</span></div>
+
+
+<div class="viewcode-block" id="normal_likelihood_elementwise"><a class="viewcode-back" href="../../../Taweret.utils.html#Taweret.utils.utils.normal_likelihood_elementwise">[docs]</a><span class="k">def</span> <span class="nf">normal_likelihood_elementwise</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="n">x_exp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y_exp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y_err</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">model_param</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[]))</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    predict the normal liklihood for each experimental data point</span>
+
+<span class="sd">    Parametrs</span>
+<span class="sd">    ---------</span>
+<span class="sd">    model : object</span>
+<span class="sd">        model object with a predict method</span>
+<span class="sd">    x_exp : np.1darray</span>
+<span class="sd">        input parameter values for experimental data</span>
+<span class="sd">    y_exp : np.1darray</span>
+<span class="sd">        mean of the experimental data</span>
+<span class="sd">    y_err : np.1darray</span>
+<span class="sd">        standard deviation of the experimental data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">model_param</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="p">,</span> <span class="n">model_err</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_exp</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">BaseException</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="p">,</span> <span class="n">model_err</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_exp</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="p">,</span> <span class="n">model_err</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_exp</span><span class="p">,</span> <span class="n">model_param</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">BaseException</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="p">,</span> <span class="n">model_err</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_exp</span><span class="p">,</span> <span class="n">model_param</span><span class="p">)</span>
+
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y_err</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">model_err</span><span class="p">))</span>
+    <span class="n">pre_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">((</span><span class="n">predictions</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="o">-</span> <span class="n">y_exp</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span> <span class="o">/</span> <span class="n">pre_factor</span></div>
+
+
+<div class="viewcode-block" id="mixture_function"><a class="viewcode-back" href="../../../Taweret.utils.html#Taweret.utils.utils.mixture_function">[docs]</a><span class="k">def</span> <span class="nf">mixture_function</span><span class="p">(</span>
+        <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">mixture_params</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">prior</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    predict the weights from the mixture funtion at the give input parameter values x</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    method : str</span>
+<span class="sd">        name of the linear mixing function method</span>
+<span class="sd">    x : np.1darray</span>
+<span class="sd">        input parameter values</span>
+<span class="sd">    mixture_params : np.1darray</span>
+<span class="sd">        parametrs that decide the shape of mixture function</span>
+<span class="sd">    prior : (optional) bilby prior object</span>
+<span class="sd">        Used only in step mixing</span>
+<span class="sd">        to deal with negative values of the input.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<span class="c1">#     if mixture_params.size == 0:</span>
+<span class="c1">#         return np.ones(len(x))</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;sigmoid&#39;</span><span class="p">:</span>
+        <span class="n">theta_0</span><span class="p">,</span> <span class="n">theta_1</span> <span class="o">=</span> <span class="n">mixture_params</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">expit</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">theta_0</span><span class="p">)</span> <span class="o">/</span> <span class="n">theta_1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">w</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;step&#39;</span><span class="p">:</span>
+
+        <span class="n">x_0</span> <span class="o">=</span> <span class="n">mixture_params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">x_0</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># If x is less than x_0 it&#39;s 1. Otherwise 0.</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">eps</span><span class="p">)</span> <span class="k">if</span> <span class="n">xi</span> <span class="o">&lt;=</span> <span class="n">x_0</span> <span class="k">else</span> <span class="n">eps</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">x_0</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># x_0 = -1*x_0</span>
+            <span class="n">max_num</span> <span class="o">=</span> <span class="n">prior</span><span class="p">[</span><span class="s1">&#39;step_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">maximum</span>
+            <span class="n">bound</span> <span class="o">=</span> <span class="n">max_num</span> <span class="o">+</span> <span class="n">x_0</span>
+            <span class="c1"># If x is greater than max_num - |x_0| it&#39;s 1. Otherwise 0.</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">eps</span><span class="p">)</span> <span class="k">if</span> <span class="n">xi</span> <span class="o">&gt;=</span> <span class="n">bound</span> <span class="k">else</span> <span class="n">eps</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">w</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;addstep&#39;</span><span class="p">:</span>
+
+        <span class="n">x_0</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">mixture_params</span>
+        <span class="k">if</span> <span class="n">x_0</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># If x is less than x_0 it&#39;s 1. Otherwise 0.</span>
+            <span class="n">w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">eps</span><span class="p">)</span> <span class="k">if</span> <span class="n">xi</span> <span class="o">&lt;=</span> <span class="n">x_0</span> <span class="k">else</span> <span class="n">eps</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">max_num</span> <span class="o">=</span> <span class="n">prior</span><span class="p">[</span><span class="s1">&#39;addstep_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">maximum</span>
+            <span class="n">bound</span> <span class="o">=</span> <span class="n">max_num</span> <span class="o">-</span> <span class="n">x_0</span>
+            <span class="c1"># If x is greater than max_num - |x_0| it&#39;s 1. Otherwise 0.</span>
+            <span class="n">w2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">eps</span><span class="p">)</span> <span class="k">if</span> <span class="n">xi</span> <span class="o">&gt;=</span> <span class="n">bound</span> <span class="k">else</span> <span class="n">eps</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;x_0 has to be non negative but provided </span><span class="si">{</span><span class="n">x_0</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">w1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">w2</span>
+        <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">w</span>
+
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;addstepasym&#39;</span><span class="p">:</span>
+
+        <span class="n">x_0</span><span class="p">,</span> <span class="n">x_1</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">mixture_params</span>
+        <span class="k">if</span> <span class="n">x_0</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># If x is less than x_0 it&#39;s 1. Otherwise 0.</span>
+            <span class="n">w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">eps</span><span class="p">)</span> <span class="k">if</span> <span class="n">xi</span> <span class="o">&lt;=</span> <span class="n">x_0</span> <span class="k">else</span> <span class="n">eps</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="c1"># max_num = prior[&#39;addstepasym_0&#39;].maximum</span>
+            <span class="c1"># bound = max_num - x_0</span>
+            <span class="c1"># If x is greater than max_num - |x_0| it&#39;s 1. Otherwise 0.</span>
+            <span class="c1"># w2 = np.array([1-(eps) if xi&gt;=bound else eps for xi in x]).flatten()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;x_0 has to be non negative but provided </span><span class="si">{</span><span class="n">x_0</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">x_1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># If x is less than x_0 it&#39;s 1. Otherwise 0.</span>
+            <span class="n">w2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">eps</span><span class="p">)</span> <span class="k">if</span> <span class="n">xi</span> <span class="o">&gt;=</span> <span class="n">x_1</span> <span class="k">else</span> <span class="n">eps</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="c1"># max_num = prior[&#39;addstep_0&#39;].maximum</span>
+            <span class="c1"># bound = max_num - x_0</span>
+            <span class="c1"># If x is greater than max_num - |x_0| it&#39;s 1. Otherwise 0.</span>
+            <span class="c1"># w2 = np.array([1-(eps) if xi&gt;=bound else eps for xi in x]).flatten()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;x_1 has to be non negative but provided </span><span class="si">{</span><span class="n">x_1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">w</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">w1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">w2</span>
+        <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">w</span>
+
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;cdf&#39;</span><span class="p">:</span>
+        <span class="n">theta_0</span><span class="p">,</span> <span class="n">theta_1</span> <span class="o">=</span> <span class="n">mixture_params</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">theta_0</span> <span class="o">+</span> <span class="n">theta_1</span> <span class="o">*</span> <span class="n">x</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">w</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;beta&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: mixture_function - the `beta` choice forces a stochastic&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;         likelihood to be returned after calibration&#39;</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">beta</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="o">*</span><span class="n">mixture_params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">w</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;dirchlet&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: mixture_function - the `dirichlet` choice forces a stochastic&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;         likelihood to be returned after calibration&#39;</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">dirichlet</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">mixture_params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">w</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;switchcos&#39;</span><span class="p">:</span>
+        <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">,</span> <span class="n">g3</span> <span class="o">=</span> <span class="n">mixture_params</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">switchcos</span><span class="p">(</span><span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">,</span> <span class="n">g3</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">w</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;calibrate_model_1&#39;</span><span class="p">:</span>
+
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">w</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;calibrate_model_2&#39;</span><span class="p">:</span>
+
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">w</span><span class="p">,</span> <span class="n">w</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Method is not available for `mixture function`&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="switchcos"><a class="viewcode-back" href="../../../Taweret.utils.html#Taweret.utils.utils.switchcos">[docs]</a><span class="k">def</span> <span class="nf">switchcos</span><span class="p">(</span><span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">,</span> <span class="n">g3</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Switchcos function in Alexandras Samba module</span>
+<span class="sd">    link https://github.com/asemposki/SAMBA/blob/0479b4deff46f3cb77b82bb30abd5693de8980f3/samba/mixing.py#L1205</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    g1 : float</span>
+<span class="sd">        switching value from left constant to first cosine</span>
+<span class="sd">    g2 : float</span>
+<span class="sd">        switching value from second cosine to right constant</span>
+<span class="sd">    g3 : float</span>
+<span class="sd">        switching value from first cosine to second cosine</span>
+<span class="sd">    x : float</span>
+<span class="sd">        the input parameter value to calculate the weight</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">g1</span> <span class="o">&gt;</span> <span class="n">g2</span> <span class="ow">or</span> <span class="n">g2</span> <span class="o">&lt;</span> <span class="n">g3</span> <span class="ow">or</span> <span class="n">g1</span> <span class="o">&gt;</span> <span class="n">g3</span><span class="p">:</span>
+        <span class="c1"># return -np.inf</span>
+        <span class="c1"># let&#39;s throw an error instead.</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;g1 &gt; g3 &gt; g2 but given g1:</span><span class="si">{</span><span class="n">g1</span><span class="si">}</span><span class="s1"> g2:</span><span class="si">{</span><span class="n">g2</span><span class="si">}</span><span class="s1"> g3:</span><span class="si">{</span><span class="n">g3</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">g1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1.0</span>
+
+    <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">g3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">g1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">g3</span> <span class="o">-</span> <span class="n">g1</span><span class="p">))))</span> <span class="o">/</span> <span class="mf">2.0</span>
+
+    <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">g2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span>
+                            <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">g3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">g2</span> <span class="o">-</span> <span class="n">g3</span><span class="p">))))</span> <span class="o">/</span> <span class="mf">2.0</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

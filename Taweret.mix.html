@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="python">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taweret.mix namespace &mdash; Taweret 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Taweret.models namespace" href="Taweret.models.html" />
+    <link rel="prev" title="Taweret.core namespace" href="Taweret.core.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Taweret
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About Taweret:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Taweret for Bayesian Model Mixing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macos_user.html">MacOS Users</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Taweret</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="Taweret.html">Taweret package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="Taweret.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Taweret.core.html">Taweret.core namespace</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Taweret.mix namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Taweret.models.html">Taweret.models namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Taweret.sampler.html">Taweret.sampler namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Taweret.utils.html">Taweret.utils namespace</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Taweret.html#module-Taweret">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html">Linear Bivariate BMM with calibration of Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/coleman_models_BMM_comparative_study.html">Comparative study of BMM method in bivariate linear module using Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_step_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : step mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_cdf_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : cdf mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_switchcos_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : switchcos mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Bivariate_Test.html">Bivariate BMM Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/N_Model_BMM.html">Multivariate BMM for n = 3, …, N models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Trees_BMM_2D.html">BART BMM: 2D Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Trees_BMM_2D_K_models.html">BART BMM: 2D Inputs with K Models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="how_to_add_new_mixing.html">How to add a new mixing method to Taweret</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_add_documentation.html">How to update documentation in Taweret website</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Taweret</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Taweret</a></li>
+          <li class="breadcrumb-item"><a href="Taweret.html">Taweret package</a></li>
+      <li class="breadcrumb-item active">Taweret.mix namespace</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Taweret.mix.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-Taweret.mix">
+<span id="taweret-mix-namespace"></span><h1>Taweret.mix namespace<a class="headerlink" href="#module-Taweret.mix" title="Permalink to this heading"></a></h1>
+<section id="module-Taweret.mix.bivariate_linear">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-Taweret.mix.bivariate_linear" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Taweret.mix.bivariate_linear.BivariateLinear">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.mix.bivariate_linear.</span></span><span class="sig-name descname"><span class="pre">BivariateLinear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">models_dic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Taweret.core.html#Taweret.core.base_model.BaseModel" title="Taweret.core.base_model.BaseModel"><span class="pre">BaseModel</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sigmoid'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nargs_model_dic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">same_parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_cov</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BMMcor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_mix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/bivariate_linear.html#BivariateLinear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.bivariate_linear.BivariateLinear" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_mixer.BaseMixer" title="Taweret.core.base_mixer.BaseMixer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseMixer</span></code></a></p>
+<p>Local linear Bayesian mixing of two models. This is a general class of
+mixing that offer both density (likelihood) and mean mixing methods.
+The default mixing method is linear mixing of two likelihoods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>models_dic</strong> (<em>dictionary {'name1' : model1</em><em>, </em><em>'name2' : model2}</em>) -- Two models to mix, each must be derived from the base_model.</p></li>
+<li><p><strong>method</strong> (<em>str</em>) -- Mixing weight function form. This is a function of input
+parameters.</p></li>
+<li><p><strong>nargs_model_dic</strong> (<em>dictionary {'name1' : N_model1</em><em>, </em><em>'name2' : N_model2}</em>) -- Only used in calibration. Number of free parameters in each model</p></li>
+<li><p><strong>same_parameters</strong> (<em>bool</em>) -- Only used in BMM with calibration. If set, two models are assumed
+to have same parameters.</p></li>
+<li><p><strong>full_cov</strong> (<em>bool</em>) -- This option is only used in BMMcor method.
+For BMMC full covariance is not needed and mean_mix must have
+full covariance.</p></li>
+<li><p><strong>BMMcor</strong> (<em>bool</em>) -- If set use BMMcor method for Bayesian model mixing.</p></li>
+<li><p><strong>mean_mix</strong> (<em>bool</em>) -- If set use mean mixing method for Bayesian model mixing.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.bivariate_linear.BivariateLinear.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mixture_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/Taweret/mix/bivariate_linear.html#BivariateLinear.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.bivariate_linear.BivariateLinear.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the mixed model for given parameters at input values x</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mixture_params</strong> (<em>np.1darray</em>) -- parameter values that fix the shape of mixing function</p></li>
+<li><p><strong>x</strong> (<em>np.1daray</em>) -- input parameter values array</p></li>
+<li><p><strong>model_params</strong> (<em>list</em><em>[</em><em>model_1_params</em><em>, </em><em>mode_2_params</em><em>]</em>) -- list of model parameter values for each model</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>evaluation</strong> -- the evaluation of the mixed model at input values x
+Has the shape of len(x) x Number of observables in the model</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.2darray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.bivariate_linear.BivariateLinear.evaluate_weights">
+<span class="sig-name descname"><span class="pre">evaluate_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mixture_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/Taweret/mix/bivariate_linear.html#BivariateLinear.evaluate_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.bivariate_linear.BivariateLinear.evaluate_weights" title="Permalink to this definition"></a></dt>
+<dd><p>return the mixing function values at the input parameter values x</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mixture_params</strong> (<em>np.1darray</em>) -- parameter values that fix the shape of mixing function</p></li>
+<li><p><strong>x</strong> (<em>np.1darray</em>) -- input parameter values</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>weights</strong> -- weights for model 1 and model 2 at input values x</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list[np.1darray, np.1darray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Taweret.mix.bivariate_linear.BivariateLinear.map">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">map</span></span><a class="headerlink" href="#Taweret.mix.bivariate_linear.BivariateLinear.map" title="Permalink to this definition"></a></dt>
+<dd><p>Stores the MAP values for the posterior distributions and is set
+during the self.train step</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.bivariate_linear.BivariateLinear.mix_loglikelihood">
+<span class="sig-name descname"><span class="pre">mix_loglikelihood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mixture_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_param</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/Taweret/mix/bivariate_linear.html#BivariateLinear.mix_loglikelihood"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.bivariate_linear.BivariateLinear.mix_loglikelihood" title="Permalink to this definition"></a></dt>
+<dd><p>log likelihood of the mixed model given the mixing function parameters
+:param mixture_params: parameter values that fix the shape of mixing function
+:type mixture_params: np.1darray
+:param model_params: list of model parameter values for each model
+:type model_params: list[model_1_params, mode_2_params]
+:param x_exp: Experimentally measured input values
+:type x_exp: np.1darray
+:param y_exp: Experimentally measured observable values.</p>
+<blockquote>
+<div><p>Takes the shape len(x_exp) x number of observable types measured</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>y_err</strong> (<em>np.2darray</em>) -- Experimentally measured observable errors.
+Takes the shape len(x_exp) x number of observable types measured</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Taweret.mix.bivariate_linear.BivariateLinear.posterior">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">posterior</span></span><a class="headerlink" href="#Taweret.mix.bivariate_linear.BivariateLinear.posterior" title="Permalink to this definition"></a></dt>
+<dd><p>Stores the most recent posteriors from running self.train function</p>
+<dl class="simple">
+<dt>_posterior<span class="classifier">np.ndarray</span></dt><dd><p>posterior from learning the weights</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.bivariate_linear.BivariateLinear.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x:</span> <span class="pre">~numpy.ndarray,</span> <span class="pre">CI:</span> <span class="pre">~typing.List</span> <span class="pre">=</span> <span class="pre">[5,</span> <span class="pre">95],</span> <span class="pre">samples:</span> <span class="pre">~typing.Optional[~numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">nthin:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'numpy.ndarray'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'numpy.ndarray'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'numpy.ndarray'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'numpy.ndarray'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/bivariate_linear.html#BivariateLinear.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.bivariate_linear.BivariateLinear.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate posterior to make prediction at test points x.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.1darray</em>) -- input parameter values</p></li>
+<li><p><strong>CI</strong> (<em>list</em>) -- confidence intervals as percentages</p></li>
+<li><p><strong>samples</strong> (<em>np.ndarray</em>) -- If samples are given use that instead of posterior                for predictions.</p></li>
+<li><p><strong>Returns</strong> -- </p></li>
+<li><p><strong>--------</strong> -- </p></li>
+<li><p><strong>evaluated_posterior</strong> (<em>np.ndarray</em>) -- array of posterior predictive distribution evaluated at provided
+test points</p></li>
+<li><p><strong>mean</strong> (<em>np.ndarray</em>) -- average mixed model value at each provided test points</p></li>
+<li><p><strong>credible_intervals</strong> (<em>np.ndarray</em>) -- intervals corresponding for 60%, 90% credible intervals</p></li>
+<li><p><strong>std_dev</strong> (<em>np.ndarray</em>) -- sample standard deviation of mixed model output at provided test
+points</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.bivariate_linear.BivariateLinear.predict_weights">
+<span class="sig-name descname"><span class="pre">predict_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x:</span> <span class="pre">~numpy.ndarray,</span> <span class="pre">CI:</span> <span class="pre">~typing.List</span> <span class="pre">=</span> <span class="pre">[5,</span> <span class="pre">95],</span> <span class="pre">samples:</span> <span class="pre">~typing.Optional[~numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">None)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'numpy.ndarray'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'numpy.ndarray'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'numpy.ndarray'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'numpy.ndarray'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/bivariate_linear.html#BivariateLinear.predict_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.bivariate_linear.BivariateLinear.predict_weights" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate posterior predictive distribution for first model weights</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.1darray</em>) -- input parameter values</p></li>
+<li><p><strong>CI</strong> (<em>list</em>) -- confidence intervals</p></li>
+<li><p><strong>samples</strong> (<em>np.ndarray</em>) -- If samples are given use that instead of posterior                for predictions.</p></li>
+<li><p><strong>Returns</strong> -- </p></li>
+<li><p><strong>--------</strong> -- </p></li>
+<li><p><strong>posterior_weights</strong> (<em>np.ndarray</em>) -- array of posterior predictive distribution of weights</p></li>
+<li><p><strong>mean</strong> (<em>np.ndarray</em>) -- average mixed model value at each provided test points</p></li>
+<li><p><strong>credible_intervals</strong> (<em>np.ndarray</em>) -- intervals corresponding for 60%, 90% credible intervals</p></li>
+<li><p><strong>std_dev</strong> (<em>np.ndarray</em>) -- sample standard deviation of mixed model output at provided test
+points</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Taweret.mix.bivariate_linear.BivariateLinear.prior">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prior</span></span><a class="headerlink" href="#Taweret.mix.bivariate_linear.BivariateLinear.prior" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary of prior distributions. Format should be compatible with
+sampler.</p>
+<dl class="simple">
+<dt>_prior<span class="classifier">Dict[str, Any]</span></dt><dd><p>Underlying prior object(s)</p>
+</dd>
+</dl>
+<p>Please consult <code class="docutils literal notranslate"><span class="pre">BaseMixer.set_prior</span></code> for an example</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.bivariate_linear.BivariateLinear.prior_predict">
+<span class="sig-name descname"><span class="pre">prior_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">x:</span> <span class="pre">~numpy.ndarray,</span> <span class="pre">CI:</span> <span class="pre">~typing.List</span> <span class="pre">=</span> <span class="pre">[5,</span> <span class="pre">95],</span> <span class="pre">n_sample:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">10000)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'numpy.ndarray'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'numpy.ndarray'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'numpy.ndarray'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'numpy.ndarray'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/bivariate_linear.html#BivariateLinear.prior_predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.bivariate_linear.BivariateLinear.prior_predict" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate prior to make prediction at test points x.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.1darray</em>) -- input parameter values</p></li>
+<li><p><strong>CI</strong> (<em>list</em>) -- confidence intervals</p></li>
+<li><p><strong>n_samples</strong> (<em>int</em>) -- number of samples to evaluate prior_prediction</p></li>
+<li><p><strong>Returns</strong> -- </p></li>
+<li><p><strong>--------</strong> -- </p></li>
+<li><p><strong>evaluated_prior</strong> (<em>np.ndarray</em>) -- array of prior predictive distribution evaluated at provided
+test points</p></li>
+<li><p><strong>mean</strong> (<em>np.ndarray</em>) -- average mixed model value at each provided test points</p></li>
+<li><p><strong>credible_intervals</strong> (<em>np.ndarray</em>) -- intervals corresponding for 60%, 90% credible intervals</p></li>
+<li><p><strong>std_dev</strong> (<em>np.ndarray</em>) -- sample standard deviation of mixed model output at provided test
+points</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.bivariate_linear.BivariateLinear.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bilby_prior_dic</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/bivariate_linear.html#BivariateLinear.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.bivariate_linear.BivariateLinear.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Set prior for the mixing function parameters.
+Prior for the model parameters should be defined in each model.</p>
+<dl class="simple">
+<dt>bilby_prior_dic<span class="classifier">bilby.core.prior.PriorDict</span></dt><dd><dl class="simple">
+<dt>The keys should be named as following :</dt><dd><p>'&lt;mix_func_name&gt;_1', '&lt;mix_func_name&gt;_2', ...</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul>
+<li><p><em>A full Bilby prior object for the mixed model.</em></p></li>
+<li><p><em>Including the mixing function parameters and model parameters.</em></p></li>
+<li><p><em>The Bilby prior dictionary has following keys.</em> --</p>
+<dl class="simple">
+<dt>Prior for mixture function parameter :</dt><dd><p>'&lt;mix_func_name&gt;_1', '&lt;mix_func_name&gt;_2', ...</p>
+</dd>
+<dt>Prior parameters for model 1 :</dt><dd><p>'&lt;name_of_the_model&gt;_1', '&lt;name_of_the_model&gt;_2' , ...</p>
+</dd>
+<dt>Prior parameters for model 2 :</dt><dd><p>'&lt;name_of_the_model&gt;_1', '&lt;name_of_the_model&gt;_2' , ...</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.bivariate_linear.BivariateLinear.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'bivariate_mix'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outdir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'outdir'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs_for_sampler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_previous</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/bivariate_linear.html#BivariateLinear.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.bivariate_linear.BivariateLinear.train" title="Permalink to this definition"></a></dt>
+<dd><p>Run sampler to learn parameters. Method should also create class
+members that store the posterior and other diagnostic quantities
+important for plotting
+MAP values should also calculate and set as member variable of
+class
+Parameters:
+----------</p>
+<dl class="simple">
+<dt>x_exp: np.1darray</dt><dd><p>Experimentally measured input values</p>
+</dd>
+<dt>y_exp: np.2darray</dt><dd><p>Experimentally measured observable values.
+Takes the shape len(x_exp) x number of observable types measured</p>
+</dd>
+<dt>y_err: np.2darray</dt><dd><p>Experimentally measured observable errors.
+Takes the shape len(x_exp) x number of observable types measured</p>
+</dd>
+<dt>label: str</dt><dd><p>Name of the chain to be stored after sampling</p>
+</dd>
+<dt>outdir: str</dt><dd><p>Where to save the MCMC chain and output of bilby samplers</p>
+</dd>
+<dt>kwargs_for_sampler: Dict</dt><dd><p>Optional arguments to be used instead of default Bibly sampler
+settings</p>
+</dd>
+<dt>load_previous: bool</dt><dd><p>If a previous training has been done, load that chain instead of
+retraining.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>result<span class="classifier">bilby posterior object</span></dt><dd><p>object returned by the bilby sampler</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-Taweret.mix.gaussian"></span><dl class="py class">
+<dt class="sig sig-object py" id="Taweret.mix.gaussian.Multivariate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.mix.gaussian.</span></span><span class="sig-name descname"><span class="pre">Multivariate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">models</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/gaussian.html#Multivariate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.gaussian.Multivariate" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_mixer.BaseMixer" title="Taweret.core.base_mixer.BaseMixer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseMixer</span></code></a></p>
+<p>The multivariate BMM class originally introduced
+in the BAND SAMBA package. Combines individual
+models using a Gaussian form.</p>
+<div class="math notranslate nohighlight">
+\[f_{\dagger}
+= \mathcal{N}
+\left(
+    \sum_i \frac{f_i/v_i}{1/v_i}, \sum_i \frac{1}{v_i}
+\right)\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">Multivariate</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(),</span> <span class="n">models</span><span class="o">=</span><span class="nb">dict</span><span class="p">(),</span> <span class="n">n_models</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">ci</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">evaluate_weights</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>x<span class="classifier">numpy.linspace</span></dt><dd><p>Input space variable in which mixing is occurring.</p>
+</dd>
+<dt>models<span class="classifier">dict</span></dt><dd><p>Dict of models with BaseModel methods.</p>
+</dd>
+<dt>n_models<span class="classifier">int</span></dt><dd><p>Number of free parameters per model.</p>
+</dd>
+</dl>
+<p>None.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.gaussian.Multivariate.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/gaussian.html#Multivariate.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.gaussian.Multivariate.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the mixed model at one set of parameters.
+Not needed for this mixing method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.gaussian.Multivariate.evaluate_weights">
+<span class="sig-name descname"><span class="pre">evaluate_weights</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/gaussian.html#Multivariate.evaluate_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.gaussian.Multivariate.evaluate_weights" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the weights for each model in the mixed model
+over the input space.</p>
+<dl class="simple">
+<dt>weights<span class="classifier">numpy.ndarray</span></dt><dd><p>Array of model weights calculated in the
+Multivariate.predict function.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Taweret.mix.gaussian.Multivariate.map">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">map</span></span><a class="headerlink" href="#Taweret.mix.gaussian.Multivariate.map" title="Permalink to this definition"></a></dt>
+<dd><p>Return the MAP values of the parameters.
+Not needed for this method.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Taweret.mix.gaussian.Multivariate.posterior">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">posterior</span></span><a class="headerlink" href="#Taweret.mix.gaussian.Multivariate.posterior" title="Permalink to this definition"></a></dt>
+<dd><p>Return the posterior of the parameters.
+Not needed for this mixing method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.gaussian.Multivariate.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">68</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/gaussian.html#Multivariate.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.gaussian.Multivariate.predict" title="Permalink to this definition"></a></dt>
+<dd><p>The f_dagger function responsible for mixing the models together
+in a Gaussian way. Based on the first two moments of the
+distribution: mean and variance.</p>
+<dl class="simple">
+<dt>ci<span class="classifier">int, list</span></dt><dd><p>The desired credibility interval(s) (1-sigma, 2-sigma)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>mean, intervals, std_dev<span class="classifier">numpy.ndarray</span></dt><dd><p>The mean, credible intervals, and std_dev
+of the predicted mixed model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.gaussian.Multivariate.predict_weights">
+<span class="sig-name descname"><span class="pre">predict_weights</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/gaussian.html#Multivariate.predict_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.gaussian.Multivariate.predict_weights" title="Permalink to this definition"></a></dt>
+<dd><p>Predict the weights of the mixed model. Returns
+mean and intervals from the posterior of the
+weights.
+Not needed for this mixing method.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Taweret.mix.gaussian.Multivariate.prior">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prior</span></span><a class="headerlink" href="#Taweret.mix.gaussian.Multivariate.prior" title="Permalink to this definition"></a></dt>
+<dd><p>Return the prior of the parameters in the mixing.
+Not needed for this method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.gaussian.Multivariate.prior_predict">
+<span class="sig-name descname"><span class="pre">prior_predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/gaussian.html#Multivariate.prior_predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.gaussian.Multivariate.prior_predict" title="Permalink to this definition"></a></dt>
+<dd><p>Find the predicted prior distribution.
+Not needed for this mixing method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.gaussian.Multivariate.sample_prior">
+<span class="sig-name descname"><span class="pre">sample_prior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/gaussian.html#Multivariate.sample_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.gaussian.Multivariate.sample_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Returns samples from the prior
+distributions for the various weight parameters.
+Not needed for this mixing method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.gaussian.Multivariate.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/gaussian.html#Multivariate.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.gaussian.Multivariate.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Set the priors on the parameters.
+Not needed for this mixing method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.gaussian.Multivariate.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/gaussian.html#Multivariate.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.gaussian.Multivariate.train" title="Permalink to this definition"></a></dt>
+<dd><p>Train the mixed model by optimizing the
+weights.
+Not needed in this mixing method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-Taweret.mix.trees"></span><dl class="py class">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.mix.trees.</span></span><span class="sig-name descname"><span class="pre">Trees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/trees.html#Trees"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.trees.Trees" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_mixer.BaseMixer" title="Taweret.core.base_mixer.BaseMixer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseMixer</span></code></a></p>
+<p>Constructor for the Trees mixing class, which implements a mean-mixing strategy.
+The weight functions are modeled using Bayesian Assitive Regression Trees (BART).
+Please read the installation page of the documentation to ensure the BART-BMM Ubuntu
+package is downloaded and installed.</p>
+<div class="math notranslate nohighlight">
+\[f_\dagger(x) = \sum_{k = 1}^K w_k(x)\;f_k(x)\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize trees class</span>
+<span class="n">mix</span> <span class="o">=</span> <span class="n">Trees</span><span class="p">(</span><span class="n">model_dict</span> <span class="o">=</span> <span class="n">model_dict</span><span class="p">)</span>
+
+<span class="c1"># Set prior information</span>
+<span class="n">mix</span><span class="o">.</span><span class="n">set_prior</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span><span class="n">ntree</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">overallnu</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">overallsd</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span><span class="n">inform_prior</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Train the model</span>
+<span class="n">fit</span> <span class="o">=</span> <span class="n">mix</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> <span class="n">ndpost</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">nadapt</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">nskip</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">adaptevery</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span> <span class="n">minnumbot</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># Get predictions and posterior weight functions.</span>
+<span class="n">ppost</span><span class="p">,</span> <span class="n">pmean</span><span class="p">,</span> <span class="n">pci</span><span class="p">,</span> <span class="n">pstd</span> <span class="o">=</span> <span class="n">mix</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">ci</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">)</span>
+<span class="n">wpost</span><span class="p">,</span> <span class="n">wmean</span><span class="p">,</span> <span class="n">wci</span><span class="p">,</span> <span class="n">wstd</span> <span class="o">=</span> <span class="n">mix</span><span class="o">.</span><span class="n">predict_weights</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">ci</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_dict</strong> (<em>dict</em>) -- Dictionary of models where each item is an instance of BaseModel.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) -- Additional arguments to pass to the constructor.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/trees.html#Trees.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.trees.Trees.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the mixed-model to get a point prediction.
+This method is not applicable to BART-based mixing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.evaluate_weights">
+<span class="sig-name descname"><span class="pre">evaluate_weights</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/trees.html#Trees.evaluate_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.trees.Trees.evaluate_weights" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the weight functions to get a point prediction.
+This method is not applicable to BART-based mixing.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.map">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">map</span></span><a class="headerlink" href="#Taweret.mix.trees.Trees.map" title="Permalink to this definition"></a></dt>
+<dd><p>Return the map values for parameters in the model.
+This method is not applicable to BART-based mixing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.plot_prediction">
+<span class="sig-name descname"><span class="pre">plot_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xdim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/trees.html#Trees.plot_prediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.trees.Trees.plot_prediction" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the predictions of the mixed-model. The x-axis of this plot
+can be any column of the design matrix X, which is passed into
+the predict function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>xdim</strong> (<em>int</em>) -- index of the column to plot against the predictions.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.plot_sigma">
+<span class="sig-name descname"><span class="pre">plot_sigma</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/trees.html#Trees.plot_sigma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.trees.Trees.plot_sigma" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the posterior distribution of the observational error
+standard deviation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.plot_weights">
+<span class="sig-name descname"><span class="pre">plot_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xdim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/trees.html#Trees.plot_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.trees.Trees.plot_weights" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the weight functions. The x-axis of this plot
+can be any column of the design matrix X, which is passed into
+the predict_weights function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>xdim</strong> (<em>int</em>) -- index of the column to plot against the predictions.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.posterior">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">posterior</span></span><a class="headerlink" href="#Taweret.mix.trees.Trees.posterior" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the posterior distribution of the error standard deviation,
+which is learned during the training process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The posterior of the error standard deviation .</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/trees.html#Trees.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.trees.Trees.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain the posterior predictive distribution of the mixed-model at a set
+of inputs X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>np.ndarray</em>) -- design matrix of testing inputs.</p></li>
+<li><p><strong>ci</strong> (<em>float</em>) -- credible interval width, must be a value within the interval (0,1).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The posterior prediction draws and summaries.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray, np.ndarray, np.ndarray, np.ndarray</p>
+</dd>
+<dt class="field-odd">Return value</dt>
+<dd class="field-odd"><p>the posterior predictive distribution evaluated at the specified test points</p>
+</dd>
+<dt class="field-even">Return value</dt>
+<dd class="field-even"><p>the posterior mean of the mixed-model at each input in X.</p>
+</dd>
+<dt class="field-odd">Return value</dt>
+<dd class="field-odd"><p>the pointwise credible intervals at each input in X.</p>
+</dd>
+<dt class="field-even">Return value</dt>
+<dd class="field-even"><p>the posterior standard deviation of the mixed-model at each input in X.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.predict_weights">
+<span class="sig-name descname"><span class="pre">predict_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/trees.html#Trees.predict_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.trees.Trees.predict_weights" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain posterior distribution of the weight functions at a set
+of inputs X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>np.ndarray</em>) -- design matrix of testing inputs.</p></li>
+<li><p><strong>ci</strong> (<em>float</em>) -- credible interval width, must be a value within the interval (0,1).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The posterior weight function draws and summaries.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray, np.ndarray, np.ndarray, np.ndarray</p>
+</dd>
+<dt class="field-odd">Return value</dt>
+<dd class="field-odd"><p>the posterior draws of the weight functions at each input in X.</p>
+</dd>
+<dt class="field-even">Return value</dt>
+<dd class="field-even"><p>posterior mean of the weight functions at each input in X.</p>
+</dd>
+<dt class="field-odd">Return value</dt>
+<dd class="field-odd"><p>pointwise credible intervals for the weight functions.</p>
+</dd>
+<dt class="field-even">Return value</dt>
+<dd class="field-even"><p>posterior standard deviation of the weight functions at each input in X.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.prior">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prior</span></span><a class="headerlink" href="#Taweret.mix.trees.Trees.prior" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a dictionary of the hyperparameter settings used in the various
+prior distributions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary of the hyperparameters used in the model.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.prior_predict">
+<span class="sig-name descname"><span class="pre">prior_predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/trees.html#Trees.prior_predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.trees.Trees.prior_predict" title="Permalink to this definition"></a></dt>
+<dd><p>Return the prior predictive distribution of the mixed-model.
+This method is not applicable to BART-based mixing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ntree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ntreeh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overallsd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overallnu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inform_prior</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauvec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">betavec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/trees.html#Trees.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.trees.Trees.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the hyperparameters in the tree and terminal node priors. Also
+specifies if an informative or non-informative prior will be used when mixing EFTs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ntree</strong> (<em>int</em>) -- The number of trees used in the sum-of-trees model for
+the weights.</p></li>
+<li><p><strong>ntreeh</strong> (<em>int</em>) -- The number of trees used in the product-of-trees model
+for the error standard deviation. Set to 1 for
+homoscedastic variance assumption.</p></li>
+<li><p><strong>k</strong> (<em>float</em>) -- The tuning parameter in the prior variance of the terminal node
+parameter prior. This is a value greater than zero.</p></li>
+<li><p><strong>power</strong> (<em>float</em>) -- The power parameter in the tree prior.</p></li>
+<li><p><strong>base</strong> (<em>float</em>) -- The base parameter in the tree prior.</p></li>
+<li><p><strong>overallsd</strong> (<em>float</em>) -- An initial estimate of the erorr standard deviation.
+This value is used to calibrate the scale parameter in variance prior.</p></li>
+<li><p><strong>overallnu</strong> (<em>float</em>) -- The shape parameter in the error variance prior.</p></li>
+<li><p><strong>inform_prior</strong> (<em>bool</em>) -- Controls if the informative or non-informative prior is used.
+Specify true for the informative prior.</p></li>
+<li><p><strong>tauvec</strong> (<em>np.ndarray</em>) -- A K-dimensional array (where K is the number of models) that
+contains the prior standard deviation of the terminal node
+parameter priors. This is used when specifying different
+priors for the different model weights.</p></li>
+<li><p><strong>betavec</strong> (<em>np.ndarray</em>) -- A K-dimensional array (where K is the number of models) that
+contains the prior mean of the terminal node
+parameter priors. This is used when specifying different
+priors for the different model weights.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.mix.trees.Trees.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/mix/trees.html#Trees.train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.mix.trees.Trees.train" title="Permalink to this definition"></a></dt>
+<dd><p>Train the mixed-model using a set of observations y at inputs x.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>np.ndarray</em>) -- input parameter values of dimension (n x p).</p></li>
+<li><p><strong>y</strong> (<em>np.ndarray</em>) -- observed data at inputs X of dimension  (n x 1).</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) -- dictionary of arguments</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary which contains relevant information to the model such as
+values of tuning parameters. The MCMC results are written to a text file
+and stored in a temporary directory as defined by the fpath key in the
+results dictionary.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Taweret.core.html" class="btn btn-neutral float-left" title="Taweret.core namespace" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Taweret.models.html" class="btn btn-neutral float-right" title="Taweret.models namespace" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

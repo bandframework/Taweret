@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="python">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taweret.mix.trees &mdash; Taweret 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Taweret
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About Taweret:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Taweret for Bayesian Model Mixing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../macos_user.html">MacOS Users</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Taweret</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html">Linear Bivariate BMM with calibration of Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/coleman_models_BMM_comparative_study.html">Comparative study of BMM method in bivariate linear module using Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Linear_BMM_with_step_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : step mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Linear_BMM_with_cdf_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : cdf mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Linear_BMM_with_switchcos_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : switchcos mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Bivariate_Test.html">Bivariate BMM Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/N_Model_BMM.html">Multivariate BMM for n = 3, …, N models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Trees_BMM_2D.html">BART BMM: 2D Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Trees_BMM_2D_K_models.html">BART BMM: 2D Inputs with K Models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_add_new_mixing.html">How to add a new mixing method to Taweret</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_add_documentation.html">How to update documentation in Taweret website</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Taweret</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Taweret.mix.trees</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Taweret.mix.trees</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Name:</span>
+<span class="c1"># trees.py</span>
+<span class="c1"># Author: John Yannotty (yannotty.1@osu.edu)</span>
+<span class="c1"># Desc: Defines the tree mixing class, which is an interface for BART-BMM</span>
+<span class="c1">#</span>
+<span class="c1"># Start Date: 10/05/22</span>
+<span class="c1"># Version: 1.0</span>
+<span class="c1">########################################################################</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">raiseExceptions</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">typing</span>
+
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">spearmanr</span>
+
+<span class="kn">from</span> <span class="nn">Taweret.core.base_mixer</span> <span class="kn">import</span> <span class="n">BaseMixer</span>
+<span class="kn">from</span> <span class="nn">Taweret.core.base_model</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+
+<div class="viewcode-block" id="Trees"><a class="viewcode-back" href="../../../Taweret.mix.html#Taweret.mix.trees.Trees">[docs]</a><span class="k">class</span> <span class="nc">Trees</span><span class="p">(</span><span class="n">BaseMixer</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Constructor for the Trees mixing class, which implements a mean-mixing strategy.</span>
+<span class="sd">        The weight functions are modeled using Bayesian Assitive Regression Trees (BART).</span>
+<span class="sd">        Please read the installation page of the documentation to ensure the BART-BMM Ubuntu</span>
+<span class="sd">        package is downloaded and installed.</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            f_\dagger(x) = \sum_{k = 1}^K w_k(x)\;f_k(x)</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">        --------</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            # Initialize trees class</span>
+<span class="sd">            mix = Trees(model_dict = model_dict)</span>
+
+<span class="sd">            # Set prior information</span>
+<span class="sd">            mix.set_prior(k=2.5,ntree=30,overallnu=5,overallsd=0.01,inform_prior=False)</span>
+
+<span class="sd">            # Train the model</span>
+<span class="sd">            fit = mix.train(X=x_train, y=y_train, ndpost = 10000, nadapt = 2000, nskip = 2000, adaptevery = 500, minnumbot = 4)</span>
+
+<span class="sd">            # Get predictions and posterior weight functions.</span>
+<span class="sd">            ppost, pmean, pci, pstd = mix.predict(X = x_test, ci = 0.95)</span>
+<span class="sd">            wpost, wmean, wci, wstd = mix.predict_weights(X = x_test, ci = 0.95)</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        ----------</span>
+<span class="sd">        :param dict model_dict:</span>
+<span class="sd">            Dictionary of models where each item is an instance of BaseModel.</span>
+
+<span class="sd">        :param dict kwargs:</span>
+<span class="sd">            Additional arguments to pass to the constructor.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        ---------</span>
+<span class="sd">        :returns: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Check model class</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">model_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;model </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">model_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1"> is not derived from </span><span class="se">\</span>
+<span class="s1">                    taweret.core.base_model class&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+        <span class="c1"># Store model dictionary if all models are instances of BaseModel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_dict</span> <span class="o">=</span> <span class="n">model_dict</span>
+
+        <span class="c1"># MCMC Parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_dict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ndpost</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nskip</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nadapt</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tc</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pbd</span> <span class="o">=</span> <span class="mf">0.7</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pb</span> <span class="o">=</span> <span class="mf">0.5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepwpert</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">probchv</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minnumbot</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">printevery</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numcut</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adaptevery</span> <span class="o">=</span> <span class="mi">100</span>
+
+        <span class="c1"># Set the prior defaults</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overallsd</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overallnu</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ntree</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ntreeh</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">power</span> <span class="o">=</span> <span class="mf">2.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="mf">0.95</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inform_prior</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diffwtsprior</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tauvec</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">betavec</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Define the roots for the output files</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xroot</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yroot</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sroot</span> <span class="o">=</span> <span class="s2">&quot;s&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chgvroot</span> <span class="o">=</span> <span class="s2">&quot;chgv&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">froot</span> <span class="o">=</span> <span class="s2">&quot;f&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fsdroot</span> <span class="o">=</span> <span class="s2">&quot;fsd&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wproot</span> <span class="o">=</span> <span class="s2">&quot;wpr&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xiroot</span> <span class="o">=</span> <span class="s2">&quot;xi&quot;</span>
+
+        <span class="c1"># Set other defaults</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modelname</span> <span class="o">=</span> <span class="s2">&quot;mixmodel&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summarystats</span> <span class="o">=</span> <span class="s2">&quot;FALSE&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">local_openbt_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">google_colab</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Set the kwargs dictionary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+
+        <span class="c1"># Set defaults not relevant to model mixing -- only set so cpp code</span>
+        <span class="c1"># doesn&#39;t break</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">truncateds</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modeltype</span> <span class="o">=</span> <span class="mi">9</span>
+        <span class="c1"># self.ci = 0.68</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_prior_set</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_predict_run</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Remove ????</span>
+
+<div class="viewcode-block" id="Trees.evaluate"><a class="viewcode-back" href="../../../Taweret.mix.html#Taweret.mix.trees.Trees.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Evaluate the mixed-model to get a point prediction.</span>
+<span class="sd">        This method is not applicable to BART-based mixing.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Not applicable for trees.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Trees.evaluate_weights"><a class="viewcode-back" href="../../../Taweret.mix.html#Taweret.mix.trees.Trees.evaluate_weights">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Evaluate the weight functions to get a point prediction.</span>
+<span class="sd">        This method is not applicable to BART-based mixing.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Not applicable for trees.&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Return the map values for parameters in the model.</span>
+<span class="sd">        This method is not applicable to BART-based mixing.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">map</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">posterior</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns the posterior distribution of the error standard deviation,</span>
+<span class="sd">        which is learned during the training process.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        ------------</span>
+<span class="sd">        :param: None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        ---------</span>
+<span class="sd">        :returns: The posterior of the error standard deviation .</span>
+<span class="sd">        :rtype: np.ndarray</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_posterior</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">prior</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns a dictionary of the hyperparameter settings used in the various</span>
+<span class="sd">        prior distributions.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        :param: None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        :returns: A dictionary of the hyperparameters used in the model.</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Init hyperprameters dict</span>
+        <span class="n">hyper_params_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Get tau and beta based on the prior cases</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffwtsprior</span><span class="p">:</span>
+            <span class="n">hyper_params_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">betavec</span><span class="p">})</span>
+            <span class="n">hyper_params_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;tau&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tauvec</span><span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">hyper_params_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span><span class="s1">&#39;tau&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">)})</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inform_prior</span><span class="p">:</span>
+                <span class="n">hyper_params_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="s2">&quot;Not fixed&quot;</span><span class="p">})</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">hyper_params_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                    <span class="p">{</span><span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">)})</span>
+
+        <span class="c1"># Get the remaining hyperparameters</span>
+        <span class="n">hyper_params_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;nu&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">overallnu</span><span class="p">,</span>
+                                  <span class="s1">&#39;lambda&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">overalllambda</span><span class="p">,</span>
+                                  <span class="s1">&#39;base&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">base</span><span class="p">,</span>
+                                  <span class="s1">&#39;power&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">power</span><span class="p">,</span>
+                                  <span class="s1">&#39;baseh&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">baseh</span><span class="p">,</span>
+                                  <span class="s1">&#39;powerh&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">powerh</span><span class="p">})</span>
+
+        <span class="k">return</span> <span class="n">hyper_params_dict</span>
+
+<div class="viewcode-block" id="Trees.set_prior"><a class="viewcode-back" href="../../../Taweret.mix.html#Taweret.mix.trees.Trees.set_prior">[docs]</a>    <span class="k">def</span> <span class="nf">set_prior</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">ntree</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">ntreeh</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">k</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">power</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
+            <span class="n">base</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span>
+            <span class="n">overallsd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">overallnu</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="n">inform_prior</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">tauvec</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">betavec</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Sets the hyperparameters in the tree and terminal node priors. Also</span>
+<span class="sd">        specifies if an informative or non-informative prior will be used when mixing EFTs.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        :param int ntree:</span>
+<span class="sd">            The number of trees used in the sum-of-trees model for</span>
+<span class="sd">            the weights.</span>
+<span class="sd">        :param int ntreeh:</span>
+<span class="sd">            The number of trees used in the product-of-trees model</span>
+<span class="sd">            for the error standard deviation. Set to 1 for</span>
+<span class="sd">            homoscedastic variance assumption.</span>
+<span class="sd">        :param float k:</span>
+<span class="sd">            The tuning parameter in the prior variance of the terminal node</span>
+<span class="sd">            parameter prior. This is a value greater than zero.</span>
+<span class="sd">        :param float power:</span>
+<span class="sd">            The power parameter in the tree prior.</span>
+<span class="sd">        :param float base:</span>
+<span class="sd">            The base parameter in the tree prior.</span>
+<span class="sd">        :param float overallsd:</span>
+<span class="sd">            An initial estimate of the erorr standard deviation.</span>
+<span class="sd">            This value is used to calibrate the scale parameter in variance prior.</span>
+<span class="sd">        :param float overallnu:</span>
+<span class="sd">            The shape parameter in the error variance prior.</span>
+<span class="sd">        :param bool inform_prior:</span>
+<span class="sd">            Controls if the informative or non-informative prior is used.</span>
+<span class="sd">            Specify true for the informative prior.</span>
+<span class="sd">        :param np.ndarray tauvec:</span>
+<span class="sd">            A K-dimensional array (where K is the number of models) that</span>
+<span class="sd">            contains the prior standard deviation of the terminal node</span>
+<span class="sd">            parameter priors. This is used when specifying different</span>
+<span class="sd">            priors for the different model weights.</span>
+<span class="sd">        :param np.ndarray betavec:</span>
+<span class="sd">            A K-dimensional array (where K is the number of models) that</span>
+<span class="sd">            contains the prior mean of the terminal node</span>
+<span class="sd">            parameter priors. This is used when specifying different</span>
+<span class="sd">            priors for the different model weights.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        :returns: None.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Extract arguments</span>
+        <span class="c1"># valid_prior_args = [&#39;ntree&#39;, &#39;ntreeh&#39;, &#39;k&#39;,&#39;power&#39;,&#39;base&#39;,&#39;overallsd&#39;,&#39;overallnu&#39;,&#39;inform_prior&#39;,&#39;tauvec&#39;, &#39;betavec&#39;]</span>
+        <span class="n">prior_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;ntree&#39;</span><span class="p">:</span> <span class="n">ntree</span><span class="p">,</span>
+            <span class="s1">&#39;ntreeh&#39;</span><span class="p">:</span> <span class="n">ntreeh</span><span class="p">,</span>
+            <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
+            <span class="s1">&#39;power&#39;</span><span class="p">:</span> <span class="n">power</span><span class="p">,</span>
+            <span class="s1">&#39;base&#39;</span><span class="p">:</span> <span class="n">base</span><span class="p">,</span>
+            <span class="s1">&#39;overallsd&#39;</span><span class="p">:</span> <span class="n">overallsd</span><span class="p">,</span>
+            <span class="s1">&#39;overallnu&#39;</span><span class="p">:</span> <span class="n">overallnu</span><span class="p">,</span>
+            <span class="s1">&#39;inform_prior&#39;</span><span class="p">:</span> <span class="n">inform_prior</span><span class="p">,</span>
+            <span class="s1">&#39;tauvec&#39;</span><span class="p">:</span> <span class="n">tauvec</span><span class="p">,</span>
+            <span class="s1">&#39;betavec&#39;</span><span class="p">:</span> <span class="n">betavec</span><span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">prior_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># if key in valid_prior_args:</span>
+            <span class="c1"># Update class dictionary which stores all objects</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+            <span class="c1"># Updates prior specific dictionary</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_prior</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+
+        <span class="c1"># Set h arguments</span>
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_h_args</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">,</span> <span class="s2">&quot;base&quot;</span><span class="p">,</span>
+                                              <span class="s2">&quot;pbd&quot;</span><span class="p">,</span> <span class="s2">&quot;pb&quot;</span><span class="p">,</span> <span class="s2">&quot;stepwpert&quot;</span><span class="p">,</span>
+                                              <span class="s2">&quot;probchv&quot;</span><span class="p">,</span> <span class="s2">&quot;minnumbot&quot;</span><span class="p">]]</span>
+
+        <span class="c1"># Quality check for wtsprior argument -- if both vecs are populated</span>
+        <span class="c1"># then set diffwtsprior</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">tauvec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">betavec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diffwtsprior</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diffwtsprior</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Run _define_parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_prior_set</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_define_params</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Trees.prior_predict"><a class="viewcode-back" href="../../../Taweret.mix.html#Taweret.mix.trees.Trees.prior_predict">[docs]</a>    <span class="k">def</span> <span class="nf">prior_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Return the prior predictive distribution of the mixed-model.</span>
+<span class="sd">        This method is not applicable to BART-based mixing.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Not applicable for trees at the moment.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Trees.train"><a class="viewcode-back" href="../../../Taweret.mix.html#Taweret.mix.trees.Trees.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Train the mixed-model using a set of observations y at inputs x.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        ----------</span>
+<span class="sd">        :param np.ndarray X: input parameter values of dimension (n x p).</span>
+<span class="sd">        :param np.ndarray y: observed data at inputs X of dimension  (n x 1).</span>
+<span class="sd">        :param dict kwargs: dictionary of arguments</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        :returns: A dictionary which contains relevant information to the model such as</span>
+<span class="sd">            values of tuning parameters. The MCMC results are written to a text file</span>
+<span class="sd">            and stored in a temporary directory as defined by the fpath key in the</span>
+<span class="sd">            results dictionary.</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Cast data to arrays if not already and reshape if needed</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Get number of observations and the number of columns in design matrix</span>
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Number of rows in x_exp does not match length of y_exp.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Get predictions from the model set at X&#39;s</span>
+        <span class="n">fhat_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">shat_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="c1"># Get predictions from selected model</span>
+            <span class="n">fhat_col</span><span class="p">,</span> <span class="n">shat_col</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+            <span class="c1"># Append predictions to respective lists</span>
+            <span class="n">fhat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fhat_col</span><span class="p">)</span>
+            <span class="n">shat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shat_col</span><span class="p">)</span>
+
+        <span class="c1"># Construct two matrices using concatenate</span>
+        <span class="n">f_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">fhat_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">s_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">shat_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">F_train</span> <span class="o">=</span> <span class="n">f_matrix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">S_train</span> <span class="o">=</span> <span class="n">s_matrix</span>
+
+        <span class="c1"># Set the rest of the data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="c1"># Reshape X_train to be pxn --- keeping this to remain in sync with</span>
+        <span class="c1"># remainder of code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="c1"># Overwrite any default parameters</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_prior_set</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_define_params</span><span class="p">()</span>
+
+        <span class="c1"># Set default outputs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fmean_out</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rgy</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ntreeh</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="c1"># Set the mcmc properties from kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_mcmc_info</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Set data informed prior values if needed</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">overalllambda</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">overallsd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">overalllambda</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">overallsd</span><span class="o">**</span><span class="mi">2</span>
+
+        <span class="c1"># Write config file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_config_file</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_data</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running model...&quot;</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;openbtcli&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run_model</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+
+        <span class="c1"># See which attributes are returned/can be returned here</span>
+        <span class="c1"># Return attributes to be saved as a separate fit object:</span>
+        <span class="c1"># Missing the influence attribute from the R code (skip for now)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;fpath&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;inform_prior&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;minnumbot&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;nummodels&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;overallsd&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;pb&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;pbd&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;probchv&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;stepwpert&#39;</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+            <span class="n">res</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="c1"># res[&#39;minx&#39;] = self.minx; res[&#39;maxx&#39;] = self.maxx</span>
+
+        <span class="c1"># Get predictions at training points -- more importanlty, get the posterior of sigma</span>
+        <span class="c1"># ci level doesn&#39;t matter here, all we want is the posterior</span>
+        <span class="n">train_post</span><span class="p">,</span> <span class="n">train_mean</span><span class="p">,</span> <span class="n">train_ci</span><span class="p">,</span> <span class="n">train_sd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="mf">0.68</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntreeh</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">sigma_post</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sdraws</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sigma_post</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sdraws</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_posterior</span> <span class="o">=</span> <span class="n">sigma_post</span>
+
+        <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="Trees.predict"><a class="viewcode-back" href="../../../Taweret.mix.html#Taweret.mix.trees.Trees.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">ci</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Obtain the posterior predictive distribution of the mixed-model at a set</span>
+<span class="sd">        of inputs X.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        ----------</span>
+<span class="sd">        :param np.ndarray X: design matrix of testing inputs.</span>
+<span class="sd">        :param float ci: credible interval width, must be a value within the interval (0,1).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        :returns: The posterior prediction draws and summaries.</span>
+<span class="sd">        :rtype: np.ndarray, np.ndarray, np.ndarray, np.ndarray</span>
+<span class="sd">        :return value: the posterior predictive distribution evaluated at the specified test points</span>
+<span class="sd">        :return value: the posterior mean of the mixed-model at each input in X.</span>
+<span class="sd">        :return value: the pointwise credible intervals at each input in X.</span>
+<span class="sd">        :return value: the posterior standard deviation of the mixed-model at each input in X.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># Set q_lower and q_upper</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ci</span><span class="p">)</span>
+        <span class="n">q_lower</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">q_upper</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="c1"># Casting lists to arrays when needed</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>  <span class="c1"># If shape is (n, ), change it to (n, 1):</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Get predictions from the model set at X&#39;s</span>
+        <span class="n">fhat_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">shat_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="c1"># Get predictions from selected model</span>
+            <span class="n">fhat_col</span><span class="p">,</span> <span class="n">shat_col</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+            <span class="c1"># Append predictions to respective lists</span>
+            <span class="n">fhat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fhat_col</span><span class="p">)</span>
+            <span class="n">shat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shat_col</span><span class="p">)</span>
+
+        <span class="c1"># Construct F matrix using concatenate</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">fhat_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">F_test</span> <span class="o">=</span> <span class="n">F</span>
+
+        <span class="c1"># Set control values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_test</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_test</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">q_lower</span> <span class="o">=</span> <span class="n">q_lower</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">q_upper</span> <span class="o">=</span> <span class="n">q_upper</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xproot</span> <span class="o">=</span> <span class="s2">&quot;xp&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fproot</span> <span class="o">=</span> <span class="s2">&quot;fp&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_chunks</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_test</span><span class="p">)</span> <span class="o">//</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_test</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">)),</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">xproot</span><span class="p">,</span>
+                           <span class="s1">&#39;</span><span class="si">%.7f</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Write chunks for f in model mixing</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">modeltype</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_chunks</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_test</span><span class="p">)</span> <span class="o">//</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_test</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">)),</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">fproot</span><span class="p">,</span>
+                               <span class="s1">&#39;</span><span class="si">%.7f</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Set and write config file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configfile</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="o">/</span> <span class="s2">&quot;config.pred&quot;</span><span class="p">)</span>
+        <span class="n">pred_params</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">modelname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modeltype</span><span class="p">,</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">xiroot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xproot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fproot</span><span class="p">,</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">ndpost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntree</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntreeh</span><span class="p">,</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">p_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmean_out</span><span class="p">]</span>
+        <span class="c1"># print(self.ntree); print(self.ntreeh)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">configfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pfile</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">pred_params</span><span class="p">:</span>
+                <span class="n">pfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">param</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;openbtpred&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run_model</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_read_in_preds</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_predict_run</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># mark that the predict function has been called</span>
+
+        <span class="c1"># Get results</span>
+        <span class="n">pred_post</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span>
+        <span class="n">pred_mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mean</span>
+        <span class="n">pred_sd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_sd</span>
+        <span class="n">pred_credible_interval</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pred_lower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_upper</span><span class="p">)</span>
+
+        <span class="c1"># Return sigma posterior and summary stats</span>
+        <span class="c1"># sigma_post = self.sdraws</span>
+        <span class="c1"># sigma_mean = self.sigma_mean</span>
+        <span class="c1"># sigma_sd = self.sigma_sd</span>
+        <span class="c1"># sigma_credible_interval = (self.sigma_lower, self.sigma_upper)</span>
+        <span class="k">return</span> <span class="n">pred_post</span><span class="p">,</span> <span class="n">pred_mean</span><span class="p">,</span> <span class="n">pred_credible_interval</span><span class="p">,</span> <span class="n">pred_sd</span></div>
+
+<div class="viewcode-block" id="Trees.predict_weights"><a class="viewcode-back" href="../../../Taweret.mix.html#Taweret.mix.trees.Trees.predict_weights">[docs]</a>    <span class="k">def</span> <span class="nf">predict_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">ci</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Obtain posterior distribution of the weight functions at a set</span>
+<span class="sd">        of inputs X.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        ----------</span>
+<span class="sd">        :param np.ndarray X: design matrix of testing inputs.</span>
+<span class="sd">        :param float ci: credible interval width, must be a value within the interval (0,1).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        :returns: The posterior weight function draws and summaries.</span>
+<span class="sd">        :rtype: np.ndarray, np.ndarray, np.ndarray, np.ndarray</span>
+<span class="sd">        :return value: the posterior draws of the weight functions at each input in X.</span>
+<span class="sd">        :return value: posterior mean of the weight functions at each input in X.</span>
+<span class="sd">        :return value: pointwise credible intervals for the weight functions.</span>
+<span class="sd">        :return value: posterior standard deviation of the weight functions at each input in X.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># Set q_lower and q_upper</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ci</span><span class="p">)</span>
+        <span class="n">q_lower</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">q_upper</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="c1"># Checks for proper inputs and convert lists to arrays</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">modeltype</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s2">&quot;Cannot call openbt.mixingwts() method for openbt objects that are not modeltype = &#39;mixbart&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;The X array does not have the appropriate number of columns.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Set control parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xwroot</span> <span class="o">=</span> <span class="s2">&quot;xw&quot;</span>
+        <span class="c1"># default, needed when considering the general class of model mixing</span>
+        <span class="c1"># problems -- revist this later</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitroot</span> <span class="o">=</span> <span class="s2">&quot;.fit&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">q_lower</span> <span class="o">=</span> <span class="n">q_lower</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">q_upper</span> <span class="o">=</span> <span class="n">q_upper</span>
+
+        <span class="c1"># write out the config file</span>
+        <span class="c1"># Set control values</span>
+        <span class="c1"># no need to set this as a class object like in predict function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_test</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_chunks</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_test</span><span class="p">)</span> <span class="o">//</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_test</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">)),</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">xwroot</span><span class="p">,</span>
+                           <span class="s1">&#39;</span><span class="si">%.7f</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Set and write config file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configfile</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="o">/</span> <span class="s2">&quot;config.mxwts&quot;</span><span class="p">)</span>
+        <span class="n">pred_params</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">modelname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modeltype</span><span class="p">,</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">xiroot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">xwroot</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitroot</span><span class="p">,</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">ndpost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntree</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntreeh</span><span class="p">,</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">]</span>
+        <span class="c1"># print(self.ntree); print(self.ntreeh)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">configfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pfile</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">pred_params</span><span class="p">:</span>
+                <span class="n">pfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">param</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># run the program</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;openbtmixingwts&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run_model</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+
+        <span class="c1"># Read in the weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_read_in_wts</span><span class="p">()</span>
+
+        <span class="c1"># New: make things a bit more like R, and save attributes to a fit</span>
+        <span class="c1"># object:</span>
+        <span class="n">posterior</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wdraws</span>
+        <span class="n">post_mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wts_mean</span>
+        <span class="n">post_sd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wts_sd</span>
+        <span class="n">post_credible_interval</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">wts_lower</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wts_upper</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">posterior</span><span class="p">,</span> <span class="n">post_mean</span><span class="p">,</span> <span class="n">post_credible_interval</span><span class="p">,</span> <span class="n">post_sd</span></div>
+
+    <span class="c1"># -----------------------------------------------------------</span>
+    <span class="c1"># Plotting</span>
+
+<div class="viewcode-block" id="Trees.plot_prediction"><a class="viewcode-back" href="../../../Taweret.mix.html#Taweret.mix.trees.Trees.plot_prediction">[docs]</a>    <span class="k">def</span> <span class="nf">plot_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xdim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Plot the predictions of the mixed-model. The x-axis of this plot</span>
+<span class="sd">        can be any column of the design matrix X, which is passed into</span>
+<span class="sd">        the predict function.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        ----------</span>
+<span class="sd">        :param int xdim: index of the column to plot against the predictions.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        :return: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">col_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mean</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Compute weights at training points</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Getting predictions at training points by default.&quot;</span><span class="p">)</span>
+            <span class="n">out_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">X_test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+
+        <span class="c1"># Now plot the prediction -- need to improve this plot</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">[:,</span> <span class="n">xdim</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_mean</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">[:,</span> <span class="n">xdim</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_lower</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">[:,</span> <span class="n">xdim</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred_upper</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">[:,</span> <span class="n">xdim</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">F_test</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span>
+                     <span class="n">color</span><span class="o">=</span><span class="n">col_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+        <span class="c1"># Recall X_train was transposed in the beginning</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">[</span><span class="n">xdim</span><span class="p">,</span> <span class="p">:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Posterior Mean Prediction&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>  <span class="c1"># Update Label</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;F(X)&quot;</span><span class="p">)</span>  <span class="c1"># Update Label</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Trees.plot_weights"><a class="viewcode-back" href="../../../Taweret.mix.html#Taweret.mix.trees.Trees.plot_weights">[docs]</a>    <span class="k">def</span> <span class="nf">plot_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xdim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Plot the weight functions. The x-axis of this plot</span>
+<span class="sd">        can be any column of the design matrix X, which is passed into</span>
+<span class="sd">        the predict_weights function.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        ----------</span>
+<span class="sd">        :param int xdim: index of the column to plot against the predictions.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        --------</span>
+<span class="sd">        :return: None.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Check if weights are already loaded</span>
+        <span class="n">col_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wts_mean</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Compute weights at training points</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computing weights at training points by default.&quot;</span><span class="p">)</span>
+            <span class="n">out_wts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">X_test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+
+        <span class="c1"># Now plot the weights -- need to improve this plot</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">[:,</span> <span class="n">xdim</span><span class="p">],</span>
+                     <span class="bp">self</span><span class="o">.</span><span class="n">wts_mean</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">col_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">[:,</span> <span class="n">xdim</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">wts_lower</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span>
+                     <span class="n">color</span><span class="o">=</span><span class="n">col_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_test</span><span class="p">[:,</span> <span class="n">xdim</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">wts_upper</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span>
+                     <span class="n">color</span><span class="o">=</span><span class="n">col_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Posterior Weight Functions&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>  <span class="c1"># Update Label</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;W(X)&quot;</span><span class="p">)</span>  <span class="c1"># Update Label</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Trees.plot_sigma"><a class="viewcode-back" href="../../../Taweret.mix.html#Taweret.mix.trees.Trees.plot_sigma">[docs]</a>    <span class="k">def</span> <span class="nf">plot_sigma</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Plot the posterior distribution of the observational error</span>
+<span class="sd">        standard deviation.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">posterior</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Posterior Error Standard Deviation&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Sigma&quot;</span><span class="p">)</span>  <span class="c1"># Update Label</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency&quot;</span><span class="p">)</span>  <span class="c1"># Update Label</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+    <span class="c1"># ----------------------------------------------------------</span>
+    <span class="c1"># &quot;Private&quot; Functions</span>
+    <span class="k">def</span> <span class="nf">_define_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private function. Set up parameters for the cpp.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Overwrite the hyperparameter settings when model mixing</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inform_prior</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tau</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntree</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntree</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tau</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ntree</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ntree</span><span class="p">)</span>
+
+        <span class="c1"># overall lambda calibration</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">overallsd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">overalllambda</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">overallsd</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">overalllambda</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Set overall nu</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">overallnu</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">overallnu</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="k">def</span> <span class="nf">_read_in_preds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private function, read in predictions from text files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mdraw_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fpath</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">modelname</span> <span class="o">+</span>
+                    <span class="s2">&quot;.mdraws*&quot;</span><span class="p">)))</span>
+        <span class="n">sdraw_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fpath</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">modelname</span> <span class="o">+</span>
+                    <span class="s2">&quot;.sdraws*&quot;</span><span class="p">)))</span>
+        <span class="n">mdraws</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">mdraw_files</span><span class="p">:</span>
+            <span class="n">read</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="ow">and</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">:</span>  <span class="c1"># If it&#39;s nonempty</span>
+                <span class="n">mdraws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+        <span class="c1"># print(mdraws[0].shape); print(len(mdraws))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+            <span class="n">mdraws</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Got rid of the transpose</span>
+        <span class="n">sdraws</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">sdraw_files</span><span class="p">:</span>
+            <span class="n">read</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="ow">and</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">:</span>  <span class="c1"># If it&#39;s nonempty</span>
+                <span class="n">sdraws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+        <span class="c1"># print(sdraws[0]); print(sdraws[0][0])</span>
+        <span class="c1"># print(len(sdraws)); print(len(sdraws[0])); print(len(sdraws[0][0]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sdraws</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+            <span class="n">sdraws</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Got rid of the transpose</span>
+
+        <span class="c1"># New (added by me), since R returns arrays like these by default:</span>
+        <span class="c1"># Calculate mmean and smean arrays, and related statistics</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pred_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sdraws</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pred_sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pred_5</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_5</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pred_lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sdraws</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pred_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sdraws</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pred_mean</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[:,</span> <span class="n">j</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sigma_mean</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sdraws</span><span class="p">[:,</span> <span class="n">j</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pred_sd</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sigma_sd</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sdraws</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pred_5</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="mf">0.50</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sigma_5</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sdraws</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="mf">0.50</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pred_lower</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_lower</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sigma_lower</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sdraws</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_lower</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pred_upper</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mdraws</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_upper</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sigma_upper</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sdraws</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_upper</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_read_in_wts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private function, read in weights from text files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initialize the wdraws dictionary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wdraws</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Initialize summary statistic matrices for the wts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wts_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wts_sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wts_5</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wts_lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wts_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_test</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">))</span>
+
+        <span class="c1"># Get the weight files</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">):</span>
+            <span class="n">wdraw_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">modelname</span> <span class="o">+</span> <span class="s2">&quot;.w&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;draws*&quot;</span><span class="p">)))</span>
+            <span class="n">wdraws</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">wdraw_files</span><span class="p">:</span>
+                <span class="n">read</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+                <span class="n">lines</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="ow">and</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">:</span>  <span class="c1"># If it&#39;s nonempty</span>
+                    <span class="n">wdraws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+            <span class="c1"># Store the wdraws array in the self.wdraws dictionary under the</span>
+            <span class="c1"># key wtname</span>
+            <span class="n">wtname</span> <span class="o">=</span> <span class="s2">&quot;w&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wdraws</span><span class="p">[</span><span class="n">wtname</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                <span class="n">wdraws</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Got rid of the transpose</span>
+
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wdraws</span><span class="p">[</span><span class="n">wtname</span><span class="p">][</span><span class="mi">0</span><span class="p">])):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wts_mean</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wdraws</span><span class="p">[</span><span class="n">wtname</span><span class="p">][:,</span> <span class="n">j</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wts_sd</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wdraws</span><span class="p">[</span><span class="n">wtname</span><span class="p">][:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wts_5</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wdraws</span><span class="p">[</span><span class="n">wtname</span><span class="p">][:,</span> <span class="n">j</span><span class="p">],</span> <span class="mf">0.50</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wts_lower</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">wdraws</span><span class="p">[</span><span class="n">wtname</span><span class="p">][:,</span> <span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_lower</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wts_upper</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">wdraws</span><span class="p">[</span><span class="n">wtname</span><span class="p">][:,</span> <span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_upper</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_run_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="s2">&quot;openbtcli&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private function, run the cpp program via the command line using</span>
+<span class="sd">        a subprocess.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check to see if executable is installed via debian</span>
+        <span class="n">sh</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+
+        <span class="c1"># Check to see if installed via wheel</span>
+        <span class="n">pyinstall</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">sh</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pywhl_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s2">&quot;pip show openbtmixing&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">pywhl_path</span> <span class="o">=</span> <span class="n">pywhl_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;Location: &quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pywhl_path</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">pywhl_path</span> <span class="o">=</span> <span class="n">pywhl_path</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/openbtmixing&quot;</span>
+                <span class="n">sh</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">pywhl_path</span><span class="p">)</span>
+                <span class="n">pyinstall</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Execute the subprocess, changing directory when needed</span>
+        <span class="k">if</span> <span class="n">sh</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># openbt exe were not found in the current directory -- try the</span>
+            <span class="c1"># local directory passed in</span>
+            <span class="n">sh</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">local_openbt_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sh</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+                    <span class="s2">&quot;Cannot find openbt executables. Please specify the path using the argument local_openbt_path in the constructor.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cmd</span> <span class="o">=</span> <span class="n">sh</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">google_colab</span><span class="p">:</span>
+                    <span class="c1"># MPI with local program</span>
+                    <span class="n">sp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">&quot;mpirun&quot;</span><span class="p">,</span>
+                                         <span class="s2">&quot;-np&quot;</span><span class="p">,</span>
+                                         <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">),</span>
+                                         <span class="n">cmd</span><span class="p">,</span>
+                                         <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span><span class="p">)],</span>
+                                        <span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">,</span>
+                                        <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Shell command for MPI with google colab</span>
+                    <span class="n">full_cmd</span> <span class="o">=</span> <span class="s2">&quot;mpirun --allow-run-as-root --oversubscribe -np &quot;</span> <span class="o">+</span> \
+                        <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">cmd</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span><span class="p">)</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">full_cmd</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pyinstall</span><span class="p">:</span>
+                <span class="c1"># MPI with local program</span>
+                <span class="c1">#os.system(&quot;ldd /home/johnyannotty/Documents/Taweret/test_env/lib/python3.8/site-packages/openbtmixing/.libs/openbtcli&quot;)</span>
+                <span class="c1">#os.environ[&#39;LD_LIBRARY_PATH&#39;] = &quot;/home/johnyannotty/Documents/Taweret/test_env/lib/python3.8/site-packages/openbtmixing/.libs/&quot;</span>
+                <span class="n">libdir</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sh</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;/.libs/&quot;</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;LD_LIBRARY_PATH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">libdir</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;DYLD_LIBRARY_PATH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">libdir</span>
+                <span class="n">cmd</span> <span class="o">=</span> <span class="n">sh</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">libdir</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+                <span class="n">sp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">&quot;mpirun&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;-np&quot;</span><span class="p">,</span>
+                                        <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">),</span>
+                                        <span class="n">cmd</span><span class="p">,</span>
+                                        <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span><span class="p">)],</span>
+                                    <span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">,</span>
+                                    <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">google_colab</span><span class="p">:</span>
+                    <span class="c1"># MPI with installed .exe</span>
+                    <span class="n">sp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">&quot;mpirun&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;-np&quot;</span><span class="p">,</span>
+                                        <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">),</span>
+                                        <span class="n">cmd</span><span class="p">,</span>
+                                        <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span><span class="p">)],</span>
+                                        <span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">,</span>
+                                        <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Google colab with installed program</span>
+                    <span class="n">full_cmd</span> <span class="o">=</span> <span class="s2">&quot;mpirun --allow-run-as-root --oversubscribe -np &quot;</span> <span class="o">+</span> \
+                        <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">cmd</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span><span class="p">)</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">full_cmd</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_set_mcmc_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mcmc_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private function, set mcmc information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Extract arguments</span>
+        <span class="n">valid_mcmc_args</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;ndpost&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;nskip&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;nadapt&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tc&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;pbd&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;pb&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;stepwpert&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;probchv&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;minnumbot&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;printevery&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;numcut&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;adaptevery&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;xicuts&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">mcmc_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">valid_mcmc_args</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+
+        <span class="c1"># Cutpoints</span>
+        <span class="k">if</span> <span class="s2">&quot;xicuts&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xi</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">maxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">minx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">):</span>
+                <span class="n">xinc</span> <span class="o">=</span> <span class="p">(</span><span class="n">maxx</span><span class="p">[</span><span class="n">feat</span><span class="p">]</span> <span class="o">-</span> <span class="n">minx</span><span class="p">[</span><span class="n">feat</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numcut</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">xi</span><span class="p">[</span><span class="n">feat</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numcut</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">xinc</span> <span class="o">+</span> <span class="n">minx</span><span class="p">[</span><span class="n">feat</span><span class="p">]]</span>
+
+        <span class="c1"># Birth and Death probability -- set product tree pbd to 0 for selected</span>
+        <span class="c1"># models</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pbd</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pbd</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pbd</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Update the product tree arguments</span>
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_h_args</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;pbd&quot;</span><span class="p">,</span> <span class="s2">&quot;pb&quot;</span><span class="p">,</span> <span class="s2">&quot;stepwpert&quot;</span><span class="p">,</span>
+                                              <span class="s2">&quot;probchv&quot;</span><span class="p">,</span> <span class="s2">&quot;minnumbot&quot;</span><span class="p">]]</span>
+
+    <span class="k">def</span> <span class="nf">_set_wts_prior</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">betavec</span><span class="p">,</span> <span class="n">tauvec</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private function, set the non-informative weights prior when</span>
+<span class="sd">        the weights are not assumed to be identically distributed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Cast lists to np.arrays when needed</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">betavec</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">betavec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">betavec</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tauvec</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">tauvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tauvec</span><span class="p">)</span>
+
+        <span class="c1"># Check lengths</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tauvec</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="n">betavec</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nummodels</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Incorrect vector length for tauvec and/or betavec. Lengths must be equal to the number of models.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Store the hyperparameters passed in</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diffwtsprior</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">betavec</span> <span class="o">=</span> <span class="n">betavec</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tauvec</span> <span class="o">=</span> <span class="n">tauvec</span>
+
+    <span class="k">def</span> <span class="nf">_update_h_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private function, update default arguments for the</span>
+<span class="sd">        product-of-trees model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">arg</span> <span class="o">+</span> <span class="s2">&quot;h&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">arg</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">arg</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">BaseException</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">arg</span> <span class="o">+</span> <span class="s2">&quot;h&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_write_chunks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">no_chunks</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private function, write data to text file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">no_chunks</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Writing all data to one &#39;chunk&#39;&quot;</span><span class="p">)</span>
+            <span class="n">no_chunks</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">splitted_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">no_chunks</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Fit: Invalid tc input - exiting process&#39;</span><span class="p">)</span>
+        <span class="n">int_added</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">var</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;xp&quot;</span><span class="p">,</span> <span class="s2">&quot;fp&quot;</span><span class="p">,</span> <span class="s2">&quot;xw&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="mi">1</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">splitted_data</span><span class="p">):</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">var</span> <span class="o">+</span> <span class="s2">&quot;root&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">int_added</span><span class="p">))),</span>
+                       <span class="n">ch</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># Need to generalize -- this is only used in fit</span>
+
+    <span class="k">def</span> <span class="nf">_write_config_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private function, create temp directory to write config and data files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;openbtmixing_&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">run_params</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">modeltype</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xroot</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">yroot</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fmean_out</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ntree</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ntreeh</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ndpost</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nskip</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nadapt</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adaptevery</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">overalllambda</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">overallnu</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">power</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">baseh</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">powerh</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sroot</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chgvroot</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">froot</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fsdroot</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inform_prior</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wproot</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diffwtsprior</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pbd</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pb</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pbdh</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pbh</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stepwpert</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stepwperth</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">probchv</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">probchvh</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">minnumbot</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">minnumboth</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">printevery</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xiroot</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">modelname</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">summarystats</span><span class="p">]</span>
+        <span class="c1"># print(run_params)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configfile</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="o">/</span> <span class="s2">&quot;config&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">configfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tfile</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">run_params</span><span class="p">:</span>
+                <span class="n">tfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">param</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_write_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Private function, write data to textfiles.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">splits</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">)</span>
+                                  <span class="p">)</span>  <span class="c1"># Should = tc - 1 as long as n &gt;= tc</span>
+        <span class="c1"># print(&quot;splits =&quot;, splits)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_chunks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">,</span> <span class="n">splits</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%.7f</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_chunks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">),</span> <span class="n">splits</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%.7f</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_chunks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">),</span>
+                           <span class="n">splits</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%.0f</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Results stored in temporary path: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># print(&quot;1 x variable, so correlation = 1&quot;)</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chgvroot</span><span class="p">)),</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.7f</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># print(&quot;2 x variables&quot;)</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chgvroot</span><span class="p">)),</span>
+                       <span class="p">[</span><span class="n">spearmanr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.7f</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># print(&quot;3+ x variables&quot;)</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chgvroot</span><span class="p">)),</span>
+                       <span class="n">spearmanr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.7f</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">xi</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span>
+                <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiroot</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))),</span> <span class="n">v</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.7f</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Write model mixing files</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">modeltype</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="c1"># F-hat matrix</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_chunks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">F_train</span><span class="p">,</span> <span class="n">splits</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%.7f</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="c1"># S-hat matrix when using inform_prior</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inform_prior</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_write_chunks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">S_train</span><span class="p">,</span> <span class="n">splits</span><span class="p">,</span> <span class="s2">&quot;fsd&quot;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%.7f</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="c1"># Wts prior when passed in</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffwtsprior</span><span class="p">:</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wproot</span><span class="p">)),</span>
+                           <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">betavec</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tauvec</span><span class="p">),</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.7f</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

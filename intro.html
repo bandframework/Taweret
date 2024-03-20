@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="python">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taweret for Bayesian Model Mixing &mdash; Taweret 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="Welcome to Bayesian Model Mixing with Taweret!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Taweret
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About Taweret:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Taweret for Bayesian Model Mixing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bayesian-model-mixing">Bayesian Model Mixing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Taweret for Bayesian Model Mixing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#models">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mixing-method">Mixing Method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#details-of-each-mixing-method">Details of each Mixing Method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#estimating-the-weight-functions">Estimating the Weight Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-with-multiple-models">Working with Multiple Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macos_user.html">MacOS Users</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Taweret</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html">Linear Bivariate BMM with calibration of Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/coleman_models_BMM_comparative_study.html">Comparative study of BMM method in bivariate linear module using Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_step_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : step mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_cdf_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : cdf mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_switchcos_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : switchcos mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Bivariate_Test.html">Bivariate BMM Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/N_Model_BMM.html">Multivariate BMM for n = 3, …, N models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Trees_BMM_2D.html">BART BMM: 2D Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Trees_BMM_2D_K_models.html">BART BMM: 2D Inputs with K Models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="how_to_add_new_mixing.html">How to add a new mixing method to Taweret</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_add_documentation.html">How to update documentation in Taweret website</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Taweret</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Taweret for Bayesian Model Mixing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/intro.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="taweret-for-bayesian-model-mixing">
+<h1>Taweret for Bayesian Model Mixing<a class="headerlink" href="#taweret-for-bayesian-model-mixing" title="Permalink to this heading"></a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#bayesian-model-mixing" id="id2">Bayesian Model Mixing</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id3">Taweret for Bayesian Model Mixing</a></p>
+<ul>
+<li><p><a class="reference internal" href="#models" id="id4">Models</a></p></li>
+<li><p><a class="reference internal" href="#mixing-method" id="id5">Mixing Method</a></p></li>
+<li><p><a class="reference internal" href="#details-of-each-mixing-method" id="id6">Details of each Mixing Method</a></p></li>
+<li><p><a class="reference internal" href="#estimating-the-weight-functions" id="id7">Estimating the Weight Functions</a></p></li>
+<li><p><a class="reference internal" href="#working-with-multiple-models" id="id8">Working with Multiple Models</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="bayesian-model-mixing">
+<h2><a class="toc-backref" href="#id2">Bayesian Model Mixing</a><a class="headerlink" href="#bayesian-model-mixing" title="Permalink to this heading"></a></h2>
+<p>In computer simulation studies, it is often the case where a set of theoretically sound models are considered, each intended to describe the true underlying physical phenomena of interest across a sub-region of the domain. These models could differ by their underlying assumptions and may not be valid in certain sub-regions of the input domain. In practice, the true underlying model is not contained in the set of candidate models. Thus, selecting a single model to describe the true phenomena across the entire input domain is inappropriate. As an alternative, one may elect to combine the information within the model set in some systematic manner. A common approach involves combining the individual mean predictions or predictive densities from the indivdual models using a linear combination or weighted average. The weights in this linear combination may or may not depend on the inputs. When the models under consideration exhibit varrying levels of predictive accuracy depending on the sub-region of the input domain, an input-dependent weighting scheme is more appropriate. A memeber of the class of input-dependent weighting schemes is Bayesian Model Mixing (BMM). BMM is a data-driven technique which combines the predictions from a set of N candidate models in a Bayesian manner using input-dependent weights. Mixing can be performed using one of two strategies described below: (1) A two-step approach: Each model is fit prior to mixing. The weight functions are then learned conditional on the predictions from each model. (2) A joint analysis: When the models have unknown parameters, one could elect to perform calibration while simultaneously learning the weight functions.</p>
+<p>Taweret is a python package which provides a variety of BMM methods. Each method combines the information across a set of N models in a Bayesian manner using an input-dependent weighting scheme. The BMM methods in Taweret are designed to esitmate the true mean of the underlying system (mean-mixing) or the true predictive density of the underlying system (density-mixing). Selecting a mixing objectve (mean vs. density mixing) and associated method is problem dependent.</p>
+<p>The typical workflow of Bayesian Model Mixing includes:</p>
+<ol class="arabic simple">
+<li><p>Define a set of candidate models and collect experimental data.</p></li>
+<li><p>Decide on a mixing method.</p></li>
+<li><p>Learn the weights/mixing function to combine models.</p></li>
+</ol>
+</section>
+<section id="id1">
+<h2><a class="toc-backref" href="#id3">Taweret for Bayesian Model Mixing</a><a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<img alt="_images/Taweret.png" src="_images/Taweret.png" />
+<p>Taweret is the protective ancient Egyptian goddess of childbirth and fertility. She has the head of a hippopotamus and limbs and paws of a lion. Her back and tail is of a Nile crocodile. Hence the name of our Bayesian Model Mixing package, Taweret!</p>
+<section id="models">
+<h3><a class="toc-backref" href="#id4">Models</a><a class="headerlink" href="#models" title="Permalink to this heading"></a></h3>
+<p>The user has to provide models that they would like to mix. Currently Taweret supports mixing of two or more models with a 1,...,p-dimensional input space (depending on the method of mixing chosen) and a single output. The models are required to have an &quot;evaluate&quot; a method which should return a mean and a standard deviation for each input parameter value.</p>
+</section>
+<section id="mixing-method">
+<h3><a class="toc-backref" href="#id5">Mixing Method</a><a class="headerlink" href="#mixing-method" title="Permalink to this heading"></a></h3>
+<p>The user will then choose a mixing method. Currently Taweret supports: 1. <strong>Linear mixing</strong> (2 models) 2. <strong>Multivariate BMM</strong> (N models) 3. <strong>Bayesian Trees</strong> (N models) </p>
+</section>
+<section id="details-of-each-mixing-method">
+<h3><a class="toc-backref" href="#id6">Details of each Mixing Method</a><a class="headerlink" href="#details-of-each-mixing-method" title="Permalink to this heading"></a></h3>
+<p><strong>Linear mixing</strong>: A density-mixing method employing a mixing function between the two models chosen with four different types of mixing functions available in Taweret (<em>Step</em>, <em>Sigmoid</em>, <em>CDF</em>, <em>Piecewise cosine</em>). This mixing method takes two models and the experimental data as input and calculates the likelihood. Finding of the optimal weights by either optimizing the likelihood or finding the full posterior is done as the next step.</p>
+<p><strong>Multivariate BMM</strong>: A mean-mixing method that combines two (or more!) models provided by the user into a mixed model. This method, unlike linear mixing, only requires knowledge of the two models and their uncertainties at the input points. Given that the models are supplied by the user, one could combine two functions with a Gaussian Process (as seen in the example notebook for this method).</p>
+<p><strong>Bayesian Trees</strong>: This mean-mixing method estimates the true underlying system by combining the mean predictions from N models using a linear combination and input-dependent weighting scheme. The weights functions are defined using Bayesian Additive Regression Trees (BART). This flexible and non-parametric weighting scheme allows the weight functions to reflect the localized performances of each model based on the information across a set of observational data and the corresponding mean predictions from the model set. This approach is applicable for p-dimensional input spaces.</p>
+</section>
+<section id="estimating-the-weight-functions">
+<h3><a class="toc-backref" href="#id7">Estimating the Weight Functions</a><a class="headerlink" href="#estimating-the-weight-functions" title="Permalink to this heading"></a></h3>
+<p>Taweret provides a variety of BMM methods, each which utilize an input-dependent weighting scheme. The weighting scheme may vary substantially across the different methods. For example, Linear mixing defines the weights using a parametric model, while the Bayesian Trees approach uses a non-parametric model. Another weighting scheme involves precision weighting, as seen in Multivariate BMM. Hence, the exact estimation of the weight functions may differ substantially across the various BMM methods. Despite this, the estimation process in each method is facilitated using Bayesian principles. Examples of each method can be found in the Python notebooks (docs/source/notebooks) and under the Examples tab on this page. In these examples, BMM is applied to the SAMBA, Coleman, and Polynomial models.</p>
+</section>
+<section id="working-with-multiple-models">
+<h3><a class="toc-backref" href="#id8">Working with Multiple Models</a><a class="headerlink" href="#working-with-multiple-models" title="Permalink to this heading"></a></h3>
+<p><strong>A Two-step approach</strong>: In some cases, the models under consideration may have been previously calibrated. Consequently, the predictions from each model are easily ascertained across a new set of input locations. This calibration phase is the first step in the two-step process. The second step invloves mixing the predictions from each model to estimate the true system. Thus, conditional on the individual predictions across a set of inputs along with observational data, the weight functions are learned and the overall mean or predictive density of the underlying system is estimated in a Bayesian manner. Examples of this two-step analysis can be found in a variety of the notebooks provided in the Examples section.</p>
+<p><strong>Mixing and Calibration</strong>: </p>
+<p>This joint analysis is advantageous because it enables each model to be calibrated predominantly based on the sub-regions of the domain where its predictions align well with the observational data. These sub-regions will be simultaneously identified by the weight functions. This should lead more reliable inference than then case where each model is calibrated individually and thus forced to reflect a global fit to the data. For example, the joint analysis would avoid situations where a model is calibrated using experimental data that is outside its applicability. Examples of this joint analysis are applied to the Coleman models.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Bayesian Model Mixing with Taweret!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="python">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taweret.models namespace &mdash; Taweret 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Taweret.sampler namespace" href="Taweret.sampler.html" />
+    <link rel="prev" title="Taweret.mix namespace" href="Taweret.mix.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Taweret
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About Taweret:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Taweret for Bayesian Model Mixing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macos_user.html">MacOS Users</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Taweret</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="Taweret.html">Taweret package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="Taweret.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Taweret.core.html">Taweret.core namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Taweret.mix.html">Taweret.mix namespace</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Taweret.models namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Taweret.sampler.html">Taweret.sampler namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Taweret.utils.html">Taweret.utils namespace</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Taweret.html#module-Taweret">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html">Linear Bivariate BMM with calibration of Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/coleman_models_BMM_comparative_study.html">Comparative study of BMM method in bivariate linear module using Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_step_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : step mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_cdf_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : cdf mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_switchcos_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : switchcos mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Bivariate_Test.html">Bivariate BMM Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/N_Model_BMM.html">Multivariate BMM for n = 3, …, N models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Trees_BMM_2D.html">BART BMM: 2D Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Trees_BMM_2D_K_models.html">BART BMM: 2D Inputs with K Models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="how_to_add_new_mixing.html">How to add a new mixing method to Taweret</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_add_documentation.html">How to update documentation in Taweret website</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Taweret</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Taweret</a></li>
+          <li class="breadcrumb-item"><a href="Taweret.html">Taweret package</a></li>
+      <li class="breadcrumb-item active">Taweret.models namespace</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Taweret.models.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-Taweret.models">
+<span id="taweret-models-namespace"></span><h1>Taweret.models namespace<a class="headerlink" href="#module-Taweret.models" title="Permalink to this heading"></a></h1>
+<section id="module-Taweret.models.coleman_models">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-Taweret.models.coleman_models" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_model_1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.models.coleman_models.</span></span><span class="sig-name descname"><span class="pre">coleman_model_1</span></span><a class="reference internal" href="_modules/Taweret/models/coleman_models.html#coleman_model_1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.coleman_models.coleman_model_1" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_model.BaseModel" title="Taweret.core.base_model.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_model_1.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_param</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_corr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/Taweret/models/coleman_models.html#coleman_model_1.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.coleman_models.coleman_model_1.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Predict the mean and error for given input values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_values</strong> (<em>numpy 1darray</em>) -- input parameter values</p></li>
+<li><p><strong>model_param</strong> (<em>numpy 1darray</em>) -- value of the model parameter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_model_1.log_likelihood_elementwise">
+<span class="sig-name descname"><span class="pre">log_likelihood_elementwise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/coleman_models.html#coleman_model_1.log_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.coleman_models.coleman_model_1.log_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate log_likelihood for array of points given, and return with
+array with same shape[0]</p>
+<dl class="simple">
+<dt>log_likelis<span class="classifier">np.ndarray</span></dt><dd><p>an array of length as shape[0] of the input evaluation points</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">log_likelihood_elementwise</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">y_exp</span><span class="p">,</span> <span class="n">y_err</span><span class="p">,</span> <span class="n">model_params</span>
+    <span class="p">):</span>
+        <span class="c1"># Assuming a normal distribution for error</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">model_params</span><span class="p">)</span>
+        <span class="c1"># If y_exp, y_err, y are numpy arrays of same length</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_exp</span><span class="p">)</span> <span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">y_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> \
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">y_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_model_1.prior">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prior</span></span><a class="headerlink" href="#Taweret.models.coleman_models.coleman_model_1.prior" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_model_1.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bilby_priors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/coleman_models.html#coleman_model_1.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.coleman_models.coleman_model_1.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Set the prior on model parameters.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_model_2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.models.coleman_models.</span></span><span class="sig-name descname"><span class="pre">coleman_model_2</span></span><a class="reference internal" href="_modules/Taweret/models/coleman_models.html#coleman_model_2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.coleman_models.coleman_model_2" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_model.BaseModel" title="Taweret.core.base_model.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_model_2.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_param</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_corr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/Taweret/models/coleman_models.html#coleman_model_2.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.coleman_models.coleman_model_2.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Predict the mean and error for given input values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_values</strong> (<em>numpy 1darray</em>) -- input parameter values</p></li>
+<li><p><strong>model_param</strong> (<em>numpy 1darray</em>) -- value of the model parameter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_model_2.log_likelihood_elementwise">
+<span class="sig-name descname"><span class="pre">log_likelihood_elementwise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/coleman_models.html#coleman_model_2.log_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.coleman_models.coleman_model_2.log_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate log_likelihood for array of points given, and return with
+array with same shape[0]</p>
+<dl class="simple">
+<dt>log_likelis<span class="classifier">np.ndarray</span></dt><dd><p>an array of length as shape[0] of the input evaluation points</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">log_likelihood_elementwise</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">y_exp</span><span class="p">,</span> <span class="n">y_err</span><span class="p">,</span> <span class="n">model_params</span>
+    <span class="p">):</span>
+        <span class="c1"># Assuming a normal distribution for error</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">model_params</span><span class="p">)</span>
+        <span class="c1"># If y_exp, y_err, y are numpy arrays of same length</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_exp</span><span class="p">)</span> <span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">y_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> \
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">y_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_model_2.prior">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prior</span></span><a class="headerlink" href="#Taweret.models.coleman_models.coleman_model_2.prior" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_model_2.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bilby_priors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/coleman_models.html#coleman_model_2.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.coleman_models.coleman_model_2.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Set the prior on model parameters.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_truth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.models.coleman_models.</span></span><span class="sig-name descname"><span class="pre">coleman_truth</span></span><a class="reference internal" href="_modules/Taweret/models/coleman_models.html#coleman_truth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.coleman_models.coleman_truth" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_model.BaseModel" title="Taweret.core.base_model.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_truth.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/Taweret/models/coleman_models.html#coleman_truth.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.coleman_models.coleman_truth.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Predict the mean and error for given input values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_values</strong> (<em>numpy 1darray</em>) -- input parameter values</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_truth.log_likelihood_elementwise">
+<span class="sig-name descname"><span class="pre">log_likelihood_elementwise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/coleman_models.html#coleman_truth.log_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.coleman_models.coleman_truth.log_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate log_likelihood for array of points given, and return with
+array with same shape[0]</p>
+<dl class="simple">
+<dt>log_likelis<span class="classifier">np.ndarray</span></dt><dd><p>an array of length as shape[0] of the input evaluation points</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">log_likelihood_elementwise</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">y_exp</span><span class="p">,</span> <span class="n">y_err</span><span class="p">,</span> <span class="n">model_params</span>
+    <span class="p">):</span>
+        <span class="c1"># Assuming a normal distribution for error</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">model_params</span><span class="p">)</span>
+        <span class="c1"># If y_exp, y_err, y are numpy arrays of same length</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_exp</span><span class="p">)</span> <span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">y_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> \
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">y_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.coleman_models.coleman_truth.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bilby_priors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/coleman_models.html#coleman_truth.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.coleman_models.coleman_truth.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>User must provide function that sets a member varibale called _prior.
+Dictionary of prior distributions. Format should be compatible with
+sampler.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">BaseMixer</span><span class="p">):</span>
+    <span class="c1"># . . .</span>
+    <span class="k">def</span> <span class="nf">set_prior</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prior_dict</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prior</span> <span class="o">=</span> <span class="n">prior_dict</span>
+    <span class="c1"># . . .</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-Taweret.models.polynomial_models"></span><dl class="py class">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.cos_exp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.models.polynomial_models.</span></span><span class="sig-name descname"><span class="pre">cos_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#cos_exp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.cos_exp" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_model.BaseModel" title="Taweret.core.base_model.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>Cosine Taylor series expansion model class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) -- the degree of the expansion.</p></li>
+<li><p><strong>x0</strong> (<em>float</em>) -- the center of the expansion.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.cos_exp.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#cos_exp.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.cos_exp.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the Taylor series at a grid of x's. The standard deviation
+output is set to 1 by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>np.ndarray</em>) -- design matrix.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>mean and standard deviation of the model at the x grid points.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray, np.ndarray</p>
+</dd>
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p>mean predictions.</p>
+</dd>
+<dt class="field-even">Return values</dt>
+<dd class="field-even"><p>standard deviation of the predictions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.cos_exp.log_likelihood_elementwise">
+<span class="sig-name descname"><span class="pre">log_likelihood_elementwise</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#cos_exp.log_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.cos_exp.log_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain the log likelihood for the model.
+Not needed for this model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.cos_exp.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#cos_exp.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.cos_exp.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Set the prior on any model parameters.
+Not needed for this model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.polynomal_model">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.models.polynomial_models.</span></span><span class="sig-name descname"><span class="pre">polynomal_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#polynomal_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.polynomal_model" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_model.BaseModel" title="Taweret.core.base_model.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>Polynomial models class. Used to define a function of the form</p>
+<div class="math notranslate nohighlight">
+\[f(x) = c(x-a)^p + b\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) -- center parameter.</p></li>
+<li><p><strong>b</strong> (<em>float</em>) -- shift parameter.</p></li>
+<li><p><strong>c</strong> (<em>float</em>) -- scale parameter.</p></li>
+<li><p><strong>p</strong> (<em>float</em>) -- power parameter.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.polynomal_model.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#polynomal_model.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.polynomal_model.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the polynomial at a grid of x's. The standard deviation
+output is set to 1 by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>np.ndarray</em>) -- design matrix.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>mean and standard deviation of the model at the x grid points.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray, np.ndarray</p>
+</dd>
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p>mean predictions.</p>
+</dd>
+<dt class="field-even">Return values</dt>
+<dd class="field-even"><p>standard deviation of the predictions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.polynomal_model.log_likelihood_elementwise">
+<span class="sig-name descname"><span class="pre">log_likelihood_elementwise</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#polynomal_model.log_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.polynomal_model.log_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain the log likelihood for the model.
+Not needed for this model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.polynomal_model.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#polynomal_model.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.polynomal_model.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Set the prior on any model parameters.
+Not needed for this model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.sin_cos_exp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.models.polynomial_models.</span></span><span class="sig-name descname"><span class="pre">sin_cos_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#sin_cos_exp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.sin_cos_exp" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_model.BaseModel" title="Taweret.core.base_model.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>Taylor series expansion of</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \sin(x_1) + \cos(x_2)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ks</strong> (<em>int</em>) -- the degree of the sine expansion.</p></li>
+<li><p><strong>kc</strong> (<em>int</em>) -- the degree of the cosine expansion.</p></li>
+<li><p><strong>xs</strong> (<em>float</em>) -- the center of the sine expansion.</p></li>
+<li><p><strong>xc</strong> (<em>float</em>) -- the center of the cosine expansion.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.sin_cos_exp.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#sin_cos_exp.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.sin_cos_exp.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the model at a grid of x's. The standard deviation
+output is set to 1 by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>np.ndarray</em>) -- design matrix.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>mean and standard deviation of the model at the x grid points.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray, np.ndarray</p>
+</dd>
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p>mean predictions.</p>
+</dd>
+<dt class="field-even">Return values</dt>
+<dd class="field-even"><p>standard deviation of the predictions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.sin_cos_exp.log_likelihood_elementwise">
+<span class="sig-name descname"><span class="pre">log_likelihood_elementwise</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#sin_cos_exp.log_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.sin_cos_exp.log_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain the log likelihood for the model.
+Not needed for this model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.sin_cos_exp.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#sin_cos_exp.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.sin_cos_exp.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Set the prior on any model parameters.
+Not needed for this model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.sin_exp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.models.polynomial_models.</span></span><span class="sig-name descname"><span class="pre">sin_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#sin_exp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.sin_exp" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_model.BaseModel" title="Taweret.core.base_model.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>Sine Taylor series expansion model class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) -- the degree of the expansion.</p></li>
+<li><p><strong>x0</strong> (<em>float</em>) -- the center of the expansion.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.sin_exp.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#sin_exp.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.sin_exp.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the Taylor Series at a grid of x's. The standard deviation
+output is set to 1 by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>np.ndarray</em>) -- design matrix.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>mean and standard deviation of the model at the x grid points.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray, np.ndarray</p>
+</dd>
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p>mean predictions.</p>
+</dd>
+<dt class="field-even">Return values</dt>
+<dd class="field-even"><p>standard deviation of the predictions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.sin_exp.log_likelihood_elementwise">
+<span class="sig-name descname"><span class="pre">log_likelihood_elementwise</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#sin_exp.log_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.sin_exp.log_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain the log likelihood for the model.
+Not needed for this model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.polynomial_models.sin_exp.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/polynomial_models.html#sin_exp.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.polynomial_models.sin_exp.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Set the prior on any model parameters.
+Not needed for this model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-Taweret.models.samba_models"></span><dl class="py class">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.Data">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.models.samba_models.</span></span><span class="sig-name descname"><span class="pre">Data</span></span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#Data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.Data" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_model.BaseModel" title="Taweret.core.base_model.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.Data.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#Data.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.Data.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the data and error for given input values</p>
+<dl class="simple">
+<dt>input_values<span class="classifier">numpy 1darray</span></dt><dd><p>coupling strength (g) values for data generation</p>
+</dd>
+<dt>error<span class="classifier">float</span></dt><dd><p>defines the relative error as a fraction between (0,1)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>data<span class="classifier">numpy 1darray</span></dt><dd><p>The array of data points</p>
+</dd>
+<dt>sigma<span class="classifier">numpy 1darray</span></dt><dd><p>The errors on each data point</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.Data.log_likelihood_elementwise">
+<span class="sig-name descname"><span class="pre">log_likelihood_elementwise</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#Data.log_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.Data.log_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>Obtain the log likelihood for the model.
+Not needed for this model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.Data.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#Data.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.Data.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Set the prior on any model parameters.
+Not needed for this model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.Highorder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.models.samba_models.</span></span><span class="sig-name descname"><span class="pre">Highorder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'informative'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#Highorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.Highorder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_model.BaseModel" title="Taweret.core.base_model.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>The SAMBA highorder series expansion function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>order</strong> (<em>int</em>) -- Truncation order of expansion</p></li>
+<li><p><strong>error_model</strong> (<em>str</em>) -- Error calculation method. Either 'informative' or 'uninformative'</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> -- If the order is not an integer</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.Highorder.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#Highorder.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.Highorder.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the mean and standard deviation for given
+input values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_values</strong> (<em>numpy 1darray</em>) -- coupling strength (g) values</p></li>
+<li><p><strong>Returns</strong> -- </p></li>
+<li><p><strong>--------</strong> -- </p></li>
+<li><p><strong>mean</strong> (<em>numpy 1darray</em>) -- The mean of the model</p></li>
+<li><p><strong>np.sqrt</strong><strong>(</strong><strong>var</strong><strong>)</strong> (<em>numpy 1darray</em>) -- The truncation error of the model</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.Highorder.log_likelihood_elementwise">
+<span class="sig-name descname"><span class="pre">log_likelihood_elementwise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#Highorder.log_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.Highorder.log_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate log_likelihood for array of points given, and return with
+array with same shape[0]</p>
+<dl class="simple">
+<dt>log_likelis<span class="classifier">np.ndarray</span></dt><dd><p>an array of length as shape[0] of the input evaluation points</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">log_likelihood_elementwise</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">y_exp</span><span class="p">,</span> <span class="n">y_err</span><span class="p">,</span> <span class="n">model_params</span>
+    <span class="p">):</span>
+        <span class="c1"># Assuming a normal distribution for error</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">model_params</span><span class="p">)</span>
+        <span class="c1"># If y_exp, y_err, y are numpy arrays of same length</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_exp</span><span class="p">)</span> <span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">y_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> \
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">y_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.Highorder.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#Highorder.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.Highorder.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Set the prior on the model parameters.
+Not needed for this model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.Loworder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.models.samba_models.</span></span><span class="sig-name descname"><span class="pre">Loworder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'informative'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#Loworder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.Loworder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_model.BaseModel" title="Taweret.core.base_model.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>The SAMBA loworder series expansion function.
+This model has been previously calibrated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>order</strong> (<em>int</em>) -- Truncation order of expansion</p></li>
+<li><p><strong>error_model</strong> (<em>str</em>) -- Error calculation method. Either 'informative' or
+'uninformative'</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> -- If the order is not an integer</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.Loworder.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#Loworder.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.Loworder.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the mean and standard deviation for
+given input values to the function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_values</strong> (<em>numpy 1darray</em>) -- coupling strength (g) values</p></li>
+<li><p><strong>Returns</strong> -- </p></li>
+<li><p><strong>--------</strong> -- </p></li>
+<li><p><strong>mean</strong> (<em>numpy 1darray</em>) -- The mean of the model</p></li>
+<li><p><strong>np.sqrt</strong><strong>(</strong><strong>var</strong><strong>)</strong> (<em>numpy 1darray</em>) -- The truncation error of the model</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.Loworder.log_likelihood_elementwise">
+<span class="sig-name descname"><span class="pre">log_likelihood_elementwise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#Loworder.log_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.Loworder.log_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate log_likelihood for array of points given, and return with
+array with same shape[0]</p>
+<dl class="simple">
+<dt>log_likelis<span class="classifier">np.ndarray</span></dt><dd><p>an array of length as shape[0] of the input evaluation points</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">log_likelihood_elementwise</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">y_exp</span><span class="p">,</span> <span class="n">y_err</span><span class="p">,</span> <span class="n">model_params</span>
+    <span class="p">):</span>
+        <span class="c1"># Assuming a normal distribution for error</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">model_params</span><span class="p">)</span>
+        <span class="c1"># If y_exp, y_err, y are numpy arrays of same length</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_exp</span><span class="p">)</span> <span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">y_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> \
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">y_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.Loworder.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#Loworder.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.Loworder.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Set the prior on model parameters.
+Not needed for this model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.TrueModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Taweret.models.samba_models.</span></span><span class="sig-name descname"><span class="pre">TrueModel</span></span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#TrueModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.TrueModel" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="Taweret.core.html#Taweret.core.base_model.BaseModel" title="Taweret.core.base_model.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.TrueModel.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#TrueModel.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.TrueModel.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the mean of the true model for given input values.</p>
+<dl class="simple">
+<dt>input_values<span class="classifier">numpy 1darray</span></dt><dd><p>coupling strength (g) values</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>mean<span class="classifier">numpy 1darray</span></dt><dd><p>The true model evaluated at each point of the
+given input space</p>
+</dd>
+<dt>np.sqrt(var)<span class="classifier">numpy 1darray</span></dt><dd><p>The standard deviation of the true model. This
+will obviously be an array of zeros.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.TrueModel.log_likelihood_elementwise">
+<span class="sig-name descname"><span class="pre">log_likelihood_elementwise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#TrueModel.log_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.TrueModel.log_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate log_likelihood for array of points given, and return with
+array with same shape[0]</p>
+<dl class="simple">
+<dt>log_likelis<span class="classifier">np.ndarray</span></dt><dd><p>an array of length as shape[0] of the input evaluation points</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">log_likelihood_elementwise</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">y_exp</span><span class="p">,</span> <span class="n">y_err</span><span class="p">,</span> <span class="n">model_params</span>
+    <span class="p">):</span>
+        <span class="c1"># Assuming a normal distribution for error</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">model_params</span><span class="p">)</span>
+        <span class="c1"># If y_exp, y_err, y are numpy arrays of same length</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_exp</span><span class="p">)</span> <span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">y_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> \
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">y_err</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Taweret.models.samba_models.TrueModel.set_prior">
+<span class="sig-name descname"><span class="pre">set_prior</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/models/samba_models.html#TrueModel.set_prior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.models.samba_models.TrueModel.set_prior" title="Permalink to this definition"></a></dt>
+<dd><p>Set the prior on any model parameters.
+Not needed for this model.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Taweret.mix.html" class="btn btn-neutral float-left" title="Taweret.mix namespace" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Taweret.sampler.html" class="btn btn-neutral float-right" title="Taweret.sampler namespace" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

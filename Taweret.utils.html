@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="python">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taweret.utils namespace &mdash; Taweret 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Linear Bivariate BMM with calibration of Coleman toy models." href="notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html" />
+    <link rel="prev" title="Taweret.sampler namespace" href="Taweret.sampler.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Taweret
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">About Taweret:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Taweret for Bayesian Model Mixing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macos_user.html">MacOS Users</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Taweret</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="Taweret.html">Taweret package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="Taweret.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Taweret.core.html">Taweret.core namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Taweret.mix.html">Taweret.mix namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Taweret.models.html">Taweret.models namespace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Taweret.sampler.html">Taweret.sampler namespace</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Taweret.utils namespace</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Taweret.html#module-Taweret">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html">Linear Bivariate BMM with calibration of Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/coleman_models_BMM_comparative_study.html">Comparative study of BMM method in bivariate linear module using Coleman toy models.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_step_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : step mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_cdf_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : cdf mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Linear_BMM_with_switchcos_function_for_SAMBA_models.html">Linear Bivariate BMM with SAMBA toy models : switchcos mixing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Bivariate_Test.html">Bivariate BMM Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/N_Model_BMM.html">Multivariate BMM for n = 3, …, N models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Trees_BMM_2D.html">BART BMM: 2D Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Trees_BMM_2D_K_models.html">BART BMM: 2D Inputs with K Models</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Developers:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="how_to_add_new_mixing.html">How to add a new mixing method to Taweret</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_add_documentation.html">How to update documentation in Taweret website</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Taweret</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Taweret</a></li>
+          <li class="breadcrumb-item"><a href="Taweret.html">Taweret package</a></li>
+      <li class="breadcrumb-item active">Taweret.utils namespace</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Taweret.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-Taweret.utils">
+<span id="taweret-utils-namespace"></span><h1>Taweret.utils namespace<a class="headerlink" href="#module-Taweret.utils" title="Permalink to this heading"></a></h1>
+<section id="module-Taweret.utils.utils">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-Taweret.utils.utils" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="Taweret.utils.utils.mixture_function">
+<span class="sig-prename descclassname"><span class="pre">Taweret.utils.utils.</span></span><span class="sig-name descname"><span class="pre">mixture_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mixture_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/Taweret/utils/utils.html#mixture_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.utils.utils.mixture_function" title="Permalink to this definition"></a></dt>
+<dd><p>predict the weights from the mixture funtion at the give input parameter values x</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>str</em>) -- name of the linear mixing function method</p></li>
+<li><p><strong>x</strong> (<em>np.1darray</em>) -- input parameter values</p></li>
+<li><p><strong>mixture_params</strong> (<em>np.1darray</em>) -- parametrs that decide the shape of mixture function</p></li>
+<li><p><strong>prior</strong> (<em>(</em><em>optional</em><em>) </em><em>bilby prior object</em>) -- Used only in step mixing
+to deal with negative values of the input.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Taweret.utils.utils.normal_likelihood_elementwise">
+<span class="sig-prename descclassname"><span class="pre">Taweret.utils.utils.</span></span><span class="sig-name descname"><span class="pre">normal_likelihood_elementwise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([],</span> <span class="pre">dtype=float64)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/Taweret/utils/utils.html#normal_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.utils.utils.normal_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>predict the normal liklihood for each experimental data point</p>
+<dl class="simple">
+<dt>model<span class="classifier">object</span></dt><dd><p>model object with a predict method</p>
+</dd>
+<dt>x_exp<span class="classifier">np.1darray</span></dt><dd><p>input parameter values for experimental data</p>
+</dd>
+<dt>y_exp<span class="classifier">np.1darray</span></dt><dd><p>mean of the experimental data</p>
+</dd>
+<dt>y_err<span class="classifier">np.1darray</span></dt><dd><p>standard deviation of the experimental data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Taweret.utils.utils.normal_log_likelihood_elementwise">
+<span class="sig-prename descclassname"><span class="pre">Taweret.utils.utils.</span></span><span class="sig-name descname"><span class="pre">normal_log_likelihood_elementwise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([],</span> <span class="pre">dtype=float64)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/Taweret/utils/utils.html#normal_log_likelihood_elementwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.utils.utils.normal_log_likelihood_elementwise" title="Permalink to this definition"></a></dt>
+<dd><p>predict the log normal log liklihood for each experimental data point</p>
+<dl class="simple">
+<dt>model<span class="classifier">object</span></dt><dd><p>model object with a predict method</p>
+</dd>
+<dt>x_exp<span class="classifier">np.1darray</span></dt><dd><p>input parameter values for experimental data</p>
+</dd>
+<dt>y_exp<span class="classifier">np.1darray</span></dt><dd><p>mean of the experimental data</p>
+</dd>
+<dt>y_err<span class="classifier">np.1darray</span></dt><dd><p>standard deviation of the experimental data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Taweret.utils.utils.normed_mvn_loglike">
+<span class="sig-prename descclassname"><span class="pre">Taweret.utils.utils.</span></span><span class="sig-name descname"><span class="pre">normed_mvn_loglike</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/utils/utils.html#normed_mvn_loglike"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.utils.utils.normed_mvn_loglike" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate the multivariate-normal log-likelihood for difference vector <cite>y</cite>
+and covariance matrix <cite>cov</cite>:</p>
+<blockquote>
+<div><p>log_p = -1/2*[(y^T).(C^-1).y + log(det(C))] + const.</p>
+</div></blockquote>
+<p>This likelihood IS NORMALIZED.
+The normalization const = -n/2*log(2*pi), where n is the dimensionality.</p>
+<p>Arguments <cite>y</cite> and <cite>cov</cite> MUST be np.arrays with dtype == float64 and shapes
+(n) and (n, n), respectively.  These requirements are NOT CHECKED.</p>
+<p>The calculation follows algorithm 2.1 in Rasmussen and Williams (Gaussian
+Processes for Machine Learning).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Taweret.utils.utils.switchcos">
+<span class="sig-prename descclassname"><span class="pre">Taweret.utils.utils.</span></span><span class="sig-name descname"><span class="pre">switchcos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Taweret/utils/utils.html#switchcos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Taweret.utils.utils.switchcos" title="Permalink to this definition"></a></dt>
+<dd><p>Switchcos function in Alexandras Samba module
+link <a class="reference external" href="https://github.com/asemposki/SAMBA/blob/0479b4deff46f3cb77b82bb30abd5693de8980f3/samba/mixing.py#L1205">https://github.com/asemposki/SAMBA/blob/0479b4deff46f3cb77b82bb30abd5693de8980f3/samba/mixing.py#L1205</a></p>
+<dl class="simple">
+<dt>g1<span class="classifier">float</span></dt><dd><p>switching value from left constant to first cosine</p>
+</dd>
+<dt>g2<span class="classifier">float</span></dt><dd><p>switching value from second cosine to right constant</p>
+</dd>
+<dt>g3<span class="classifier">float</span></dt><dd><p>switching value from first cosine to second cosine</p>
+</dd>
+<dt>x<span class="classifier">float</span></dt><dd><p>the input parameter value to calculate the weight</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Taweret.sampler.html" class="btn btn-neutral float-left" title="Taweret.sampler namespace" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notebooks/Linear_BMM_with_cdf_function_for_coleman_models.html" class="btn btn-neutral float-right" title="Linear Bivariate BMM with calibration of Coleman toy models." accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

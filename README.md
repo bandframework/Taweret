@@ -1,4 +1,7 @@
+
+
 # Taweret
+[![codecov](https://codecov.io/gh/bandframework/Taweret/graph/badge.svg?token=BQ7ZAD5ONP)](https://codecov.io/gh/bandframework/Taweret)
 
 <img align="right" width="200" src="logos/taweret_logo.PNG">
 

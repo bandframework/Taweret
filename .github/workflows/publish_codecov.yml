@@ -29,16 +29,14 @@ jobs:
          make install
          export PATH=${PATH}:/home/${USER}/.openmpi/bin/
          export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/${USER}/.openmpi/lib/
-         cd test/
-         pytest .
+         pytest --cov=Taweret test/
      - name: Run pytest (MacOS)
        if: runner.os == 'macOS'
        run: |
          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
          brew install open-mpi
          pip show openbtmixing
-         cd test/
-         pytest --cov .
+         pytest --cov=Taweret test/
      - name: Upload coverage reports to Codecov
        uses: codecov/codecov-action@v4.0.1
        with:

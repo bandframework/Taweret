@@ -6,12 +6,13 @@
 # Date: 03 April 2023
 ###########################################################
 
-import os
 import sys
+from pathlib import Path
 
 # Set Taweret Path
-dirname = os.popen("find $PWD -type f -name test_gaussian.py").read()
-taweret_wd = dirname.split("test")[0]
+dirname = Path(__file__).absolute()
+cwd = dirname.parent
+taweret_wd = str(dirname).split("test")[0]
 sys.path.append(taweret_wd)
 
 from Taweret.core.base_model import *
@@ -79,7 +80,8 @@ def test_models():
 def test_evaluate():
 
     # pull result from SAMBA to check against
-    samba_arrays = np.loadtxt('samba_results.txt', delimiter=',')
+    results_file = cwd / 'samba_results.txt'
+    samba_arrays = np.loadtxt(str(results_file), delimiter=',')
 
     # split up into arrays for each test
     samba_loworder = samba_arrays[0]
@@ -116,7 +118,8 @@ def test_init():
 def test_mixing():
 
     # call samba_results.txt file
-    samba_arrays = np.loadtxt('samba_results.txt', delimiter=',')
+    results_file = cwd / 'samba_results.txt'
+    samba_arrays = np.loadtxt(results_file, delimiter=',')
 
     # split up for these tests
     samba_mean = samba_arrays[4]
@@ -145,7 +148,8 @@ def test_mixing():
 def test_evaluate_weights():
 
     # call samba_results.txt file
-    samba_arrays = np.loadtxt('samba_results.txt', delimiter=',')
+    results_file = cwd / 'samba_results.txt'
+    samba_arrays = np.loadtxt(results_file, delimiter=',')
 
     # separate out weights
     weights_low = samba_arrays[8]

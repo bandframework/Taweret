@@ -13,11 +13,13 @@ import sys
 import numpy as np
 
 
+from openbtmixing import MPIRUN
+
 # Check for OpenMPI installation
 from subprocess import run as cmd
 from subprocess import CalledProcessError
 try:
-    cmd(['mpirun', '--version', '>', '/dev/null'])
+    cmd([MPIRUN, '--version', '>', '/dev/null'])
 except (CalledProcessError):
     print("OpenMPI is not installed")
     assert False

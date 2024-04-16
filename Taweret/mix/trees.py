@@ -20,6 +20,8 @@ from scipy.stats import norm
 from pathlib import Path
 from scipy.stats import spearmanr
 
+from openbtmixing import MPIRUN
+
 from Taweret.core.base_mixer import BaseMixer
 from Taweret.core.base_model import BaseModel
 
@@ -860,7 +862,7 @@ class Trees(BaseMixer):
                 cmd = sh
                 if not self.google_colab:
                     # MPI with local program
-                    sp = subprocess.run(["mpirun",
+                    sp = subprocess.run([MPIRUN,
                                          "-np",
                                          str(self.tc),
                                          cmd,
@@ -869,7 +871,7 @@ class Trees(BaseMixer):
                                         capture_output=True)
                 else:
                     # Shell command for MPI with google colab
-                    full_cmd = "mpirun --allow-run-as-root --oversubscribe -np " + \
+                    full_cmd = f"{MPIRUN} --allow-run-as-root --oversubscribe -np " + \
                         str(self.tc) + " " + cmd + " " + str(self.fpath)
                     os.system(full_cmd)
         else:
@@ -883,7 +885,7 @@ class Trees(BaseMixer):
                 cmd = sh
                 print(libdir)
                 print(cmd)
-                sp = subprocess.run(["mpirun",
+                sp = subprocess.run([MPIRUN,
                                         "-np",
                                         str(self.tc),
                                         cmd,
@@ -894,7 +896,7 @@ class Trees(BaseMixer):
             else:
                 if not self.google_colab:
                     # MPI with installed .exe
-                    sp = subprocess.run(["mpirun",
+                    sp = subprocess.run([MPIRUN,
                                         "-np",
                                         str(self.tc),
                                         cmd,
@@ -903,7 +905,7 @@ class Trees(BaseMixer):
                                         capture_output=True)
                 else:
                     # Google colab with installed program
-                    full_cmd = "mpirun --allow-run-as-root --oversubscribe -np " + \
+                    full_cmd = f"{MPIRUN} --allow-run-as-root --oversubscribe -np " + \
                         str(self.tc) + " " + cmd + " " + str(self.fpath)
                     os.system(full_cmd)
 

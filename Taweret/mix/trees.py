@@ -20,7 +20,7 @@ from scipy.stats import norm
 from pathlib import Path
 from scipy.stats import spearmanr
 
-from openbtmixing import MPIRUN
+import openbtmixing
 
 from Taweret.core.base_mixer import BaseMixer
 from Taweret.core.base_model import BaseModel
@@ -862,50 +862,26 @@ class Trees(BaseMixer):
                 cmd = sh
                 if not self.google_colab:
                     # MPI with local program
-                    sp = subprocess.run([MPIRUN,
-                                         "-np",
-                                         str(self.tc),
-                                         cmd,
-                                         str(self.fpath)],
-                                        stdin=subprocess.DEVNULL,
-                                        capture_output=True)
+                    openbtmixing.mpirun(cmd, self.tc, self.fpath)
                 else:
                     # Shell command for MPI with google colab
-                    full_cmd = f"{MPIRUN} --allow-run-as-root --oversubscribe -np " + \
+                    raise RuntimeError("Jared has temporarily broken this!")
+                    full_cmd = f"{openbtmixing.MPIRUN} --allow-run-as-root --oversubscribe -np " + \
                         str(self.tc) + " " + cmd + " " + str(self.fpath)
                     os.system(full_cmd)
         else:
             if pyinstall:
                 # MPI with local program
-                #os.system("ldd /home/johnyannotty/Documents/Taweret/test_env/lib/python3.8/site-packages/openbtmixing/.libs/openbtcli")
-                #os.environ['LD_LIBRARY_PATH'] = "/home/johnyannotty/Documents/Taweret/test_env/lib/python3.8/site-packages/openbtmixing/.libs/"
-                libdir = "/".join(sh.split("/")[:-1]) + "/.libs/"
-                os.environ['LD_LIBRARY_PATH'] = libdir
-                os.environ['DYLD_LIBRARY_PATH'] = libdir
                 cmd = sh
-                print(libdir)
-                print(cmd)
-                sp = subprocess.run([MPIRUN,
-                                        "-np",
-                                        str(self.tc),
-                                        cmd,
-                                        str(self.fpath)],
-                                    stdin=subprocess.DEVNULL,
-                                    capture_output=True)
-                print(sp)
+                openbtmixing.mpirun(cmd, self.tc, self.fpath)
             else:
                 if not self.google_colab:
                     # MPI with installed .exe
-                    sp = subprocess.run([MPIRUN,
-                                        "-np",
-                                        str(self.tc),
-                                        cmd,
-                                        str(self.fpath)],
-                                        stdin=subprocess.DEVNULL,
-                                        capture_output=True)
+                    openbtmixing.mpirun(cmd, self.tc, self.fpath)
                 else:
                     # Google colab with installed program
-                    full_cmd = f"{MPIRUN} --allow-run-as-root --oversubscribe -np " + \
+                    raise RuntimeError("Jared has temporarily broken this!")
+                    full_cmd = f"{openbtmixing.MPIRUN} --allow-run-as-root --oversubscribe -np " + \
                         str(self.tc) + " " + cmd + " " + str(self.fpath)
                     os.system(full_cmd)
 

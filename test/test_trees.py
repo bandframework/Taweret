@@ -13,17 +13,6 @@ import sys
 import numpy as np
 
 
-from openbtmixing import MPIRUN
-
-# Check for OpenMPI installation
-from subprocess import run as cmd
-from subprocess import CalledProcessError
-try:
-    cmd([MPIRUN, '--version', '>', '/dev/null'])
-except (CalledProcessError):
-    print("OpenMPI is not installed")
-    assert False
-
 # Set Taweret Path
 print(os.getcwd())
 dirname = os.popen("find $PWD -type f -name test_trees.py").read()

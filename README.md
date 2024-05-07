@@ -65,6 +65,15 @@ please see (https://ubuntu.com/wsl). We recommend installing the Ubuntu 20.04 WS
 [here](https://wiki.ubuntu.com/WSL?action=subscribe&_ga=2.237944261.411635877.1601405226-783048612.1601405226#Installing_Packages_on_Ubuntu) 
 on keeping your Ubuntu WSL up to date, or installing additional features like X support. Once you have installed the WSL Ubuntu layer, start the WSL Ubuntu shell from the start menu and then you can begin working with Taweret.
 
+## Running on Codespaces
+GitHub's Codespaces is a great place to test using Taweret. Right now, you can try out Taweret's Bivariate Linear BMM and Multivariate BMM methods there, by following the instructions below. 
+
+1. Click the dropdown arrow on the green 'code' button found at the top of this page.
+2. Click on the tab there that says 'codespaces'.
+3. Click the button for 'create Codespace on main'.
+4. Wait for the terminal to be finish spinning up a virtual environment and loading all needed variables (this can take a few minutes).
+5. Once that is done, navigate on the file tree to a notebook you wish to run. To run a file, you need to set a kernel for the Jupyter notebook, so click on 'choose a kernel' in the upper right hand corner of the notebook. If you haven't gotten this message already, a message will pop up that says 'install preferred Python extension?', and you should click 'yes'.
+6. When you click 'choose a kernel' it will offer a preferred Python version or a base version (usually a newer Python version). Choose whichever you prefer, and then you can run the notebook!
 
 ## Citing Taweret
 If you have benefited from Taweret, please cite our software using the following format:

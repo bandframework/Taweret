@@ -38,7 +38,6 @@ class BaseMixer(ABC):
                         return value
 
         """
-        return NotImplemented
 
     @abstractmethod
     def evaluate_weights(self):
@@ -64,7 +63,6 @@ class BaseMixer(ABC):
                     # . . .
 
         '''
-        return NotImplemented
 
     @property
     @abstractmethod
@@ -73,8 +71,6 @@ class BaseMixer(ABC):
         Stores the MAP values for the posterior distributions and is set
         during the self.train step
         '''
-
-        return NotImplemented
 
     @abstractmethod
     def predict(self):
@@ -108,7 +104,6 @@ class BaseMixer(ABC):
                         return posterior, means, credible_intervals, std_dev
 
         '''
-        return NotImplemented
 
     @abstractmethod
     def predict_weights(self):
@@ -174,7 +169,6 @@ class BaseMixer(ABC):
                         # . . .
                         return prior, means, credible_intervals, std_dev
         '''
-        return NotImplemented
 
     @property
     @abstractmethod
@@ -187,7 +181,6 @@ class BaseMixer(ABC):
         _posterior : np.ndarray
             posterior from learning the weights
         '''
-        return NotImplemented
 
     @property
     @abstractmethod
@@ -205,7 +198,6 @@ class BaseMixer(ABC):
         --------
         Please consult ``BaseMixer.set_prior`` for an example
         '''
-        return NotImplemented
 
     @abstractmethod
     def set_prior(self):
@@ -232,7 +224,6 @@ class BaseMixer(ABC):
                 m = MyMixer()
                 m.set_prior(prior_dict=priors)
       '''
-        return NotImplemented
 
     @abstractmethod
     def train(self):
@@ -248,4 +239,3 @@ class BaseMixer(ABC):
         _posterior : np.ndarray
             the mcmc chain return from sampler
         '''
-        return NotImplemented

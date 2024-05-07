@@ -30,7 +30,6 @@ class BaseModel(ABC):
                         return self._model(model_parameters)
                     # . . .
         '''
-        return NotImplemented
 
     @abstractmethod
     def log_likelihood_elementwise(self):
@@ -58,7 +57,6 @@ class BaseModel(ABC):
                         return np.exp(-(y - y_exp) **2 / (2 * y_err ** 2)) \
                             / np.sqrt(2 * np.pi * y_err ** 2))
         '''
-        return NotImplemented
 
     @abstractmethod
     def set_prior(self):
@@ -78,4 +76,3 @@ class BaseModel(ABC):
                         self._prior = prior_dict
                     # . . .
         '''
-        return NotImplemented

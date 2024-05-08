@@ -67,8 +67,16 @@ jobs:
        run: |
          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
          brew install open-mpi
-         find $pythonLocation -name 'site*'
-         pushd $pythonLocation
+         pushd $pythonLocation/lib
+         ls
+         popd
+         pushd $pythonLocation/lib/python3.10
+         ls
+         popd
+         pushd $pythonLocation/lib/python3.10/site-packages
+         ls
+         popd
+         pushd $pythonLocation/lib/python3.10/site-packages/openbtmixing
          ls
          popd
          pip show openbtmixing

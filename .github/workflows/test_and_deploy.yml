@@ -28,7 +28,7 @@ jobs:
          python -m pip install --upgrade pip
          python -m pip install --upgrade setuptools
          pip install -e $CLONE_PATH
-     - name: Run pytests (Linux)
+     - name: Run pytests without coverage (Linux)
        if: runner.os == 'Linux'
        run: |
          wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
@@ -42,17 +42,47 @@ jobs:
          #ls -la
          #ldd $pythonLocation/lib/python3.10/site-packages/openbtmixing/.libs/openbtcli
          pushd $CLONE_PATH
-         pytest --cov=Taweret test/
+         pytest test/
          popd
-     - name: Run pytest (MacOS)
+     - name: Run pytest without coverage (MacOS)
        if: runner.os == 'macOS'
        run: |
          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
          brew install open-mpi
          pip show openbtmixing
-         # TODO: Will coverage change based on OS?  If not, then only test
-         # coverage with one test setup.
-         pytest --cov=Taweret test/
+         pytest test/
+
+  coverage:
+   strategy:
+     matrix:
+       os: [ubuntu-latest]
+       python-version: ["3.12"]
+   runs-on: ${{ matrix.os }}
+   env:
+     CLONE_PATH:  ${{ github.workspace }}
+   steps:
+     - uses: actions/checkout@v4 
+     - name: Setup python ${{ matrix.python-version }}
+       uses: actions/setup-python@v5
+       with:
+         python-version: ${{ matrix.python-version }}
+     - name: Install dependencies
+       run: |
+         python -m pip install --upgrade pip
+         python -m pip install --upgrade setuptools
+         pip install -e $CLONE_PATH
+     - name: Run pytests with coverage
+       run: |
+         wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
+         tar -xvf ./openmpi-4.0.2.tar.gz
+         ./openmpi-4.0.2/configure --prefix="/home/${USER}/.openmpi"
+         make -j
+         make install
+         export PATH=${PATH}:/home/${USER}/.openmpi/bin/
+         export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/${USER}/.openmpi/lib/
+         pushd $CLONE_PATH
+         pytest --cov=Taweret test
+         popd
      - name: Upload coverage reports to Codecov
        uses: codecov/codecov-action@v4.0.1
        with:

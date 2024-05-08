@@ -67,7 +67,7 @@ jobs:
          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
          brew install open-mpi
          which mpirun
-         pushd $pythonLocation/lib/python3.10/site-packages/openbtmixing
+         pushd $pythonLocation/lib/python${{ matrix.python-version }}/site-packages/openbtmixing
          #ls openbt*
          otool -L openbtcli
          popd

@@ -33,7 +33,10 @@ jobs:
      - name: Run pytests (Linux)
        if: runner.os == 'Linux'
        run: |
-         pushd $LOCAL_INSTALL
+         echo $CLONE_PATH
+         echo $LOCAL_PATH
+         echo $MPI_INSTALL
+         pushd $LOCAL_PATH
          wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
          tar xvfz openmpi-4.0.2.tar.gz
          pushd openmpi-4.0.2

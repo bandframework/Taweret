@@ -25,18 +25,19 @@ jobs:
          python-version: ${{ matrix.python-version }}
      - name: Install dependencies
        run: |
+         which python
+         which pip
+         python --version
+         echo " "
          python -m pip install --upgrade pip
          python -m pip install --upgrade setuptools
          python -m pip install build
          echo " "
+         pushd $CLONE_PATH
          python -m build
-         ls dist
          echo " "
-         pip install -e $CLONE_PATH
-         echo " "
-         which python
-         which pip
-         python --version
+         python -m pip install dist/Taweret-*-py3-none-any.whl
+         popd
          echo " "
          python -c "import platform ; print(platform.machine())"
          python -c "import platform ; print(platform.system())"

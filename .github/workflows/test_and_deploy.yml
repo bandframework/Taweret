@@ -33,20 +33,15 @@ jobs:
      - name: Run pytests (Linux)
        if: runner.os == 'Linux'
        run: |
-         mkdir $LOCAL_PATH
-         pushd $LOCAL_PATH
          wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
-         tar xvfz openmpi-4.0.2.tar.gz
-         pushd openmpi-4.0.2
-         ./configure --prefix=$MPI_INSTALL
+         tar -xvf ./openmpi-4.0.2.tar.gz
+         ./openmpi-4.0.2/configure --prefix="/home/${USER}/.openmpi"
          make -j
          make install
-         popd
-         popd
-         export PATH=${PATH}:${MPI_INSTALL}/bin
-         export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MPI_INSTALL}/lib
+         export PATH=${PATH}:/home/${USER}/.openmpi/bin/
+         export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/${USER}/.openmpi/lib/
          which mpirun
-         ls ${MPI_INSTALL}/lib/libmpi.*
+         ls -la
          which ldd
          echo $PATH
          echo $LD_LIBRARY_PATH

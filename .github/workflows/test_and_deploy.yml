@@ -17,8 +17,8 @@ jobs:
    runs-on: ${{ matrix.os }}
    env:
      CLONE_PATH:  ${{ github.workspace }}
-     LOCAL_PATH:  ${{ github.workspace }}/local
-     MPI_INSTALL: ${{ github.workspace }}/local/OpenMPI
+     LOCAL_PATH:  ${{ github.workspace }}/../local
+     MPI_INSTALL: ${{ github.workspace }}/../local/OpenMPI
    steps:
      - uses: actions/checkout@v4 
      - name: Setup python ${{ matrix.python-version }}
@@ -38,6 +38,8 @@ jobs:
          pushd $LOCAL_PATH
          wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
          tar xvfz openmpi-4.0.2.tar.gz
+         ls .
+         ls openmpi-4.0.2
          pushd openmpi-4.0.2
          configure --prefix=$MPI_INSTALL
          make -j

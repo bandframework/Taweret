@@ -41,7 +41,6 @@ jobs:
          export PATH=${PATH}:/home/${USER}/.openmpi/bin/
          export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/${USER}/.openmpi/lib/
          which mpirun
-         which openbtcli
          #ls -la
          ldd $pythonLocation/lib/python3.10/site-packages/openbtmixing/.libs/openbtcli
          pushd $CLONE_PATH

@@ -13,12 +13,10 @@ jobs:
    strategy:
      matrix:
        os: [ubuntu-latest]
-       python-version: ["3.10"]
+       python-version: ["3.10", "3.11"]
    runs-on: ${{ matrix.os }}
    env:
      CLONE_PATH:  ${{ github.workspace }}
-     LOCAL_PATH:  ${{ github.workspace }}/../local
-     MPI_INSTALL: /home/${USER}/.openmpi
    steps:
      - uses: actions/checkout@v4 
      - name: Setup python ${{ matrix.python-version }}
@@ -42,7 +40,7 @@ jobs:
          export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/${USER}/.openmpi/lib/
          which mpirun
          #ls -la
-         ldd $pythonLocation/lib/python3.10/site-packages/openbtmixing/.libs/openbtcli
+         #ldd $pythonLocation/lib/python3.10/site-packages/openbtmixing/.libs/openbtcli
          pushd $CLONE_PATH
          pytest --cov=Taweret test/
          popd

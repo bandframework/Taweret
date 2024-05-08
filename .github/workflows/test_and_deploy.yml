@@ -50,6 +50,8 @@ jobs:
          which ldd
          echo $PATH
          echo $LD_LIBRARY_PATH
+         ls -la $pythonLocation/lib/python3.10/site-packages/openbtmixing
+         ls -la $pythonLocation/lib/python3.10/site-packages/openbtmixing/.libs
          pushd $CLONE_PATH
          pytest --cov=Taweret test/
          popd

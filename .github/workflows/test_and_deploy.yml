@@ -45,9 +45,11 @@ jobs:
          popd
          export PATH=${PATH}:${MPI_INSTALL}/bin
          export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MPI_INSTALL}/lib
-         ls ${MPI_INSTALL}/bin
-         ls ${MPI_INSTALL}/lib
-         ldd $pythonLocation/lib/python3.10/site-packages/openbtmixing/openbtcli
+         which mpirun
+         ls ${MPI_INSTALL}/lib/libmpi.*
+         which ldd
+         echo $PATH
+         echo $LD_LIBRARY_PATH
          pushd $CLONE_PATH
          pytest --cov=Taweret test/
          popd

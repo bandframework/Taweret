@@ -18,7 +18,7 @@ jobs:
    env:
      CLONE_PATH:  ${{ github.workspace }}
      LOCAL_PATH:  ${{ github.workspace }}/../local
-     MPI_INSTALL: ${{ github.workspace }}/../local/OpenMPI
+     MPI_INSTALL: /home/${USER}/.openmpi
    steps:
      - uses: actions/checkout@v4 
      - name: Setup python ${{ matrix.python-version }}

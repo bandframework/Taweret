@@ -12,7 +12,7 @@ jobs:
   test:
    strategy:
      matrix:
-       os: [ubuntu-20.04, ubuntu-22.04, macos-12, macos-13]
+       os: [ubuntu-20.04, ubuntu-22.04, macos-12, macos-13, macos-latest]
        python-version: ["3.9", "3.10", "3.11", "3.12"]
    runs-on: ${{ matrix.os }}
    env:
@@ -36,8 +36,9 @@ jobs:
          pushd $CLONE_PATH
          python -m build
          echo " "
-         python -m pip install dist/Taweret-*-py3-none-any.whl
+         #python -m pip install dist/Taweret-*-py3-none-any.whl
          popd
+         pip install -e $CLONE_PATH
          echo " "
          python -c "import platform ; print(platform.machine())"
          python -c "import platform ; print(platform.system())"

@@ -139,3 +139,6 @@ build/*
 
 # vim undo files
 **.un~
+
+# Sphinx documentation products
+docs/build_html

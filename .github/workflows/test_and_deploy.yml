@@ -9,14 +9,83 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+#  test:
+#   strategy:
+#     matrix:
+#       os: [ubuntu-20.04, ubuntu-22.04, macos-12, macos-13, macos-latest]
+#       python-version: ["3.9", "3.10", "3.11", "3.12"]
+#   runs-on: ${{ matrix.os }}
+#   env:
+#     CLONE_PATH:  ${{ github.workspace }}
+#   steps:
+#     - uses: actions/checkout@v4 
+#     - name: Setup python ${{ matrix.python-version }}
+#       uses: actions/setup-python@v5
+#       with:
+#         python-version: ${{ matrix.python-version }}
+#     - name: Install dependencies
+#       run: |
+#         which python
+#         which pip
+#         python --version
+#         echo " "
+#         python -m pip install --upgrade pip
+#         python -m pip install --upgrade setuptools
+#         python -m pip install build
+#         echo " "
+#         pushd $CLONE_PATH
+#         python -m build
+#         echo " "
+#         python -m pip install dist/Taweret-*-py3-none-any.whl
+#         popd
+#         echo " "
+#         python -c "import platform ; print(platform.machine())"
+#         python -c "import platform ; print(platform.system())"
+#         python -c "import platform ; print(platform.release())"
+#         python -c "import platform ; print(platform.platform())"
+#         python -c "import platform ; print(platform.version())"
+#         if [ "${{ matrix.os }}" = "macos-latest" ]; then
+#             python -c "import platform ; print(platform.mac_ver())"
+#         fi
+#         echo " "
+#         pip list
+#     - name: Run pytests without coverage (Linux)
+#       if: runner.os == 'Linux'
+#       run: |
+#         wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
+#         tar -xvf ./openmpi-4.0.2.tar.gz
+#         ./openmpi-4.0.2/configure --prefix="/home/${USER}/.openmpi"
+#         make -j
+#         make install
+#         export PATH=${PATH}:/home/${USER}/.openmpi/bin/
+#         export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/${USER}/.openmpi/lib/
+#         which mpirun
+#         pushd $pythonLocation/lib/python${{ matrix.python-version }}/site-packages/openbtmixing/.libs
+#         #ls openbt*
+#         ldd openbtcli
+#         popd
+#         $CLONE_PATH/tools/test_python_installation.py
+#     - name: Run pytest without coverage (MacOS)
+#       if: runner.os == 'macOS'
+#       run: |
+#         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#         brew install open-mpi
+#         which mpirun
+#         pushd $pythonLocation/lib/python${{ matrix.python-version }}/site-packages/openbtmixing/.libs
+#         #ls openbt*
+#         otool -L openbtcli
+#         popd
+#         $CLONE_PATH/tools/test_python_installation.py
+
+  coverage:
    strategy:
      matrix:
-       os: [ubuntu-20.04, ubuntu-22.04, macos-12, macos-13, macos-latest]
-       python-version: ["3.9", "3.10", "3.11", "3.12"]
+       os: [macos-latest]
+       python-version: ["3.12"]
    runs-on: ${{ matrix.os }}
    env:
      CLONE_PATH:  ${{ github.workspace }}
+     COVERAGE_FILE: ${{ github.workspace }}/.coverage_taweret
    steps:
      - uses: actions/checkout@v4 
      - name: Setup python ${{ matrix.python-version }}
@@ -27,92 +96,44 @@ jobs:
        run: |
          which python
          which pip
-         python --version
          echo " "
          python -m pip install --upgrade pip
          python -m pip install --upgrade setuptools
-         python -m pip install build
+         python -m pip install tox
          echo " "
-         pushd $CLONE_PATH
-         python -m build
-         echo " "
-         python -m pip install dist/Taweret-*-py3-none-any.whl
-         popd
+         python --version
+         tox --version
          echo " "
          python -c "import platform ; print(platform.machine())"
          python -c "import platform ; print(platform.system())"
          python -c "import platform ; print(platform.release())"
          python -c "import platform ; print(platform.platform())"
          python -c "import platform ; print(platform.version())"
-         if [ "${{ matrix.os }}" = "macos-latest" ]; then
-             python -c "import platform ; print(platform.mac_ver())"
-         fi
+         python -c "import platform ; print(platform.mac_ver())"
+         echo " "
+         pip install -e $CLONE_PATH
          echo " "
          pip list
-     - name: Run pytests without coverage (Linux)
-       if: runner.os == 'Linux'
-       run: |
-         wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
-         tar -xvf ./openmpi-4.0.2.tar.gz
-         ./openmpi-4.0.2/configure --prefix="/home/${USER}/.openmpi"
-         make -j
-         make install
-         export PATH=${PATH}:/home/${USER}/.openmpi/bin/
-         export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/${USER}/.openmpi/lib/
-         which mpirun
-         pushd $pythonLocation/lib/python${{ matrix.python-version }}/site-packages/openbtmixing/.libs
-         #ls openbt*
-         ldd openbtcli
-         popd
-         $CLONE_PATH/tools/test_python_installation.py
-     - name: Run pytest without coverage (MacOS)
-       if: runner.os == 'macOS'
+     - name: Run tests with coverage
        run: |
          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
          brew install open-mpi
-         which mpirun
-         pushd $pythonLocation/lib/python${{ matrix.python-version }}/site-packages/openbtmixing/.libs
-         #ls openbt*
-         otool -L openbtcli
-         popd
-         $CLONE_PATH/tools/test_python_installation.py
-
-  coverage:
-   strategy:
-     matrix:
-       os: [ubuntu-latest]
-       python-version: ["3.12"]
-   runs-on: ${{ matrix.os }}
-   env:
-     CLONE_PATH:  ${{ github.workspace }}
-   steps:
-     - uses: actions/checkout@v4 
-     - name: Setup python ${{ matrix.python-version }}
-       uses: actions/setup-python@v5
-       with:
-         python-version: ${{ matrix.python-version }}
-     - name: Install dependencies
-       run: |
-         python -m pip install --upgrade pip
-         python -m pip install --upgrade setuptools
-         pip install -e $CLONE_PATH
-     - name: Run pytests with coverage
-       run: |
-         wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
-         tar -xvf ./openmpi-4.0.2.tar.gz
-         ./openmpi-4.0.2/configure --prefix="/home/${USER}/.openmpi"
-         make -j
-         make install
-         export PATH=${PATH}:/home/${USER}/.openmpi/bin/
-         export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/${USER}/.openmpi/lib/
          pushd $CLONE_PATH
-         pytest --cov=Taweret test
+         tox -r -e coverage,report
          popd
+         ls -lart
      - name: Upload coverage reports to Codecov
        uses: codecov/codecov-action@v4.0.1
        with:
          token: ${{ secrets.KEVIN_CODECOV_TOKEN }}
          slug: bandframework/Taweret
+     - name: Archive code coverage results
+       uses: actions/upload-artifact@v4
+       with:
+         name: code-coverage-results
+         path: |
+             $COVERAGE_FILE
+             $CLONE_PATH/htmlcov
 
 #  deploy:
 #    runs-on: ubuntu-latest

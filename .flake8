@@ -1,0 +1,9 @@
+[flake8]
+exclude =
+    .tox
+    build
+    dist
+per-file-ignores =
+    # Do not apply PEP8 to __init__.py files
+    src/Taweret/__init__.py:F401
+max-line-length = 80

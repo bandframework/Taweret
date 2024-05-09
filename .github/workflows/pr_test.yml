@@ -16,6 +16,8 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         python-version: ["3.12"]
     runs-on: ${{ matrix.os }}
+    env:
+      CLONE_PATH:  ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v4
       - name: Setup python ${{ matrix.python-version }}

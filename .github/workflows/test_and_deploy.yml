@@ -37,7 +37,7 @@ jobs:
          fi
      - name: Setup base Python environment
        run: |
-         setup_base_python.sh ${{ matrix.os }}
+         $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ matrix.os }}
      - name: Run pytests without coverage
        run: |
          pushd $CLONE_PATH
@@ -69,7 +69,7 @@ jobs:
          brew install open-mpi
      - name: Setup base Python environment
        run: |
-         setup_base_python.sh ${{ matrix.os }}
+         $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ matrix.os }}
      - name: Run tests with coverage
        run: |
          pushd $CLONE_PATH

@@ -88,6 +88,7 @@ jobs:
    strategy:
      matrix:
        os: [macos-latest]
+       mpi_impl: ["openmpi"]
        python-version: ["3.12"]
    runs-on: ${{ matrix.os }}
    env:
@@ -96,6 +97,10 @@ jobs:
      COVERAGE_HTML: ${{ github.workspace }}/htmlcov
    steps:
      - uses: actions/checkout@v4 
+     - name: Install ${{ matrix.mpi_impl }}
+       uses: mpi4py/setup-mpi@v1
+       with:
+         mpi: ${{ matrix.mpi_impl }}
      - name: Setup python ${{ matrix.python-version }}
        uses: actions/setup-python@v5
        with:
@@ -122,12 +127,9 @@ jobs:
          pip list
      - name: Run tests with coverage
        run: |
-         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-         brew install open-mpi
          pushd $CLONE_PATH
          tox -r -e coverage,report
          popd
-         ls -lart
      - name: Upload coverage reports to Codecov
        uses: codecov/codecov-action@v4.0.1
        with:
@@ -139,7 +141,9 @@ jobs:
        uses: actions/upload-artifact@v4
        with:
          name: code-coverage-results
-         path: ${{ env.COVERAGE_HTML }}
+         path: |
+            ${{ env.COVERAGE_XML }}
+            ${{ env.COVERAGE_HTML }}
 
 #  deploy:
 #    runs-on: ubuntu-latest

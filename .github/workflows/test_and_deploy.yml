@@ -91,8 +91,9 @@ jobs:
        python-version: ["3.12"]
    runs-on: ${{ matrix.os }}
    env:
-     CLONE_PATH:  ${{ github.workspace }}
-     COVERAGE_FILE: ${{ github.workspace }}/.coverage_taweret
+     CLONE_PATH:    ${{ github.workspace }}
+     COVERAGE_XML:  ${{ github.workspace }}/coverage.xml
+     COVERAGE_HTML: ${{ github.workspace }}/htmlcov
    steps:
      - uses: actions/checkout@v4 
      - name: Setup python ${{ matrix.python-version }}
@@ -132,13 +133,13 @@ jobs:
        with:
          token: ${{ secrets.KEVIN_CODECOV_TOKEN }}
          slug: bandframework/Taweret
-         file: $COVERAGE_FILE
+         file: $COVERAGE_XML
          fail_ci_if_error: true
      - name: Archive code coverage results
        uses: actions/upload-artifact@v4
        with:
          name: code-coverage-results
-         path: $CLONE_PATH/htmlcov
+         path: $COVERAGE_HTML
 
 #  deploy:
 #    runs-on: ubuntu-latest

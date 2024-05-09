@@ -133,13 +133,13 @@ jobs:
        with:
          token: ${{ secrets.KEVIN_CODECOV_TOKEN }}
          slug: bandframework/Taweret
-         file: $COVERAGE_XML
+         file: ${{ env.COVERAGE_XML }}
          fail_ci_if_error: true
      - name: Archive code coverage results
        uses: actions/upload-artifact@v4
        with:
          name: code-coverage-results
-         path: $COVERAGE_HTML
+         path: ${{ env.COVERAGE_HTML }}
 
 #  deploy:
 #    runs-on: ubuntu-latest

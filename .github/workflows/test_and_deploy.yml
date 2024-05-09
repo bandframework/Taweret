@@ -41,52 +41,6 @@ jobs:
          tox -r -e nocoverage
          popd
 
-  coverage:
-   #####----- RUN FULL TEST SUITE WITH COVERAGE
-   # Use local editable/developer mode installation so that we are testing such
-   # installations.
-   strategy:
-     matrix:
-       os: [macos-latest]
-       python-version: ["3.12"]
-   runs-on: ${{ matrix.os }}
-   env:
-     CLONE_PATH:    ${{ github.workspace }}
-     COVERAGE_XML:  ${{ github.workspace }}/coverage.xml
-     COVERAGE_HTML: ${{ github.workspace }}/htmlcov
-   steps:
-     - uses: actions/checkout@v4 
-     - name: Setup python ${{ matrix.python-version }}
-       uses: actions/setup-python@v5
-       with:
-         python-version: ${{ matrix.python-version }}
-     - name: Install OpenMPI
-       run: |
-         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-         brew install open-mpi
-     - name: Setup base Python environment
-       run: |
-         $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ matrix.os }}
-     - name: Run tests with coverage
-       run: |
-         pushd $CLONE_PATH
-         tox -r -e coverage,report
-         popd
-     - name: Upload coverage reports to Codecov
-       uses: codecov/codecov-action@v4.0.1
-       with:
-         token: ${{ secrets.KEVIN_CODECOV_TOKEN }}
-         slug: bandframework/Taweret
-         file: ${{ env.COVERAGE_XML }}
-         fail_ci_if_error: true
-     - name: Archive code coverage results
-       uses: actions/upload-artifact@v4
-       with:
-         name: code-coverage-results
-         path: |
-            ${{ env.COVERAGE_XML }}
-            ${{ env.COVERAGE_HTML }}
-
   deploy:
     strategy:
       matrix:

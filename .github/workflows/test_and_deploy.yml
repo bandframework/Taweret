@@ -10,6 +10,10 @@ on:
 
 jobs:
 #  test:
+#   #####----- RUN FULL TEST SUITE WITHOUT COVERAGE
+#   # Test through actual binary wheel installations for correct pre-deployment end-to-end
+#   # tests.  Also, test using user-available test script to confirm that the
+#   # script is correct as well.
 #   strategy:
 #     matrix:
 #       os: [ubuntu-20.04, ubuntu-22.04, macos-12, macos-13, macos-latest]
@@ -78,6 +82,9 @@ jobs:
 #         $CLONE_PATH/tools/test_python_installation.py
 
   coverage:
+   #####----- RUN FULL TEST SUITE WITH COVERAGE
+   # Use local editable/developer mode installation so that we are testing such
+   # installations.
    strategy:
      matrix:
        os: [macos-latest]
@@ -111,8 +118,6 @@ jobs:
          python -c "import platform ; print(platform.version())"
          python -c "import platform ; print(platform.mac_ver())"
          echo " "
-         pip install -e $CLONE_PATH
-         echo " "
          pip list
      - name: Run tests with coverage
        run: |
@@ -127,13 +132,13 @@ jobs:
        with:
          token: ${{ secrets.KEVIN_CODECOV_TOKEN }}
          slug: bandframework/Taweret
+         file: $COVERAGE_FILE
+         fail_ci_if_error: true
      - name: Archive code coverage results
        uses: actions/upload-artifact@v4
        with:
          name: code-coverage-results
-         path: |
-             $COVERAGE_FILE
-             $CLONE_PATH/htmlcov
+         path: $CLONE_PATH/htmlcov
 
 #  deploy:
 #    runs-on: ubuntu-latest

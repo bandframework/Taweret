@@ -88,7 +88,6 @@ jobs:
    strategy:
      matrix:
        os: [macos-latest]
-       mpi_impl: ["openmpi"]
        python-version: ["3.12"]
    runs-on: ${{ matrix.os }}
    env:
@@ -97,15 +96,15 @@ jobs:
      COVERAGE_HTML: ${{ github.workspace }}/htmlcov
    steps:
      - uses: actions/checkout@v4 
-     - name: Install ${{ matrix.mpi_impl }}
-       uses: mpi4py/setup-mpi@v1
-       with:
-         mpi: ${{ matrix.mpi_impl }}
      - name: Setup python ${{ matrix.python-version }}
        uses: actions/setup-python@v5
        with:
          python-version: ${{ matrix.python-version }}
-     - name: Install dependencies
+     - name: Install OpenMPI
+       run: |
+         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+         brew install open-mpi
+     - name: Setup base Python environment
        run: |
          which python
          which pip

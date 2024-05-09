@@ -2,10 +2,8 @@
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
-# start-delete
-[tool.setuptools]
-packages = ["Taweret"]
-# stop-delete
+[tool.setuptools.package-data]
+Taweret = ["tests/samba_results.txt", "tests/bart_bmm_test_data/2d_*.txt"]
 
 [project]
 name = "Taweret"

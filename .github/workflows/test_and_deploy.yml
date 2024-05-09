@@ -36,9 +36,8 @@ jobs:
          pushd $CLONE_PATH
          python -m build
          echo " "
-         #python -m pip install dist/Taweret-*-py3-none-any.whl
+         python -m pip install dist/Taweret-*-py3-none-any.whl
          popd
-         pip install -e $CLONE_PATH
          echo " "
          python -c "import platform ; print(platform.machine())"
          python -c "import platform ; print(platform.system())"
@@ -65,9 +64,7 @@ jobs:
          #ls openbt*
          ldd openbtcli
          popd
-         pushd $CLONE_PATH
-         pytest test/
-         popd
+         $CLONE_PATH/tools/test_python_installation.py
      - name: Run pytest without coverage (MacOS)
        if: runner.os == 'macOS'
        run: |
@@ -78,10 +75,7 @@ jobs:
          #ls openbt*
          otool -L openbtcli
          popd
-         pip show openbtmixing
-         pushd $CLONE_PATH
-         pytest test/
-         popd
+         $CLONE_PATH/tools/test_python_installation.py
 
   coverage:
    strategy:

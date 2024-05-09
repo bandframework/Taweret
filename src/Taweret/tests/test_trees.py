@@ -12,6 +12,7 @@ import os
 import sys
 import numpy as np
 
+from pathlib import Path
 
 # Check for OpenMPI installation
 from subprocess import run as cmd
@@ -33,6 +34,9 @@ from Taweret.models.polynomial_models import sin_cos_exp
 from Taweret.mix.trees import Trees
 
 
+_TEST_DATA = Path(__file__).parent.joinpath("bart_bmm_test_data").resolve()
+
+
 # ---------------------------------------------
 # Define the test functions
 # ---------------------------------------------
@@ -46,12 +50,10 @@ def test_init():
 
 # Test the mixing fun
 def test_mixing():
-    x_train = np.loadtxt(
-        taweret_wd + 'test/bart_bmm_test_data/2d_x_train.txt').reshape(80, 2)
+    x_train = np.loadtxt(_TEST_DATA.joinpath('2d_x_train.txt')).reshape(80, 2)
     x_train = x_train.reshape(2, 80).transpose()
 
-    y_train = np.loadtxt(
-        taweret_wd + 'test/bart_bmm_test_data/2d_y_train.txt').reshape(80, 1)
+    y_train = np.loadtxt(_TEST_DATA.joinpath('2d_y_train.txt')).reshape(80, 1)
 
     # Set prior information
     mix.set_prior(
@@ -98,9 +100,7 @@ def test_predict():
                       x2_test.reshape(x1_test.size,)]).transpose()
 
     # Read in test results
-    pmean_test = np.loadtxt(
-        taweret_wd +
-        'test/bart_bmm_test_data/2d_pmean.txt')
+    pmean_test = np.loadtxt(_TEST_DATA.joinpath('2d_pmean.txt'))
     eps = 0.10
 
     # Get predictions
@@ -124,9 +124,7 @@ def test_predict_wts():
 
     # Read in test results
     wteps = 0.05
-    wmean_test = np.loadtxt(
-        taweret_wd +
-        'test/bart_bmm_test_data/2d_wmean.txt')
+    wmean_test = np.loadtxt(_TEST_DATA.joinpath('2d_wmean.txt'))
 
     # Test the values
     werr = np.mean(np.abs(wmean - wmean_test))

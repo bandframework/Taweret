@@ -2,7 +2,7 @@
 
 if [[ $# -ne 1 ]]; then
     echo
-    echo "Please pass GitHub action runner name (e.g., ubuntu-latest)"
+    echo "Please pass GitHub action runner OS (e.g., Linux or macOS)"
     echo
     exit 1
 fi
@@ -16,7 +16,7 @@ python -c "import platform ; print(platform.system())"
 python -c "import platform ; print(platform.release())"
 python -c "import platform ; print(platform.platform())"
 python -c "import platform ; print(platform.version())"
-if [ "$runner_os" = "macos-latest" ]; then
+if [ "$runner_os" = "macOS" ]; then
     python -c "import platform ; print(platform.mac_ver())"
 fi
 echo " "

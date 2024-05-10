@@ -34,7 +34,7 @@ jobs:
          fi
      - name: Setup base Python environment
        run: |
-         $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ matrix.os }}
+         $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
      - name: Run pytests without coverage
        run: |
          # TODO: Is this check an extra layer of sanity checks on top of the PR

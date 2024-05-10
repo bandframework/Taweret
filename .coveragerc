@@ -1,0 +1,4 @@
+[run]
+omit =
+    ./src/Taweret/test.py
+    ./tools/test_python_installation.py

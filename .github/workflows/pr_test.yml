@@ -71,9 +71,20 @@ jobs:
             ls -la /lib/x86_64-linux-gnu/openmpi/lib
             echo " "
           elif [ "${{ matrix.os }}" == "ubuntu-22.04" ]; then
+            ldd openbtcli
             # For 22.04/OpenMPI 4.1.2,
             # mpicxx uses -L/usr/lib/x86_64-linux-gnu/openmpi/lib.
             # However ldd uses /lib/x86_64-linux-gnu/libmpi.so.40.
+            # Ultimately, it looks like we use
+            # /lib/x86_64-linux-gnu/libmpi.so.40.30.2
+            # and I don't find any general MPI libraries in the locations
+            # specified by mpicxx.
+            #
+            # My best guess is that the OpenMPI install is going to just
+            # /lib and that there are being found by the compiler
+            # automatically.  This would imply that mpicxx is assuming that the
+            # system install will be found but it needs to identify where the
+            # (mostly) mca libs are.
             #
             # These lines can be used to confirm that OpenMPI is being used
             # correctly at build and execution time.

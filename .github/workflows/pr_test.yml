@@ -14,7 +14,7 @@ jobs:
     # packaging.
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-12, macos-13, macos-latest]
+        os: [ubuntu-20.04, ubuntu-22.04, macos-12, macos-13, macos-latest]
         python-version: ["3.9", "3.10", "3.11", "3.12"]
     runs-on: ${{ matrix.os }}
     env:
@@ -28,9 +28,8 @@ jobs:
       - name: Install OpenMPI
         run: |
           if   [ "${{ runner.os }}" == "Linux" ]; then
-             echo "No OpenMPI for you!"
-             #sudo apt-get update
-             #sudo apt-get -y install openmpi-bin
+             sudo apt-get update
+             sudo apt-get -y install openmpi-bin
           elif [ "${{ runner.os }}" == "macOS" ]; then
              /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
              brew install open-mpi
@@ -40,9 +39,9 @@ jobs:
           $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ matrix.os }}
       - name: Run tests without coverage
         run: |
-          #which mpirun
-          #which mpicxx
-          #mpicxx -show
+          which mpirun
+          which mpicxx
+          mpicxx -show
           echo " "
           pushd $CLONE_PATH
           tox -r -e nocoverage
@@ -60,17 +59,18 @@ jobs:
             # that has the same size (1124440) as the system version.
             #
             # My best guess is that the OpenMPI install is going to both
-            # /lib and /usr/lib.
+            # /lib and /usr/lib.  Indeed, if you don't install OpenMPI Taweret
+            # fails, which suggests no system MPI.
             #
             # These lines can be used to confirm that OpenMPI is being used
             # correctly at build and execution time.
-            echo " "
-            ls -la /usr/lib/x86_64-linux-gnu/openmpi/lib
-            echo " "
-            ls -la /lib/x86_64-linux-gnu/libmpi*
-            echo " "
-            ls -la /lib/x86_64-linux-gnu/openmpi/lib
-            echo " "
+            #echo " "
+            #ls -la /usr/lib/x86_64-linux-gnu/openmpi/lib
+            #echo " "
+            #ls -la /lib/x86_64-linux-gnu/libmpi*
+            #echo " "
+            #ls -la /lib/x86_64-linux-gnu/openmpi/lib
+            #echo " "
           elif [ "${{ matrix.os }}" == "ubuntu-22.04" ]; then
             ldd openbtcli
             # For 22.04/OpenMPI 4.1.2,
@@ -83,19 +83,20 @@ jobs:
             #
             # My best guess is that the OpenMPI install is going to just
             # /lib and that there are being found by the compiler
-            # automatically.  This would imply that mpicxx is assuming that the
-            # system install will be found but it needs to identify where the
-            # (mostly) mca libs are.
+            # automatically.  Indeed, if you don't install OpenMPI Taweret
+            # fails, which suggests no system MPI.  This would imply that
+            # mpicxx is assuming that the system install will be found but it
+            # needs to identify where the (mostly) mca libs are.  
             #
             # These lines can be used to confirm that OpenMPI is being used
             # correctly at build and execution time.
-            echo " "
-            ls -la /usr/lib/x86_64-linux-gnu/openmpi/lib/openmpi3
-            echo " "
-            ls -la /lib/x86_64-linux-gnu/libmpi*
-            echo " "
-            ls -la /lib/x86_64-linux-gnu/openmpi/lib/openmpi3
-            echo " "
+            #echo " "
+            #ls -la /usr/lib/x86_64-linux-gnu/openmpi/lib/openmpi3
+            #echo " "
+            #ls -la /lib/x86_64-linux-gnu/libmpi*
+            #echo " "
+            #ls -la /lib/x86_64-linux-gnu/openmpi/lib/openmpi3
+            #echo " "
           elif [ "${{ runner.os }}" == "macOS" ]; then
             otool -L openbtcli
           fi

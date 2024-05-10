@@ -60,4 +60,4 @@ for dir in "${FOLDERS[@]}"; do
 done
 echo
 
-popd
+popd &> /dev/null

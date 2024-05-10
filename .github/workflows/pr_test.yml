@@ -49,6 +49,10 @@ jobs:
           echo " "
           if   [ "${{ runner.os }}" == "Linux" ]; then
             ldd openbtcli
+            echo " "
+            ls -la /usr/lib/x86_64-linux-gnu/openmpi/lib
+            echo " "
+            ls -la /lib/x86_64-linux-gnu/libmpi*
           elif [ "${{ runner.os }}" == "macOS" ]; then
             otool -L openbtcli
           fi

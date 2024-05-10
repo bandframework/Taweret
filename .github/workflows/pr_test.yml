@@ -49,10 +49,17 @@ jobs:
           echo " "
           if   [ "${{ runner.os }}" == "Linux" ]; then
             ldd openbtcli
+            # Presently mpicxx uses -L/usr/lib/x86_64-linux-gnu/openmpi/lib.
+            # However ldd uses /lib/x86_64-linux-gnu/libmpi.so.40.
+            # These lines can be used to confirm that OpenMPI is being used
+            # correctly at build and execution time.
             echo " "
             ls -la /usr/lib/x86_64-linux-gnu/openmpi/lib
             echo " "
             ls -la /lib/x86_64-linux-gnu/libmpi*
+            echo " "
+            ls -la /lib/x86_64-linux-gnu/openmpi/lib
+            echo " "
           elif [ "${{ runner.os }}" == "macOS" ]; then
             otool -L openbtcli
           fi

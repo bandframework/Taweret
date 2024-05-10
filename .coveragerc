@@ -1,4 +1,8 @@
 [run]
 omit =
+    # Don't include code that can't be run in the test suite.
+    # 
+    # This is being used by the test suite itself.
     ./src/Taweret/test.py
+    # This is tested in the test_tools CI action.
     ./tools/test_python_installation.py

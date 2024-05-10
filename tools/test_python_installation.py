@@ -53,7 +53,7 @@ try:
     import Taweret
 except ImportError as error:
     print()
-    print(f"ERROR: {error.name} python package not installed")
+    print(f"ERROR: {error.name} Python package not installed")
     print()
     exit(_FAILURE)
 
@@ -65,7 +65,7 @@ def main():
     # ----- SPECIFY COMMAND LINE USAGE
     DESCRIPTION = "Return status of Taweret Python package full testing " \
                   + "as exit code for use with CI\n"
-    VERBOSE_HELP = "Verbosity level of python unittest logging"
+    VERBOSE_HELP = "Verbosity level of pytest logging"
     parser = argparse.ArgumentParser(
                 description=DESCRIPTION,
                 formatter_class=argparse.RawTextHelpFormatter

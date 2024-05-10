@@ -34,7 +34,7 @@
 
 #
 # This returns exit codes that are compatible with the use of this
-# script in CI jobs.
+# script in CI jobs and requires that tox be installed and in the path.
 #
 
 SCRIPT_PATH=$(dirname -- "${BASH_SOURCE[0]}")

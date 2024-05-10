@@ -16,10 +16,10 @@ jobs:
        python-version: ["3.9", "3.10", "3.11", "3.12"]
    runs-on: ${{ matrix.os }}
    env:
-     CLONE_PATH:  ${{ github.workspace }}
+     CLONE_PATH: ${{ github.workspace }}
    steps:
      - uses: actions/checkout@v4 
-     - name: Setup python ${{ matrix.python-version }}
+     - name: Setup Python ${{ matrix.python-version }}
        uses: actions/setup-python@v5
        with:
          python-version: ${{ matrix.python-version }}
@@ -37,6 +37,9 @@ jobs:
          $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ matrix.os }}
      - name: Run pytests without coverage
        run: |
+         # TODO: Is this check an extra layer of sanity checks on top of the PR
+         # testing?  If so, then perhaps this testing can be lightweight
+         # compared to PR testing.
          pushd $CLONE_PATH
          tox -r -e nocoverage
          popd

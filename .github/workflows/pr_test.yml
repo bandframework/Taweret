@@ -47,10 +47,20 @@ jobs:
           tox -r -e nocoverage
           pushd .tox/nocoverage/lib/python${{ matrix.python-version }}/site-packages/openbtmixing/.libs
           echo " "
-          if   [ "${{ runner.os }}" == "Linux" ]; then
+          if   [ "${{ matrix.os }}" == "ubuntu-20.04" ]; then
             ldd openbtcli
-            # Presently mpicxx uses -L/usr/lib/x86_64-linux-gnu/openmpi/lib.
+            # For 20.04/OpenMPI 4.0.3,
+            # mpicxx uses -L/usr/lib/x86_64-linux-gnu/openmpi/lib.
             # However ldd uses /lib/x86_64-linux-gnu/libmpi.so.40.
+            # Ultimately, it looks like we use
+            # /lib/x86_64-linux-gnu/openmpi/lib/libmpi.so.40.20.3
+            # Note that there is a
+            # /usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so.40.20.3
+            # that has the same size (1124440) as the system version.
+            #
+            # My best guess is that the OpenMPI install is going to both
+            # /lib and /usr/lib.
+            #
             # These lines can be used to confirm that OpenMPI is being used
             # correctly at build and execution time.
             echo " "
@@ -59,6 +69,20 @@ jobs:
             ls -la /lib/x86_64-linux-gnu/libmpi*
             echo " "
             ls -la /lib/x86_64-linux-gnu/openmpi/lib
+            echo " "
+          elif [ "${{ matrix.os }}" == "ubuntu-22.04" ]; then
+            # For 22.04/OpenMPI 4.1.2,
+            # mpicxx uses -L/usr/lib/x86_64-linux-gnu/openmpi/lib.
+            # However ldd uses /lib/x86_64-linux-gnu/libmpi.so.40.
+            #
+            # These lines can be used to confirm that OpenMPI is being used
+            # correctly at build and execution time.
+            echo " "
+            ls -la /usr/lib/x86_64-linux-gnu/openmpi/lib/openmpi3
+            echo " "
+            ls -la /lib/x86_64-linux-gnu/libmpi*
+            echo " "
+            ls -la /lib/x86_64-linux-gnu/openmpi/lib/openmpi3
             echo " "
           elif [ "${{ runner.os }}" == "macOS" ]; then
             otool -L openbtcli

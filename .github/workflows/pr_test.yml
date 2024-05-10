@@ -40,9 +40,9 @@ jobs:
           $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ matrix.os }}
       - name: Run tests without coverage
         run: |
-          which mpirun
-          which mpicxx
-          mpicxx -show
+          #which mpirun
+          #which mpicxx
+          #mpicxx -show
           echo " "
           pushd $CLONE_PATH
           tox -r -e nocoverage

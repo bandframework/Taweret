@@ -13,6 +13,15 @@ import sys
 import numpy as np
 
 
+# Check for OpenMPI installation
+from subprocess import run as cmd
+from subprocess import CalledProcessError
+try:
+    cmd(['mpirun', '--version', '>', '/dev/null'])
+except (CalledProcessError):
+    print("OpenMPI is not installed")
+    assert False
+
 # Set Taweret Path
 print(os.getcwd())
 dirname = os.popen("find $PWD -type f -name test_trees.py").read()

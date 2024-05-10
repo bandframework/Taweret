@@ -4,8 +4,8 @@ on:
   pull_request:
     types: [opened, edited, reopened, closed, synchronize]
     branches:
-      - develop 
-      
+      - develop
+
 
 jobs:
 
@@ -24,7 +24,7 @@ jobs:
        run: |
          python -m pip install --upgrade pip
          pip install -e .
-     - name: Run pytests (linux)
+     - name: Run pytests (Linux)
        if: runner.os == 'Linux'
        run: |
          wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
@@ -43,4 +43,4 @@ jobs:
          brew install open-mpi
          pip show openbtmixing
          cd test/
-         pytest test_trees.py
+         pytest .

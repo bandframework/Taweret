@@ -39,8 +39,23 @@ jobs:
           $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ matrix.os }}
       - name: Run tests without coverage
         run: |
+          which mpirun
+          which mpicxx
+          mpicxx -show
+          echo " "
           pushd $CLONE_PATH
           tox -r -e nocoverage
+          pushd .tox/nocoverage/lib/python${{ matrix.python-version }}/site-packages/openbtmixing/.libs
+          echo " "
+          if   [ "${{ runner.os }}" == "Linux" ]; then
+            ldd openbtcli
+          elif [ "${{ runner.os }}" == "macOS" ]; then
+            otool -L openbtcli
+          fi
+          echo " "
+          objdump -p openbtcli
+          echo " "
+          popd
           popd
 
   coverage:

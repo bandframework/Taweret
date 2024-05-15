@@ -1,0 +1,784 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Summary &#8212; Taweret -- a Python Package for Bayesian model mixing</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'joss_paper/paper';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../book.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Taweret -- a Python Package for Bayesian model mixing</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../book.html">
+                    Taweret
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/joss_paper/paper.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Summary</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Summary</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#statement-of-need">Statement of need</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#structure">Structure</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-methods">Overview of methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-linear-mixing">Bivariate linear mixing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-model-mixing">Multivariate model mixing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-mixing-using-bayesian-additive-regression-trees">Model mixing using Bayesian additive regression trees</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-package-structure">Overview of package structure</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#taweret-moving-forward">Taweret moving forward</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#contributions">Contributions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#disclosure-statement">Disclosure statement</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">Acknowledgments</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="summary">
+<h1>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h1>
+<p>Uncertainty quantification using Bayesian methods is a growing area of
+research. Bayesian model mixing (BMM) is a recent development which
+combines the predictions from multiple models such that each the fidelity
+of each model is preserved in the final result. Practical tools and
+analysis suites that facilitate such methods are therefore needed.
+<code class="docutils literal notranslate"><span class="pre">Taweret</span></code><a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> introduces BMM to existing Bayesian uncertainty quantification
+efforts. Currently <code class="docutils literal notranslate"><span class="pre">Taweret</span></code> contains three individual Bayesian model
+mixing techniques, each pertaining to a different type of problem
+structure; we encourage the future inclusion of user-developed mixing
+methods. <code class="docutils literal notranslate"><span class="pre">Taweret</span></code>’s first use case is in nuclear physics, but the
+package has been structured such that it should be adaptable to any
+research engaged in model comparison or model mixing.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="statement-of-need">
+<h1>Statement of need<a class="headerlink" href="#statement-of-need" title="Link to this heading">#</a></h1>
+<p>In physics applications, multiple models with different physics
+assumptions can be used to describe an underlying system of interest.
+Though each model may have similar
+predictive accuracy on average, the fidelity of the approximation across
+a subset of the domain may differ drastically for each of the models
+under consideration. In such cases, inference and prediction based on a
+single model may be unreliable. One strategy for improving accuracy is
+to combine, or “mix”, the predictions from each model using a linear
+combination or weighted average with input-dependent weights. This
+approach is intended to improve reliability of inference and prediction
+and properly quantify model uncertainties. When operating under a
+Bayesian framework, this technique is referred to as Bayesian model
+mixing (BMM). In general, model mixing techniques are designed to
+combine the individual mean predictions or density estimates from the
+<span class="math notranslate nohighlight">\(K\)</span> models under consideration. For example, <em>mean-mixing</em> techniques
+predict the underlying system by
+$<span class="math notranslate nohighlight">\(E[Y \mid x] = \sum_{k = 1}^K w_k(x)\; f_k(x),\)</span><span class="math notranslate nohighlight">\(
+where \)</span>E[Y \mid x]<span class="math notranslate nohighlight">\( denotes the mean of \)</span>Y<span class="math notranslate nohighlight">\( given the
+vector of input parameters \)</span>x<span class="math notranslate nohighlight">\(, \)</span>f_k(x)<span class="math notranslate nohighlight">\( is the mean
+prediction under the \)</span>k^\mathrm{th}<span class="math notranslate nohighlight">\( model \)</span>\mathcal{M}_k<span class="math notranslate nohighlight">\(, and
+\)</span>w_k(x)<span class="math notranslate nohighlight">\( is the corresponding weight function. The
+*density-mixing* approach estimates the underlying predictive density by
+\)</span><span class="math notranslate nohighlight">\(p(Y_0 \mid x_0,Y) = \sum_{k = 1}^K w_k(x_0)\;p(Y_0 \mid x_0,Y, \mathcal{M}_k),\)</span><span class="math notranslate nohighlight">\(
+where \)</span>p(Y_0 \mid x_0, Y, \mathcal{M}_k)<span class="math notranslate nohighlight">\( represents the predictive density of a future observation \)</span>Y_0<span class="math notranslate nohighlight">\( with respect to the \)</span>k^\mathrm{th}<span class="math notranslate nohighlight">\( model \)</span>\mathcal{M}_k<span class="math notranslate nohighlight">\( at a new input \)</span>x_0<span class="math notranslate nohighlight">\(. In either BMM
+setup, a key challenge is defining \)</span>w_k(x)$—the functional
+relationship between the inputs and the weights.</p>
+<p><img alt="Schematic of Bayesian model mixing. Each model has region of parameter space where it has a highfidelity, but all models are meant to describe the same phenomenon. To obtain a model that workswell for all of parameter space, we combine them using Bayesian model mixing methods." src="../_images/bmm_schematic.pdf" />{#fig:bmm_schematic width=”\textwidth”}</p>
+<p>This work introduces <code class="docutils literal notranslate"><span class="pre">Taweret</span></code>, a Python package for Bayesian model
+mixing that includes three novel approaches for combining models, each
+of which defines the weight function in a unique way (see
+Table [1]{label=”methodcomparison”} for a comparison of each method). This
+package has been developed as an integral piece of the Bayesian Analysis
+of Nuclear Dynamics (BAND) collaboration’s software. BAND is a
+multi-institutional effort to build a cyber-infrastructure framework for
+use in the nuclear physics community
+[&#64;Phillips:2020dmw; &#64;bandframework]. The software is designed to lower
+the barrier for researchers to employ uncertainty quantification in
+their experiments, and to integrate, as best as possible, with the
+community’s current standards concerning coding style (<code class="docutils literal notranslate"><span class="pre">pep8</span></code>). Bayesian
+model mixing is one of BAND’s four central pillars in this framework
+(the others being emulation, calibration, and experimental design).</p>
+<p>In addition to this need, we are aware of several other fields outside
+of physics that use techniques such as model stacking and Bayesian model
+averaging (BMA) [&#64;Fragoso2018], e.g., statistics [&#64;Yao2018; &#64;Yao2022], meteorology
+[&#64;Sloughter2007], and neuroscience [&#64;FitzGerald2014]. It is expected that the Bayesian
+model mixing methods presented in <code class="docutils literal notranslate"><span class="pre">Taweret</span></code> can also be applied to use cases
+within these fields. Statisticians have developed several versatile BMA/stacking packages,
+e.g. [&#64;loo; &#64;BMA_R]. However, the only BMM-based package available is
+<code class="docutils literal notranslate"><span class="pre">SAMBA</span></code>—a BAND collaboration effort that was developed for testing BMM
+methods on a toy model [&#64;Semposki:2022gcp]. <code class="docutils literal notranslate"><span class="pre">Taweret</span></code>’s increased
+functionality, user-friendly structure, and diverse selection of mixing
+methods make it a marked improvement over <code class="docutils literal notranslate"><span class="pre">SAMBA</span></code>.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="structure">
+<h1>Structure<a class="headerlink" href="#structure" title="Link to this heading">#</a></h1>
+<section id="overview-of-methods">
+<h2>Overview of methods<a class="headerlink" href="#overview-of-methods" title="Link to this heading">#</a></h2>
+<p>: A summary of the three BMM approaches currently implemented in
+<code class="docutils literal notranslate"><span class="pre">Taweret</span></code>. Note that <span class="math notranslate nohighlight">\(K\geq 2\)</span>. Following the method name and the type
+of mixing model, the <em>Number of inputs</em> column details the dimensions
+of the parameter which the mixing weights depend on (e.g., in
+heavy-ion collisions this is the centrality bin); the <em>Number of
+outputs</em> details how many observables the models themselves can have
+to compute the model likelihood (e.g., in heavy-ion collisions this
+can include charge multiplicities, transverse momentum distributions,
+transverse momentum fluctuations, etc.); the <em>Number of models</em> column
+details how many models the mixing method can combine, and the <em>Weight
+functions</em> column describes the available parameterization of how the
+mixing weights depend on the input parameter. []{label=”methodcomparison”}</p>
+<p>+———————+———+———–+———–+———–+———————+
+| Method              | Type    | Number of | Number of | Number of | Weight              |
+|                     |         | inputs    | outputs   | models    | functions           |
++:===================:+:=======:+:=========:+:=========:+:=========:+:===================:+
+| Bivariate linear    | Mean &amp;  | 1         |  <span class="math notranslate nohighlight">\(\geq 1\)</span> | 2         | - Step,             |
+| mixing              | Density |           |           |           | - Sigmoid,          |
+|                     |         |           |           |           | - Asymmetric 2-step |
++———————+———+———–+———–+———–+———————+
+| Multivariate mixing | Mean    | 1         | 1         | <span class="math notranslate nohighlight">\(K\)</span>       | Precision           |
+|                     |         |           |           |           | weighting           |
++———————+———+———–+———–+———–+———————+
+| BART mixing         | Mean    | <span class="math notranslate nohighlight">\(\geq 1\)</span>  | 1         | <span class="math notranslate nohighlight">\(K\)</span>       | Regression          |
+|                     |         |           |           |           | trees               |
++———————+———+———–+———–+———–+———————+</p>
+<section id="bivariate-linear-mixing">
+<h3>Bivariate linear mixing<a class="headerlink" href="#bivariate-linear-mixing" title="Link to this heading">#</a></h3>
+<p>The full description of this mixing method and several of its
+applications in relativistic heavy-ion collision physics can be found in
+the Ph.D. thesis of D. Liyanage [&#64;Liyanage_thesis]. The bivariate linear
+mixing method can mix two models either using a density-mixing or a
+mean-mixing strategy. Currently, this is the only mixing method in
+<code class="docutils literal notranslate"><span class="pre">Taweret</span></code> that can also calibrate the models while mixing.
+Each physics-based model we consider may have unknown parameters which have
+physical meaning.
+In this context, Bayesian calibration corresponds to the process of using
+observational data to learn the values (and more generally, the posterior
+distributions) of this these unknown parameters.
+Most approaches in model mixing and model averaging use a two-step approach:
+(step 1) fit individual models using a subset of the data; (step 2) mix the
+predictions from each model (the results from step 1) using the other subset
+of the data to learn the weights.
+Therefore, this method employing simultaneous calibration and mixing looks
+to do everything at once, rather than use the two step process.</p>
+<p>The user may choose among the following mixing functions:</p>
+<ul class="simple">
+<li><p>step: <span class="math notranslate nohighlight">\(\Theta(\beta_0-x)\)</span></p></li>
+<li><p>sigmoid: <span class="math notranslate nohighlight">\(\exp\left[(x-\beta_0)/\beta_1\right]\)</span></p></li>
+<li><p>asymmetric 2-step:
+<span class="math notranslate nohighlight">\(\alpha \Theta(\beta_0-x) + (1-\alpha)\Theta(\beta_1-x)\)</span>.</p></li>
+</ul>
+<p>Here <span class="math notranslate nohighlight">\(\Theta\)</span> denotes the Heaviside step function, <span class="math notranslate nohighlight">\(\beta_0\)</span> and
+<span class="math notranslate nohighlight">\(\beta_1\)</span> determine the shape of the weight function and are inferred
+from the experimental data, and <span class="math notranslate nohighlight">\(x\)</span> is the model input parameter (which
+is expected to be 1-dimensional for this mixing method).</p>
+</section>
+<section id="multivariate-model-mixing">
+<h3>Multivariate model mixing<a class="headerlink" href="#multivariate-model-mixing" title="Link to this heading">#</a></h3>
+<p>Another Bayesian model mixing method incorporated into <code class="docutils literal notranslate"><span class="pre">Taweret</span></code> was
+originally published in [&#64;Semposki:2022gcp], and was the focus of the
+BMM Python package <code class="docutils literal notranslate"><span class="pre">SAMBA</span></code> [&#64;SAMBA]. It can be described as combining
+models by weighting each of them by their precision, defined as the
+inverse of their respective variances. The posterior predictive
+distribution (PPD) of the mixed model is a Gaussian and can be expressed
+as
+$<span class="math notranslate nohighlight">\(
+\label{eq:multi_mm_gaussian}
+   \mathcal M_\dagger \sim {\mathcal N(f_\dagger, Z_P^{-1})}:
+    \quad
+    f_{\dagger} = \frac{1}{Z_P}\sum_{k=1}^{K} \frac{1}{\sigma^{2}_k}f_k,
+    \quad Z_P \equiv \sum_{k=1}^{K}\frac{1}{\sigma^{2}_k},\)</span><span class="math notranslate nohighlight">\( where
+\)</span>\mathcal N(\mu, \sigma^2)<span class="math notranslate nohighlight">\( is a normal distribution with mean \)</span>\mu<span class="math notranslate nohighlight">\( and
+variance \)</span>\sigma^2<span class="math notranslate nohighlight">\(, \)</span>Z_{P}<span class="math notranslate nohighlight">\( is the precision of the models, and each
+individual model is assumed to possess a Gaussian form such as
+\)</span><span class="math notranslate nohighlight">\(\mathcal M_{k} \sim \mathcal N(f_{k}(x),\sigma^2_{k}(x)).\)</span><span class="math notranslate nohighlight">\( Here,
+\)</span>f_{k}(x)<span class="math notranslate nohighlight">\( is the mean of the model \)</span>k<span class="math notranslate nohighlight">\(, and \)</span>\sigma^{2}_{k}(x)<span class="math notranslate nohighlight">\( its
+variance, both at input parameter \)</span>x$.</p>
+<p>In this method, the software receives the one-dimensional input space
+<span class="math notranslate nohighlight">\(X\)</span>, the mean of the <span class="math notranslate nohighlight">\(k\)</span> models at each point <span class="math notranslate nohighlight">\(x \in X\)</span> (hence it is a
+mean-based mixing procedure), and the variances of the models at each
+point <span class="math notranslate nohighlight">\(x \in X\)</span>. Each model is assumed to have been calibrated prior to
+being included in the mix. The ignorance of this mixing method with
+respect to how each model was generated allows for any model to be used,
+including Bayesian Machine Learning tools such as Gaussian Processes
+[&#64;Semposki:2022gcp] and Bayesian Neural Networks [&#64;Kronheim:2020dmp].</p>
+</section>
+<section id="model-mixing-using-bayesian-additive-regression-trees">
+<h3>Model mixing using Bayesian additive regression trees<a class="headerlink" href="#model-mixing-using-bayesian-additive-regression-trees" title="Link to this heading">#</a></h3>
+<p>A third BMM approach implemented in <code class="docutils literal notranslate"><span class="pre">Taweret</span></code> adopts a mean-mixing
+strategy which models the weight functions using Bayesian Additive
+Regression Trees (BART) conditional on the mean predictions from a set
+of <span class="math notranslate nohighlight">\(K\)</span> models [&#64;yannotty2023model]. This approach enables the weight
+functions to be adaptively learned using tree bases and avoids the need
+for user-specified basis functions (such as a generalized linear
+model). Formally, the weight functions are defined by
+$<span class="math notranslate nohighlight">\(w_k(x) = \sum_{j = 1}^m g_k(x; T_j, M_j), \quad \text{for}\ k=1,\ldots,K\)</span><span class="math notranslate nohighlight">\(
+where \)</span>g_k(x;T_j,M_j)<span class="math notranslate nohighlight">\( defines the \)</span>k^\text{th}<span class="math notranslate nohighlight">\( output of
+the \)</span>j^\text{th}<span class="math notranslate nohighlight">\( tree, \)</span>T_j<span class="math notranslate nohighlight">\(, using the associated set of parameters,
+\)</span>M_j<span class="math notranslate nohighlight">\(. Each weight function is implicitly regularized via a prior to
+prefer the interval \)</span>[0,1]<span class="math notranslate nohighlight">\(. Furthermore, the weight functions are not
+required to sum to one and can take values outside of the range of
+\)</span>[0,1]$. This regularization approach is designed to maintain the
+flexibility of the model while also encouraging the weight functions to
+take values which preserve desired inferential properties.</p>
+<p>This BART-based approach is implemented in <code class="docutils literal notranslate"><span class="pre">C++</span></code> with the <code class="docutils literal notranslate"><span class="pre">trees</span></code> module
+in <code class="docutils literal notranslate"><span class="pre">Taweret</span></code> acting as a Python interface. The <code class="docutils literal notranslate"><span class="pre">C++</span></code> back-end implements
+Bayesian tree models and originates from the <em>Open Bayesian Trees
+Project</em> (<code class="docutils literal notranslate"><span class="pre">OpenBT</span></code>) [&#64;OpenBT_MTP]. This module serves as an example for
+how existing code bases can be integrated into the <code class="docutils literal notranslate"><span class="pre">Taweret</span></code> framework.</p>
+</section>
+</section>
+<section id="overview-of-package-structure">
+<h2>Overview of package structure<a class="headerlink" href="#overview-of-package-structure" title="Link to this heading">#</a></h2>
+<p><img alt="Diagram depicting the base classes, their methods (functions) andtheir properties (data)." src="../_images/base-classes.pdf" />{#fig:codediagram
+width=”\textwidth”}</p>
+<p><code class="docutils literal notranslate"><span class="pre">Taweret</span></code> uses abstract base classes to ensure compatibility and
+uniformity of models and mixing methods. The two base classes are
+<code class="docutils literal notranslate"><span class="pre">BaseModel</span></code> and <code class="docutils literal notranslate"><span class="pre">BaseMixer</span></code> located in the <code class="docutils literal notranslate"><span class="pre">core</span></code> folder (see
+Fig. <a class="reference internal" href="#fig:codediagram"><span class="xref myst">1</span></a>{reference-type=”ref”
+reference=”fig:codediagram”} for a schematic); any model mixing method
+developed with <code class="docutils literal notranslate"><span class="pre">Taweret</span></code> is required to inherit from these. The former
+represents physics-based models that may include parameters which need to
+be determined by Bayesian inference. The latter, <code class="docutils literal notranslate"><span class="pre">BaseMixer</span></code>, represents
+a mixing method used to combine the predictions from the physics-based
+models using Bayesian model mixing.</p>
+<p>The design philosophy for <code class="docutils literal notranslate"><span class="pre">Taweret</span></code> is to make it easy to switch between
+mixing methods without having to rewrite an analysis script. Thus, the
+base classes prescribe which functions need to be present for
+interoperability between mixing methods, and in particular, the models
+being called in the method. The functions required by <code class="docutils literal notranslate"><span class="pre">BaseModel</span></code> are</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">evaluate</span></code> - gives a point prediction for the model;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">log_likelihood_elementwise</span></code> - calculates the log-likelihood,
+reducing along the last axis of an array if the input array has
+multiple axes;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_prior</span></code> - sets priors for parameters in the model.</p></li>
+</ul>
+<p>The functions required by <code class="docutils literal notranslate"><span class="pre">BaseMixer</span></code> are</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">evaluate</span></code> - gives point prediction for the mixed model given a set
+of parameters;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">evaluate_weights</span></code> - gives point prediction for the weights given a
+set of parameters;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span></code> - returns the maximum <em>a posteriori</em> estimate for the
+parameters of the mixed model (which includes both the weights and
+any model parameters);</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">posterior</span></code> - returns the chains of the sampled parameters from the
+mixed model;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">predict</span></code> - returns the posterior predictive distribution for the
+mixed model;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">predict_weights</span></code> - returns the posterior predictive distribution
+for the model weights;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prior</span></code> - returns the prior distributions (typically objects, not
+arrays);</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prior_predict</span></code> - returns the prior predictive distribution for the
+mixed model;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_prior</span></code> - sets the prior distributions for the mixing method;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train</span></code> - executes the Bayesian model mixing step.</p></li>
+</ul>
+<p>Following our design philosophy, the general workflow for an analysis
+using <code class="docutils literal notranslate"><span class="pre">Taweret</span></code> is described in
+Fig. <a class="reference internal" href="#fig:taweret_workflow"><span class="xref myst">2</span></a>{reference-type=”ref”
+reference=”fig:taweret_workflow”}. From this, one can see three sources
+of information are generally required for an analysis: a selected mixing
+method, a model set, and training data. Each of these sources are
+connected through the training phase, which is where the mixing weights
+are learned. This leads into the prediction phase, where final
+predictions are obtained for the overall system and the weight
+functions. This process is summarized in the code snippet below. This
+workflow is preserved across the various methods implemented in
+<code class="docutils literal notranslate"><span class="pre">Taweret</span></code> and is intended to be maintained for future mixing methods
+included in this work.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mix.mix_method</span> <span class="kn">import</span> <span class="n">MixMethod</span>
+<span class="kn">from</span> <span class="nn">models.my_model</span> <span class="kn">import</span> <span class="n">MyModel</span>
+
+<span class="n">mixer</span> <span class="o">=</span> <span class="n">MixMethod</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;model_1&#39;</span><span class="p">:</span> <span class="n">MyModel</span><span class="p">(</span><span class="o">...</span><span class="p">),</span> <span class="o">...</span><span class="p">})</span>
+<span class="n">mixer</span><span class="o">.</span><span class="n">set_prior</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">mixer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">mixer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">mixer</span><span class="o">.</span><span class="n">predict_weights</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Extending <code class="docutils literal notranslate"><span class="pre">Taweret</span></code> with a custom class or model simply requires that
+you inherit from the base classes and implement the required functions.</p>
+<p><img alt="The general workflow for an analysis using . (Blue) The usermust define each of the  models as a class inherited from. (Green) The user can select an existing mixing method from (solid) or contribute a new method (dashed). (Purple) Themodel is trained using a set of training data (red), the model set(blue), and the selected mixing method (green). Predictions anduncertainty quantification follow from the training process." src="../_images/Taweret_JOSS.png" />{#fig:taweret_workflow width=”95%” height=”45%”}</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="taweret-moving-forward">
+<h1>Taweret moving forward<a class="headerlink" href="#taweret-moving-forward" title="Link to this heading">#</a></h1>
+<p>There are certainly many improvements that can be made to <code class="docutils literal notranslate"><span class="pre">Taweret</span></code>. An
+obvious one is a generalization of the bivariate linear mixing; this
+could be the mixing of an arbitrary number of models at the density
+level. Complementary to this density mixing method is a stochastic,
+mean-mixing method of arbitrary number <span class="math notranslate nohighlight">\(K\)</span> of models. An extension of
+the Multivariate Mixing method to multi-dimensional input and output
+spaces, correlated models, as well as calibration during mixing, is
+anticipated in future releases. Lastly, to facilitate the utilization of
+this growing framework, we hope to enable continuous integration
+routines for contributing individuals and create docker images that will
+run <code class="docutils literal notranslate"><span class="pre">Taweret</span></code>.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="contributions">
+<h1>Contributions<a class="headerlink" href="#contributions" title="Link to this heading">#</a></h1>
+<p>All authors have contributed to the development of the Taweret framework,
+while individual mixing methods were developed by
+D. Liyanage (bivariate linear mixing), A. Semposki (multivariate model
+mixing), and J. Yanotty (additive regression trees).
+Ongoing work by K. Ingles will be included in the next version release
+of <code class="docutils literal notranslate"><span class="pre">Taweret</span></code>.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="disclosure-statement">
+<h1>Disclosure statement<a class="headerlink" href="#disclosure-statement" title="Link to this heading">#</a></h1>
+<p>The authors of this work are not aware of any conflicts of interest that
+would affect this research.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="acknowledgments">
+<h1>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading">#</a></h1>
+<p>We thank Daniel R. Phillips, Ulrich Heinz, Matt Pratola, Kyle Godbey,
+Stefan Wild, Sunil Jaiswal, and all other BAND members for crucial
+feedback and discussion during the development stage of this package.
+This work is supported by the CSSI program Award OAC-2004601 (DL, ACS,
+JCY). ACS also acknowledges support from the Department of Energy
+(contract no. DE-FG02-93ER40756).</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="references">
+<h1>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h1>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Taweret is the Egyptian goddess, known as the protector of children and women,
+whose body is a fusion of a hippopotamus, lion and crocodile which represent her ferocity.
+Similarly, <code class="docutils literal notranslate"><span class="pre">Taweret</span></code>, the package, seeks to fuse models together to represent
+observed phenomena.</p>
+</aside>
+</aside>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./joss_paper"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Summary</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#statement-of-need">Statement of need</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#structure">Structure</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-methods">Overview of methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-linear-mixing">Bivariate linear mixing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-model-mixing">Multivariate model mixing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-mixing-using-bayesian-additive-regression-trees">Model mixing using Bayesian additive regression trees</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-package-structure">Overview of package structure</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#taweret-moving-forward">Taweret moving forward</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#contributions">Contributions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#disclosure-statement">Disclosure statement</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">Acknowledgments</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kevin Ingles, Dananajay Liyange, Alexandra Semposki, and John Yannotty
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

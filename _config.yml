@@ -1,0 +1,35 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title    : Taweret -- a Python Package for Bayesian model mixing
+author   : Kevin Ingles, Dananajay Liyange, Alexandra Semposki, and John Yannotty
+copyright: "2023-2024" 
+# logo: logo.png
+
+# Force re-execution of notebooks on each build.
+# See https://jupyterbook.org/content/execute.html
+execute:
+  execute_notebooks: force
+
+# Information about where the book exists on the web
+repository:
+  url: https://https://bandframework.github.io/Taweret/book/index.html  # Online location of your book
+  branch: jupyter-book  # Which branch of the repository should be used when creating links (optional)
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  use_issues_button: false
+  use_repository_button: false
+
+
+sphinx:
+  config:
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+exclude_patterns: [_*.md, .github/*, README.md, .book/*, .git/*, CONTRIBUTIONS.md, joss_paper/*]
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - dollarmath

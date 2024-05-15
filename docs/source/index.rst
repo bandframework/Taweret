@@ -42,7 +42,8 @@ Welcome to Bayesian Model Mixing with Taweret!
 .. toctree::
    :maxdepth: 2
    :caption: For Developers:
-   
+
+   tox_environments
    how_to_add_new_mixing
    how_to_add_documentation
 

@@ -10,9 +10,9 @@ from explicitly-managed, minimal, clean virtual environments used to perform
 scientific studies with Taweret.
 
 .. note::
-    Developers that would like to use ``tox`` should first learn, for example,
-    the difference between running ``tox -e <task>`` and ``tox -r -e <task>``
-    so that they can understand and manage certain risks.
+    Developers that would like to use ``tox`` should learn, for example, the
+    difference between running ``tox -e <task>`` and ``tox -r -e <task>`` so
+    that they can understand what ``-r`` does and when it should be used.
 
 If a developer would like to use ``tox`` on their individual platform, they
 must first identify the Python that they would like ``tox`` to use for building
@@ -83,10 +83,10 @@ the coverage results file that will be used with all coverage tasks;
 
   * Generate and render the Taweret documentation in HTML.
 
-Note that you can combine different tasks into a single call such as ``tox -r
--e report,coverage``.
+Note that you can combine different tasks into a single call such as ``tox -e
+report,coverage``.
 
-The virtual enviroments created by ``tox`` can be activated for general use by
+The virtual environments created by ``tox`` can be activated for general use by
 developers.  In particular, the ``coverage`` environment can be useful for
 interactive development and testing since Taweret is installed in
 editable/developer mode.  Assuming that the ``coverage`` task has already been

@@ -44,12 +44,9 @@ pip-delete-this-directory.txt
 # Unit test / coverage reports
 htmlcov/
 .tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
+.coverage_taweret
 coverage.xml
+.cache
 *.cover
 *.py,cover
 .hypothesis/
@@ -139,3 +136,6 @@ build/*
 
 # vim undo files
 **.un~
+
+# Sphinx documentation products
+docs/build_html

@@ -1,6 +1,7 @@
 `tox`_ Development Environments
 ===============================
 .. _tox: https://tox.wiki/en/latest/index.html
+.. _editable: https://setuptools.pypa.io/en/latest/userguide/development_mode.html
 
 The repository has been configured so that developers and GitHub actions can
 execute certain routine tasks using ``tox``, which builds and manages an
@@ -58,7 +59,7 @@ the coverage results file that will be used with all coverage tasks;
   * Run the full Taweret test suite and save the coverage results to the
     coverage file.
   * Note that this task installs the Taweret code in its virtual environment as
-    an editable installation of the local clone, which mimics an interactive
+    an editable_ installation of the local clone, which mimics an interactive
     developer setup.
 
 * ``tox -r -e nocoverage``
@@ -89,7 +90,7 @@ report,coverage``.
 The virtual environments created by ``tox`` can be activated for general use by
 developers.  In particular, the ``coverage`` environment can be useful for
 interactive development and testing since Taweret is installed in
-editable/developer mode.  Assuming that the ``coverage`` task has already been
+editable_/developer mode.  Assuming that the ``coverage`` task has already been
 run, activate this environment by calling
 
 .. code-block:: console

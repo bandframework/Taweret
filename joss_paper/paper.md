@@ -72,8 +72,8 @@ mixing (BMM). In general, model mixing techniques are designed to
 combine the individual mean predictions or density estimates from the
 $K$ models under consideration. For example, *mean-mixing* techniques
 predict the underlying system by
-$$E[Y \mid x] = \sum_{k = 1}^K w_k(x)\; f_k(x),$$
-where $E[Y \mid x]$ denotes the mean of $Y$ given the
+$$E[Y~|~x] = \sum_{k = 1}^K w_k(x)\; f_k(x),$$
+where $E[Y~|~x]$ denotes the mean of $Y$ given the
 vector of input parameters $x$, $f_k(x)$ is the mean
 prediction under the $k^\mathrm{th}$ model $\mathcal{M}_k$, and
 $w_k(x)$ is the corresponding weight function. The
@@ -89,15 +89,15 @@ well for all of parameter space, we combine them using Bayesian model mixing met
 
 This work introduces `Taweret`, a Python package for Bayesian model
 mixing that includes three novel approaches for combining models, each
-of which defines the weight function in a unique way (see
-Table [1]{label="methodcomparison"} for a comparison of each method). This
+of which defines the weight function in a distinct way (see
+Table [1]{label="methodcomparison"} for a comparison of the methods). This
 package has been developed as an integral piece of the Bayesian Analysis
 of Nuclear Dynamics (BAND) collaboration's software. BAND is a
 multi-institutional effort to build a cyber-infrastructure framework for
 use in the nuclear physics community
 [@Phillips:2020dmw; @bandframework]. The software is designed to lower
 the barrier for researchers to employ uncertainty quantification in
-their experiments, and to integrate, as best as possible, with the
+their data analysis and/or theoretical modeling, and to integrate, as best as possible, with the
 community's current standards concerning coding style (`pep8`). Bayesian
 model mixing is one of BAND's four central pillars in this framework
 (the others being emulation, calibration, and experimental design).
@@ -106,7 +106,7 @@ In addition to this need, we are aware of several other fields outside
 of physics that use techniques such as model stacking and Bayesian model
 averaging (BMA) [@Fragoso2018], e.g., statistics [@Yao2018; @Yao2022], meteorology
 [@Sloughter2007], and neuroscience [@FitzGerald2014]. It is expected that the Bayesian 
-model mixing methods presented in `Taweret` can also be applied to use cases 
+model mixing methods implemented in `Taweret` can also be applied to use cases 
 within these fields. Statisticians have developed several versatile BMA/stacking packages,
 e.g. [@loo; @BMA_R]. However, the only BMM-based package available is
 `SAMBA`---a BAND collaboration effort that was developed for testing BMM
@@ -155,17 +155,17 @@ the Ph.D. thesis of D. Liyanage [@Liyanage_thesis]. The bivariate linear
 mixing method can mix two models either using a density-mixing or a
 mean-mixing strategy. Currently, this is the only mixing method in
 `Taweret` that can also calibrate the models while mixing.
-Each physics-based model we consider may have unknown parameters which have 
+Each physics-based model we consider may have unknown parameters that have 
 physical meaning.
 In this context, Bayesian calibration corresponds to the process of using 
 observational data to learn the values (and more generally, the posterior 
 distributions) of this these unknown parameters.
 Most approaches in model mixing and model averaging use a two-step approach: 
-(step 1) fit individual models using a subset of the data; (step 2) mix the 
-predictions from each model (the results from step 1) using the other subset
+first, fit individual models using a subset of the data; second, mix the 
+predictions from each model (obtained from the previous step) using the other subset
 of the data to learn the weights.
-Therefore, this method employing simultaneous calibration and mixing looks 
-to do everything at once, rather than use the two step process.
+This method, employing simultaneous calibration and mixing, enables doing both steps
+at once.
 
 The user may choose among the following mixing functions:
 
@@ -301,7 +301,7 @@ The functions required by `BaseMixer` are
 
 Following our design philosophy, the general workflow for an analysis
 using `Taweret` is described in
-Fig. [2](#fig:taweret_workflow){reference-type="ref"
+Fig. [3](#fig:taweret_workflow){reference-type="ref"
 reference="fig:taweret_workflow"}. From this, one can see three sources
 of information are generally required for an analysis: a selected mixing
 method, a model set, and training data. Each of these sources are

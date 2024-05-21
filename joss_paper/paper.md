@@ -38,11 +38,11 @@ bibliography: references.bib
 
 Uncertainty quantification using Bayesian methods is a growing area of
 research. Bayesian model mixing (BMM) is a recent development which
-combines the predictions from multiple models such that each the fidelity
+combines the predictions from multiple models such that the fidelity
 of each model is preserved in the final result. Practical tools and
 analysis suites that facilitate such methods are therefore needed.
 `Taweret`[^1] introduces BMM to existing Bayesian uncertainty quantification
-efforts. Currently `Taweret` contains three individual Bayesian model
+efforts. Currently, `Taweret` contains three individual Bayesian model
 mixing techniques, each pertaining to a different type of problem
 structure; we encourage the future inclusion of user-developed mixing
 methods. `Taweret`'s first use case is in nuclear physics, but the

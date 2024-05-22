@@ -366,7 +366,7 @@ would affect this research.
 # Acknowledgments
 
 We thank Daniel R. Phillips, Ulrich Heinz, Matt Pratola, Kyle Godbey,
-Stefan Wild, Sunil Jaiswal, and all other BAND members for crucial
+Stefan Wild, Sunil Jaiswal, Jared O'Neal, and all other BAND members for crucial
 feedback and discussion during the development stage of this package.
 This work is supported by the CSSI program Award OAC-2004601 (DL, ACS,
 JCY). ACS also acknowledges support from the Department of Energy

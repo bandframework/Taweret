@@ -13,7 +13,8 @@ execute:
 
 # Information about where the book exists on the web
 repository:
-  url: https://bandframework.github.io/Taweret/book/index.html  # Online location of your book
+  url: https://github.com/bandframework/Taweret
+  path_to_book: book  # Optional path to your book, relative to the repository root
   branch: jupyter-book  # Which branch of the repository should be used when creating links (optional)
 
 # Add GitHub buttons to your book

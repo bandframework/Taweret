@@ -1,4 +1,0 @@
-# Taweret 
-
-Testing `jupyter-books`
-

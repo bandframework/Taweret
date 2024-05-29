@@ -3,3 +3,12 @@
 
 format: jb-book
 root: landing
+chapters:
+- file: intro/bmm_basics
+  
+- file: tutorials/intro_tutorials
+  # sections:
+  # - file: intro-qc/qubits
+  # - file: intro-qc/gates
+  # - file: intro-qc/computer_science
+  # - file: intro-qc/real_hardware

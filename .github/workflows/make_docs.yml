@@ -1,38 +1,43 @@
 name: Sphinx docs to gh-pages
-
+env:
+  CLONE_PATH: ${{ github.workspace }}
 on:
-  push:
+  pull_request:
     branches:
-      - main
+      - develop
+#  push:
+#    branches:
+#      - main
 
 # workflow_dispatch:        # Un comment line if you also want to trigger action manually
 
 jobs:
   sphinx_docs_to_gh-pages:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.12"]
+    runs-on: ${{ matrix.os }}
     name: Sphinx docs to gh-pages
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
         with:
-          fetch-depth: 0
-      - name: Make conda environment
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          python-version: 3.7    # Python version to build the html sphinx documentation
-          environment-file: environment.yml    # Path to the documentation conda environment
-          auto-update-conda: false
-          auto-activate-base: false
-          show-channel-urls: true
-      - name: Installing the library
-        shell: bash -l {0}
+          python-version: ${{ matrix.python-version }}
+      - name: Setup base Python environment
         run: |
-         ls
-         pwd
-      - name: Running the Sphinx to gh-pages Action
-        uses: uibcdf/action-sphinx-docs-to-gh-pages@v1.0.0
-        with:
-          branch: main
-          dir_docs: docs/source
-          sphinxapiopts: '--separate -f -E --implicit-namespaces -l -o . ../'
-          sphinxapiexclude: '../*setup* ../*.ipynb'
-          sphinxopts: ''
+          $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
+      - name: Build Sphinx documentation
+        run: |
+          pushd $CLONE_PATH
+          tox -r -e html
+          popd
+#      - name: Running the Sphinx to gh-pages Action
+#        uses: uibcdf/action-sphinx-docs-to-gh-pages@v1.0.0
+#        with:
+#          branch: main
+#          dir_docs: docs/source
+#          sphinxapiopts: '--separate -f -E --implicit-namespaces -l -o . ../'
+#          sphinxapiexclude: '../*setup* ../*.ipynb'
+#          sphinxopts: ''

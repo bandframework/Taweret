@@ -1,6 +1,7 @@
 name: Sphinx docs to gh-pages
 env:
   CLONE_PATH: ${{ github.workspace }}
+  HTML_DOCS:  ${{ github.workspace }}/docs/build_html
 on:
   pull_request:
     branches:
@@ -33,6 +34,11 @@ jobs:
           pushd $CLONE_PATH
           tox -r -e html
           popd
+      - name: Archive HTML-format docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-docs
+          path: ${{ env.HTML_DOCS }}
 #      - name: Running the Sphinx to gh-pages Action
 #        uses: uibcdf/action-sphinx-docs-to-gh-pages@v1.0.0
 #        with:

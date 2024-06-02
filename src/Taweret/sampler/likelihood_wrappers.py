@@ -16,13 +16,16 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
     parameters : dic
         dictionary with name of each parameter to be given to Bilby.
         all parameters have the prefix theta_ and then the parameter number.
-        ex : for liklihood with three free parameters ; theta_0, theta_1, theta_2
-        Parameters are order as [mixture function parameters, model 1 parameters, model 2 parameters]
+        ex : for liklihood with three free parameters ; theta_0, theta_1,
+        theta_2
+        Parameters are order as [mixture function parameters,
+        model 1 parameters, model 2 parameters]
 
     Methods
     -------
     log_likelihood(self)
-        calculates the log likelihood for the parameter values specefied in the wrapper object.
+        calculates the log likelihood for the parameter values specefied in
+        the wrapper object.
     """
 
     def __init__(self, mixed_model, x_exp, y_exp, y_err):

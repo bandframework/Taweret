@@ -1,5 +1,5 @@
 from scipy.linalg import lapack
-from logging import raiseExceptions
+# from logging import raiseExceptions
 import numpy as np
 from scipy.special import expit
 from scipy.stats import norm, beta, dirichlet
@@ -67,7 +67,8 @@ def normed_mvn_loglike(y, cov):
     norm_const = -n / (2. * np.log(2. * np.pi))
     # print(norm_const)
     # print(L.diagonal())
-    # return -.5*np.dot(y, alpha) - np.log(eps+L.diagonal()).sum() + norm_const
+    # return -.5*np.dot(y, alpha) - np.log(eps+L.diagonal()).sum() + \
+    # norm_const
     return -.5 * np.dot(y, alpha) - np.log(L.diagonal()).sum() + norm_const
 
 
@@ -155,7 +156,8 @@ def mixture_function(
         mixture_params: np.ndarray,
         prior=None) -> np.ndarray:
     """
-    predict the weights from the mixture funtion at the give input parameter values x
+    predict the weights from the mixture funtion at the give input
+    parameter values x
 
     Parameters
     ----------
@@ -218,7 +220,8 @@ def mixture_function(
             # max_num = prior['addstepasym_0'].maximum
             # bound = max_num - x_0
             # If x is greater than max_num - |x_0| it's 1. Otherwise 0.
-            # w2 = np.array([1-(eps) if xi>=bound else eps for xi in x]).flatten()
+            # w2 = np.array([1-(eps) if xi>=bound else eps for \
+            # xi in x]).flatten()
         else:
             raise Exception(f'x_0 has to be non negative but provided {x_0}')
 
@@ -229,7 +232,8 @@ def mixture_function(
             # max_num = prior['addstep_0'].maximum
             # bound = max_num - x_0
             # If x is greater than max_num - |x_0| it's 1. Otherwise 0.
-            # w2 = np.array([1-(eps) if xi>=bound else eps for xi in x]).flatten()
+            # w2 = np.array([1-(eps) if xi>=bound else eps \
+            # for xi in x]).flatten()
         else:
             raise Exception(f'x_1 has to be non negative but provided {x_1}')
 
@@ -243,13 +247,15 @@ def mixture_function(
         w = np.array(w).flatten()
         return w, 1 - w
     elif method == 'beta':
-        print('Warning: mixture_function - the `beta` choice forces a stochastic')
-        print('         likelihood to be returned after calibration')
+        print('Warning: mixture_function - the `beta` choice forces a \
+              stochastic')
+        print(' likelihood to be returned after calibration')
         w = beta.rvs(*mixture_params)
         return w, 1 - w
     elif method == 'dirchlet':
-        print('Warning: mixture_function - the `dirichlet` choice forces a stochastic')
-        print('         likelihood to be returned after calibration')
+        print('Warning: mixture_function - the `dirichlet` choice forces a \
+              stochastic')
+        print(' likelihood to be returned after calibration')
         w = dirichlet.rvs(mixture_params)
         return w
     elif method == 'switchcos':
@@ -271,7 +277,7 @@ def mixture_function(
 
 def switchcos(g1, g2, g3, x):
     """Switchcos function in Alexandras Samba module
-    link https://github.com/asemposki/SAMBA/blob/0479b4deff46f3cb77b82bb30abd5693de8980f3/samba/mixing.py#L1205
+    link https://github.com/asemposki/SAMBA/
 
     Parameters:
     -----------

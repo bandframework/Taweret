@@ -2,8 +2,6 @@
 # Email : liyanagedananjaya@gmail.com
 
 import bilby
-import os
-import shutil
 import numpy as np
 from Taweret.utils.utils import mixture_function, eps, normed_mvn_loglike
 from Taweret.core.base_mixer import BaseMixer
@@ -12,14 +10,10 @@ from Taweret.sampler.likelihood_wrappers import likelihood_wrapper_for_bilby
 
 # typing imports
 
-from typing import Any
-from typing import Callable
 from typing import Dict
 from typing import List
 from typing import Optional
-from typing import Tuple
 from typing import Type
-from pathlib import Path
 
 
 class BivariateLinear(BaseMixer):
@@ -287,7 +281,7 @@ class BivariateLinear(BaseMixer):
             posterior = samples
         else:
             posterior = self._posterior
-        n_samples = posterior.shape[0]
+        # n_samples = posterior.shape[0]
         for sample in posterior[::nthin]:
             sample = np.array(sample).flatten()
 
@@ -297,7 +291,8 @@ class BivariateLinear(BaseMixer):
             n_args_sum = 0
             for i in range(0, len(n_args_for_models)):
                 model_params.append(
-                    sample[self.n_mix + n_args_sum:self.n_mix + n_args_sum + n_args_for_models[i]])
+                    sample[self.n_mix + n_args_sum:self.n_mix + n_args_sum +
+                           n_args_for_models[i]])
                 n_args_sum += n_args_for_models[i]
                 if self.same_parameters:
                     break
@@ -344,7 +339,7 @@ class BivariateLinear(BaseMixer):
             points
         '''
 
-        if self.model_was_trained == False and samples is None:
+        if self.model_was_trained is False and samples is None:
             raise Exception('Posterior is not available to make predictions\n\
                             train the model before predicting')
         pos_predictions = []
@@ -499,7 +494,7 @@ class BivariateLinear(BaseMixer):
 
                 if len(x_exp) != y_exp_all.shape[0]:
                     raise Exception(
-                        f'Dimensionality mismatch between x_exp and y_exp')
+                        'Dimensionality mismatch between x_exp and y_exp')
                 mask_y_exp = np.isfinite(y_exp_all)
                 mask_flat = mask_y_exp.flatten()
                 weights = []
@@ -538,13 +533,16 @@ class BivariateLinear(BaseMixer):
             diff = y_exp_all - mix_prediction
 
             # A better optimization yield 5 times the speed.
-            # For testing of the method loo at tests.ipynb in notebooks folder.
+            # For testing of the method loo at tests.ipynb in notebooks
+            # folder.
             # N = len(y_exp_all)
 #             final_cov = np.zeros((N,N))
 #             for i in range(0,N):
 #                 for j in range(0,N):
-#                     final_cov[i,j] = weights[i]*weights[j]*cov_mat_1[i,j] + (1-weights[i])*(1-weights[j])*cov_mat_2[i,j]
-            # Comment out the below code. BMM mean mixing does not touch the covariance stucture....yet...
+#                     final_cov[i,j] = weights[i]*weights[j]*cov_mat_1[i,j]
+            # + (1-weights[i])*(1-weights[j])*cov_mat_2[i,j]
+            # Comment out the below code. BMM mean mixing does not touch the
+            # covariance stucture....yet...
             # w1_mat = np.outer(weights, weights)
             # w2_mat = np.outer(1-weights,1-weights)
             # final_cov = w1_mat * cov_mat_1 + w2_mat * cov_mat_2
@@ -573,9 +571,11 @@ class BivariateLinear(BaseMixer):
                     x_exp, y_exp, y_err, model_1_param)
                 L2 = model_2.log_likelihood_elementwise(
                     x_exp, y_exp, y_err, model_2_param)
-            # L1 = log_likelihood_elementwise(self.models_dic.items()[0], self.x_exp, self.y_exp, \
+            # L1 = log_likelihood_elementwise(self.models_dic.items()[0],
+                # self.x_exp, self.y_exp, \
             # self.y_err, model_1_param)
-            # L2 = log_likelihood_elementwise(self.models_dic.items()[1], self.x_exp, self.y_exp, \
+            # L2 = log_likelihood_elementwise(self.models_dic.items()[1],
+                # self.x_exp, self.y_exp, \
             # self.y_err, model_2_param)
 
             # we use the logaddexp here for numerical accuracy. Look at the
@@ -658,7 +658,8 @@ class BivariateLinear(BaseMixer):
             result = bilby.result.read_in_result(outdir=outdir, label=label)
         except BaseException:
             if load_previous:
-                print(f'Saved results for {label} do not exist in : ' + outdir)
+                print(f'Saved results for {label} do not exist in : ' +
+                      outdir)
             # if os.path.exists(outdir+'/'+label):
             #    shutil.rmtree(outdir+'/'+label)
             if kwargs_for_sampler is None:

@@ -15,16 +15,9 @@ cwd = dirname.parent
 taweret_wd = str(dirname).split("test")[0]
 sys.path.append(taweret_wd)
 
-from Taweret.core.base_model import *
-from Taweret.core.base_mixer import *
-from Taweret.mix.gaussian import *
-from Taweret.models.samba_models import *
-import pytest
+from Taweret.mix.gaussian import Multivariate
+from Taweret.models.samba_models import Loworder, Highorder
 import numpy as np
-
-# import sys
-# sys.path.append('../../Taweret')
-
 
 # set up the order to test at
 order = 3
@@ -164,4 +157,3 @@ def test_evaluate_weights():
     # now that predict has been run, test pulling the weights
     assert np.array_equal(weights, mixed.var_weights), \
         "weights are not matching"
-

@@ -39,7 +39,8 @@ class polynomal_model(BaseModel):
 
         Returns:
         --------
-        :returns: mean and standard deviation of the model at the x grid points.
+        :returns: mean and standard deviation of the
+        model at the x grid points.
         :rtype: np.ndarray, np.ndarray
         :return values: mean predictions.
         :return values: standard deviation of the predictions.
@@ -97,7 +98,8 @@ class sin_exp(BaseModel):
 
         Returns:
         --------
-        :returns: mean and standard deviation of the model at the x grid points.
+        :returns: mean and standard deviation of the model
+        at the x grid points.
         :rtype: np.ndarray, np.ndarray
         :return values: mean predictions.
         :return values: standard deviation of the predictions.
@@ -188,7 +190,8 @@ class cos_exp(BaseModel):
 
         Returns:
         --------
-        :returns: mean and standard deviation of the model at the x grid points.
+        :returns: mean and standard deviation of the model at the
+        x grid points.
         :rtype: np.ndarray, np.ndarray
         :return values: mean predictions.
         :return values: standard deviation of the predictions.
@@ -290,7 +293,8 @@ class sin_cos_exp(BaseModel):
 
         Returns:
         --------
-        :returns: mean and standard deviation of the model at the x grid points.
+        :returns: mean and standard deviation of the model at the x
+        grid points.
         :rtype: np.ndarray, np.ndarray
         :return values: mean predictions.
         :return values: standard deviation of the predictions.

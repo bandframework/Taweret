@@ -1,1 +1,0 @@
-## Bayesian model mixing: a crash course

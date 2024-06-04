@@ -30,20 +30,20 @@ class polynomal_model(BaseModel):
 
     def evaluate(self, x):
         '''
-        Evaluate the polynomial at a grid of x's. The standard deviation
-        output is set to 1 by default.
+            Evaluate the polynomial at a grid of x's. The standard deviation
+            output is set to 1 by default.
 
-        Parameters:
-        -----------
-        :param np.ndarray x: design matrix.
+            Parameters:
+            -----------
+            :param np.ndarray x: design matrix.
 
-        Returns:
-        --------
-        :returns: mean and standard deviation of the
-        model at the x grid points.
-        :rtype: np.ndarray, np.ndarray
-        :return values: mean predictions.
-        :return values: standard deviation of the predictions.
+            Returns:
+            --------
+            :returns: mean and standard deviation of the
+            model at the x grid points.
+            :rtype: np.ndarray, np.ndarray
+            :return values: mean predictions.
+            :return values: standard deviation of the predictions.
 
         '''
         if isinstance(x, list):
@@ -261,7 +261,6 @@ class sin_cos_exp(BaseModel):
 
     .. math::
             f(x) = \\sin(x_1) + \\cos(x_2)
-
 
     '''
 

@@ -411,7 +411,7 @@ class BivariateLinear(BaseMixer):
         Prior for the model parameters should be defined in each model.
 
         Parameters:
-        ----------
+        -----------
         bilby_prior_dic : bilby.core.prior.PriorDict
             The keys should be named as following :
                 '<mix_func_name>_1', '<mix_func_name>_2', ...
@@ -450,6 +450,7 @@ class BivariateLinear(BaseMixer):
                           y_err: np.ndarray) -> float:
         """
         log likelihood of the mixed model given the mixing function parameters
+
         Parameters
         ----------
         mixture_params : np.1darray
@@ -464,6 +465,7 @@ class BivariateLinear(BaseMixer):
         y_err: np.2darray
             Experimentally measured observable errors.
             Takes the shape len(x_exp) x number of observable types measured
+
         """
         if len(model_param) == 0:
             model_1_param = np.array([])

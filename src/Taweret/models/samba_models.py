@@ -27,8 +27,8 @@ class Loworder(BaseModel):
         The SAMBA loworder series expansion function.
         This model has been previously calibrated.
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         order : int
             Truncation order of expansion
         error_model : str
@@ -54,8 +54,8 @@ class Loworder(BaseModel):
         Evaluate the mean and standard deviation for
         given input values to the function
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         input_values : numpy 1darray
             coupling strength (g) values
 
@@ -252,8 +252,8 @@ class Highorder(BaseModel):
         """
         The SAMBA highorder series expansion function.
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         order : int
             Truncation order of expansion
         error_model : str
@@ -278,8 +278,8 @@ class Highorder(BaseModel):
         Evaluate the mean and standard deviation for given
         input values
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         input_values : numpy 1darray
             coupling strength (g) values
 
@@ -404,7 +404,7 @@ class TrueModel(BaseModel):
         Evaluate the mean of the true model for given input values.
 
         Parameters:
-        ----------
+        -----------
         input_values : numpy 1darray
             coupling strength (g) values
 
@@ -456,7 +456,7 @@ class Data(BaseModel):    # --> check that this model is set up correctly
         Evaluate the data and error for given input values
 
         Parameters:
-        ----------
+        -----------
         input_values : numpy 1darray
             coupling strength (g) values for data generation
         error : float

@@ -58,7 +58,7 @@ class Trees(BaseMixer):
         '''
 
         Parameters:
-        ----------
+        -----------
         :param dict model_dict:
             Dictionary of models where each item is an instance of BaseModel.
 
@@ -327,7 +327,7 @@ class Trees(BaseMixer):
         Train the mixed-model using a set of observations y at inputs x.
 
         Parameters:
-        ----------
+        -----------
         :param np.ndarray X: input parameter values of dimension (n x p).
         :param np.ndarray y: observed data at inputs X of dimension  (n x 1).
         :param dict kwargs: dictionary of arguments
@@ -449,7 +449,7 @@ class Trees(BaseMixer):
         of inputs X.
 
         Parameters:
-        ----------
+        -----------
         :param np.ndarray X: design matrix of testing inputs.
         :param float ci: credible interval width, must be a value within the interval (0,1).
 
@@ -541,7 +541,7 @@ class Trees(BaseMixer):
         of inputs X.
 
         Parameters:
-        ----------
+        -----------
         :param np.ndarray X: design matrix of testing inputs.
         :param float ci: credible interval width, must be a value within the interval (0,1).
 
@@ -625,7 +625,7 @@ class Trees(BaseMixer):
         the predict function.
 
         Parameters:
-        ----------
+        -----------
         :param int xdim: index of the column to plot against the predictions.
 
         Returns:
@@ -664,7 +664,7 @@ class Trees(BaseMixer):
         the predict_weights function.
 
         Parameters:
-        ----------
+        -----------
         :param int xdim: index of the column to plot against the predictions.
 
         Returns:
@@ -1093,5 +1093,3 @@ class Trees(BaseMixer):
             if self.diffwtsprior:
                 np.savetxt(str(self.fpath / Path(self.wproot)),
                            np.concatenate(self.betavec, self.tauvec), fmt='%.7f')
-
-

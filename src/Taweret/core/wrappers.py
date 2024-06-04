@@ -13,8 +13,8 @@ References:
 
 """
 
-from Taweret.mix.linear import linear_mix as LM
-from Taweret.mix.trees import trees_mix as TM
+from Taweret.mix.bivariate_linear import linear_mix as LM  # TODO: needs fixing, things have moved
+from Taweret.mix.trees import trees_mix as TM              # TODO: needs fixing, things have moved
 
 # Dictionary containing all implemented methods
 IMPLEMENTED_MIXERS = {

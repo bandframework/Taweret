@@ -27,7 +27,7 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
         Methods:
         --------
         log_likelihood(self)
-            calculates the log likelihood for the parameter values specefied in
+            calculates the log likelihood for the parameter values specified in
             the wrapper object.
         """
 

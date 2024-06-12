@@ -889,9 +889,10 @@ class Trees(BaseMixer):
                                         capture_output=True)
                 else:
                     # Shell command for MPI with google colab
-                    full_cmd = "mpirun --allow-run-as-root" + \ 
-                    " --oversubscribe -np " + \
-                        str(self.tc) + " " + cmd + " " + str(self.fpath)
+                    full_cmd = "mpirun --allow-run-as-root" 
+                    full_cmd = full_cmd + " --oversubscribe -np "
+                    full_cmd = full_cmd + str(self.tc) + " " 
+                    full_cmd = full_cmd + cmd + " " + str(self.fpath)
                     os.system(full_cmd)
         else:
             if pyinstall:
@@ -922,9 +923,10 @@ class Trees(BaseMixer):
                                         capture_output=True)
                 else:
                     # Google colab with installed program
-                    full_cmd = "mpirun --allow-run-as-root" + \
-                                "--oversubscribe -np " + \
-                        str(self.tc) + " " + cmd + " " + str(self.fpath)
+                    full_cmd = "mpirun --allow-run-as-root"
+                    full_cmd = full_cmd + "--oversubscribe -np "
+                    full_cmd = full_cmd + str(self.tc) + " " 
+                    full_cmd = full_cmd + cmd + " " + str(self.fpath)
                     os.system(full_cmd)
 
     def _set_mcmc_info(self, mcmc_dict):

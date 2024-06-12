@@ -1,11 +1,9 @@
 # Name:
 # trees.py
 # Author: John Yannotty (yannotty.1@osu.edu)
-# Desc: Defines the tree mixing class, which is an interface for BART-BMM
-#
 # Start Date: 10/05/22
 # Version: 1.0
-########################################################################
+
 from logging import raiseExceptions
 import numpy as np
 import matplotlib.pyplot as plt
@@ -26,9 +24,12 @@ from Taweret.core.base_model import BaseModel
 
 class Trees(BaseMixer):
     r'''
-        Constructor for the Trees mixing class, which implements a mean-mixing strategy.
-        The weight functions are modeled using Bayesian Assitive Regression Trees (BART).
-        Please read the installation page of the documentation to ensure the BART-BMM Ubuntu
+        Constructor for the Trees mixing class, 
+        which implements a mean-mixing strategy.
+        The weight functions are modeled using 
+        Bayesian Additive Regression Trees (BART).
+        Please read the installation page of the 
+        documentation to ensure the BART-BMM Ubuntu
         package is downloaded and installed.
 
         .. math::
@@ -43,14 +44,16 @@ class Trees(BaseMixer):
             mix = Trees(model_dict = model_dict)
 
             # Set prior information
-            mix.set_prior(k=2.5,ntree=30,overallnu=5,overallsd=0.01,inform_prior=False)
+            mix.set_prior(k=2.5,ntree=30,overallnu=5,
+            overallsd=0.01,inform_prior=False)
 
             # Train the model
-            fit = mix.train(X=x_train, y=y_train, ndpost = 10000, nadapt = 2000, nskip = 2000, adaptevery = 500, minnumbot = 4)
+            fit = mix.train(X=x_train, y=y_train, ndpost = 10000, 
+            nadapt = 2000, nskip = 2000, adaptevery = 500, minnumbot = 4)
 
             # Get predictions and posterior weight functions.
             ppost, pmean, pci, pstd = mix.predict(X = x_test, ci = 0.95)
-            wpost, wmean, wci, wstd = mix.predict_weights(X = x_test, ci = 0.95)
+            wpost, wmean, wci, wstd = mix.predict_weights(X=x_test,ci = 0.95)
 
     '''
 
@@ -60,7 +63,8 @@ class Trees(BaseMixer):
         Parameters:
         -----------
         :param dict model_dict:
-            Dictionary of models where each item is an instance of BaseModel.
+            Dictionary of models where each item is an 
+            instance of BaseModel.
 
         :param dict kwargs:
             Additional arguments to pass to the constructor.
@@ -182,8 +186,8 @@ class Trees(BaseMixer):
     @property
     def prior(self):
         '''
-        Returns a dictionary of the hyperparameter settings used in the various
-        prior distributions.
+        Returns a dictionary of the hyperparameter settings used in the 
+        various prior distributions.
 
         Parameters:
         -----------
@@ -235,7 +239,8 @@ class Trees(BaseMixer):
             betavec: bool = None):
         '''
         Sets the hyperparameters in the tree and terminal node priors. Also
-        specifies if an informative or non-informative prior will be used when mixing EFTs.
+        specifies if an informative or non-informative prior will be used 
+        when mixing EFTs.
 
         Parameters:
         -----------
@@ -255,15 +260,17 @@ class Trees(BaseMixer):
             The base parameter in the tree prior.
         :param float overallsd:
             An initial estimate of the erorr standard deviation.
-            This value is used to calibrate the scale parameter in variance prior.
+            This value is used to calibrate the scale parameter in 
+            variance prior.
         :param float overallnu:
             The shape parameter in the error variance prior.
         :param bool inform_prior:
-            Controls if the informative or non-informative prior is used.
+            Controls if the informative or non-informative prior 
+            is used.
             Specify true for the informative prior.
         :param np.ndarray tauvec:
-            A K-dimensional array (where K is the number of models) that
-            contains the prior standard deviation of the terminal node
+            A K-dimensional array (where K is the number of models) 
+            that contains the prior standard deviation of the terminal node
             parameter priors. This is used when specifying different
             priors for the different model weights.
         :param np.ndarray betavec:
@@ -278,7 +285,6 @@ class Trees(BaseMixer):
 
         '''
         # Extract arguments
-        # valid_prior_args = ['ntree', 'ntreeh', 'k','power','base','overallsd','overallnu','inform_prior','tauvec', 'betavec']
         prior_dict = {
             'ntree': ntree,
             'ntreeh': ntreeh,
@@ -304,7 +310,7 @@ class Trees(BaseMixer):
                                               "pbd", "pb", "stepwpert",
                                               "probchv", "minnumbot"]]
 
-        # Quality check for wtsprior argument -- if both vecs are populated
+        # Quality check for wtsprior if both vecs are populated
         # then set diffwtsprior
         if (tauvec is not None) and (betavec is not None):
             self.diffwtsprior = True
@@ -334,10 +340,11 @@ class Trees(BaseMixer):
 
         Returns:
         --------
-        :returns: A dictionary which contains relevant information to the model such as
-            values of tuning parameters. The MCMC results are written to a text file
-            and stored in a temporary directory as defined by the fpath key in the
-            results dictionary.
+        :returns: A dictionary which contains relevant information to the 
+        model such as values of tuning parameters. 
+        The MCMC results are written to a text file 
+        and stored in a temporary directory as defined 
+        by the fpath key in the results dictionary.
         :rtype: dict
 
         '''
@@ -354,7 +361,7 @@ class Trees(BaseMixer):
         if len(y.shape) == 1:
             y = y.reshape(y.shape[0], 1)
 
-        # Get number of observations and the number of columns in design matrix
+        # Get number of observations and the number of columns in design
         if X.shape[0] == y.shape[0]:
             self.n = X.shape[0]
             self.p = X.shape[1]
@@ -381,8 +388,8 @@ class Trees(BaseMixer):
 
         # Set the rest of the data
         self.y_train = y
-        # Reshape X_train to be pxn --- keeping this to remain in sync with
-        # remainder of code
+        # Reshape X_train to be pxn --- keeping this to remain in sync 
+        # with remainder of code
         self.X_train = np.transpose(X)
 
         # Overwrite any default parameters
@@ -431,7 +438,8 @@ class Trees(BaseMixer):
             res[key] = self.__dict__[key]
         # res['minx'] = self.minx; res['maxx'] = self.maxx
 
-        # Get predictions at training points -- more importanlty, get the posterior of sigma
+        # Get predictions at training points -- more importanlty, 
+        # get the posterior of sigma
         # ci level doesn't matter here, all we want is the posterior
         train_post, train_mean, train_ci, train_sd = self.predict(X, ci=0.68)
         if self.ntreeh == 1:
@@ -445,22 +453,26 @@ class Trees(BaseMixer):
 
     def predict(self, X: np.ndarray, ci: float = 0.95):
         '''
-        Obtain the posterior predictive distribution of the mixed-model at a set
-        of inputs X.
+        Obtain the posterior predictive distribution of the mixed-model 
+        at a set of inputs X.
 
         Parameters:
         -----------
         :param np.ndarray X: design matrix of testing inputs.
-        :param float ci: credible interval width, must be a value within the interval (0,1).
+        :param float ci: credible interval width, must be a value 
+                within the interval (0,1).
 
         Returns:
         --------
         :returns: The posterior prediction draws and summaries.
         :rtype: np.ndarray, np.ndarray, np.ndarray, np.ndarray
-        :return value: the posterior predictive distribution evaluated at the specified test points
-        :return value: the posterior mean of the mixed-model at each input in X.
+        :return value: the posterior predictive distribution 
+                evaluated at the specified test points
+        :return value: the posterior mean of the mixed-model 
+                at each input in X.
         :return value: the pointwise credible intervals at each input in X.
-        :return value: the posterior standard deviation of the mixed-model at each input in X.
+        :return value: the posterior standard deviation of the 
+                mixed-model at each input in X.
         '''
 
         # Set q_lower and q_upper
@@ -520,7 +532,7 @@ class Trees(BaseMixer):
         cmd = "openbtpred"
         self._run_model(cmd)
         self._read_in_preds()
-        self._is_predict_run = True  # mark that the predict function has been called
+        self._is_predict_run = True  # mark that predict was called
 
         # Get results
         pred_post = self.mdraws
@@ -543,16 +555,21 @@ class Trees(BaseMixer):
         Parameters:
         -----------
         :param np.ndarray X: design matrix of testing inputs.
-        :param float ci: credible interval width, must be a value within the interval (0,1).
+        :param float ci: credible interval width, must be a value 
+                within the interval (0,1).
 
         Returns:
         --------
         :returns: The posterior weight function draws and summaries.
         :rtype: np.ndarray, np.ndarray, np.ndarray, np.ndarray
-        :return value: the posterior draws of the weight functions at each input in X.
-        :return value: posterior mean of the weight functions at each input in X.
-        :return value: pointwise credible intervals for the weight functions.
-        :return value: posterior standard deviation of the weight functions at each input in X.
+        :return value: the posterior draws of the weight functions 
+                at each input in X.
+        :return value: posterior mean of the weight functions at 
+                each input in X.
+        :return value: pointwise credible intervals for 
+                the weight functions.
+        :return value: posterior standard deviation of 
+                the weight functions at each input in X.
         '''
 
         # Set q_lower and q_upper
@@ -563,19 +580,18 @@ class Trees(BaseMixer):
         # Checks for proper inputs and convert lists to arrays
         if not self.modeltype == 9:
             raise TypeError(
-                "Cannot call openbt.mixingwts() method for openbt objects that are not modeltype = 'mixbart'")
+                "Cannot call openbt.mixingwts() method")
         if isinstance(X, list):
             X = np.array(X)
         if (len(X.shape) == 1):
             X = X.reshape(len(X), 1)
         if not self.p == X.shape[1]:
             raise ValueError(
-                "The X array does not have the appropriate number of columns.")
+                "The X array does not have the appropriate # of columns.")
 
         # Set control parameters
         self.xwroot = "xw"
-        # default, needed when considering the general class of model mixing
-        # problems -- revist this later
+        # default, needed when considering the general class of mixing
         self.fitroot = ".fit"
         self.q_lower = q_lower
         self.q_upper = q_upper
@@ -626,7 +642,8 @@ class Trees(BaseMixer):
 
         Parameters:
         -----------
-        :param int xdim: index of the column to plot against the predictions.
+        :param int xdim: index of the column to plot against the 
+                predictions.
 
         Returns:
         --------
@@ -665,7 +682,8 @@ class Trees(BaseMixer):
 
         Parameters:
         -----------
-        :param int xdim: index of the column to plot against the predictions.
+        :param int xdim: index of the column to plot against the 
+                predictions.
 
         Returns:
         --------
@@ -750,7 +768,7 @@ class Trees(BaseMixer):
         for f in mdraw_files:
             read = open(f, "r")
             lines = read.readlines()
-            if lines[0] != '\n' and lines[1] != '\n':  # If it's nonempty
+            if lines[0] != '\n' and lines[1] != '\n':  # If nonempty
                 mdraws.append(np.loadtxt(f))
         # print(mdraws[0].shape); print(len(mdraws))
         self.mdraws = np.concatenate(
@@ -759,10 +777,9 @@ class Trees(BaseMixer):
         for f in sdraw_files:
             read = open(f, "r")
             lines = read.readlines()
-            if lines[0] != '\n' and lines[1] != '\n':  # If it's nonempty
+            if lines[0] != '\n' and lines[1] != '\n':  # If nonempty
                 sdraws.append(np.loadtxt(f))
-        # print(sdraws[0]); print(sdraws[0][0])
-        # print(len(sdraws)); print(len(sdraws[0])); print(len(sdraws[0][0]))
+
         self.sdraws = np.concatenate(
             sdraws, axis=1)  # Got rid of the transpose
 
@@ -785,10 +802,10 @@ class Trees(BaseMixer):
             self.sigma_sd[j] = np.std(self.sdraws[:, j], ddof=1)
             self.pred_5[j] = np.quantile(self.mdraws[:, j], 0.50)
             self.sigma_5[j] = np.quantile(self.sdraws[:, j], 0.50)
-            self.pred_lower[j] = np.quantile(self.mdraws[:, j], self.q_lower)
-            self.sigma_lower[j] = np.quantile(self.sdraws[:, j], self.q_lower)
-            self.pred_upper[j] = np.quantile(self.mdraws[:, j], self.q_upper)
-            self.sigma_upper[j] = np.quantile(self.sdraws[:, j], self.q_upper)
+            self.pred_lower[j] = np.quantile(self.mdraws[:, j],self.q_lower)
+            self.sigma_lower[j] = np.quantile(self.sdraws[:, j],self.q_lower)
+            self.pred_upper[j] = np.quantile(self.mdraws[:, j],self.q_upper)
+            self.sigma_upper[j] = np.quantile(self.sdraws[:, j],self.q_upper)
 
     def _read_in_wts(self):
         """
@@ -824,7 +841,7 @@ class Trees(BaseMixer):
             for j in range(len(self.wdraws[wtname][0])):
                 self.wts_mean[j][k] = np.mean(self.wdraws[wtname][:, j])
                 self.wts_sd[j][k] = np.std(self.wdraws[wtname][:, j], ddof=1)
-                self.wts_5[j][k] = np.quantile(self.wdraws[wtname][:, j], 0.50)
+                self.wts_5[j][k] = np.quantile(self.wdraws[wtname][:, j],0.50)
                 self.wts_lower[j][k] = np.quantile(
                     self.wdraws[wtname][:, j], self.q_lower)
                 self.wts_upper[j][k] = np.quantile(
@@ -855,7 +872,10 @@ class Trees(BaseMixer):
             sh = shutil.which(cmd, path=self.local_openbt_path)
             if sh is None:
                 raise FileNotFoundError(
-                    "Cannot find openbt executables. Please specify the path using the argument local_openbt_path in the constructor.")
+                    "Cannot find openbt executables." + 
+                        "Please specify the path using the argument" + 
+                        "local_openbt_path in the constructor."
+                )
             else:
                 cmd = sh
                 if not self.google_colab:
@@ -869,14 +889,13 @@ class Trees(BaseMixer):
                                         capture_output=True)
                 else:
                     # Shell command for MPI with google colab
-                    full_cmd = "mpirun --allow-run-as-root --oversubscribe -np " + \
+                    full_cmd = "mpirun --allow-run-as-root" + \ 
+                    " --oversubscribe -np " + \
                         str(self.tc) + " " + cmd + " " + str(self.fpath)
                     os.system(full_cmd)
         else:
             if pyinstall:
                 # MPI with local program
-                #os.system("ldd /home/johnyannotty/Documents/Taweret/test_env/lib/python3.8/site-packages/openbtmixing/.libs/openbtcli")
-                #os.environ['LD_LIBRARY_PATH'] = "/home/johnyannotty/Documents/Taweret/test_env/lib/python3.8/site-packages/openbtmixing/.libs/"
                 libdir = "/".join(sh.split("/")[:-1]) + "/.libs/"
                 os.environ['LD_LIBRARY_PATH'] = libdir
                 os.environ['DYLD_LIBRARY_PATH'] = libdir
@@ -903,7 +922,8 @@ class Trees(BaseMixer):
                                         capture_output=True)
                 else:
                     # Google colab with installed program
-                    full_cmd = "mpirun --allow-run-as-root --oversubscribe -np " + \
+                    full_cmd = "mpirun --allow-run-as-root" + \
+                                "--oversubscribe -np " + \
                         str(self.tc) + " " + cmd + " " + str(self.fpath)
                     os.system(full_cmd)
 
@@ -940,7 +960,7 @@ class Trees(BaseMixer):
                 self.xi[feat] = [
                     np.arange(1, (self.numcut) + 1) * xinc + minx[feat]]
 
-        # Birth and Death probability -- set product tree pbd to 0 for selected
+        # Birth and Death probability -- 
         # models
         if (isinstance(self.pbd, float)):
             self.pbd = [self.pbd, 0]
@@ -964,7 +984,7 @@ class Trees(BaseMixer):
         if not (len(tauvec) == self.nummodels and len(
                 betavec) == self.nummodels):
             raise ValueError(
-                "Incorrect vector length for tauvec and/or betavec. Lengths must be equal to the number of models.")
+                "Incorrect vector length for tauvec and/or betavec")
 
         # Store the hyperparameters passed in
         self.diffwtsprior = True
@@ -996,7 +1016,8 @@ class Trees(BaseMixer):
         int_added = 0 if var in ["xp", "fp", "xw"] else 1
 
         for i, ch in enumerate(splitted_data):
-            np.savetxt(str(self.fpath / Path(self.__dict__[var + "root"] + str(i + int_added))),
+            np.savetxt(str(self.fpath / Path(self.__dict__[var + "root"] + \ 
+                                             str(i + int_added))),
                        ch, fmt=args[0])
 
     # Need to generalize -- this is only used in fit
@@ -1080,7 +1101,7 @@ class Trees(BaseMixer):
 
         for k, v in self.xi.items():
             np.savetxt(
-                str(self.fpath / Path(self.xiroot + str(k + 1))), v, fmt='%.7f')
+                str(self.fpath/Path(self.xiroot+str(k + 1))),v,fmt='%.7f')
 
         # Write model mixing files
         if self.modeltype == 9:
@@ -1092,4 +1113,4 @@ class Trees(BaseMixer):
             # Wts prior when passed in
             if self.diffwtsprior:
                 np.savetxt(str(self.fpath / Path(self.wproot)),
-                           np.concatenate(self.betavec, self.tauvec), fmt='%.7f')
+                        np.concatenate(self.betavec,self.tauvec),fmt='%.7f')

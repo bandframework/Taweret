@@ -1018,9 +1018,11 @@ class Trees(BaseMixer):
         int_added = 0 if var in ["xp", "fp", "xw"] else 1
 
         for i, ch in enumerate(splitted_data):
-            np.savetxt(str(self.fpath / Path(self.__dict__[var + "root"] + \ 
-                                             str(i + int_added))),
-                       ch, fmt=args[0])
+            np.savetxt(
+            str(self.fpath / Path(
+                self.__dict__[var + "root"]+str(i + int_added))),
+                ch, fmt=args[0]
+            )
 
     # Need to generalize -- this is only used in fit
 

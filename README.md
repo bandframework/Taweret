@@ -2,6 +2,7 @@
 
 # Taweret
 [![codecov](https://codecov.io/gh/bandframework/Taweret/graph/badge.svg?token=BQ7ZAD5ONP)](https://codecov.io/gh/bandframework/Taweret)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.06175/status.svg)](https://doi.org/10.21105/joss.06175)
 
 <img align="right" width="200" src="logos/taweret_logo.PNG">
 

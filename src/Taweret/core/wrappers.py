@@ -1,18 +1,20 @@
 """
 Name: wrappers.py
 Author: John Yannotty (yannotty.1@osu.edu)
-Desc: Defines classes to wrap the BAND mixing and calibration methods. Inspired by biliby documentation
-    (see repo: bilby/bilby/core/sampler/__init__.py)
+Desc: Defines classes to wrap the BAND mixing and
+calibration methods. Inspired by biliby documentation
+(see repo: bilby/bilby/core/sampler/__init__.py)
 
 Start Date: 10/05/22
 Version: 1.0
 References:
-    https://github.com/lscsoft/bilby/blob/master/bilby/core/sampler/__init__.py
+    https://github.com/lscsoft/bilby/blob\
+        /master/bilby/core/sampler/__init__.py
 
 """
 
-from Taweret.mix.linear import linear_mix as LM
-from Taweret.mix.trees import trees_mix as TM
+from Taweret.mix.bivariate_linear import linear_mix as LM  # TODO: needs fixing, things have moved
+from Taweret.mix.trees import trees_mix as TM              # TODO: needs fixing, things have moved
 
 # Dictionary containing all implemented methods
 IMPLEMENTED_MIXERS = {
@@ -81,7 +83,9 @@ def mixing(
 #     if not (key in data.keys()):
 #         data.update({key:None})
 
-# # Check if any extra data keys have been passed (not model specific at this stage)
+# # Check if any extra data keys have been passed (not model specific at \
+#   this stage)
 # for in_key in data.keys():
 #     if not (in_key in data_keys):
-#         raise KeyError("An extra data key was passed. Valid keys include..." + ", ".join(data_keys))
+#         raise KeyError("An extra data key was passed. \
+#                         Valid keys include..." + ", ".join(data_keys))

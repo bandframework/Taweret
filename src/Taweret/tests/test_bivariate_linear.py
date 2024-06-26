@@ -20,22 +20,11 @@ dirname = os.popen("find $PWD -type f -name test_bivariate_linear.py").read()
 taweret_wd = dirname.split("test")[0]
 sys.path.append(taweret_wd)
 
-from pytest import approx
-import pytest
 import numpy as np
 import bilby
 from pytest import approx
 from Taweret.models import coleman_models as toy_models
 from Taweret.mix.bivariate_linear import BivariateLinear as BL
-
-
-# sys.path.append('../Taweret')
-# sys.path.append("../../Taweret")
-
-# import sys
-# sys.path.append("/Users/dananjayaliyanage/temp/Taweret")
-# sys.path.append('../Taweret')
-
 
 # Import coleman models
 
@@ -143,7 +132,7 @@ def L_BMMcor(delta_y1, delta_y2, Cov, w):
 
 
 def L_BMMmean(delta_y1, delta_y2, Cov, w):
-   # W_1, W_2 = W_matrices(w)
+    # W_1, W_2 = W_matrices(w)
     delta1 = w * delta_y1
     delta2 = (1 - w) * delta_y2
 
@@ -188,6 +177,7 @@ def test_BMMC():
     # print(log_like_from_test)
 
     log_like_from_test = approx(log_lik_from_taweret_model)
+    assert log_like_from_test != 0.0, "log likelihood is zero"
 
 
 def test_BMMcor():
@@ -207,6 +197,7 @@ def test_BMMcor():
     # print(log_like_from_test)
 
     log_like_from_test = approx(log_lik_from_taweret_model)
+    assert log_like_from_test != 0.0, "log likelihood is zero"
 
 
 def test_BMMmean():
@@ -226,6 +217,7 @@ def test_BMMmean():
     # print(log_like_from_test)
 
     log_like_from_test = approx(log_lik_from_taweret_model)
+    assert log_like_from_test != 0.0, "log likelihood is zero"
 
 # def test_three_mixing_methods():
 #     for i, model in enumerate(mix_models):
@@ -244,6 +236,6 @@ def test_BMMmean():
 
 #         log_like_from_test = approx(log_lik_from_taweret_model)
 #         # assert np.allclose(log_lik_from_taweret_model, log_like_from_test,
-#         #                    "log likelihood calculated in test are different\
-#         #                      from taweret bivariate linear methods")
-
+#         #                    "log likelihood calculated in test are \
+#                              different from taweret bivariate \
+#                              linear methods")

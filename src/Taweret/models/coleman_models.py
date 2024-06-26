@@ -1,7 +1,7 @@
 import numpy as np
 from Taweret.core.base_model import BaseModel
-from Taweret.utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
-from Taweret.utils.utils import normed_mvn_loglike
+from Taweret.utils.utils import normal_log_likelihood_elementwise \
+    as log_likelihood_elementwise_utils
 import bilby
 
 
@@ -49,7 +49,8 @@ class coleman_model_1(BaseModel):
         return log_likelihood_elementwise_utils(
             self, x_exp, y_exp, y_err, model_param)
 
-    # def log_likelihood(self, x_exp, y_exp_all, y_err_all, W, model_param=None):
+    # def log_likelihood(self, x_exp, y_exp_all, y_err_all, W,
+    # model_param=None):
     #     """
     # Calculate Normal log likelihood for all centrality in x_exp with
     # weights.
@@ -69,8 +70,10 @@ class coleman_model_1(BaseModel):
     #     predictions, model_errs = self.evaluate(x_exp, model_param)
     #     x_exp = x_exp.flatten()
     #     if len(x_exp)!=y_exp_all.shape[0]:
-    #         raise Exception(f'Dimensionality mistmach between x_exp and y_exp')
-    #     #Since the y_Exp_all has the shape of n_centralities * n_observabl_types
+    #         raise Exception(f'Dimensionality mistmach between x_exp and
+    #         y_exp')
+    #     #Since the y_Exp_all has the shape of n_centralities *
+    #     n_observabl_types
     #     weights = []
     #     for w in W:
     #         weights.append(w*np.ones(y_exp_all.shape[1]))
@@ -160,7 +163,8 @@ class coleman_model_2(BaseModel):
         return log_likelihood_elementwise_utils(
             self, x_exp, y_exp, y_err, model_param)
 
-    # def log_likelihood(self, x_exp, y_exp_all, y_err_all, W, model_param=None):
+    # def log_likelihood(self, x_exp, y_exp_all, y_err_all, W,
+    #      model_param=None):
     #     """
     # Calculate Normal log likelihood for all centrality in x_exp with
     # weights.
@@ -180,8 +184,10 @@ class coleman_model_2(BaseModel):
     #     predictions, model_errs = self.evaluate(x_exp, model_param)
     #     x_exp = x_exp.flatten()
     #     if len(x_exp)!=y_exp_all.shape[0]:
-    #         raise Exception(f'Dimensionality mistmach between x_exp and y_exp')
-    #     #Since the y_Exp_all has the shape of n_centralities * n_observabl_types
+    #         raise Exception(f'Dimensionality mistmach between x_exp
+    #         and y_exp')
+    #     #Since the y_Exp_all has the shape of n_centralities *
+    #      n_observabl_types
     #     weights = []
     #     for w in W:
     #         weights.append(w*np.ones(y_exp_all.shape[1]))

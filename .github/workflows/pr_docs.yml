@@ -1,25 +1,21 @@
-name: Sphinx docs to gh-pages
+name: Test doc builds into develop
 env:
   CLONE_PATH: ${{ github.workspace }}
   HTML_DOCS:  ${{ github.workspace }}/docs/build_html
+  PDF_DOCS:   ${{ github.workspace }}/docs/build_pdf
 on:
   pull_request:
     branches:
+      - main
       - develop
-#  push:
-#    branches:
-#      - main
-
-# workflow_dispatch:        # Un comment line if you also want to trigger action manually
 
 jobs:
-  sphinx_docs_to_gh-pages:
+  build:
     strategy:
       matrix:
         os: [ubuntu-latest]
         python-version: ["3.12"]
     runs-on: ${{ matrix.os }}
-    name: Sphinx docs to gh-pages
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python ${{ matrix.python-version }}
@@ -36,18 +32,12 @@ jobs:
       - name: Build Sphinx documentation
         run: |
           pushd $CLONE_PATH
-          tox -r -e html
+          tox -r -e html,pdf
           popd
       - name: Archive HTML-format docs
         uses: actions/upload-artifact@v4
         with:
-          name: html-docs
-          path: ${{ env.HTML_DOCS }}
-#      - name: Running the Sphinx to gh-pages Action
-#        uses: uibcdf/action-sphinx-docs-to-gh-pages@v1.0.0
-#        with:
-#          branch: main
-#          dir_docs: docs/source
-#          sphinxapiopts: '--separate -f -E --implicit-namespaces -l -o . ../'
-#          sphinxapiexclude: '../*setup* ../*.ipynb'
-#          sphinxopts: ''
+          name: documentation
+          path: |
+            ${{ env.HTML_DOCS }}
+            ${{ env.PDF_DOCS }}

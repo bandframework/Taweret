@@ -341,12 +341,10 @@ class Trees(BaseMixer):
         Returns:
         --------
         :returns: A dictionary which contains relevant information to the 
-        model such as values of tuning parameters. 
-        The MCMC results are written to a text file 
-        and stored in a temporary directory as defined 
-        by the fpath key in the results dictionary.
+            model such as values of tuning parameters.  The MCMC results are
+            written to a text file and stored in a temporary directory as
+            defined by the fpath key in the results dictionary.
         :rtype: dict
-
         '''
         # Cast data to arrays if not already and reshape if needed
         if isinstance(X, list):

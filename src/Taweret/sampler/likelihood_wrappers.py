@@ -6,7 +6,6 @@ import numpy as np
 
 class likelihood_wrapper_for_bilby(bilby.Likelihood):
 
-
     def __init__(self, mixed_model, x_exp, y_exp, y_err):
 
         """
@@ -23,7 +22,7 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
             The dependent variables for the data.
         y_err : array
             The error bands on the data.
-            
+
         Methods:
         --------
         log_likelihood(self)

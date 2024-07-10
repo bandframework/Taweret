@@ -24,11 +24,11 @@ from Taweret.core.base_model import BaseModel
 
 class Trees(BaseMixer):
     r'''
-        Constructor for the Trees mixing class, 
+        Constructor for the Trees mixing class,
         which implements a mean-mixing strategy.
-        The weight functions are modeled using 
+        The weight functions are modeled using
         Bayesian Additive Regression Trees (BART).
-        Please read the installation page of the 
+        Please read the installation page of the
         documentation to ensure the BART-BMM Ubuntu
         package is downloaded and installed.
 
@@ -48,7 +48,7 @@ class Trees(BaseMixer):
             overallsd=0.01,inform_prior=False)
 
             # Train the model
-            fit = mix.train(X=x_train, y=y_train, ndpost = 10000, 
+            fit = mix.train(X=x_train, y=y_train, ndpost = 10000,
             nadapt = 2000, nskip = 2000, adaptevery = 500, minnumbot = 4)
 
             # Get predictions and posterior weight functions.
@@ -63,7 +63,7 @@ class Trees(BaseMixer):
         Parameters:
         -----------
         :param dict model_dict:
-            Dictionary of models where each item is an 
+            Dictionary of models where each item is an
             instance of BaseModel.
 
         :param dict kwargs:
@@ -186,7 +186,7 @@ class Trees(BaseMixer):
     @property
     def prior(self):
         '''
-        Returns a dictionary of the hyperparameter settings used in the 
+        Returns a dictionary of the hyperparameter settings used in the
         various prior distributions.
 
         Parameters:
@@ -239,7 +239,7 @@ class Trees(BaseMixer):
             betavec: bool = None):
         '''
         Sets the hyperparameters in the tree and terminal node priors. Also
-        specifies if an informative or non-informative prior will be used 
+        specifies if an informative or non-informative prior will be used
         when mixing EFTs.
 
         Parameters:
@@ -260,16 +260,16 @@ class Trees(BaseMixer):
             The base parameter in the tree prior.
         :param float overallsd:
             An initial estimate of the erorr standard deviation.
-            This value is used to calibrate the scale parameter in 
+            This value is used to calibrate the scale parameter in
             variance prior.
         :param float overallnu:
             The shape parameter in the error variance prior.
         :param bool inform_prior:
-            Controls if the informative or non-informative prior 
+            Controls if the informative or non-informative prior
             is used.
             Specify true for the informative prior.
         :param np.ndarray tauvec:
-            A K-dimensional array (where K is the number of models) 
+            A K-dimensional array (where K is the number of models)
             that contains the prior standard deviation of the terminal node
             parameter priors. This is used when specifying different
             priors for the different model weights.
@@ -340,7 +340,7 @@ class Trees(BaseMixer):
 
         Returns:
         --------
-        :returns: A dictionary which contains relevant information to the 
+        :returns: A dictionary which contains relevant information to the
             model such as values of tuning parameters.  The MCMC results are
             written to a text file and stored in a temporary directory as
             defined by the fpath key in the results dictionary.
@@ -386,7 +386,7 @@ class Trees(BaseMixer):
 
         # Set the rest of the data
         self.y_train = y
-        # Reshape X_train to be pxn --- keeping this to remain in sync 
+        # Reshape X_train to be pxn --- keeping this to remain in sync
         # with remainder of code
         self.X_train = np.transpose(X)
 
@@ -436,7 +436,7 @@ class Trees(BaseMixer):
             res[key] = self.__dict__[key]
         # res['minx'] = self.minx; res['maxx'] = self.maxx
 
-        # Get predictions at training points -- more importanlty, 
+        # Get predictions at training points -- more importanlty,
         # get the posterior of sigma
         # ci level doesn't matter here, all we want is the posterior
         train_post, train_mean, train_ci, train_sd = self.predict(X, ci=0.68)
@@ -451,25 +451,25 @@ class Trees(BaseMixer):
 
     def predict(self, X: np.ndarray, ci: float = 0.95):
         '''
-        Obtain the posterior predictive distribution of the mixed-model 
+        Obtain the posterior predictive distribution of the mixed-model
         at a set of inputs X.
 
         Parameters:
         -----------
         :param np.ndarray X: design matrix of testing inputs.
-        :param float ci: credible interval width, must be a value 
+        :param float ci: credible interval width, must be a value
                 within the interval (0,1).
 
         Returns:
         --------
         :returns: The posterior prediction draws and summaries.
         :rtype: np.ndarray, np.ndarray, np.ndarray, np.ndarray
-        :return value: the posterior predictive distribution 
+        :return value: the posterior predictive distribution
                 evaluated at the specified test points
-        :return value: the posterior mean of the mixed-model 
+        :return value: the posterior mean of the mixed-model
                 at each input in X.
         :return value: the pointwise credible intervals at each input in X.
-        :return value: the posterior standard deviation of the 
+        :return value: the posterior standard deviation of the
                 mixed-model at each input in X.
         '''
 
@@ -553,20 +553,20 @@ class Trees(BaseMixer):
         Parameters:
         -----------
         :param np.ndarray X: design matrix of testing inputs.
-        :param float ci: credible interval width, must be a value 
+        :param float ci: credible interval width, must be a value
                 within the interval (0,1).
 
         Returns:
         --------
         :returns: The posterior weight function draws and summaries.
         :rtype: np.ndarray, np.ndarray, np.ndarray, np.ndarray
-        :return value: the posterior draws of the weight functions 
+        :return value: the posterior draws of the weight functions
                 at each input in X.
-        :return value: posterior mean of the weight functions at 
+        :return value: posterior mean of the weight functions at
                 each input in X.
-        :return value: pointwise credible intervals for 
+        :return value: pointwise credible intervals for
                 the weight functions.
-        :return value: posterior standard deviation of 
+        :return value: posterior standard deviation of
                 the weight functions at each input in X.
         '''
 
@@ -640,7 +640,7 @@ class Trees(BaseMixer):
 
         Parameters:
         -----------
-        :param int xdim: index of the column to plot against the 
+        :param int xdim: index of the column to plot against the
                 predictions.
 
         Returns:
@@ -680,7 +680,7 @@ class Trees(BaseMixer):
 
         Parameters:
         -----------
-        :param int xdim: index of the column to plot against the 
+        :param int xdim: index of the column to plot against the
                 predictions.
 
         Returns:
@@ -800,10 +800,10 @@ class Trees(BaseMixer):
             self.sigma_sd[j] = np.std(self.sdraws[:, j], ddof=1)
             self.pred_5[j] = np.quantile(self.mdraws[:, j], 0.50)
             self.sigma_5[j] = np.quantile(self.sdraws[:, j], 0.50)
-            self.pred_lower[j] = np.quantile(self.mdraws[:, j],self.q_lower)
-            self.sigma_lower[j] = np.quantile(self.sdraws[:, j],self.q_lower)
-            self.pred_upper[j] = np.quantile(self.mdraws[:, j],self.q_upper)
-            self.sigma_upper[j] = np.quantile(self.sdraws[:, j],self.q_upper)
+            self.pred_lower[j] = np.quantile(self.mdraws[:, j], self.q_lower)
+            self.sigma_lower[j] = np.quantile(self.sdraws[:, j], self.q_lower)
+            self.pred_upper[j] = np.quantile(self.mdraws[:, j], self.q_upper)
+            self.sigma_upper[j] = np.quantile(self.sdraws[:, j], self.q_upper)
 
     def _read_in_wts(self):
         """
@@ -839,7 +839,7 @@ class Trees(BaseMixer):
             for j in range(len(self.wdraws[wtname][0])):
                 self.wts_mean[j][k] = np.mean(self.wdraws[wtname][:, j])
                 self.wts_sd[j][k] = np.std(self.wdraws[wtname][:, j], ddof=1)
-                self.wts_5[j][k] = np.quantile(self.wdraws[wtname][:, j],0.50)
+                self.wts_5[j][k] = np.quantile(self.wdraws[wtname][:, j], 0.50)
                 self.wts_lower[j][k] = np.quantile(
                     self.wdraws[wtname][:, j], self.q_lower)
                 self.wts_upper[j][k] = np.quantile(
@@ -858,7 +858,7 @@ class Trees(BaseMixer):
         if sh is None:
             pywhl_path = os.popen("pip show openbtmixing").read()
             pywhl_path = pywhl_path.split("Location: ")
-            if len(pywhl_path)>1:
+            if len(pywhl_path) > 1:
                 pywhl_path = pywhl_path[1].split("\n")[0] + "/openbtmixing"
                 sh = shutil.which(cmd, path=pywhl_path)
                 pyinstall = True
@@ -870,9 +870,9 @@ class Trees(BaseMixer):
             sh = shutil.which(cmd, path=self.local_openbt_path)
             if sh is None:
                 raise FileNotFoundError(
-                    "Cannot find openbt executables." + 
-                        "Please specify the path using the argument" + 
-                        "local_openbt_path in the constructor."
+                    "Cannot find openbt executables." +
+                    "Please specify the path using the argument" +
+                    "local_openbt_path in the constructor."
                 )
             else:
                 cmd = sh
@@ -887,9 +887,9 @@ class Trees(BaseMixer):
                                         capture_output=True)
                 else:
                     # Shell command for MPI with google colab
-                    full_cmd = "mpirun --allow-run-as-root" 
+                    full_cmd = "mpirun --allow-run-as-root"
                     full_cmd = full_cmd + " --oversubscribe -np "
-                    full_cmd = full_cmd + str(self.tc) + " " 
+                    full_cmd = full_cmd + str(self.tc) + " "
                     full_cmd = full_cmd + cmd + " " + str(self.fpath)
                     os.system(full_cmd)
         else:
@@ -902,10 +902,10 @@ class Trees(BaseMixer):
                 print(libdir)
                 print(cmd)
                 sp = subprocess.run(["mpirun",
-                                        "-np",
-                                        str(self.tc),
-                                        cmd,
-                                        str(self.fpath)],
+                                     "-np",
+                                     str(self.tc),
+                                     cmd,
+                                     str(self.fpath)],
                                     stdin=subprocess.DEVNULL,
                                     capture_output=True)
                 print(sp)
@@ -913,17 +913,17 @@ class Trees(BaseMixer):
                 if not self.google_colab:
                     # MPI with installed .exe
                     sp = subprocess.run(["mpirun",
-                                        "-np",
-                                        str(self.tc),
-                                        cmd,
-                                        str(self.fpath)],
+                                         "-np",
+                                         str(self.tc),
+                                         cmd,
+                                         str(self.fpath)],
                                         stdin=subprocess.DEVNULL,
                                         capture_output=True)
                 else:
                     # Google colab with installed program
                     full_cmd = "mpirun --allow-run-as-root"
                     full_cmd = full_cmd + "--oversubscribe -np "
-                    full_cmd = full_cmd + str(self.tc) + " " 
+                    full_cmd = full_cmd + str(self.tc) + " "
                     full_cmd = full_cmd + cmd + " " + str(self.fpath)
                     os.system(full_cmd)
 
@@ -960,7 +960,7 @@ class Trees(BaseMixer):
                 self.xi[feat] = [
                     np.arange(1, (self.numcut) + 1) * xinc + minx[feat]]
 
-        # Birth and Death probability -- 
+        # Birth and Death probability --
         # models
         if (isinstance(self.pbd, float)):
             self.pbd = [self.pbd, 0]
@@ -1017,8 +1017,8 @@ class Trees(BaseMixer):
 
         for i, ch in enumerate(splitted_data):
             np.savetxt(
-            str(self.fpath / Path(
-                self.__dict__[var + "root"]+str(i + int_added))),
+                str(self.fpath / Path(
+                    self.__dict__[var + "root"]+str(i + int_added))),
                 ch, fmt=args[0]
             )
 
@@ -1103,7 +1103,7 @@ class Trees(BaseMixer):
 
         for k, v in self.xi.items():
             np.savetxt(
-                str(self.fpath/Path(self.xiroot+str(k + 1))),v,fmt='%.7f')
+                str(self.fpath/Path(self.xiroot+str(k + 1))), v, fmt='%.7f')
 
         # Write model mixing files
         if self.modeltype == 9:
@@ -1115,4 +1115,4 @@ class Trees(BaseMixer):
             # Wts prior when passed in
             if self.diffwtsprior:
                 np.savetxt(str(self.fpath / Path(self.wproot)),
-                        np.concatenate(self.betavec,self.tauvec),fmt='%.7f')
+                           np.concatenate(self.betavec, self.tauvec), fmt='%.7f')

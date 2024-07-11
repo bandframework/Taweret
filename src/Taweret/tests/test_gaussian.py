@@ -6,18 +6,18 @@
 # Date: 03 April 2023
 ###########################################################
 
-import sys
+# import sys
 from pathlib import Path
+from Taweret.mix.gaussian import Multivariate
+from Taweret.models.samba_models import Loworder, Highorder
+import numpy as np
 
 # Set Taweret Path
 dirname = Path(__file__).absolute()
 cwd = dirname.parent
-taweret_wd = str(dirname).split("test")[0]
-sys.path.append(taweret_wd)
+# taweret_wd = str(dirname).split("test")[0]
+# sys.path.append(taweret_wd)
 
-from Taweret.mix.gaussian import Multivariate
-from Taweret.models.samba_models import Loworder, Highorder
-import numpy as np
 
 # set up the order to test at
 order = 3

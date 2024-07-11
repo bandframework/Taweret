@@ -4,7 +4,6 @@
 # Start Date: 10/05/22
 # Version: 1.0
 
-from logging import raiseExceptions
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
@@ -12,9 +11,7 @@ import subprocess
 import tempfile
 import shutil
 import os
-import typing
 
-from scipy.stats import norm
 from pathlib import Path
 from scipy.stats import spearmanr
 
@@ -648,29 +645,24 @@ class Trees(BaseMixer):
         :return: None.
         '''
         col_list = ['red', 'blue', 'green', 'purple', 'orange']
-        if self.pred_mean is None:
-            # Compute weights at training points
-            print("Getting predictions at training points by default.")
-            out_pred = self.predict(self.X_train.transpose())
-            self.X_test = self.X_train.transpose()
-
-        # Now plot the prediction -- need to improve this plot
-        fig = plt.figure(figsize=(6, 5))
-        plt.plot(self.X_test[:, xdim], self.pred_mean, color='black')
-        plt.plot(self.X_test[:, xdim], self.pred_lower,
-                 color='black', linestyle="dashed")
-        plt.plot(self.X_test[:, xdim], self.pred_upper,
-                 color='black', linestyle="dashed")
-        for i in range(self.nummodels):
-            plt.plot(self.X_test[:, xdim], self.F_test[:, i],
-                     color=col_list[i], linestyle='dotted')
-        # Recall X_train was transposed in the beginning
-        plt.scatter(self.X_train[xdim, :], self.y_train)
-        plt.title("Posterior Mean Prediction")
-        plt.xlabel("X")  # Update Label
-        plt.ylabel("F(X)")  # Update Label
-        plt.grid(True, color='lightgrey')
-        plt.show()
+        if self.pred_mean is not None:
+            # Now plot the prediction -- need to improve this plot
+            plt.figure(figsize=(6, 5))
+            plt.plot(self.X_test[:, xdim], self.pred_mean, color='black')
+            plt.plot(self.X_test[:, xdim], self.pred_lower,
+                     color='black', linestyle="dashed")
+            plt.plot(self.X_test[:, xdim], self.pred_upper,
+                     color='black', linestyle="dashed")
+            for i in range(self.nummodels):
+                plt.plot(self.X_test[:, xdim], self.F_test[:, i],
+                         color=col_list[i], linestyle='dotted')
+            # Recall X_train was transposed in the beginning
+            plt.scatter(self.X_train[xdim, :], self.y_train)
+            plt.title("Posterior Mean Prediction")
+            plt.xlabel("X")  # Update Label
+            plt.ylabel("F(X)")  # Update Label
+            plt.grid(True, color='lightgrey')
+            plt.show()
 
     def plot_weights(self, xdim: int = 0):
         '''
@@ -690,33 +682,28 @@ class Trees(BaseMixer):
         '''
         # Check if weights are already loaded
         col_list = ['red', 'blue', 'green', 'purple', 'orange']
-        if self.wts_mean is None:
-            # Compute weights at training points
-            print("Computing weights at training points by default.")
-            out_wts = self.weights(self.X_train.transpose())
-            self.X_test = self.X_train.transpose()
-
-        # Now plot the weights -- need to improve this plot
-        fig = plt.figure(figsize=(6, 5))
-        for i in range(self.nummodels):
-            plt.plot(self.X_test[:, xdim],
-                     self.wts_mean[:, i], color=col_list[i])
-            plt.plot(self.X_test[:, xdim], self.wts_lower[:, i],
-                     color=col_list[i], linestyle="dashed")
-            plt.plot(self.X_test[:, xdim], self.wts_upper[:, i],
-                     color=col_list[i], linestyle="dashed")
-        plt.title("Posterior Weight Functions")
-        plt.xlabel("X")  # Update Label
-        plt.ylabel("W(X)")  # Update Label
-        plt.grid(True, color='lightgrey')
-        plt.show()
+        if self.wts_mean is not None:
+            # Now plot the weights -- need to improve this plot
+            plt.figure(figsize=(6, 5))
+            for i in range(self.nummodels):
+                plt.plot(self.X_test[:, xdim],
+                         self.wts_mean[:, i], color=col_list[i])
+                plt.plot(self.X_test[:, xdim], self.wts_lower[:, i],
+                         color=col_list[i], linestyle="dashed")
+                plt.plot(self.X_test[:, xdim], self.wts_upper[:, i],
+                         color=col_list[i], linestyle="dashed")
+            plt.title("Posterior Weight Functions")
+            plt.xlabel("X")  # Update Label
+            plt.ylabel("W(X)")  # Update Label
+            plt.grid(True, color='lightgrey')
+            plt.show()
 
     def plot_sigma(self):
         '''
         Plot the posterior distribution of the observational error
         standard deviation.
         '''
-        fig = plt.figure(figsize=(6, 5))
+        plt.figure(figsize=(6, 5))
         plt.hist(self.posterior, zorder=2)
         plt.title("Posterior Error Standard Deviation")
         plt.xlabel("Sigma")  # Update Label
@@ -1115,4 +1102,5 @@ class Trees(BaseMixer):
             # Wts prior when passed in
             if self.diffwtsprior:
                 np.savetxt(str(self.fpath / Path(self.wproot)),
-                           np.concatenate(self.betavec, self.tauvec), fmt='%.7f')
+                           np.concatenate(self.betavec, self.tauvec),
+                           fmt='%.7f')

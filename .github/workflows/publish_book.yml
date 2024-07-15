@@ -1,0 +1,48 @@
+name: Build & publish Jupyter book
+env:
+  CLONE_PATH:    ${{ github.workspace }}
+  EXAMPLES_BOOK: ${{ github.workspace }}/docs/book/_build/html
+on:
+  push:
+    branches:
+      - 100_jupyterbook
+    workflow_dispatch:
+
+jobs:
+  build:
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.12"]
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version}}
+
+    - name: Setup python with tox
+      run: ./.github/workflows/setup_tox_github_action.sh
+
+    - name: Build Jupyter Book
+      run: |
+        pushd $CLONE_PATH/docs
+        tox -r -e book
+        popd
+
+    - name: Archive book docs Jupyter book 
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: "docs/book/_build/html"
+
+    - name: Publish Taweret Jupyter Book
+      id: deployment
+      uses: actions/deploy-pages@v2

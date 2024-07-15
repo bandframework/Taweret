@@ -1,0 +1,9 @@
+title: The Taweret Sandbox
+author: D. Liyanage, K. Ingles, A. C. Semposki, J. C. Yannotty
+logo: taweret_logo.png
+execute:
+  execute_notebooks: force
+
+# Add a bibtex file so that we can create citations
+bibtex_bibfiles:
+  - references.bib

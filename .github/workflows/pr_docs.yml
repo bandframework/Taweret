@@ -25,6 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
+          sudo apt-get install texlive-fonts-recommended texlive-latex-recommended texlive-latex-extra latexmk
           sudo apt-get -y install pandoc
       - name: Setup base Python environment
         run: |

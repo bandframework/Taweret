@@ -57,7 +57,6 @@ except ImportError as error:
     print()
     exit(_FAILURE)
 
-
 def main():
     DEFAULT_VERBOSITY = 0
     VALID_VERBOSITY = [0, 1, 2]

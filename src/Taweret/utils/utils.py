@@ -248,14 +248,12 @@ def mixture_function(
         return w, 1 - w
     elif method == 'beta':
         print('Warning: mixture_function - the `beta` choice forces a \
-              stochastic')
-        print(' likelihood to be returned after calibration')
+              stochastic likelihood to be returned after calibration')
         w = beta.rvs(*mixture_params)
         return w, 1 - w
     elif method == 'dirchlet':
         print('Warning: mixture_function - the `dirichlet` choice forces a \
-              stochastic')
-        print(' likelihood to be returned after calibration')
+              stochastic likelihood to be returned after calibration')
         w = dirichlet.rvs(mixture_params)
         return w
     elif method == 'switchcos':

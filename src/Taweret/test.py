@@ -1,5 +1,6 @@
 import pytest
 
+
 def test(verbose=0):
     """
     Run the full Taweret test suite.

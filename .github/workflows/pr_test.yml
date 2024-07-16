@@ -31,6 +31,10 @@ jobs:
              sudo apt-get update
              sudo apt-get -y install openmpi-bin
           elif [ "${{ runner.os }}" == "macOS" ]; then
+             ls -la /Library
+             ls -la /Library/Developer
+             ls -la /Library/Developer/CommandLineTools
+             xcode-select -p 
              /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
              brew install open-mpi
           fi

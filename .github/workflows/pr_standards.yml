@@ -25,4 +25,6 @@ jobs:
           $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
       - name: Check coding standards
         run: |
-          $CLONE_PATH/tools/check_flake8_compliance.sh
+          pushd $CLONE_PATH
+          tox -r -e check
+          popd

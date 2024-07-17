@@ -15,9 +15,6 @@ import numpy as np
 # Set Taweret Path
 dirname = Path(__file__).absolute()
 cwd = dirname.parent
-# taweret_wd = str(dirname).split("test")[0]
-# sys.path.append(taweret_wd)
-
 
 # set up the order to test at
 order = 3

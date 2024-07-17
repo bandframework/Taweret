@@ -27,12 +27,6 @@ except (CalledProcessError):
     print("OpenMPI is not installed")
     assert False
 
-# Set Taweret Path
-# print(os.getcwd())
-# dirname = os.popen("find $PWD -type f -name test_trees.py").read()
-# taweret_wd = dirname.split("test")[0]
-# sys.path.append(taweret_wd)
-
 _TEST_DATA = Path(__file__).parent.joinpath("bart_bmm_test_data").resolve()
 
 

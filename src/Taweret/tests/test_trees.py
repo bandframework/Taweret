@@ -80,8 +80,10 @@ def test_mixing():
         adaptevery=500,
         minnumbot=4)
 
-    # Add to satisfy .flake8
-    fit.keys()
+    # Check a few of the fit elements (only the ones that make sense)
+    assert fit["nummodels"] == 2, "number of models is wrong."
+    assert fit["pbd"] == 0.7, "check prob of birth and death"
+    assert fit["pb"] == 0.5, "check prob of birth"
 
     # Check the mcmc objects
     assert mix.ndpost == 10000, "class object ndpost is not set."

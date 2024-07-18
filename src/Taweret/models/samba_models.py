@@ -6,7 +6,8 @@
 # ##########################################################
 
 # imports
-from Taweret.utils.utils import normal_log_likelihood_elementwise as log_likelihood_elementwise_utils
+from Taweret.utils.utils import normal_log_likelihood_elementwise \
+    as log_likelihood_elementwise_utils
 from Taweret.core.base_model import BaseModel
 import numpy as np
 from scipy import special, integrate
@@ -26,8 +27,8 @@ class Loworder(BaseModel):
         The SAMBA loworder series expansion function.
         This model has been previously calibrated.
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         order : int
             Truncation order of expansion
         error_model : str
@@ -53,8 +54,8 @@ class Loworder(BaseModel):
         Evaluate the mean and standard deviation for
         given input values to the function
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         input_values : numpy 1darray
             coupling strength (g) values
 
@@ -86,7 +87,8 @@ class Loworder(BaseModel):
 
                     if k % 2 == 0:
                         low_c[k] = np.sqrt(
-                            2.0) * special.gamma(k + 0.5) * (-4.0)**(k // 2) / (math.factorial(k // 2))
+                            2.0) * special.gamma(k + 0.5) * (-4.0)**(k // 2) \
+                                / (math.factorial(k // 2))
                     else:
                         low_c[k] = 0
 
@@ -129,8 +131,9 @@ class Loworder(BaseModel):
                 for k in range(int(self.order + 2)):
 
                     if k % 2 == 0:
-                        c[k] = np.sqrt(2.0) * special.gamma(k + 0.5) * (-4.0)**(
-                            k // 2) / (math.factorial(k) * math.factorial(k // 2))
+                        c[k] = np.sqrt(2.0) * special.gamma(k + 0.5) *\
+                              (-4.0)**(k // 2) / (math.factorial(k) *
+                                                  math.factorial(k // 2))
                     else:
                         c[k] = 0.0
 
@@ -140,7 +143,8 @@ class Loworder(BaseModel):
 
                 # variance
                 var1 = (cbar)**2.0 * (math.factorial(self.order + 2)
-                                      )**2.0 * self.x**(2.0 * (self.order + 2))
+                                      )**2.0 * self.x**(2.0 *
+                                                        (self.order + 2))
 
             # model 2 for even orders
             elif self.error_model == 'informative':
@@ -153,8 +157,11 @@ class Loworder(BaseModel):
                         if k == 0:
                             c[k] = 0.0
                         else:
-                            c[k] = np.sqrt(2.0) * special.gamma(k + 0.5) * (-4.0)**(k // 2) / (
-                                math.factorial(k // 2) * math.factorial(k // 2 - 1) * 4.0**(k))
+                            c[k] = (np.sqrt(2.0) * special.gamma(k + 0.5) *
+                                    (-4.0)**(k // 2)
+                                    / (math.factorial(k // 2)
+                                       * math.factorial(k // 2 - 1)
+                                       * 4.0**(k)))
                     else:
                         c[k] = 0.0
 
@@ -163,8 +170,9 @@ class Loworder(BaseModel):
                                (self.order // 2 + 1))
 
                 # variance
-                var1 = (cbar)**2.0 * (math.factorial(self.order // 2)
-                                      )**2.0 * (4.0 * self.x)**(2.0 * (self.order + 2))
+                var1 = (cbar)**2.0 * \
+                    (math.factorial(self.order // 2))**2.0 * \
+                    (4.0 * self.x)**(2.0 * (self.order + 2))
 
         # odd order
         else:
@@ -178,8 +186,9 @@ class Loworder(BaseModel):
                 for k in range(int(self.order + 1)):
 
                     if k % 2 == 0:
-                        c[k] = np.sqrt(2.0) * special.gamma(k + 0.5) * (-4.0)**(
-                            k // 2) / (math.factorial(k) * math.factorial(k // 2))
+                        c[k] = np.sqrt(2.0) * special.gamma(k + 0.5) * \
+                            (-4.0)**(k // 2) \
+                            / (math.factorial(k) * math.factorial(k // 2))
                     else:
                         c[k] = 0.0
 
@@ -188,8 +197,9 @@ class Loworder(BaseModel):
                                (self.order // 2 + 1))
 
                 # variance
-                var1 = (cbar)**2.0 * (math.factorial(self.order + 1)
-                                      )**2.0 * self.x**(2.0 * (self.order + 1))
+                var1 = (cbar)**2.0 * \
+                    (math.factorial(self.order + 1))**2.0 \
+                    * self.x**(2.0 * (self.order + 1))
 
             # model 2 for odd orders
             elif self.error_model == 'informative':
@@ -202,8 +212,11 @@ class Loworder(BaseModel):
                         if k == 0:
                             c[k] = 0.0
                         else:
-                            c[k] = np.sqrt(2.0) * special.gamma(k + 0.5) * (-4.0)**(k // 2) / (
-                                math.factorial(k // 2) * math.factorial(k // 2 - 1) * 4.0**(k))
+                            c[k] = (np.sqrt(2.0) *
+                                    special.gamma(k + 0.5) *
+                                    (-4.0)**(k // 2) /
+                                    (math.factorial(k // 2) *
+                                    math.factorial(k // 2 - 1) * 4.0**(k)))
                     else:
                         c[k] = 0.0
 
@@ -212,8 +225,9 @@ class Loworder(BaseModel):
                                (self.order // 2 + 1))
 
                 # variance
-                var1 = (cbar)**2.0 * (math.factorial((self.order - 1) // 2)
-                                      )**2.0 * (4.0 * self.x)**(2.0 * (self.order + 1))
+                var1 = ((cbar)**2.0 *
+                        (math.factorial((self.order - 1) // 2))**2.0
+                        * (4.0 * self.x)**(2.0 * (self.order + 1)))
 
         # rename for clarity
         var = var1
@@ -238,8 +252,8 @@ class Highorder(BaseModel):
         """
         The SAMBA highorder series expansion function.
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         order : int
             Truncation order of expansion
         error_model : str
@@ -264,8 +278,8 @@ class Highorder(BaseModel):
         Evaluate the mean and standard deviation for given
         input values
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         input_values : numpy 1darray
             coupling strength (g) values
 
@@ -341,26 +355,30 @@ class Highorder(BaseModel):
                     (math.factorial(k)) / (2.0 * math.factorial(k))
 
             # rms value (ignore first two coefficients in this model)
-            dbar = np.sqrt(np.sum((np.asarray(d)[2:])**2.0) / (self.order - 1))
+            dbar = np.sqrt(np.sum((np.asarray(d)[2:])**2.0) /
+                           (self.order - 1))
 
             # variance
-            var2 = (dbar)**2.0 * (self.x)**(-1.0) * (math.factorial(self.order + 1)
-                                                     )**(-2.0) * self.x**(-2.0 * self.order - 2)
+            var2 = ((dbar)**2.0 * (self.x)**(-1.0) *
+                    (math.factorial(self.order + 1))**(-2.0) *
+                    self.x**(-2.0 * self.order - 2))
 
         # model 2
         elif self.error_model == 'informative':
 
             for k in range(int(self.order) + 1):
 
-                d[k] = special.gamma(k / 2.0 + 0.25) * special.gamma(
-                    k / 2.0 + 1.0) * 4.0**(k) * (-0.5)**k / (2.0 * math.factorial(k))
+                d[k] = (special.gamma(k / 2.0 + 0.25) *
+                        special.gamma(k / 2.0 + 1.0) *
+                        4.0**(k) * (-0.5)**k / (2.0 * math.factorial(k)))
 
             # rms value
             dbar = np.sqrt(np.sum((np.asarray(d))**2.0) / (self.order + 1))
 
             # variance
-            var2 = (dbar)**2.0 * self.x**(-1.0) * (special.gamma((self.order + \
-                    3) / 2.0))**(-2.0) * (4.0 * self.x)**(-2.0 * self.order - 2.0)
+            var2 = ((dbar)**2.0 * self.x**(-1.0) *
+                    (special.gamma((self.order + 3) / 2.0))**(-2.0) *
+                    (4.0 * self.x)**(-2.0 * self.order - 2.0))
 
         # rename for clarity
         var = var2
@@ -386,7 +404,7 @@ class TrueModel(BaseModel):
         Evaluate the mean of the true model for given input values.
 
         Parameters:
-        ----------
+        -----------
         input_values : numpy 1darray
             coupling strength (g) values
 
@@ -438,7 +456,7 @@ class Data(BaseModel):    # --> check that this model is set up correctly
         Evaluate the data and error for given input values
 
         Parameters:
-        ----------
+        -----------
         input_values : numpy 1darray
             coupling strength (g) values for data generation
         error : float
@@ -461,7 +479,8 @@ class Data(BaseModel):    # --> check that this model is set up correctly
         # adding data using the add_data function from SAMBA
         if error is None:
             raise ValueError(
-                'Please enter a error in decimal form for the data set generation.')
+                'Please enter a error in decimal form for the data \
+                set generation.')
         elif error < 0.0 or error > 1.0:
             raise ValueError('Error must be between 0.0 and 1.0.')
 

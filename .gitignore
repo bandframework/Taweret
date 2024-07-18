@@ -138,4 +138,9 @@ build/*
 **.un~
 
 # Sphinx documentation products
+docs/build_pdf
 docs/build_html
+
+# other files
+book/
+joss_paper/

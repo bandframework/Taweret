@@ -8,8 +8,8 @@ Version: 1.0
 
 """
 # Imports
-import os
-import sys
+# import os
+# import sys
 import numpy as np
 
 from pathlib import Path
@@ -17,22 +17,15 @@ from pathlib import Path
 # Check for OpenMPI installation
 from subprocess import run as cmd
 from subprocess import CalledProcessError
+
+from Taweret.models.polynomial_models import sin_cos_exp
+from Taweret.mix.trees import Trees
+
 try:
     cmd(['mpirun', '--version', '>', '/dev/null'])
 except (CalledProcessError):
     print("OpenMPI is not installed")
     assert False
-
-# Set Taweret Path
-print(os.getcwd())
-dirname = os.popen("find $PWD -type f -name test_trees.py").read()
-taweret_wd = dirname.split("test")[0]
-sys.path.append(taweret_wd)
-
-
-from Taweret.models.polynomial_models import sin_cos_exp
-from Taweret.mix.trees import Trees
-
 
 _TEST_DATA = Path(__file__).parent.joinpath("bart_bmm_test_data").resolve()
 
@@ -43,7 +36,7 @@ _TEST_DATA = Path(__file__).parent.joinpath("bart_bmm_test_data").resolve()
 # Test the constructor with the model set
 def test_init():
     # check passing of variables into Multivariate class
-    assert mix.model_dict == model_dict, "class object self.model_dict not set."
+    assert mix.model_dict == model_dict, "object self.model_dict not set."
     assert mix.nummodels == len(
         model_dict), "class object self.nummodels not set."
 
@@ -64,12 +57,12 @@ def test_mixing():
         inform_prior=False)
 
     # Check tuning & hyper parameters
-    assert mix.k == 2.5, "class object k is not set."
-    assert mix.ntree == 30, "class object ntree is not set."
-    assert mix.overallnu == 5, "class object nu is not set."
-    assert mix.overallsd == 0.01, "class object overallsd is not set."
-    assert mix.overalllambda == 0.01**2, "class object overalllambda is not set."
-    assert mix.inform_prior == False, "class object inform_prior is not set."
+    assert mix.k == 2.5, "object k is not set."
+    assert mix.ntree == 30, "object ntree is not set."
+    assert mix.overallnu == 5, "object nu is not set."
+    assert mix.overallsd == 0.01, "object overallsd is not set."
+    assert mix.overalllambda == 0.01**2, "object overalllambda is not set."
+    assert mix.inform_prior is False, "object inform_prior is not set."
 
     # Train the model
     fit = mix.train(
@@ -80,6 +73,11 @@ def test_mixing():
         nskip=2000,
         adaptevery=500,
         minnumbot=4)
+
+    # Check a few of the fit elements (only the ones that make sense)
+    assert fit["nummodels"] == 2, "number of models is wrong."
+    assert fit["pbd"] == 0.7, "check prob of birth and death"
+    assert fit["pb"] == 0.5, "check prob of birth"
 
     # Check the mcmc objects
     assert mix.ndpost == 10000, "class object ndpost is not set."
@@ -95,7 +93,7 @@ def test_predict():
     n_test = 30
     x1_test = np.outer(np.linspace(-3, 3, n_test), np.ones(n_test))
     x2_test = x1_test.copy().transpose()
-    f0_test = (np.sin(x1_test) + np.cos(x2_test))
+    # f0_test = (np.sin(x1_test) + np.cos(x2_test))
     x_test = np.array([x1_test.reshape(x1_test.size,),
                       x2_test.reshape(x1_test.size,)]).transpose()
 
@@ -147,5 +145,6 @@ f2 = sin_cos_exp(13, 6, -np.pi, -np.pi)
 model_dict = {'model1': f1, 'model2': f2}
 
 
-# mix = Trees(model_dict = model_dict, local_openbt_path = "/home/johnyannotty/Documents/openbt/src")
+# mix = Trees(model_dict = model_dict,
+# local_openbt_path = "/home/johnyannotty/Documents/openbt/src")
 mix = Trees(model_dict=model_dict)

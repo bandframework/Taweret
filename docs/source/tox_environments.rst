@@ -82,7 +82,11 @@ the coverage results file that will be used with all coverage tasks;
 
 * ``tox -r -e html``
 
-  * Generate and render the Taweret documentation in HTML.
+  * Render the Taweret documentation in HTML.
+
+* ``tox -r -e pdf``
+
+  * Render the Taweret documentation as a PDF document.
 
 Note that you can combine different tasks into a single call such as ``tox -e
 report,coverage``.

@@ -18,7 +18,7 @@ At present, this package possesses the following BMM methods:
 - Bayesian Trees
 
 ## Documentation
-See Taweret's docs webpage [here](https://bandframework.github.io/Taweret/).
+See Taweret's docs webpage [here](https://taweretdocs.readthedocs.io).
 
 ### Cloning
 This repository uses submodules. 

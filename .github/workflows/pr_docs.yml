@@ -38,7 +38,7 @@ jobs:
           pushd $CLONE_PATH
           tox -r -e html,pdf
           popd
-      - name: Archive HTML-format docs
+      - name: Archive Sphinx-based documentation
         uses: actions/upload-artifact@v4
         with:
           name: documentation

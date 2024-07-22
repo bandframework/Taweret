@@ -19,6 +19,8 @@ from typing import Type
 class BivariateLinear(BaseMixer):
 
     '''
+    __ALLOW THIS INTO MAIN AND REMOVE AS HOTFIX TO TEST WORKFLOW__.
+
     Local linear Bayesian mixing of two models. This is a general class of
     mixing that offer both density (likelihood) and mean mixing methods.
     The default mixing method is linear mixing of two likelihoods.

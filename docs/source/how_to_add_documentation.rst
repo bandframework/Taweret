@@ -1,77 +1,51 @@
-How to update documentation in Taweret `website <https://danosu.github.io/Taweret/index.html>`_
-===============================================================================================
+How to update `Taweret documentation <https://taweretdocs.readthedocs.io>`_
+===========================================================================
+We use the ``sphinx`` documentation system to encode and manage the
+documentation for our Python package.  The official documentation is published
+by read the docs, test builds are made available in PRs by read the docs, and
+users can build and access locally the documents using our ``tox`` setup.  In
+addition, HTML and PDF-format builds of the documentation are available for
+download as artifacts from documentation build GitHub actions.
 
-We use ``sphinx`` python documentation generator to generate the webpage 
-for our python package. It uses ``reStructuredText`` as the plaintext markup 
-language. 
-
-You might find this 
+``sphinx`` uses ``reStructuredText`` as the plaintext markup language.  You
+might find this 
 `cheatsheet <https://docs.generic-mapping-tools.org/6.2/rst-cheatsheet.html>`_ 
-useful. 
-
-You can also refer to 
+useful.  You can also refer to 
 `sphinx website <https://www.sphinx-doc.org/en/master/usage/quickstart.html>`_ 
 for more information. 
 
-**Steps**
+Structure
+---------
+``docs/source/index.rst`` determines the overall structure of the
+documentation. Each file that is referenced in ``index.rst`` can be found in
+the same folder.  For example, if you want to modify the general introduction
+documentation, change ``docs/source/intro.rst``.
 
-- Step 1: Fork Taweret repo, clone it, and checkout the `develop` branch
+Inline documentation of Python code in the package is automatically built into
+the documentation based on the content of the ``sphinx``-based inline
+docstrings associated with the code itself (i.e., the Python files are
+self-documenting).  Therefore, there should be no need to alter any of the
+``.rst`` files to include your inline documentation unless you are adding in
+new subpackages or altering the structure of the package.  In such cases,
+please contact one of the core Taweret developers for help.
 
-.. code:: bash
+Developers should not add or commit anything in the ``docs/build_pdf`` or
+``docs/build_html`` folders, to which local documentation build results are
+written.
 
-   git clone <your_fork>
-   git checkout develop
+Building
+--------
+While the generation and publishing of the sphinx documentation is automated
+and includes sanity checks to confirm correct building, there is no automation
+that confirms correctness of the content.  Our git workflow has been designed
+to help maintain the documentation up-to-date and correct.
 
-- Step 2: Create a virtual environment for Taweret and install dependencies
+**TODO**:  Add in information regarding how documentation is managed within the
+general git workflow to motivate and provide context for the following.
 
-With conda:
-
-.. code:: bash
-
-        conda env create --file=environment.yml
-        conda activate test_env
-        conda install pip 
-        pip install -e .
-
-With venv: 
-
-.. code:: bash
-
-        python3 -m venv test_env
-        source test_env/bin/activate
-        pip install -e .
-        # You will need to install pandoc using your OS package manager
-
-
-- Step 4: Locally generate documentation webpage
-
-.. code:: bash
-
-        cd docs
-        sh run_to_rebuild_tawret_rst.sh
-
-This will create a webpage locally and open it in your default web browser. 
-You can modify the files inside ``Taweret/docs/source`` to make changes to 
-the webpage.
-
-``Taweret/docs/source/index.rst`` determines the overall structure of the 
-webpage. Each file that is referenced in the ``index.rst`` can be found in
-the same folder.
-
-For example, if you want to modify the introduction, 
-change ``Taweret/docs/source/intro.rst``.
-
-After you make changes and locally build the web page, 
-you can push these changes to the original webpage by following 
-the below set of instructions. 
-
-.. code:: bash
-
-        git add <file_you_changed_inside_source_directory>
-        git commit -m <you commit messege>
-        git push origin develop
-
-Then make a pull request from your forked repository to 
-the ``bandframework/Taweret`` repository, ``develop`` branch. 
-**Note** : You do not have to add or commit anything in 
-the ``Taweret/docs/build`` folder. 
+To help developers interactively improve the documentation and manually
+confirm correct content and rendering, we suggest that developers use the
+``tox`` documentation tasks ``html`` and ``pdf`` to locally visualize their
+changes.  Please refer to :ref:`ToxDevGuide` for more information.  For those
+developers who prefer to avoid ``tox``, please read ``tox.ini`` to determine
+how to setup and use your environment manually for building documentation.

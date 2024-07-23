@@ -19,6 +19,8 @@ from typing import Type
 class BivariateLinear(BaseMixer):
 
     '''
+    __ALLOW THIS INTO MAIN AND REMOVE AS HOTFIX TO TEST WORKFLOW__.
+=======
     **Look here, Alexandra!**
 
     Local linear Bayesian mixing of two models. This is a general class of

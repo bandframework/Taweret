@@ -2,7 +2,6 @@ name: Test Taweret tools
 
 on:
   pull_request:
-    types: [opened, edited, reopened, closed, synchronize]
     branches:
       - main
       - develop

@@ -49,20 +49,20 @@ def test_mixing():
     y_train = np.loadtxt(_TEST_DATA.joinpath('2d_y_train.txt')).reshape(80, 1)
 
     # Set prior information
+    sighat = 0.01/np.sqrt(7/5)
     mix.set_prior(
         k=2.5,
         ntree=30,
-        overallnu=5,
-        overallsd=0.01,
+        nu=5,
+        sighat=sighat,
         inform_prior=False)
 
     # Check tuning & hyper parameters
-    assert mix.k == 2.5, "object k is not set."
-    assert mix.ntree == 30, "object ntree is not set."
-    assert mix.overallnu == 5, "object nu is not set."
-    assert mix.overallsd == 0.01, "object overallsd is not set."
-    assert mix.overalllambda == 0.01**2, "object overalllambda is not set."
-    assert mix.inform_prior is False, "object inform_prior is not set."
+    assert mix.obt.k == 2.5, "class object k is not set."
+    assert mix.obt.ntree == 30, "class object ntree is not set."
+    assert mix.obt.nu == 5, "class object nu is not set."
+    assert mix.obt.lam == 0.01**2, "class object lambda is not set."
+    assert mix.obt.inform_prior == False, "class object inform_prior is not set."
 
     # Train the model
     fit = mix.train(
@@ -72,19 +72,20 @@ def test_mixing():
         nadapt=2000,
         nskip=2000,
         adaptevery=500,
-        minnumbot=4)
+        minnumbot=4,
+        tc = 4)
+
+    # Check the mcmc objects
+    assert mix.obt.ndpost == 10000, "class object ndpost is not set."
+    assert mix.obt.nadapt == 2000, "class object nadapt is not set."
+    assert mix.obt.adaptevery == 500, "class object adaptevery is not set."
+    assert mix.obt.nskip == 2000, "class object nskip is not set."
+    assert mix.obt.minnumbot == 4, "class object minnumbot is not set."
 
     # Check a few of the fit elements (only the ones that make sense)
     assert fit["nummodels"] == 2, "number of models is wrong."
     assert fit["pbd"] == 0.7, "check prob of birth and death"
     assert fit["pb"] == 0.5, "check prob of birth"
-
-    # Check the mcmc objects
-    assert mix.ndpost == 10000, "class object ndpost is not set."
-    assert mix.nadapt == 2000, "class object nadapt is not set."
-    assert mix.adaptevery == 500, "class object adaptevery is not set."
-    assert mix.nskip == 2000, "class object nskip is not set."
-    assert mix.minnumbot == 4, "class object minnumbot is not set."
 
 
 # Test the mean predictions

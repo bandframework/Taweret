@@ -139,7 +139,3 @@ build/*
 
 # Sphinx documentation products
 docs/build_html
-
-# Jupyter Book products
-docs/book/_build
-docs/book/.ipynb_checkpoints

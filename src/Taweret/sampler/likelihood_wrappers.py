@@ -5,27 +5,30 @@ import numpy as np
 
 
 class likelihood_wrapper_for_bilby(bilby.Likelihood):
-    """
-    Likelihood wrapper for Bilby calibrator
-    ...
-
-    Attributes
-    ----------
-    mixed_model : object
-        mixed model object from Taweret model mixing class
-    parameters : dic
-        dictionary with name of each parameter to be given to Bilby.
-        all parameters have the prefix theta_ and then the parameter number.
-        ex : for liklihood with three free parameters ; theta_0, theta_1, theta_2
-        Parameters are order as [mixture function parameters, model 1 parameters, model 2 parameters]
-
-    Methods
-    -------
-    log_likelihood(self)
-        calculates the log likelihood for the parameter values specefied in the wrapper object.
-    """
 
     def __init__(self, mixed_model, x_exp, y_exp, y_err):
+
+        """
+        Likelihood wrapper for Bilby calibrator
+        ...
+
+        Attributes:
+        -----------
+        mixed_model : object
+            mixed model object from Taweret model mixing class
+        x_exp : array
+            The independent variables for the experimental data.
+        y_exp : array
+            The dependent variables for the data.
+        y_err : array
+            The error bands on the data.
+
+        Methods:
+        --------
+        log_likelihood(self)
+            calculates the log likelihood for the parameter values specified in
+            the wrapper object.
+        """
 
         param_dic = {i: None
                      for i in mixed_model.prior.keys()
@@ -39,8 +42,16 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
 
     def log_likelihood(self):
         """
-        log likelihood function that can be used with Bilby.
-        return the scalar log likelihood value.
+        The log likelihood function that can be used with Bilby.
+
+        Parameters:
+        -----------
+        None.
+
+        Returns:
+        --------
+            The scalar log likelihood value.
+
         """
         params = list(self.parameters.values())
 

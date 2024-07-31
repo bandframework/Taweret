@@ -21,7 +21,8 @@ sys.path.insert(0, os.path.abspath('../../SAMBA'))
 # -- Project information -----------------------------------------------------
 
 project = 'Taweret'
-copyright = '2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles'
+copyright = '2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin \
+    Ingles'
 author = 'Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles'
 
 # The full version, including alpha/beta/rc tags

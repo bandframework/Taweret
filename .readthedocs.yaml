@@ -1,0 +1,26 @@
+# Read the Docs configuration file for Sphinx projects
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+#
+# TODO: Set fail_on_warning to true once the example notebooks are moved out of
+# the sphinx docs.  The only remaining errors/warnings on doc builds is from
+# those.
+
+version: 2
+
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.12"
+
+sphinx:
+  configuration: docs/source/conf.py
+  fail_on_warning: false
+
+formats:
+  - pdf
+
+python:
+  install:
+    - requirements: docs/source/requirements.txt
+    - method: pip
+      path: .

@@ -35,7 +35,7 @@ jobs:
     - name: Build Jupyter Book
       run: |
         pushd $CLONE_PATH
-        tox -r -e book
+#        tox -r -e book
         popd
 
     - name: Archive book docs Jupyter book 

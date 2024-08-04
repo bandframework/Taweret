@@ -10,7 +10,7 @@ chapters:
   - file: notebooks/LMM/Linear_BMM_with_cdf_function_for_coleman_models
   - file: notebooks/LMM/coleman_models_BMM_comparative_study
 
-- file: notebooks/Biv_BMM/Bivariate_BMM
+- file: notebooks/Biv_BMM/Bivariate_MM
   sections:
   - file: notebooks/Biv_BMM/Bivariate_Test
   - file: notebooks/Biv_BMM/N_Model_BMM
@@ -18,4 +18,4 @@ chapters:
 - file: notebooks/Trees_BMM/Trees
   sections:
   - file: notebooks/Trees_BMM/Trees_BMM_2D
-  - file: notebooks/Trees_BMM/Trees_BMM_K_models
+  - file: notebooks/Trees_BMM/Trees_BMM_2D_K_models

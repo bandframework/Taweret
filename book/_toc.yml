@@ -1,0 +1,4 @@
+format: jb-book
+root: landing
+chapters:
+- file: another-example

@@ -31,8 +31,6 @@ jobs:
 
     - name: Setup python with tox
       run: |
-        ls $CLONE_PATH/.github/workflows
-        ls -la $CLONE_PATH/.github/workflows/setup_base_python.sh
         $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
 
     - name: Build Jupyter Book

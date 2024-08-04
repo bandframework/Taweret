@@ -1,7 +1,7 @@
 name: Build & publish Jupyter book
 env:
   CLONE_PATH:    ${{ github.workspace }}
-  EXAMPLES_BOOK: ${{ github.workspace }}/docs/book/_build/html
+  EXAMPLES_BOOK: ${{ github.workspace }}/book/_build/html
 on:
   push:
     branches:

@@ -4,4 +4,4 @@ Here you'll be able to find pedagogical information pertaining to the Python pac
 pertaining to each Bayesian model mixing (BMM) method in the package.
 
 ## Authors
-D. Liyanage, K. Ingles, A. C. Semposki, and J. C. Yannotty
+Dananjaya Liyanage, Kevin Ingles, Alexandra C. Semposki, and John C. Yannotty

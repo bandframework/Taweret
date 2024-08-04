@@ -1,6 +1,8 @@
 format: jb-book
 root: landing
 chapters:
+- file: BMM_intro
+
 - file: notebooks/LMM/LMM
   sections:
   - file: notebooks/LMM/Linear_BMM_with_step_function_for_SAMBA_models

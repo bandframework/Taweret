@@ -30,7 +30,10 @@ jobs:
         python-version: ${{ matrix.python-version}}
 
     - name: Setup python with tox
-      run: ./.github/workflows/setup_tox_github_action.sh
+      run: |
+        ls $CLONE_PATH/.github/workflows
+        ls -la $CLONE_PATH/.github/workflows/setup_tox_github_action.sh
+        $CLONE_PATH/.github/workflows/setup_tox_github_action.sh
 
     - name: Build Jupyter Book
       run: |

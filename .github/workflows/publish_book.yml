@@ -39,10 +39,11 @@ jobs:
         tox -r -e book
         popd
 
-    - name: Archive book docs Jupyter book 
+    - name: Archive examples Jupyter book 
       uses: actions/upload-pages-artifact@v2
       with:
-        path: "docs/book/_build/html"
+        name: examples_book
+        path: ${{ env.EXAMPLES_BOOK }}
 
     - name: Publish Taweret Jupyter Book
       id: deployment

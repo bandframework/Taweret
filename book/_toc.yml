@@ -1,4 +1,21 @@
 format: jb-book
 root: landing
 chapters:
-- file: another-example
+- file: LMM/LMM
+  sections:
+  - file: LMM/Linear_BMM_with_step_function_for_SAMBA_models
+  - file: LMM/Linear_BMM_with_cdf_function_for_SAMBA_models
+  - file: LMM/Linear_BMM_with_switchcos_function_for_SAMBA_models
+  - file: LMM/Linear_BMM_with_switchcos_function_for_SAMBA_models_Bilby_constrained_prior
+  - file: LMM/Linear_BMM_with_cdf_function_for_coleman_models
+  - file: LMM/coleman_models_BMM_comparative_study
+
+- file: Biv_BMM/Bivariate_BMM
+  sections:
+  - file: Biv_BMM/Bivariate_Test
+  - file: Biv_BMM/N_Model_BMM
+
+- file: Trees_BMM/Trees
+  sections:
+  - file: Trees_BMM/Trees_BMM_2D
+  - file: Trees_BMM/Trees_BMM_K_models

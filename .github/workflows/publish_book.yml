@@ -42,7 +42,6 @@ jobs:
     - name: Archive examples Jupyter book 
       uses: actions/upload-pages-artifact@v2
       with:
-        name: examples_book
         path: ${{ env.EXAMPLES_BOOK }}
 
     - name: Publish Taweret Jupyter Book

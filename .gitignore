@@ -143,3 +143,4 @@ docs/build_html
 
 # other files
 joss_paper/
+book/_build

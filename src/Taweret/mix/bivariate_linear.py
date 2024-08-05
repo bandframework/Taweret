@@ -635,8 +635,11 @@ class BivariateLinear(BaseMixer):
                 import warnings
                 import multiprocessing
                 warnings.warn("'threads' detected in `kwargs` on Darwin." +
-                              " Setting `start_method` fot `fork`")
-                multiprocessing.set_start_method('fork')
+                              " Setting `start_method` to `fork`")
+                try:
+                    multiprocessing.set_start_method('fork', force=True)
+                except RuntimeError:
+                    pass
 
         prior = self._prior
         if prior is None:
@@ -649,7 +652,10 @@ class BivariateLinear(BaseMixer):
                 import multiprocessing
                 warnings.warn("'threads' dectected in 'kwargs_for_sampler'" +
                               " on Darwin. Setting `start_method` to `fork`")
-                multiprocessing.set_start_method('fork')
+                try:
+                    multiprocessing.set_start_method('fork', force=True)
+                except RuntimeError:
+                    pass
 
         # A few simple setup steps
         likelihood = likelihood_wrapper_for_bilby(self, x_exp, y_exp, y_err)

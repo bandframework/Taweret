@@ -376,8 +376,8 @@ class Trees(BaseMixer):
             shat_list.append(shat_col)
 
         # Construct two matrices using concatenate
-        f_matrix = np.concatenate(fhat_list, axis=1)
-        s_matrix = np.concatenate(shat_list, axis=1)
+        f_matrix = np.concatenate((fhat_list), axis=1)
+        s_matrix = np.concatenate((shat_list), axis=1)
         self.F_train = f_matrix
         self.S_train = s_matrix
 
@@ -493,7 +493,7 @@ class Trees(BaseMixer):
             shat_list.append(shat_col)
 
         # Construct F matrix using concatenate
-        F = np.concatenate(fhat_list, axis=1)
+        F = np.concatenate((fhat_list), axis=1)
         self.F_test = F
 
         # Set control values
@@ -757,7 +757,7 @@ class Trees(BaseMixer):
                 mdraws.append(np.loadtxt(f))
         # print(mdraws[0].shape); print(len(mdraws))
         self.mdraws = np.concatenate(
-            mdraws, axis=1)  # Got rid of the transpose
+            (mdraws), axis=1)  # Got rid of the transpose
         sdraws = []
         for f in sdraw_files:
             read = open(f, "r")
@@ -766,7 +766,7 @@ class Trees(BaseMixer):
                 sdraws.append(np.loadtxt(f))
 
         self.sdraws = np.concatenate(
-            sdraws, axis=1)  # Got rid of the transpose
+            (sdraws), axis=1)  # Got rid of the transpose
 
         # New (added by me), since R returns arrays like these by default:
         # Calculate mmean and smean arrays, and related statistics
@@ -821,7 +821,7 @@ class Trees(BaseMixer):
             # key wtname
             wtname = "w" + str(k + 1)
             self.wdraws[wtname] = np.concatenate(
-                wdraws, axis=1)  # Got rid of the transpose
+                (wdraws), axis=1)  # Got rid of the transpose
 
             for j in range(len(self.wdraws[wtname][0])):
                 self.wts_mean[j][k] = np.mean(self.wdraws[wtname][:, j])

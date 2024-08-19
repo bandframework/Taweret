@@ -26,7 +26,7 @@ copyright = '2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin \
 author = 'Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles'
 
 # The full version, including alpha/beta/rc tags
-release = Tawaret.__version__
+release = Taweret.__version__
 
 
 # -- General configuration ---------------------------------------------------

@@ -1,7 +1,7 @@
 # Welcome to our Jupyter Book!
 
 Here you'll be able to find pedagogical information pertaining to the Python package Taweret, along with tutorial notebooks
-pertaining to each Bayesian model mixing (BMM) method in the package. Each chapter is focused on an individual model mixing method, and contain tutorial notebooks that will help a new user get accustomed to the Bayesian methods used here and some of the possible applications. 
+pertaining to each Bayesian model mixing (BMM) method in the package. The first chapter contains detailed information about the field of Bayesian model mixing in general, to help researchers understand in the fundamental concepts. Each subsequent chapter is focused on an individual model mixing method, and contain tutorial notebooks that will help a new user get accustomed to the Bayesian methods used here. Each method has an accompanying published article in the developer's field of study, which users can also access for more information about the methods and their potential applications.
 
 ## Documentation
 The full documentation of the package can be found here: https://taweretdocs.readthedocs.io/en/latest/index.html.
@@ -18,7 +18,7 @@ If you have benefited from Taweret, please cite our software using the following
 }
 ```
 
-and our explanatory paper:
+and our explanatory JOSS paper:
 
 ```
 @article{Ingles:2023nha,

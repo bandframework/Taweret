@@ -1,3 +1,8 @@
 # Bayesian Model Mixing: a short introduction to the field
 
-Pedagogy on BMM and its uses can be put here, along with some longer intro for the methods we've included in this book.
+Coming soon:
+- What is Bayesian model mixing? 
+- How is it used?
+- How does it differ from Bayesian model averaging?
+- What methods have so far been developed? Which are included in Taweret?
+- What are the frontiers of the field? Where could a user contribute?

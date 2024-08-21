@@ -1,5 +1,6 @@
 title: The Taweret Sandbox
 author: D. Liyanage, K. Ingles, A. C. Semposki, J. C. Yannotty
+copyright: "2024"
 logo: taweret_logo.PNG
 repository:
   url: https://github.com/bandframework/Taweret
@@ -15,3 +16,4 @@ bibtex_bibfiles:
 html:
   use_repository_button     : true  # Whether to add a link to your repository button
   use_issues_button         : true  # Whether to add an "open an issue" button
+  home_page_in_navbar       : true  # Whether to have the home page in the side bar

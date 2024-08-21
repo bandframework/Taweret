@@ -51,4 +51,4 @@ jobs:
 
     - name: Publish Taweret Jupyter Book
       id: deployment
-      uses: actions/deploy-pages@v4
+      uses: actions/deploy-pages@v2

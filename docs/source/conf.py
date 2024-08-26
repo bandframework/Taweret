@@ -30,9 +30,9 @@ copyright = '2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin \
 author = 'Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles'
 
 # The full version, including alpha/beta/rc tags
-release = re.sub('^v', '', os.popen('git describe --tags').read().strip())
+#release = re.sub('^v', '', os.popen('git describe --tags').read().strip())
 # The short X.Y version.
-version = release
+version = Taweret.__version__ #release
 
 # -- General configuration ---------------------------------------------------
 

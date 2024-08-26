@@ -12,16 +12,14 @@
 #
 import os
 import sys
-import re
-
-sys.path.append(os.path.abspath('../Taweret'))
-
 import Taweret
+# import re
+sys.path.append(os.path.abspath('../Taweret'))
 
 # sys.path.insert(0, os.path.abspath('../'))
 print(os.path.abspath('./'))
 sys.path.insert(0, os.path.abspath('../../'))
-# Patch to make local documentation buildinig work
+# Patch to make local documentation building work
 sys.path.insert(0, os.path.abspath('../../SAMBA'))
 
 # -- Project information -----------------------------------------------------
@@ -32,9 +30,9 @@ copyright = '2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin \
 author = 'Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles'
 
 # The full version, including alpha/beta/rc tags
-#release = re.sub('^v', '', os.popen('git describe --tags').read().strip())
+# release = re.sub('^v', '', os.popen('git describe --tags').read().strip())
 # The short X.Y version.
-version = Taweret.__version__ #release
+version = Taweret.__version__   # release
 
 # -- General configuration ---------------------------------------------------
 

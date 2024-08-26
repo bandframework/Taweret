@@ -17,3 +17,6 @@ html:
   use_repository_button     : true  # Whether to add a link to your repository button
   use_issues_button         : true  # Whether to add an "open an issue" button
   home_page_in_navbar       : true  # Whether to have the home page in the side bar
+
+# disable building anything not included in the TOC
+only_build_toc_files: true

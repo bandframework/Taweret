@@ -1,21 +1,15 @@
-name: Build & publish Jupyter book
+name: Test Jupyter book build
 env:
   CLONE_PATH:    ${{ github.workspace }}
   EXAMPLES_BOOK: ${{ github.workspace }}/book/_build/html
 on:
-  push:
+  pull_request:
     branches:
-      - main 
-    workflow_dispatch:
+      - main
+      - develop
 
 jobs:
   build:
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -48,7 +42,3 @@ jobs:
       uses: actions/upload-pages-artifact@v2
       with:
         path: ${{ env.EXAMPLES_BOOK }}
-
-    - name: Publish Taweret Jupyter Book
-      id: deployment
-      uses: actions/deploy-pages@v2

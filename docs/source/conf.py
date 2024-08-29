@@ -10,19 +10,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
-import sys
-import re
-
-sys.path.append(os.path.abspath('../Taweret'))
-
 import Taweret
-
-# sys.path.insert(0, os.path.abspath('../'))
-print(os.path.abspath('./'))
-sys.path.insert(0, os.path.abspath('../../'))
-# Patch to make local documentation buildinig work
-sys.path.insert(0, os.path.abspath('../../SAMBA'))
+# import os
+# import re
 
 # -- Project information -----------------------------------------------------
 
@@ -32,9 +22,9 @@ copyright = '2023, Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin \
 author = 'Dan Liyanage, Alexandra Semposki, John Yannotty, Kevin Ingles'
 
 # The full version, including alpha/beta/rc tags
-#release = re.sub('^v', '', os.popen('git describe --tags').read().strip())
-# The short X.Y version.
-version = Taweret.__version__ #release
+# release = re.sub('^v', '', os.popen('git describe --tags').read().strip())
+# The short X.Y.Z version.
+version = Taweret.__version__   # release
 
 # -- General configuration ---------------------------------------------------
 

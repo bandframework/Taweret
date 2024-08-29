@@ -1,4 +1,4 @@
-# BAND SDK v0.2 Community Policy Compatibility for Taweret
+# BAND SDK v0.4 Community Policy Compatibility for Taweret
 
 
 > This document summarizes the efforts of current and future BAND member packages to achieve compatibility with the BAND SDK community policies.  Additional details on the BAND SDK are available [here](/resources/sdkpolicies/bandsdk.md) and should be considered when filling out this form. The most recent copy of this template exists [here](/resources/sdkpolicies/template.md).

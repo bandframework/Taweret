@@ -141,6 +141,10 @@ build/*
 docs/build_pdf
 docs/build_html
 
+# Jupyter book products
+book/notebooks/LMM/comparative_posterior.png
+book/notebooks/LMM/comparative_posterior_prditcions.png
+
 # other files
 joss_paper/
 book/_build

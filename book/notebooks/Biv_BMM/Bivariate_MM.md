@@ -14,4 +14,8 @@ $$
 
 where $Z_{P}$ is the precision of the models, or the inverse of the variances. $f_{\dagger}$ is the desired mean result of the mixed model, $f_{k}(x)$ the mean of the $k$th model, and $\sigma_{k}^{2}$ the variance of the $k$th model at each point in $x$. 
 
-This method is also one-dimensional at present, and requires the full PPD of the models it is mixing, but future developments hope to include simultaneous model calibration and mixing. See [this work](https://doi.org/10.1103/PhysRevC.106.044002) for more details of using this package on a toy model for effective field theories (EFTs), and [this package](https://github.com/asemposki/SAMBA) for the original code containing this mixing method.
+This method is also one-dimensional at present, and requires the full PPD of the models it is mixing, but future developments hope to include simultaneous model calibration and mixing. 
+
+:::{seealso}
+See [this work](https://doi.org/10.1103/PhysRevC.106.044002) for more details of using this package on a toy model for effective field theories (EFTs), and [this package](https://github.com/asemposki/SAMBA) for the original code containing this mixing method.
+:::

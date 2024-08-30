@@ -3,10 +3,10 @@ env:
   CLONE_PATH:    ${{ github.workspace }}
   EXAMPLES_BOOK: ${{ github.workspace }}/book/_build/html
 on:
+  push:
+    branches: [main, develop]
   pull_request:
-    branches:
-      - main
-      - develop
+    branches: [main, develop]
 
 jobs:
   build:

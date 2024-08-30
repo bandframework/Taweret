@@ -1,4 +1,4 @@
-name: Test PR doc builds in develop & main
+name: Test sphinx docs build
 env:
   CLONE_PATH: ${{ github.workspace }}
   HTML_DOCS:  ${{ github.workspace }}/docs/build_html

@@ -22,6 +22,7 @@ html:
 
 launch_buttons:
   notebook_interface: "jupyterlab"  # or "classic"
+  colab_url: "https://colab.research.google.com"   # Adding Colab launch option
 
 # disable building anything not included in the TOC
 only_build_toc_files: true

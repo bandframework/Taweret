@@ -1,5 +1,5 @@
 Installation
-============
+===========
 
 Taweret is available via pip install
 

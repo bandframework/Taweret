@@ -6,6 +6,10 @@ pertaining to each Bayesian model mixing (BMM) method in the package. The first 
 ## Documentation
 The full documentation of the package can be found here: https://taweretdocs.readthedocs.io/en/latest/index.html.
 
+## Running the notebooks
+This Jupyter Book is able to launch to Google Colab, so that you can run the notebooks contained here live. There are dependences that
+are commented out in the notebooks---simply uncomment them to install the notebook-specific packages used there.
+
 ## Citing Taweret
 If you have benefited from Taweret, please cite our software using the following format:
 

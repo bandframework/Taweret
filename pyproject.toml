@@ -18,25 +18,14 @@ description = "A python package for Bayesian model mixing"
 readme = "README.md"
 license = {file = "LICENSE"}
 requires-python = ">=3.9"
+# We request that users who want to use non-default bilby samplers (e.g.,
+# ptemcee) manually install the related packages first.
 dependencies = [
     "numpy>=1.20.3",
     "matplotlib",
     "scipy>=1.7.0",
-    "seaborn",
-    "emcee",
-    "corner",
-    "scikit-learn",
-    "cycler",
-    "statistics",
     "bilby",
-    "ptemcee",
-    "sphinx_rtd_theme",
-    "sphinxcontrib-bibtex",
-    "nbsphinx",
-    "pandoc",
     "pytest",
-    "pytest-cov",
-    "Pyarrow",
     "openbtmixing",
 ]
 classifiers = [

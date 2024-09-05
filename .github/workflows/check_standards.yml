@@ -2,10 +2,10 @@ name: Check Code Standard Adherence
 env:
   CLONE_PATH: ${{ github.workspace }}
 on:
+  push:
+    branches: [main, develop]
   pull_request:
-    branches:
-      - main
-      - develop
+    branches: [main, develop]
 
 jobs:
   build:

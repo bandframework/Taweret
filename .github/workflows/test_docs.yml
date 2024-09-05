@@ -1,16 +1,13 @@
-# TODO: Remove pandoc installation after example notebooks moved out of sphinx
-# docs?  Check with tox and setup.py as well.
-
-name: Test PR doc builds in develop & main
+name: Test sphinx docs build
 env:
   CLONE_PATH: ${{ github.workspace }}
   HTML_DOCS:  ${{ github.workspace }}/docs/build_html
   PDF_DOCS:   ${{ github.workspace }}/docs/build_pdf
 on:
+  push:
+    branches: [main, develop]
   pull_request:
-    branches:
-      - main
-      - develop
+    branches: [main, develop]
 
 jobs:
   build:

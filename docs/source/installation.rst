@@ -27,12 +27,12 @@ Prerequisites
 
 The Trees module depends on OpenMPI. Please ensure OpenMPI is installed with shared/built libraries prior to using the Trees module.
 
-The list of dependences is as short as possible to keep the installation process streamlined; however, if a user would like to run 
+The list of dependences is as short as possible to keep the installation process streamlined and allow for minimal, clean installations; however, if a user would like to run 
 the Jupyter notebooks in the associated Jupyter Book, dependences for the notebooks will need to be installed in the relevant environment.
 These dependences are commented out in the Jupyter notebooks, but can be uncommented and quickly installed.
 
 The `bilby` sampler comes with the ability to use a suite of samplers---in the case of Taweret, we also have not listed all
-samplers as dependences. However, the user can (and should) download any samplers that they wish to use and `bilby` will be able
+samplers as dependences. However, the user can (and should) install any samplers that they wish to use and `bilby` will be able
 to use them through its wrapper in the Taweret package.
 
 

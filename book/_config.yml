@@ -4,6 +4,8 @@ copyright: "2024"
 logo: taweret_logo.PNG
 repository:
   url: https://github.com/bandframework/Taweret
+  path_to_book: book/  # Optional path to your book, relative to the repository root
+  branch: main        # Which branch of the repository should be used when creating links (optional)
 execute:
   execute_notebooks: force
   timeout: -1
@@ -17,6 +19,10 @@ html:
   use_repository_button     : true  # Whether to add a link to your repository button
   use_issues_button         : true  # Whether to add an "open an issue" button
   home_page_in_navbar       : true  # Whether to have the home page in the side bar
+
+launch_buttons:
+  notebook_interface: "jupyterlab"  # or "classic"
+  colab_url: "https://colab.research.google.com"   # Adding Colab launch option
 
 # disable building anything not included in the TOC
 only_build_toc_files: true

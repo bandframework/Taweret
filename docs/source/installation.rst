@@ -11,9 +11,10 @@ If you prefer to use conda for your package management, you can still pip instal
 
 Alternative Installation
 ------------------------
+.. _repository: https://github.com/bandframework/Taweret.git
 
-Alternatively, you can clone the `repository <https://github.com/bandframework/Taweret.git>`.
-Open cloning, the dependencies for Taweret dependencies by running the command
+Alternatively, you can clone the `repository`_ and install Taweret into your
+Python environment in developer or editable mode from the clone by running
 
 .. code-block:: bash
 

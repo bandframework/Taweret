@@ -101,13 +101,13 @@ Consequently, the predictions from each model are easily ascertained across a ne
 phase is the first step in the two-step process. The second step involves mixing the predictions from each model \
 to estimate the true system. Thus, conditional on the individual predictions across a set of inputs along with observational data, \
 the weight functions are learned and the overall mean or predictive density of the underlying system is estimated in a Bayesian manner. \
-Examples of this two-step analysis can be found in a variety of the notebooks provided in the Examples section.  
+Examples of this two-step analysis can be found in several of the aforementioned examples.
 
 
 **Mixing and Calibration**: \
 
 This joint analysis is advantageous because it enables each model to be calibrated predominantly based on the sub-regions \
 of the domain where its predictions align well with the observational data. These sub-regions will be simultaneously identified \
-by the weight functions. This should lead more reliable inference than then case where each model is calibrated individually and \
+by the weight functions. This should lead to inference that is more reliable than for the case where each model is calibrated individually and \
 thus forced to reflect a global fit to the data. For example, the joint analysis would avoid situations where a model is calibrated \
 using experimental data that is outside its applicability. Examples of this joint analysis are applied to the Coleman models.   

@@ -81,13 +81,15 @@ p-dimensional input spaces.
 
 Estimating the Weight Functions 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. _Jupyter Book: https://bandframework.github.io/Taweret/landing.html
+
 Taweret provides a variety of BMM methods, each of which utilizes an input-dependent weighting scheme. \
 The weighting scheme may vary substantially across the different methods. For example, Linear mixing \
 defines the weights using a parametric model, while the Bayesian Trees approach uses a non-parametric model. \
 Another weighting scheme involves precision weighting, as seen in Multivariate BMM. Hence, the exact estimation \
 of the weight functions may differ substantially across the various BMM methods. Despite this, the estimation \
 process in each method is facilitated using Bayesian principles. Examples of each method can be found in the \
-Python notebooks (docs/source/notebooks) and under the Examples tab on this page. In these examples, BMM is \
+`Jupyter Book`_ as well as the Python notebooks (``book/notebooks``) used to create the book. In these examples, BMM is \
 applied to the SAMBA, Coleman, and Polynomial models.
 
 Working with Multiple Models

@@ -46,7 +46,7 @@ jobs:
           # Since the package is pure Python, the binary wheel should be
           # universal.  Therefore, all pip installs from PyPI should get the
           # wheel rather than the source distribution and we test the wheel.
-          python -m build -wheel
+          python -m build --wheel
           python -m pip install dist/Taweret-*-py3-none-any.whl
           python -c "import Taweret ; Taweret.__version__ ; Taweret.test()"
           pushd $(dirname $(which python))/../lib/python*/site-packages/openbtmixing/.libs

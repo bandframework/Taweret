@@ -35,6 +35,7 @@ jobs:
       - name: Setup base Python environment
         run: |
           $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
+          python -m pip install build
       - name: Run tests without coverage
         run: |
           which mpirun
@@ -42,8 +43,13 @@ jobs:
           mpicxx -show
           echo " "
           pushd $CLONE_PATH
-          tox -r -e nocoverage
-          pushd .tox/nocoverage/lib/python${{ matrix.python-version }}/site-packages/openbtmixing/.libs
+          # Since the package is pure Python, the binary wheel should be
+          # universal.  Therefore, all pip installs from PyPI should get the
+          # wheel rather than the source distribution and we test the wheel.
+          python -m build -wheel
+          python -m pip install dist/Taweret-*-py3-none-any.whl
+          python -c "import Taweret ; Taweret.__version__ ; Taweret.test()"
+          pushd $(dirname $(which python))/../lib/python*/site-packages/openbtmixing/.libs
           echo " "
           if   [ "${{ matrix.os }}" == "ubuntu-20.04" ]; then
             ldd openbtcli

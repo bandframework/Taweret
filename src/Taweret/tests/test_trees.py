@@ -58,7 +58,7 @@ def test_mixing():
 
     # Check tuning & hyper parameters
     assert mix.k == 2.5, "object k is not set."
-    assert mix.ntree == 30, "object ntree is not set."
+    assert mix.ntree == 35, "object ntree is not set."
     assert mix.overallnu == 5, "object nu is not set."
     assert mix.overallsd == 0.01, "object overallsd is not set."
     assert mix.overalllambda == 0.01**2, "object overalllambda is not set."

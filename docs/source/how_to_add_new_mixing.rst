@@ -44,5 +44,5 @@ The ``BaseMixer`` is an abstract base class which has certain methods that need 
 
 - Step 5: Clean your code using the output of the ``flake8`` style guide tool.  See the ``check`` tox task for one possible means to do this.
 
-- Step 5: Create a pull request of your addition into the `develop` branch. This should trigger a GitHub action. Should the action fail, please try to diagnose
+- Step 6: Create a pull request of your addition into the `develop` branch. This should trigger a GitHub action. Should the action fail, please try to diagnose
   the failure. Always make sure the tests execute successfully locally before opening a pull request

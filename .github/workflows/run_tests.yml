@@ -47,7 +47,7 @@ jobs:
           # wheel rather than the source distribution and we test the wheel.
           python -m build --wheel
           python -m pip install dist/Taweret-*-py3-none-any.whl
-          python -c "import Taweret ; Taweret.__version__ ; exit(not Taweret.test())"
+          python -c "import Taweret ; print(Taweret.__version__) ; exit(not Taweret.test())"
           pushd $(dirname $(which python))/../lib/python*/site-packages/openbtmixing/.libs
           echo " "
           if   [ "${{ matrix.os }}" == "ubuntu-20.04" ]; then

@@ -1,15 +1,25 @@
+#
+# This action publishes distributions that it produces to the Taweret PyPI
+# account.  Therefore, it has the ability to break that page or allow nefarious
+# actors to alter it.  For more information on the security behind this action,
+# please refer to
+#
+#        https://docs.pypi.org/trusted-publishers/security-model/
+#
+# ALL CHANGES TO THIS ACTION SHOULD BE REVIEWED VERY CAREFULLY TO ENSURE THAT
+#             THE CHANGES ARE AS INTENDED AND WELL UNDERSTOOD!
+#
+
 name: Build, Test, & Publish Wheel
 env:
   CLONE_PATH: ${{ github.workspace }}
 on:
-  pull_request:
-    branches: [main]
   # Limit to only branches named release_v*.*?
   #
   # Should this eventually be set to just released so that prereleases aren't
   # sent to PyPI?
-#  release:
-#    types: [published]
+  release:
+    types: [published]
 
 jobs:
   build: 

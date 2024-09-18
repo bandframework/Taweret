@@ -37,7 +37,7 @@ jobs:
       - name: Setup base Python environment
         run: |
           $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
-      - name: Run tests through wheels
+      - name: Build src dist & binary wheel
         run: |
           pushd $CLONE_PATH
           python -m build

@@ -230,12 +230,10 @@ class BaseMixer(ABC):
         '''
         Run sampler to learn parameters. Method should also create class
         members that store the posterior and other diagnostic quantities
-        important for plotting
-        MAP values should also calculate and set as member variable of
-        class
+        important for plotting MAP values.
 
-        Return:
-        -------
+        Returns:
+        --------
         _posterior : np.ndarray
             the mcmc chain return from sampler
         '''

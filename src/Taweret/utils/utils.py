@@ -25,7 +25,7 @@ def normed_mvn_loglike(y, cov):
     Evaluate the multivariate-normal log-likelihood for difference vector `y`
     and covariance matrix `cov`:
 
-        log_p = -1/2*[(y^T).(C^-1).y + log(det(C))] + const.
+    .. math:: log_p = -1/2*[(y^T).(C^-1).y + log(det(C))] + const.
 
     This likelihood IS NORMALIZED.
     The normalization const = -n/2*log(2*pi), where n is the dimensionality.

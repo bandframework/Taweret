@@ -257,7 +257,7 @@ class BivariateLinear(BaseMixer):
             If samples are given use that instead of posterior\
                 for predictions.
 
-        Returns:
+        Returns
         --------
         evaluated_posterior : np.ndarray
             array of posterior predictive distribution evaluated at provided
@@ -326,7 +326,8 @@ class BivariateLinear(BaseMixer):
         samples: np.ndarray
             If samples are given use that instead of posterior\
                 for predictions.
-        Returns:
+
+        Returns
         --------
         posterior_weights : np.ndarray
             array of posterior predictive distribution of weights
@@ -384,7 +385,7 @@ class BivariateLinear(BaseMixer):
         n_samples : int
             number of samples to evaluate prior_prediction
 
-        Returns:
+        Returns
         --------
         evaluated_prior : np.ndarray
             array of prior predictive distribution evaluated at provided
@@ -410,7 +411,7 @@ class BivariateLinear(BaseMixer):
         Set prior for the mixing function parameters.
         Prior for the model parameters should be defined in each model.
 
-        Parameters:
+        Parameters
         -----------
         bilby_prior_dic : bilby.core.prior.PriorDict
             The keys should be named as following :
@@ -597,10 +598,11 @@ class BivariateLinear(BaseMixer):
         '''
         Run sampler to learn parameters. Method should also create class
         members that store the posterior and other diagnostic quantities
-        important for plotting
-        MAP values should also calculate and set as member variable of
-        class
-        Parameters:
+        important for plotting MAP values, and finds the MAP values for
+        each parameter, and sets them equal to a class variable for easy
+        access.
+
+        Parameters
         ----------
 
         x_exp: np.1darray
@@ -622,7 +624,7 @@ class BivariateLinear(BaseMixer):
             If a previous training has been done, load that chain instead of
             retraining.
 
-        Return:
+        Returns
         -------
         result : bilby posterior object
             object returned by the bilby sampler

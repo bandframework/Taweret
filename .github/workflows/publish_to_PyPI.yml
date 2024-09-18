@@ -70,6 +70,17 @@ jobs:
         with:
           name: Taweret-distributions
           path: ${{ env.CLONE_PATH }}/dist
+      - name: Test source ditribution
+        run: |
+          ls -la $CLONE_PATH/dist/taweret-*.tar.gz
+          echo
+          which python
+          echo
+          python -m pip list
+          python -m pip install $CLONE_PATH/dist/taweret-*.tar.gz
+          python -c "import Taweret ; Taweret.__version__ ; Taweret.test()"
+          python -m pip uninstall --yes Taweret
+          python -m pip list
       - name: Test binary wheel
         run: |
           ls -la $CLONE_PATH/dist/Taweret-*-py3-none-any.whl
@@ -79,5 +90,5 @@ jobs:
           python -m pip list
           python -m pip install $CLONE_PATH/dist/Taweret-*-py3-none-any.whl
           python -c "import Taweret ; Taweret.__version__ ; Taweret.test()"
-          python -m pip uninstall Taweret
+          python -m pip uninstall --yes Taweret
           python -m pip list

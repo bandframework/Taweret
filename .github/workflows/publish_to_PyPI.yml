@@ -1,4 +1,4 @@
-name: Build, Test, & Deploy Wheel
+name: Build, Test, & Publish Wheel
 env:
   CLONE_PATH: ${{ github.workspace }}
 on:
@@ -9,7 +9,7 @@ on:
 #    types: [published]
 
 jobs:
-  build_distributions: 
+  build: 
     strategy:
       matrix:
         os: [ubuntu-24.04]
@@ -39,7 +39,7 @@ jobs:
             ${{ env.CLONE_PATH }}/dist/taweret-*.tar.gz
             ${{ env.CLONE_PATH }}/dist/Taweret-*-py3-none-any.whl
 
-  test_wheel:
+  test:
     needs: [build_distributions]
     strategy:
       matrix:
@@ -72,23 +72,55 @@ jobs:
           path: ${{ env.CLONE_PATH }}/dist
       - name: Test source ditribution
         run: |
-          ls -la $CLONE_PATH/dist/taweret-*.tar.gz
-          echo
+          distribution=$CLONE_PATH/dist/taweret-*.tar.gz
+          venv=$CLONE_PATH/TestSrc
           which python
           echo
+          # Run in clean virtual environment
+          python -m venv $venv
+          . $venv/bin/activate
+          which python
+          echo
+          ls -la $distribution
+          echo
+          python -m pip install $distribution
+          echo
           python -m pip list
-          python -m pip install $CLONE_PATH/dist/taweret-*.tar.gz
-          python -c "import Taweret ; Taweret.__version__ ; Taweret.test()"
-          python -m pip uninstall --yes Taweret
-          python -m pip list
+          echo
+          python -c "import Taweret ; print(Taweret.__version__) ; Taweret.test()"
+          rm -rf $venv
       - name: Test binary wheel
         run: |
-          ls -la $CLONE_PATH/dist/Taweret-*-py3-none-any.whl
-          echo
+          distribution=$CLONE_PATH/dist/Taweret-*-py3-none-any.whl
+          venv=$CLONE_PATH/TestWheel
           which python
           echo
+          # Run in clean virtual environment
+          python -m venv $venv
+          . $venv/bin/activate
+          which python
+          echo
+          ls -la $distribution
+          echo
+          python -m pip install $distribution
+          echo
           python -m pip list
-          python -m pip install $CLONE_PATH/dist/Taweret-*-py3-none-any.whl
-          python -c "import Taweret ; Taweret.__version__ ; Taweret.test()"
-          python -m pip uninstall --yes Taweret
-          python -m pip list
+          echo
+          python -c "import Taweret ; print(Taweret.__version__) ; Taweret.test()"
+          rm -rf $venv
+
+  publish:
+    needs: [test]
+    environment: pypi
+#    permissions:
+#      id-token: write
+    runs-on: ubuntu-latest
+#    if: github.event_name == 'release' && github.event.action == 'published'
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: Taweret-distributions
+        path: ${{ env.CLONE_PATH }}/dist
+    - name: Standin for now
+      run: ls -lart $CLONE_PATH/dist
+#    - uses: pypa/gh-action-pypi-publish@release/v1

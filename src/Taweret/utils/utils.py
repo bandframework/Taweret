@@ -26,10 +26,12 @@ def normed_mvn_loglike(y, cov):
     and covariance matrix `cov`:
 
     .. math::
-        log_p = -\frac{1}{2}[y^T C^{-1} y + \mathrm{log}(\mathrm{det}(C))] + const.
+        log_p = -\frac{1}{2}[y^T C^{-1} y + \mathrm{log}(\mathrm{det}(C))]
+        + const.
 
     This likelihood IS NORMALIZED.
-    The normalization const :math:`= -\frac{n}{2}\mathrm{log}(2\pi)`, where :math:`n` is the dimensionality.
+    The normalization const :math:`= -\frac{n}{2}\mathrm{log}(2\pi)`,
+    where :math:`n` is the dimensionality.
 
     Arguments `y` and `cov` MUST be np.arrays with dtype == float64 and shapes
     (n) and (n, n), respectively.  These requirements are NOT CHECKED.

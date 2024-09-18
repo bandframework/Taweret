@@ -5,6 +5,9 @@ on:
   pull_request:
     branches: [main]
   # Limit to only branches named release_v*.*?
+  #
+  # Should this eventually be set to just released so that prereleases aren't
+  # sent to PyPI?
 #  release:
 #    types: [published]
 
@@ -31,7 +34,7 @@ jobs:
           python -m build
           ls -lart ./dist
           popd
-      - name: Archive wheel for later publishing
+      - name: Archive distributions
         uses: actions/upload-artifact@v4
         with:
           name: Taweret-distributions
@@ -85,7 +88,7 @@ jobs:
           echo
           python -m pip list
           echo
-          python -c "import Taweret ; print(Taweret.__version__) ; Taweret.test()"
+          python -c "import Taweret ; print(Taweret.__version__) ; exit(not Taweret.test())"
           rm -rf $venv
       - name: Test binary wheel
         run: |
@@ -104,7 +107,7 @@ jobs:
           echo
           python -m pip list
           echo
-          python -c "import Taweret ; print(Taweret.__version__) ; Taweret.test()"
+          python -c "import Taweret ; print(Taweret.__version__) ; exit(not Taweret.test())"
           rm -rf $venv
 
   publish:

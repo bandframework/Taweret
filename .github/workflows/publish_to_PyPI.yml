@@ -83,6 +83,8 @@ jobs:
           echo
           ls -la $distribution
           echo
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade setuptools
           python -m pip install $distribution
           echo
           python -m pip list
@@ -102,6 +104,8 @@ jobs:
           echo
           ls -la $distribution
           echo
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade setuptools
           python -m pip install $distribution
           echo
           python -m pip list

@@ -411,14 +411,14 @@ class BivariateLinear(BaseMixer):
         Set prior for the mixing function parameters.
         Prior for the model parameters should be defined in each model.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
         bilby_prior_dic : bilby.core.prior.PriorDict
             The keys should be named as following :
                 '<mix_func_name>_1', '<mix_func_name>_2', ...
 
-        Returns:
-        --------
+        Returns
+        -------
         A full Bilby prior object for the mixed model.
         Including the mixing function parameters and model parameters.
         The Bilby prior dictionary has following keys.

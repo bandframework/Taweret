@@ -202,7 +202,7 @@ class BaseMixer(ABC):
     @abstractmethod
     def set_prior(self):
         '''
-        User must provide function that sets a member varibale called
+        User must provide function that sets a member variable called
         ``_prior``.
         Dictionary of prior distributions. Format should be compatible with
         sampler.
@@ -230,12 +230,10 @@ class BaseMixer(ABC):
         '''
         Run sampler to learn parameters. Method should also create class
         members that store the posterior and other diagnostic quantities
-        import for plotting
-        MAP values should also caluclate and set as member variable of
-        class
+        important for plotting MAP values.
 
-        Return:
-        -------
+        Returns:
+        --------
         _posterior : np.ndarray
             the mcmc chain return from sampler
         '''

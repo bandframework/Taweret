@@ -256,7 +256,7 @@ class Trees(BaseMixer):
         :param float base:
             The base parameter in the tree prior.
         :param float overallsd:
-            An initial estimate of the erorr standard deviation.
+            An initial estimate of the error standard deviation.
             This value is used to calibrate the scale parameter in
             variance prior.
         :param float overallnu:

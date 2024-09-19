@@ -14,11 +14,10 @@ name: Build, Test, & Publish Wheel
 env:
   CLONE_PATH: ${{ github.workspace }}
 on:
-  # Limit to only branches named release_v*.*?
-  #
-  # Should this eventually be set to just released so that prereleases aren't
-  # sent to PyPI?
+  # TODO: Limit to only branches named release/v*.* once the new git workflow is
+  # in place.
   release:
+    branches: [main]
     types: [published]
 
 jobs:
@@ -123,18 +122,22 @@ jobs:
           python -c "import Taweret ; print(Taweret.__version__) ; exit(not Taweret.test())"
           rm -rf $venv
 
-  publish:
-    needs: [test]
-    environment: pypi
+   # Since we only publish releases a few times a year, we are presently
+   # preferring to manually publish to PyPI the artifacts created by this
+   # action.
+   #
+   # THE FOLLOWING HAS NEVER BEEN REVIEWED OR RUN.  IT IS EFFECTIVELY A
+   # PLACEHOLDER.
+#  publish:
+#    needs: [test]
+#    environment: pypi
 #    permissions:
 #      id-token: write
-    runs-on: ubuntu-latest
+#    runs-on: ubuntu-latest
 #    if: github.event_name == 'release' && github.event.action == 'published'
-    steps:
-    - uses: actions/download-artifact@v4
-      with:
-        name: Taweret-distributions
-        path: ${{ env.CLONE_PATH }}/dist
-    - name: Standin for now
-      run: ls -lart $CLONE_PATH/dist
+#    steps:
+#    - uses: actions/download-artifact@v4
+#      with:
+#        name: Taweret-distributions
+#        path: ${{ env.CLONE_PATH }}/dist
 #    - uses: pypa/gh-action-pypi-publish@release/v1

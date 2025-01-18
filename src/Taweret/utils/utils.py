@@ -21,14 +21,17 @@ eps = 1e-15
 
 
 def normed_mvn_loglike(y, cov):
-    """
+    r"""
     Evaluate the multivariate-normal log-likelihood for difference vector `y`
     and covariance matrix `cov`:
 
-        log_p = -1/2*[(y^T).(C^-1).y + log(det(C))] + const.
+    .. math::
+        log_p = -\frac{1}{2}[y^T C^{-1} y + \mathrm{log}(\mathrm{det}(C))]
+        + const.
 
     This likelihood IS NORMALIZED.
-    The normalization const = -n/2*log(2*pi), where n is the dimensionality.
+    The normalization const :math:`= -\frac{n}{2}\mathrm{log}(2\pi)`,
+    where :math:`n` is the dimensionality.
 
     Arguments `y` and `cov` MUST be np.arrays with dtype == float64 and shapes
     (n) and (n, n), respectively.  These requirements are NOT CHECKED.
@@ -274,7 +277,7 @@ def mixture_function(
 
 
 def switchcos(g1, g2, g3, x):
-    """Switchcos function in Alexandras Samba module
+    """Switchcos function in Alexandra's Samba module
     link https://github.com/asemposki/SAMBA/
 
     Parameters:

@@ -33,8 +33,8 @@ class BivariateLinear(BaseMixer):
                  BMMcor: bool = False,
                  mean_mix: bool = False):
         '''
-        Parameters
-        ----------
+        Parameters:
+        -----------
         models_dic : dictionary {'name1' : model1, 'name2' : model2}
             Two models to mix, each must be derived from the base_model.
         method : str
@@ -144,8 +144,8 @@ class BivariateLinear(BaseMixer):
         '''
         Evaluate the mixed model for given parameters at input values x
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         mixture_params : np.1darray
             parameter values that fix the shape of mixing function
         x : np.1daray
@@ -154,8 +154,8 @@ class BivariateLinear(BaseMixer):
             list of model parameter values for each model
 
 
-        Returns
-        ---------
+        Returns:
+        --------
         evaluation : np.2darray
             the evaluation of the mixed model at input values x
             Has the shape of len(x) x Number of observables in the model
@@ -222,15 +222,15 @@ class BivariateLinear(BaseMixer):
         '''
         return the mixing function values at the input parameter values x
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         mixture_params : np.1darray
             parameter values that fix the shape of mixing function
         x : np.1darray
             input parameter values
 
-        Returns
-        -------
+        Returns:
+        --------
         weights : list[np.1darray, np.1darray]
             weights for model 1 and model 2 at input values x
 
@@ -247,8 +247,8 @@ class BivariateLinear(BaseMixer):
         '''
         Evaluate posterior to make prediction at test points x.
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         x : np.1darray
             input parameter values
         CI : list
@@ -317,8 +317,8 @@ class BivariateLinear(BaseMixer):
         '''
         Calculate posterior predictive distribution for first model weights
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         x : np.1darray
             input parameter values
         CI : list
@@ -326,6 +326,7 @@ class BivariateLinear(BaseMixer):
         samples: np.ndarray
             If samples are given use that instead of posterior\
                 for predictions.
+
         Returns:
         --------
         posterior_weights : np.ndarray
@@ -375,8 +376,8 @@ class BivariateLinear(BaseMixer):
         '''
         Evaluate prior to make prediction at test points x.
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         x : np.1darray
             input parameter values
         CI : list
@@ -410,8 +411,8 @@ class BivariateLinear(BaseMixer):
         Set prior for the mixing function parameters.
         Prior for the model parameters should be defined in each model.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
         bilby_prior_dic : bilby.core.prior.PriorDict
             The keys should be named as following :
                 '<mix_func_name>_1', '<mix_func_name>_2', ...
@@ -451,8 +452,8 @@ class BivariateLinear(BaseMixer):
         """
         log likelihood of the mixed model given the mixing function parameters
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         mixture_params : np.1darray
             parameter values that fix the shape of mixing function
         model_params: list[model_1_params, mode_2_params]
@@ -597,11 +598,12 @@ class BivariateLinear(BaseMixer):
         '''
         Run sampler to learn parameters. Method should also create class
         members that store the posterior and other diagnostic quantities
-        important for plotting
-        MAP values should also calculate and set as member variable of
-        class
+        important for plotting MAP values, and finds the MAP values for
+        each parameter, and sets them equal to a class variable for easy
+        access.
+
         Parameters:
-        ----------
+        -----------
 
         x_exp: np.1darray
             Experimentally measured input values
@@ -622,8 +624,8 @@ class BivariateLinear(BaseMixer):
             If a previous training has been done, load that chain instead of
             retraining.
 
-        Return:
-        -------
+        Returns:
+        --------
         result : bilby posterior object
             object returned by the bilby sampler
         '''
@@ -635,8 +637,11 @@ class BivariateLinear(BaseMixer):
                 import warnings
                 import multiprocessing
                 warnings.warn("'threads' detected in `kwargs` on Darwin." +
-                              " Setting `start_method` fot `fork`")
-                multiprocessing.set_start_method('fork')
+                              " Setting `start_method` to `fork`")
+                try:
+                    multiprocessing.set_start_method('fork', force=True)
+                except RuntimeError:
+                    pass
 
         prior = self._prior
         if prior is None:
@@ -649,7 +654,10 @@ class BivariateLinear(BaseMixer):
                 import multiprocessing
                 warnings.warn("'threads' dectected in 'kwargs_for_sampler'" +
                               " on Darwin. Setting `start_method` to `fork`")
-                multiprocessing.set_start_method('fork')
+                try:
+                    multiprocessing.set_start_method('fork', force=True)
+                except RuntimeError:
+                    pass
 
         # A few simple setup steps
         likelihood = likelihood_wrapper_for_bilby(self, x_exp, y_exp, y_err)

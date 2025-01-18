@@ -11,9 +11,10 @@ If you prefer to use conda for your package management, you can still pip instal
 
 Alternative Installation
 ------------------------
+.. _repository: https://github.com/bandframework/Taweret.git
 
-Alternatively, you can clone the `repository <https://github.com/bandframework/Taweret.git>`.
-Open cloning, the dependencies for Taweret dependencies by running the command
+Alternatively, you can clone the `repository`_ and install Taweret into your
+Python environment in developer or editable mode from the clone by running
 
 .. code-block:: bash
 
@@ -26,6 +27,14 @@ Prerequisites
 -------------
 
 The Trees module depends on OpenMPI. Please ensure OpenMPI is installed with shared/built libraries prior to using the Trees module.
+
+The list of dependences is as short as possible to keep the installation process streamlined and allow for minimal, clean installations; however, if a user would like to run 
+the Jupyter notebooks in the associated Jupyter Book, dependences for the notebooks will need to be installed in the relevant environment.
+These dependences are located in the Jupyter notebooks, and hence can be quickly installed by running the import cell at the top of each notebook.
+
+The `bilby` sampler comes with the ability to use a suite of samplers---in the case of Taweret, we also have not listed all
+samplers as dependences. However, the user can (and should) install any samplers that they wish to use and `bilby` will be able
+to use them through its wrapper in the Taweret package.
 
 
 Windows Users

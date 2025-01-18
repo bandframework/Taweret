@@ -34,8 +34,7 @@ class BaseModel(ABC):
     @abstractmethod
     def log_likelihood_elementwise(self):
         r'''
-        Calculate log_likelihood for array of points given, and return with
-        array with same shape[0]
+        Calculate log_likelihood for array of points given
 
         Returns:
         --------
@@ -61,7 +60,7 @@ class BaseModel(ABC):
     @abstractmethod
     def set_prior(self):
         '''
-        User must provide function that sets a member varibale called _prior.
+        User must provide function that sets a member variable called _prior.
         Dictionary of prior distributions. Format should be compatible with
         sampler.
 

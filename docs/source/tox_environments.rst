@@ -90,6 +90,18 @@ the coverage results file that will be used with all coverage tasks;
 
   * Render the Taweret documentation as a PDF document.
 
+* ``tox -r -e book``
+
+  * Render the Taweret Jupyter book from scratch and with conservative error
+    checking.  When building the book for publishing, for review, or checking
+    for issues, this is the task to use.
+
+* ``tox -r -e bookdev``
+
+  * Rendering the book from scratch is slow.  Developers can use this task when
+    actively adding/updating content to save time.  It is intended that they
+    run ``book`` upon finishing their work to ensure that all is well.
+
 Note that you can combine different tasks into a single call such as ``tox -e
 report,coverage``.
 

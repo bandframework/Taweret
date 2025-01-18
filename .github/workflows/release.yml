@@ -1,0 +1,143 @@
+#
+# This action publishes distributions that it produces to the Taweret PyPI
+# account.  Therefore, it has the ability to break that page or allow nefarious
+# actors to alter it.  For more information on the security behind this action,
+# please refer to
+#
+#        https://docs.pypi.org/trusted-publishers/security-model/
+#
+# ALL CHANGES TO THIS ACTION SHOULD BE REVIEWED VERY CAREFULLY TO ENSURE THAT
+#             THE CHANGES ARE AS INTENDED AND WELL UNDERSTOOD!
+#
+
+name: Build, Test, & Publish Wheel
+env:
+  CLONE_PATH: ${{ github.workspace }}
+on:
+  # TODO: Limit to only branches named release/v*.* once the new git workflow is
+  # in place.
+  release:
+    branches: [main]
+    types: [published]
+
+jobs:
+  build: 
+    strategy:
+      matrix:
+        os: [ubuntu-24.04]
+        python-version: ["3.12"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Setup base Python environment
+        run: |
+          $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
+      - name: Build src dist & binary wheel
+        run: |
+          pushd $CLONE_PATH
+          python -m build
+          ls -lart ./dist
+          popd
+      - name: Archive distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: Taweret-distributions
+          path: |
+            ${{ env.CLONE_PATH }}/dist/taweret-*.tar.gz
+            ${{ env.CLONE_PATH }}/dist/Taweret-*-py3-none-any.whl
+
+  test:
+    needs: [build]
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, macos-12, macos-13, macos-14]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install OpenMPI
+        run: |
+          if   [ "${{ runner.os }}" == "Linux" ]; then
+             sudo apt-get update
+             sudo apt-get -y install openmpi-bin
+          elif [ "${{ runner.os }}" == "macOS" ]; then
+             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+             brew install open-mpi
+          fi
+      - name: Setup base Python environment
+        run: |
+          $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: Taweret-distributions
+          path: ${{ env.CLONE_PATH }}/dist
+      - name: Test source ditribution
+        run: |
+          distribution=$CLONE_PATH/dist/taweret-*.tar.gz
+          venv=$CLONE_PATH/TestSrc
+          which python
+          echo
+          # Run in clean virtual environment
+          python -m venv $venv
+          . $venv/bin/activate
+          which python
+          echo
+          ls -la $distribution
+          echo
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade setuptools
+          python -m pip install $distribution
+          echo
+          python -m pip list
+          echo
+          python -c "import Taweret ; print(Taweret.__version__) ; exit(not Taweret.test())"
+          rm -rf $venv
+      - name: Test binary wheel
+        run: |
+          distribution=$CLONE_PATH/dist/Taweret-*-py3-none-any.whl
+          venv=$CLONE_PATH/TestWheel
+          which python
+          echo
+          # Run in clean virtual environment
+          python -m venv $venv
+          . $venv/bin/activate
+          which python
+          echo
+          ls -la $distribution
+          echo
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade setuptools
+          python -m pip install $distribution
+          echo
+          python -m pip list
+          echo
+          python -c "import Taweret ; print(Taweret.__version__) ; exit(not Taweret.test())"
+          rm -rf $venv
+
+   # Since we only publish releases a few times a year, we are presently
+   # preferring to manually publish to PyPI the artifacts created by this
+   # action.
+   #
+   # THE FOLLOWING HAS NEVER BEEN REVIEWED OR RUN.  IT IS EFFECTIVELY A
+   # PLACEHOLDER.
+#  publish:
+#    needs: [test]
+#    environment: pypi
+#    permissions:
+#      id-token: write
+#    runs-on: ubuntu-latest
+#    if: github.event_name == 'release' && github.event.action == 'published'
+#    steps:
+#    - uses: actions/download-artifact@v4
+#      with:
+#        name: Taweret-distributions
+#        path: ${{ env.CLONE_PATH }}/dist
+#    - uses: pypa/gh-action-pypi-publish@release/v1

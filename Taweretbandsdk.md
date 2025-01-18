@@ -28,9 +28,9 @@
 | 2. | Have a README file in the top directory that states a specific set of testing procedures for a user to verify the software was installed and run correctly. | Full | None. |
 | 3. | Provide a documented, reliable way to contact the development team. |Full| The Taweret team can be contacted via the public issues page Github. |
 | 4. | Come with an open-source license |Full| Taweret uses the MIT license.|
-| 5. | Provide a runtime API to return the current version number of the software. |Full| None.|
+| 5. | Provide a runtime API to return the current version number of the software. |Full| Printing `Taweret.__version__` will show the version number.|
 | 6. | Provide a BAND team-accessible repository. |Full| https://github.com/bandframework/Taweret |
-| 7. | Must allow installing, building, and linking against an outside copy of all imported software that is externally developed and maintained .|Full| None.|
+| 7. | Must allow installing, building, and linking against an outside copy of all imported software that is externally developed and maintained. |Full| None.|
 | 8. | Have no hardwired print or IO statements that cannot be turned off. |Full| The trees module prints out one line when the model begins to train. This can be removed if needed.|
 
 ### Recommended Policies
@@ -39,10 +39,10 @@
 |---|------------------------|-------|-------------------------|
 |**R1.**| Have a public repository. |Full| Taweret is a public repository. |
 |**R2.**| Free all system resources acquired as soon as they are no longer needed. |Full| None. |
-|**R3.**| Provide a mechanism to export ordered list of library dependencies. |None| None. |
-|**R4.**| Document versions of packages that it works with or depends upon, preferably in machine-readable form.  |None| None. |
+|**R3.**| Provide a mechanism to export ordered list of library dependencies. |None| See the list of dependences in the `pypiproject.toml` file. |
+|**R4.**| Document versions of packages that it works with or depends upon, preferably in machine-readable form.  |None| See R3. |
 |**R5.**| Have SUPPORT, LICENSE, and CHANGELOG files in top directory.  |Partial| The LICENSE is in the top directory, the other two files are not included at this time. |
-|**R6.**| Have sufficient documentation to support use and further development.  |Full| Full documentation is provided at https://bandframework.github.io/Taweret/. |
+|**R6.**| Have sufficient documentation to support use and further development.  |Full| Full documentation is provided at https://taweretdocs.readthedocs.io/en/latest/index.html and pedagogical information, including examples, at https://bandframework.github.io/Taweret/. |
 |**R7.**| Be buildable using 64-bit pointers; 32-bit is optional. |Partial| The trees module depends on a Ubuntu package which is built for 64-bit.|
 |**R8.**| Do not assume a full MPI communicator; allow for user-provided MPI communicator. |N/a| None. |
 |**R9.**| Use a limited and well-defined name space (e.g., symbol, macro, library, include). |Full| None.|
@@ -50,4 +50,4 @@
 |**R11.**| Install headers and libraries under `<prefix>/include` and `<prefix>/lib`, respectively. |Full| None.|
 |**R12.**| All BAND compatibility changes should be sustainable. |Full| None.|
 |**R13.**| Respect system resources and settings made by other previously called packages. |Full| None.|
-|**R14.**| Provide a comprehensive test suite for correctness of installation verification. |Full| None.|
+|**R14.**| Provide a comprehensive test suite for correctness of installation verification. |Partial| Code coverage is now at 67%; improvement will occur in future versions.|

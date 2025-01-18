@@ -66,6 +66,10 @@ please see (https://ubuntu.com/wsl). We recommend installing the Ubuntu 20.04 WS
 [here](https://wiki.ubuntu.com/WSL?action=subscribe&_ga=2.237944261.411635877.1601405226-783048612.1601405226#Installing_Packages_on_Ubuntu) 
 on keeping your Ubuntu WSL up to date, or installing additional features like X support. Once you have installed the WSL Ubuntu layer, start the WSL Ubuntu shell from the start menu and then you can begin working with Taweret.
 
+## MacOS Users:
+
+At the moment, we do not have a working arm64 wheel for OpenBT. However, if you would like to use the Trees class in Taweret, you can follow the instructions found [here](https://github.com/jcyannotty/OpenBT/blob/ArmDocs/README.md) to build OpenBT locally.
+
 ## Running on Codespaces
 GitHub's Codespaces is a great place to test using Taweret. Right now, you can try out Taweret's Bivariate Linear BMM and Multivariate BMM methods there, by following the instructions below. 
 

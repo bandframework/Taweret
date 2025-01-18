@@ -5,7 +5,7 @@
 # Version: 1.0
 
 import numpy as np
-from openbtmixing import OpenbtMix
+from openbtmixing import Openbtmix
 
 from Taweret.core.base_mixer import BaseMixer
 

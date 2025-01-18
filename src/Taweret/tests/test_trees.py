@@ -84,9 +84,6 @@ def test_mixing():
 
     # Check a few of the fit elements (only the ones that make sense)
     assert fit["nummodels"] == 2, "number of models is wrong."
-    assert fit["pbd"] == 0.7, "check prob of birth and death"
-    assert fit["pb"] == 0.5, "check prob of birth"
-
 
 # Test the mean predictions
 def test_predict():

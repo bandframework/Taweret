@@ -54,6 +54,8 @@ jobs:
         run: $CLONE_PATH/.github/workflows/install_meson.sh ${{ github.workspace }} ${{ runner.os }}
       - name: Run tests without coverage
         run: |
+          which python
+          python -m pip list
           git clone https://github.com/jcyannotty/OpenBT.git
           pushd OpenBT/openbtmixing_pypkg
           git switch 6_MesonProto

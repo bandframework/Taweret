@@ -36,6 +36,7 @@ elif [ "$runner_os" = "Linux" ]; then
     echo " "
     python -m pip list
     echo " "
+    deactivate
     
     # Install just meson command in path for all subsequent steps in job
     ln -s $meson_venv/bin/meson $local_bin

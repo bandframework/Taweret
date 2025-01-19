@@ -12,15 +12,9 @@ jobs:
     # packaging.
     strategy:
       matrix:
-        # TODO: Temporarily remove Ubuntu24.04 for debugging
-        os: [ubuntu-20.04, ubuntu-22.04, macos-13, macos-14, macos-15]
-        mpi_impl: ["openmpi", "mpich"]
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
-        exclude:
-          # TODO: Build is currently not finding mpi.h.  This problem wasn't
-          # happening earlier in OpenBT GH actions.
-          - os: ubuntu-22.04
-            mpi_impl: "openmpi"
+        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, macos-13, macos-14, macos-15]
+        mpi_impl: ["openmpi"]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
     runs-on: ${{ matrix.os }}
     env:
       CLONE_PATH: ${{ github.workspace }}

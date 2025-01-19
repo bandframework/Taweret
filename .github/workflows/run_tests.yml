@@ -12,8 +12,15 @@ jobs:
     # packaging.
     strategy:
       matrix:
-        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, macos-12, macos-13, macos-14]
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        # TODO: Temporarily remove Ubuntu24.04 for debugging
+        os: [ubuntu-20.04, ubuntu-22.04, macos-13, macos-14, macos-15]
+        mpi_impl: ["openmpi", "mpich"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        exclude:
+          # TODO: Build is currently not finding mpi.h.  This problem wasn't
+          # happening earlier in OpenBT GH actions.
+          - os: ubuntu-22.04
+            mpi_impl: "openmpi"
     runs-on: ${{ matrix.os }}
     env:
       CLONE_PATH: ${{ github.workspace }}
@@ -23,18 +30,30 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install OpenMPI
+      - name: Install ${{ matrix.mpi_impl }}
         run: |
-          if   [ "${{ runner.os }}" == "Linux" ]; then
+          if   [ "${{ runner.os }}" = "Linux" ]; then
              sudo apt-get update
-             sudo apt-get -y install openmpi-bin
-          elif [ "${{ runner.os }}" == "macOS" ]; then
-             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-             brew install open-mpi
+             if   [ "${{ matrix.mpi_impl }}" = "openmpi" ]; then
+                sudo apt-get -y install openmpi-bin libopenmpi-dev
+             elif [ "${{ matrix.mpi_impl }}" = "mpich" ]; then
+                sudo apt-get -y install mpich libmpich-dev
+             else
+                echo "Cannot install ${{ matrix.mpi_impl }} for Linux"
+                exit 1
+             fi
+          elif [ "${{ runner.os }}" = "macOS" ]; then
+             if   [ "${{ matrix.mpi_impl }}" = "openmpi" ]; then
+                brew install open-mpi
+             elif [ "${{ matrix.mpi_impl }}" = "mpich" ]; then
+                brew install mpich
+             else
+                echo "Cannot install ${{ matrix.mpi_impl }} for macOS"
+                exit 1
+             fi
           fi
       - name: Setup base Python environment
-        run: |
-          $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
+        run: $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
       - name: Install Meson build system
         run: $CLONE_PATH/.github/workflows/install_meson.sh ${{ github.workspace }} ${{ runner.os }}
       - name: Run tests without coverage

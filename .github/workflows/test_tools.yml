@@ -16,7 +16,8 @@ jobs:
       # of OS and Python version.  Therefore, here we are just checking the
       # script itself and need just one setup.
       matrix:
-        os: [ubuntu-latest]
+        # TODO: Temporarily use older Ubuntu that seems to build correctly
+        os: [ubuntu-20.04]
         python-version: ["3.12"]
     steps:
     ##-- General Setup Steps
@@ -32,8 +33,25 @@ jobs:
     - name: Setup base Python environment
       run: |
         $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
+    - name: Install Meson build system
+      run: $CLONE_PATH/.github/workflows/install_meson.sh ${{ github.workspace }} ${{ runner.os }}
     - name: Build & install wheel
       run: |
+        which mpirun
+        which mpicxx
+        mpicxx -show
+        echo " "
+        # TODO: Some test setups are installing scipy v1.15.1 and failing to
+        # import a function from scipy.  Others are using v1.13.1 and passing.
+        # Try eagerly loading the older one to see if we can get tests
+        # passing.
+        python -m pip install scipy==1.13.1
+        git clone https://github.com/jcyannotty/OpenBT.git
+        pushd OpenBT/openbtmixing_pypkg
+        git switch 6_MesonProto
+        python -m build --sdist
+        python -m pip install -v dist/openbtmixing-1.0.1.tar.gz
+        popd
         pushd $CLONE_PATH
         python -m build
         pushd dist && pip install $(ls Taweret-*-py3-none-any.whl) && popd

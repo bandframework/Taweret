@@ -66,7 +66,7 @@ jobs:
           # import a function from scipy.  Others are using v1.13.1 and passing.
           # Try eagerly loading the older one to see if we can get tests
           # passing.
-          python -m pip install scipy==1.14.0
+          python -m pip install scipy==1.15.0
           git clone https://github.com/jcyannotty/OpenBT.git
           pushd OpenBT/openbtmixing_pypkg
           git switch 6_MesonProto

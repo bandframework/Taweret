@@ -65,6 +65,11 @@ def test_mixing():
     assert mix.obt.inform_prior == False, "class object inform_prior is not set."
 
     # Train the model
+    #
+    # The GitHub action runners can have as few as two processors.  When tests
+    # run on those with Open MPI with more MPI processes than processors, it
+    # exits due to oversubscription.  The value of tc is set to get all Open
+    # MPI-based actions running.
     fit = mix.train(
         X=x_train,
         y=y_train,
@@ -73,7 +78,7 @@ def test_mixing():
         nskip=2000,
         adaptevery=500,
         minnumbot=4,
-        tc = 4)
+        tc = 2)
 
     # Check the mcmc objects
     assert mix.obt.ndpost == 10000, "class object ndpost is not set."

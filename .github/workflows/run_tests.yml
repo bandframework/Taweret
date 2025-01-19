@@ -14,7 +14,9 @@ jobs:
       matrix:
         os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, macos-13, macos-14, macos-15]
         mpi_impl: ["openmpi", "mpich"]
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        # TODO: Temporarily exlcude 3.9 since this won't work with scipy 1.14 or
+        # 1.15
+        python-version: ["3.10", "3.11", "3.12"]
         exclude:
           # See similar tests for openbtmixing for more info.
           - os: ubuntu-24.04

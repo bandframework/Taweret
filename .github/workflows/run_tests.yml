@@ -15,6 +15,10 @@ jobs:
         os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, macos-13, macos-14, macos-15]
         mpi_impl: ["openmpi", "mpich"]
         python-version: ["3.9", "3.10", "3.11", "3.12"]
+        exclude:
+          # See similar tests for openbtmixing for more info.
+          - os: ubuntu-24.04
+            mpi_impl: "mpich"
     runs-on: ${{ matrix.os }}
     env:
       CLONE_PATH: ${{ github.workspace }}

@@ -48,9 +48,10 @@ jobs:
         shell: bash -el {0}
         run: |
           conda install -c conda-forge ${{ matrix.mpi_impl }}
-          #conda list
-          #which mpicxx
-          #mpicxx -show
+          conda list
+          ls /Users/runner/miniconda3/envs/test/bin
+          which mpicxx || echo "Cannot find the MPI installation"
+          mpicxx -show || echo "Cannot check the MPI wrapper specification"
       - name: Install Meson build system
         run: $CLONE_PATH/.github/workflows/install_meson.sh ${{ github.workspace }} ${{ runner.os }}
       - name: Run tests without coverage

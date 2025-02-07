@@ -14,9 +14,8 @@ jobs:
       matrix:
         #os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, macos-13, macos-14, macos-15]
         os: [macos-13]
-        miniconda_version: ["Miniconda3-py312_25.1.1-0-MacOSX-x86_64.sh"]
         mpi_impl: ["openmpi"]
-        python-version: ["3.12"]
+        python-version: ["3.11"]
         exclude:
           # Prebuilt Intel MPI package not available for macOS
           - os: [macos-13, macos-14, macos-15]
@@ -27,7 +26,7 @@ jobs:
     steps:
       - uses: conda-incubator/setup-miniconda@v3
         with:
-          miniconda-version: ${{ matrix.miniconda_version }}
+          miniconda-version: py311_24.1.2-0
           auto-update-conda: true
           conda-remove-defaults: "true"
           python-version: ${{ matrix.python-version }}

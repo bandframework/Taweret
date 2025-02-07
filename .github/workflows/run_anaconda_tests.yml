@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         #os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, macos-13, macos-14, macos-15]
-        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04]
+        os: [macos-13]
         mpi_impl: ["openmpi"]
         python-version: ["3.13"]
         exclude:
@@ -48,9 +48,9 @@ jobs:
         shell: bash -el {0}
         run: |
           conda install -c conda-forge ${{ matrix.mpi_impl }}
-          conda list
-          which mpicxx
-          mpicxx -show
+          #conda list
+          #which mpicxx
+          #mpicxx -show
       - name: Install Meson build system
         run: $CLONE_PATH/.github/workflows/install_meson.sh ${{ github.workspace }} ${{ runner.os }}
       - name: Run tests without coverage

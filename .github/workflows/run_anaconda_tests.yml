@@ -11,11 +11,8 @@ jobs:
     # Test through actual installations for end-to-end testing including
     # packaging.
     #
-    # Issue #XXX: For the macos-* test setups, the latest version of miniconda
-    # was installing OpenMPI, but the MPI wrappers were not in the PATH and I
-    # could not locate the installation.  I revereted setup-miniconda to an
-    # older version that allows me to specify an older version of miniconda that
-    # works and in a way that is not specific to a particular OS/processor.
+    # Refer to Issue #122 to understand use of older Python, older miniconda
+    # version, and older setup-miniconda version.
     strategy:
       matrix:
         os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04,

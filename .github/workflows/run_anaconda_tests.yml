@@ -14,6 +14,7 @@ jobs:
       matrix:
         #os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, macos-13, macos-14, macos-15]
         os: [macos-13]
+        miniconda_version: ["25.1.1"]
         mpi_impl: ["openmpi"]
         python-version: ["3.12"]
         exclude:
@@ -26,6 +27,7 @@ jobs:
     steps:
       - uses: conda-incubator/setup-miniconda@v3
         with:
+          miniconda-version: ${{ matrix.miniconda_version }}
           auto-update-conda: true
           conda-remove-defaults: "true"
           python-version: ${{ matrix.python-version }}

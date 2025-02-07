@@ -15,7 +15,7 @@ jobs:
         #os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, macos-13, macos-14, macos-15]
         os: [macos-13]
         mpi_impl: ["openmpi"]
-        python-version: ["3.13"]
+        python-version: ["3.12"]
         exclude:
           # Prebuilt Intel MPI package not available for macOS
           - os: [macos-13, macos-14, macos-15]

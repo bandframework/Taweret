@@ -14,7 +14,7 @@ jobs:
       matrix:
         #os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, macos-13, macos-14, macos-15]
         os: [macos-13]
-        miniconda_version: ["25.1.1"]
+        miniconda_version: ["Miniconda3-py312_25.1.1-0-MacOSX-x86_64.sh"]
         mpi_impl: ["openmpi"]
         python-version: ["3.12"]
         exclude:

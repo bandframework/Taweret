@@ -57,8 +57,8 @@ jobs:
         run: |
           conda install -c conda-forge ${{ matrix.mpi_impl }}
           conda list
-          ls /Users/runner/miniconda3/envs/test/bin
-          find /Users/runner/miniconda3 -name mpicxx
+          #ls /Users/runner/miniconda3/envs/test/bin
+          #find /Users/runner/miniconda3 -name mpicxx
           which mpicxx || echo "Cannot find the MPI installation"
           mpicxx -show || echo "Cannot check the MPI wrapper specification"
       - name: Install Meson build system

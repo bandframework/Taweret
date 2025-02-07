@@ -10,12 +10,19 @@ jobs:
     #####----- RUN FULL TEST SUITE WITHOUT COVERAGE
     # Test through actual installations for end-to-end testing including
     # packaging.
+    #
+    # Issue #XXX: For the macos-* test setups, the latest version of miniconda
+    # was installing OpenMPI, but the MPI wrappers were not in the PATH and I
+    # could not locate the installation.  I revereted setup-miniconda to an
+    # older version that allows me to specify an older version of miniconda that
+    # works and in a way that is not specific to a particular OS/processor.
     strategy:
       matrix:
-        #os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, macos-13, macos-14, macos-15]
-        os: [macos-13, macos-14, macos-15]
+        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04,
+             macos-13, macos-14, macos-15]
         mpi_impl: ["openmpi"]
         python-version: ["3.11"]
+        miniconda-version: [py311_24.11.1-0]
         exclude:
           # Prebuilt Intel MPI package not available for macOS
           - os: [macos-13, macos-14, macos-15]
@@ -26,7 +33,7 @@ jobs:
     steps:
       - uses: conda-incubator/setup-miniconda@v2.1.1
         with:
-          miniconda-version: py311_24.11.1-0
+          miniconda-version: ${{ matrix.miniconda-version }}
           auto-update-conda: true
           conda-remove-defaults: "true"
           python-version: ${{ matrix.python-version }}

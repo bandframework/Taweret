@@ -90,6 +90,7 @@ def test_mixing():
     # Check a few of the fit elements (only the ones that make sense)
     assert fit["nummodels"] == 2, "number of models is wrong."
 
+
 # Test the mean predictions
 def test_predict():
     # Get test data

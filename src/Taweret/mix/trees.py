@@ -9,8 +9,6 @@ from openbtmixing import Openbtmix
 
 from Taweret.core.base_mixer import BaseMixer
 
-
-
 class Trees(BaseMixer):
     r'''
         Constructor for the Trees mixing class,
@@ -183,7 +181,7 @@ class Trees(BaseMixer):
         :returns: None.
 
         '''
-        self.obt.set_prior(ntree,ntreeh,k,power,base,sighat,nu,inform_prior)
+        self.obt.set_prior(ntree, ntreeh, k, power, base, sighat, nu, inform_prior)
 
     def prior_predict(self):
         '''
@@ -216,8 +214,7 @@ class Trees(BaseMixer):
 
         if len(X.shape) == 1:
             X = X.reshape(X.shape[0], 1)
-
-
+            
         # Get predictions from the model set at X's
         fhat_list = []
         shat_list = []
@@ -234,17 +231,17 @@ class Trees(BaseMixer):
         s_matrix = np.concatenate(shat_list, axis=1)
 
         # Run the train command in openbtmixing
-        res = self.obt.train(x_train = X, y_train = y, f_train = f_matrix, 
-                             s_train = s_matrix, **kwargs)
+        res = self.obt.train(x_train=X, y_train=y, f_train=f_matrix,
+                             s_train=s_matrix, **kwargs)
 
-        # Get predictions at training points -- more importanlty, 
+        # Get predictions at training points -- more importanlty,
         # get the posterior of sigma
         # ci level doesn't matter here, all we want is the posterior
-        # using tc*2 just to get a small subset of data that 
+        # using tc*2 just to get a small subset of data that
         # won't break the array structures when reading in results
-        res_sig = self.obt.predict(X[0:(self.obt.tc*2),], 
+        res_sig = self.obt.predict(X[0:(self.obt.tc*2),],
                                    f_matrix[0:(self.obt.tc*2),], ci=0.68)
-        self._posterior = res_sig["sigma"]["draws"][:,0]
+        self._posterior = res_sig["sigma"]["draws"][:, 0]
 
         return res
 
@@ -305,7 +302,7 @@ class Trees(BaseMixer):
         self.q_upper = q_upper
 
         # predict via openbtmixing grid
-        res = self.obt.predict(X,f_test,ci)
+        res = self.obt.predict(X, f_test, ci)
 
         posterior = res["pred"]["draws"]
         post_mean = res["pred"]["mean"]
@@ -343,12 +340,12 @@ class Trees(BaseMixer):
         alpha = (1 - ci)
         q_lower = alpha / 2
         q_upper = 1 - alpha / 2
-       
+        
         self.q_lower = q_lower
         self.q_upper = q_upper
 
         # predict via openbtmixing grid
-        res = self.obt.predict_weights(X,ci)
+        res = self.obt.predict_weights(X, ci)
 
         posterior = res["wts"]["draws"]
         post_mean = res["wts"]["mean"]
@@ -356,3 +353,4 @@ class Trees(BaseMixer):
         post_credible_interval = [res["wts"]["lb"], res["wts"]["ub"]]
 
         return posterior, post_mean, post_credible_interval, post_sd
+        

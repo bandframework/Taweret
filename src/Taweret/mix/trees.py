@@ -182,7 +182,7 @@ class Trees(BaseMixer):
         :returns: None.
 
         '''
-        self.obt.set_prior(ntree, ntreeh, k, power, base, 
+        self.obt.set_prior(ntree, ntreeh, k, power, base,
                            sighat, nu, inform_prior)
 
     def prior_predict(self):
@@ -216,7 +216,6 @@ class Trees(BaseMixer):
 
         if len(X.shape) == 1:
             X = X.reshape(X.shape[0], 1)
-            
         # Get predictions from the model set at X's
         fhat_list = []
         shat_list = []
@@ -295,7 +294,6 @@ class Trees(BaseMixer):
 
         # Construct F matrix using concatenate
         f_test = np.concatenate(fhat_list, axis=1)
-        
         # Set control values
         self.p_test = X.shape[1]
         self.n_test = X.shape[0]
@@ -354,4 +352,3 @@ class Trees(BaseMixer):
         post_credible_interval = [res["wts"]["lb"], res["wts"]["ub"]]
 
         return posterior, post_mean, post_credible_interval, post_sd
-        

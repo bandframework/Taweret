@@ -9,6 +9,7 @@ from openbtmixing import Openbtmix
 
 from Taweret.core.base_mixer import BaseMixer
 
+
 class Trees(BaseMixer):
     r'''
         Constructor for the Trees mixing class,
@@ -181,7 +182,8 @@ class Trees(BaseMixer):
         :returns: None.
 
         '''
-        self.obt.set_prior(ntree, ntreeh, k, power, base, sighat, nu, inform_prior)
+        self.obt.set_prior(ntree, ntreeh, k, power, base, 
+                           sighat, nu, inform_prior)
 
     def prior_predict(self):
         '''
@@ -340,7 +342,6 @@ class Trees(BaseMixer):
         alpha = (1 - ci)
         q_lower = alpha / 2
         q_upper = 1 - alpha / 2
-        
         self.q_lower = q_lower
         self.q_upper = q_upper
 

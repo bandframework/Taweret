@@ -62,7 +62,7 @@ def test_mixing():
     assert mix.obt.ntree == 30, "class object ntree is not set."
     assert mix.obt.nu == 5, "class object nu is not set."
     assert mix.obt.lam == 0.01**2, "class object lambda is not set."
-    assert mix.obt.inform_prior == False, "class object inform_prior is not set."
+    assert not mix.obt.inform_prior, "class object inform_prior is not set."
 
     # Train the model
     #
@@ -78,7 +78,7 @@ def test_mixing():
         nskip=2000,
         adaptevery=500,
         minnumbot=4,
-        tc = 2)
+        tc=2)
 
     # Check the mcmc objects
     assert mix.obt.ndpost == 10000, "class object ndpost is not set."

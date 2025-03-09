@@ -47,8 +47,8 @@ jobs:
         with:
           name: Taweret-distributions
           path: |
-            ${{ env.CLONE_PATH }}/dist/taweret-*.tar.gz
-            ${{ env.CLONE_PATH }}/dist/Taweret-*-py3-none-any.whl
+            ${{ env.CLONE_PATH }}/dist/[Tt]aweret-*.tar.gz
+            ${{ env.CLONE_PATH }}/dist/[Tt]aweret-*-py3-none-any.whl
 
   test:
     needs: [build]
@@ -81,7 +81,7 @@ jobs:
           path: ${{ env.CLONE_PATH }}/dist
       - name: Test source ditribution
         run: |
-          distribution=$CLONE_PATH/dist/taweret-*.tar.gz
+          distribution=$CLONE_PATH/dist/[Tt]aweret-*.tar.gz
           venv=$CLONE_PATH/TestSrc
           which python
           echo
@@ -102,7 +102,7 @@ jobs:
           rm -rf $venv
       - name: Test binary wheel
         run: |
-          distribution=$CLONE_PATH/dist/Taweret-*-py3-none-any.whl
+          distribution=$CLONE_PATH/dist/[Tt]aweret-*-py3-none-any.whl
           venv=$CLONE_PATH/TestWheel
           which python
           echo

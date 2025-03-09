@@ -54,7 +54,7 @@ jobs:
         popd
         pushd $CLONE_PATH
         python -m build
-        pushd dist && pip install $(ls Taweret-*-py3-none-any.whl) && popd
+        pushd dist && pip install $(ls [Tt]aweret-*-py3-none-any.whl) && popd
         popd
         pip list
     ##-- Run all tools at least once

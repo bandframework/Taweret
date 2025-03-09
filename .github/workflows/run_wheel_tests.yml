@@ -79,7 +79,7 @@ jobs:
           # universal.  Therefore, all pip installs from PyPI should get the
           # wheel rather than the source distribution and we test the wheel.
           python -m build --wheel
-          python -m pip install dist/Taweret-*-py3-none-any.whl
+          python -m pip install dist/[Tt]aweret-*-py3-none-any.whl
           python -c "import Taweret ; print(Taweret.__version__) ; exit(not Taweret.test())"
           popd
 

@@ -1,5 +1,6 @@
 name: Test Taweret tools
-
+env:
+  CLONE_PATH:  ${{ github.workspace }}
 on:
   push:
     branches: [main, develop]
@@ -8,16 +9,14 @@ on:
 
 jobs:
   test_tools:
-    runs-on: ${{ matrix.os }}
-    env:
-      CLONE_PATH:  ${{ github.workspace }}
     strategy:
       # We are already testing package installations across a large matrix 
       # of OS and Python version.  Therefore, here we are just checking the
       # script itself and need just one setup.
       matrix:
         os: [ubuntu-24.04]
-        python-version: ["3.12"]
+        python-version: ["3.13"]
+    runs-on: ${{ matrix.os }}
     steps:
     ##-- General Setup Steps
     - uses: actions/checkout@v4
@@ -28,7 +27,7 @@ jobs:
     - name: Install OpenMPI
       run: |
         sudo apt-get update
-        sudo apt-get -y install openmpi-bin
+        sudo apt-get -y install openmpi-bin libopenmpi-dev
     - name: Setup base Python environment
       run: |
         $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
@@ -36,9 +35,9 @@ jobs:
       run: $CLONE_PATH/.github/workflows/install_meson.sh ${{ github.workspace }} ${{ runner.os }}
     - name: Build & install wheel
       run: |
-        which mpirun
-        which mpicxx
-        mpicxx -show
+        which mpirun || echo "Cannot find the MPI installation"
+        which mpicxx || echo "Cannot find the MPI compiler wrapper"
+        mpicxx -show || echo "Cannot check the MPI wrapper specification"
         echo " "
         # TODO: Some test setups are installing scipy v1.15.1 and failing to
         # import a function from scipy.  Others are using v1.13.1 and passing.

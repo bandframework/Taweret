@@ -15,7 +15,7 @@ jobs:
     # version, and older setup-miniconda version.
     strategy:
       matrix:
-        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04,
+        os: [ubuntu-22.04, ubuntu-24.04,
              macos-13, macos-14, macos-15]
         mpi_impl: ["openmpi"]
         python-version: ["3.12"]

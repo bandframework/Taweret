@@ -16,8 +16,7 @@ jobs:
       # of OS and Python version.  Therefore, here we are just checking the
       # script itself and need just one setup.
       matrix:
-        # TODO: Temporarily use older Ubuntu that seems to build correctly
-        os: [ubuntu-20.04]
+        os: [ubuntu-24.04]
         python-version: ["3.12"]
     steps:
     ##-- General Setup Steps

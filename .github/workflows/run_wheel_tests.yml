@@ -56,9 +56,9 @@ jobs:
         run: $CLONE_PATH/.github/workflows/install_meson.sh ${{ github.workspace }} ${{ runner.os }}
       - name: Run tests without coverage
         run: |
-          which mpirun
-          which mpicxx
-          mpicxx -show
+          which mpirun || echo "Cannot find the MPI installation"
+          which mpicxx || echo "Cannot find the MPI compiler wrapper"
+          mpicxx -show || echo "Cannot check the MPI wrapper specification"
           echo " "
           if   [ "${{ matrix.python-version }}" != "3.9" ]; then
             # TODO: Tests seem to fail with scipy v1.15.0.  Eagerly install with

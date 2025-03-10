@@ -39,11 +39,14 @@ jobs:
         which mpicxx || echo "Cannot find the MPI compiler wrapper"
         mpicxx -show || echo "Cannot check the MPI wrapper specification"
         echo " "
-        # TODO: Some test setups are installing scipy v1.15.1 and failing to
-        # import a function from scipy.  Others are using v1.13.1 and passing.
-        # Try eagerly loading the older one to see if we can get tests
-        # passing.
-        python -m pip install scipy==1.13.1
+        if   [ "${{ matrix.python-version }}" != "3.9" ]; then
+          # TODO: Tests seem to fail with scipy v1.15.0.  Eagerly install with
+          # compatible version for now.
+          #
+          # Python 3.9 only works with scipy < 1.14.0 and will therefore have
+          # a compatible scipy version loaded automatically below.
+          python -m pip install scipy==1.14.1
+        fi
         git clone https://github.com/jcyannotty/OpenBT.git
         pushd OpenBT/openbtmixing_pypkg
         git switch 6_MesonProto
@@ -51,8 +54,11 @@ jobs:
         python -m pip install -v dist/openbtmixing-1.1.0.tar.gz
         popd
         pushd $CLONE_PATH
-        python -m build
-        pushd dist && pip install $(ls [Tt]aweret-*-py3-none-any.whl) && popd
+        # Since the package is pure Python, the binary wheel should be
+        # universal.  Therefore, all pip installs from PyPI should get the
+        # wheel rather than the source distribution and we test the wheel.
+        python -m build --wheel
+        python -m pip install dist/[Tt]aweret-*-py3-none-any.whl
         popd
         pip list
     ##-- Run all tools at least once

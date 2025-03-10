@@ -49,7 +49,7 @@ jobs:
         pushd OpenBT/openbtmixing_pypkg
         git switch 6_MesonProto
         python -m build --sdist
-        python -m pip install -v dist/openbtmixing-1.0.1.tar.gz
+        python -m pip install -v dist/openbtmixing-1.1.0.tar.gz
         popd
         pushd $CLONE_PATH
         python -m build

@@ -32,7 +32,6 @@ jobs:
         with:
           miniconda-version: ${{ matrix.miniconda-version }}
           auto-update-conda: true
-          conda-remove-defaults: "true"
           python-version: ${{ matrix.python-version }}
       - name: Checkout Taweret
         uses: actions/checkout@v4

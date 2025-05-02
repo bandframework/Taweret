@@ -47,12 +47,6 @@ jobs:
           # a compatible scipy version loaded automatically below.
           python -m pip install scipy==1.14.1
         fi
-        git clone https://github.com/jcyannotty/OpenBT.git
-        pushd OpenBT/openbtmixing_pypkg
-        git switch 6_MesonProto
-        python -m build --sdist
-        python -m pip install -v dist/openbtmixing-1.1.0.tar.gz
-        popd
         pushd $CLONE_PATH
         # Since the package is pure Python, the binary wheel should be
         # universal.  Therefore, all pip installs from PyPI should get the

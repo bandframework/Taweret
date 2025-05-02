@@ -1,5 +1,4 @@
 meson
-mpi4py
 ipython
 Pygments
 sphinxcontrib-bibtex

@@ -10,6 +10,7 @@ build:
   apt_packages:
     - libopenmpi-dev
     - openmpi-bin
+    - ninja-build
 
 sphinx:
   configuration: docs/source/conf.py

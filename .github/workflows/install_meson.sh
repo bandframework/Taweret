@@ -11,8 +11,13 @@ runner_os=$2
 
 # Beginning with v1.6.0 meson can automatically find OpenMPI and MPICH
 if   [ "$runner_os" = "macOS" ]; then
-    # Homebrew already has v1.6.0 available.
-    brew install meson
+    # Homebrew already has >= v1.6.0 available.
+    #
+    # Prebuilt v1.7.2 is being installed with Python 3.12.   However, the
+    # installation is fixed to a Python v3.13 supposedly installed by homebrew.
+    # Therefore, meson is not installed for Python 3.12 and calling meson fails
+    # when trying to build a wheel.
+    brew install --build-from-source meson
     which python
     python -m pip list
     cat /opt/homebrew/bin/meson

@@ -15,16 +15,15 @@ meson_venv=$venv_path/meson
 local_bin=$install_path/local/bin
 
 if   [ "$runner_os" = "macOS" ]; then
-    # Homebrew already has >= v1.6.0 available.
+    # Homebrew already has >= v1.6.0 available.  The default homebrew
+    # installations all already have ninja.
     #
-    # Prebuilt v1.7.2 is being installed with Python 3.12.   However, the
-    # installation is fixed to a Python v3.13 installed by homebrew.  For some
-    # reason, the meson Python package doesn't appear to be installed for that
-    # Python.
+    # Prebuilt v1.7.2 installation is fixed to a Python v3.13 installed by
+    # homebrew.  For some reason, the meson Python package doesn't appear to be
+    # installed for that Python.
     #
     # Unfortunately, we install as for Ubuntu now...
-    brew update
-    brew install ninja
+    echo
 elif [ "$runner_os" = "Linux" ]; then
     # Meson versions available through Ubuntu package installation can be quite
     # out-of-date.

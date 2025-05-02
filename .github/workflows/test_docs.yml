@@ -27,6 +27,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install texlive-fonts-recommended texlive-latex-recommended texlive-latex-extra latexmk
           sudo apt-get -y install pandoc
+          sudo apt-get -y install openmpi-bin libopenmpi-dev
       - name: Setup base Python environment
         run: |
           $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}

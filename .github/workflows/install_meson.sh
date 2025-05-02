@@ -17,6 +17,8 @@ if   [ "$runner_os" = "macOS" ]; then
     # installation is fixed to a Python v3.13 supposedly installed by homebrew.
     # Therefore, meson is not installed for Python 3.12 and calling meson fails
     # when trying to build a wheel.
+    brew list
+    brew uninstall python@3.13
     brew install --build-from-source meson
     which python
     python -m pip list

@@ -18,9 +18,9 @@ if   [ "$runner_os" = "macOS" ]; then
     # Homebrew already has >= v1.6.0 available.
     #
     # Prebuilt v1.7.2 is being installed with Python 3.12.   However, the
-    # installation is fixed to a Python v3.13 supposedly installed by homebrew.
-    # Therefore, meson is not installed for Python 3.12 and calling meson fails
-    # when trying to build a wheel.
+    # installation is fixed to a Python v3.13 installed by homebrew.  For some
+    # reason, the meson Python package doesn't appear to be installed for that
+    # Python.
     #
     # Unfortunately, we install as for Ubuntu now...
     brew update

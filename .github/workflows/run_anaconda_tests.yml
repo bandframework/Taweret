@@ -42,9 +42,6 @@ jobs:
           which pip
           python --version
           python -m pip install build
-          # TODO: Presently fails with scipy >= 1.15.0, so eagerly install
-          # compatible version.
-          python -m pip install scipy==1.14.1
           conda info
           conda list
           python -m pip list

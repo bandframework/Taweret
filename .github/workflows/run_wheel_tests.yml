@@ -61,14 +61,6 @@ jobs:
           which mpicxx || echo "Cannot find the MPI compiler wrapper"
           mpicxx -show || echo "Cannot check the MPI wrapper specification"
           echo " "
-          if   [ "${{ matrix.python-version }}" != "3.9" ]; then
-            # TODO: Tests seem to fail with scipy v1.15.0.  Eagerly install with
-            # compatible version for now.
-            #
-            # Python 3.9 only works with scipy < 1.14.0 and will therefore have
-            # a compatible scipy version loaded automatically below.
-            python -m pip install scipy==1.14.1
-          fi
           pushd $CLONE_PATH
           # Since the package is pure Python, the binary wheel should be
           # universal.  Therefore, all pip installs from PyPI should get the

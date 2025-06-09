@@ -32,9 +32,6 @@ jobs:
       run: |
         $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
 
-    - name: Install Meson build system
-      run: $CLONE_PATH/.github/workflows/install_meson.sh ${{ github.workspace }} ${{ runner.os }}
-
     - name: Build Jupyter Book
       run: |
         which mpirun || echo "Cannot find the MPI installation"

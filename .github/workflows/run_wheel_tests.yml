@@ -74,52 +74,52 @@ jobs:
           python -c "import Taweret ; print(Taweret.__version__) ; exit(not Taweret.test())"
           popd
 
-  coverage:
-    #####----- RUN FULL TEST SUITE WITH COVERAGE
-    # Use local editable/developer mode installation so that we are testing such
-    # installations.  For some code coverage services, this can also improve
-    # the information that they present through their web interface.
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.13"]
-    runs-on: ${{ matrix.os }}
-    env:
-      CLONE_PATH:    ${{ github.workspace }}
-      # These two are used internally by tox
-      COVERAGE_XML:  ${{ github.workspace }}/coverage.xml
-      COVERAGE_HTML: ${{ github.workspace }}/htmlcov
-    steps:
-      - uses: actions/checkout@v4 
-      - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install OpenMPI
-        run: |
-          sudo apt-get update
-          sudo apt-get -y install openmpi-bin libopenmpi-dev
-      - name: Setup base Python environment
-        run: |
-          $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ matrix.os }}
-      - name: Install Meson build system
-        run: $CLONE_PATH/.github/workflows/install_meson.sh ${{ github.workspace }} ${{ runner.os }}
-      - name: Run tests with coverage
-        run: |
-          pushd $CLONE_PATH
-          tox -r -e coverage,report
-          popd
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.KEVIN_CODECOV_TOKEN }}
-          slug: bandframework/Taweret
-          file: ${{ env.COVERAGE_XML }}
-          fail_ci_if_error: true
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v4
-        with:
-          name: code-coverage-results
-          path: |
-             ${{ env.COVERAGE_XML }}
-             ${{ env.COVERAGE_HTML }}
+#  coverage:
+#    #####----- RUN FULL TEST SUITE WITH COVERAGE
+#    # Use local editable/developer mode installation so that we are testing such
+#    # installations.  For some code coverage services, this can also improve
+#    # the information that they present through their web interface.
+#    strategy:
+#      matrix:
+#        os: [ubuntu-latest]
+#        python-version: ["3.13"]
+#    runs-on: ${{ matrix.os }}
+#    env:
+#      CLONE_PATH:    ${{ github.workspace }}
+#      # These two are used internally by tox
+#      COVERAGE_XML:  ${{ github.workspace }}/coverage.xml
+#      COVERAGE_HTML: ${{ github.workspace }}/htmlcov
+#    steps:
+#      - uses: actions/checkout@v4 
+#      - name: Setup Python ${{ matrix.python-version }}
+#        uses: actions/setup-python@v5
+#        with:
+#          python-version: ${{ matrix.python-version }}
+#      - name: Install OpenMPI
+#        run: |
+#          sudo apt-get update
+#          sudo apt-get -y install openmpi-bin libopenmpi-dev
+#      - name: Setup base Python environment
+#        run: |
+#          $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ matrix.os }}
+#      - name: Install Meson build system
+#        run: $CLONE_PATH/.github/workflows/install_meson.sh ${{ github.workspace }} ${{ runner.os }}
+#      - name: Run tests with coverage
+#        run: |
+#          pushd $CLONE_PATH
+#          tox -r -e coverage,report
+#          popd
+#      - name: Upload coverage reports to Codecov
+#        uses: codecov/codecov-action@v4
+#        with:
+#          token: ${{ secrets.KEVIN_CODECOV_TOKEN }}
+#          slug: bandframework/Taweret
+#          file: ${{ env.COVERAGE_XML }}
+#          fail_ci_if_error: true
+#      - name: Archive code coverage results
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: code-coverage-results
+#          path: |
+#             ${{ env.COVERAGE_XML }}
+#             ${{ env.COVERAGE_HTML }}

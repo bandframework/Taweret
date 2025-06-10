@@ -58,7 +58,6 @@ jobs:
         shell: bash -el {0}
         run: |
           which python
-          which meson
           git clone https://github.com/jcyannotty/OpenBT.git
           pushd OpenBT/openbtmixing_pypkg
           git switch 16_MesonDep

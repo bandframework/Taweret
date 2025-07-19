@@ -37,12 +37,6 @@ jobs:
         which mpicxx || echo "Cannot find the MPI compiler wrapper"
         mpicxx -show || echo "Cannot check the MPI wrapper specification"
         echo " "
-        git clone https://github.com/jcyannotty/OpenBT.git
-        pushd OpenBT/openbtmixing_pypkg
-        git switch 16_MesonDep
-        python -m build --sdist
-        python -m pip install -v dist/openbtmixing-1.1.2.tar.gz
-        popd
         pushd $CLONE_PATH
         # Since the package is pure Python, the binary wheel should be
         # universal.  Therefore, all pip installs from PyPI should get the

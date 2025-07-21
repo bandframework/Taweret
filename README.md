@@ -20,7 +20,7 @@ At present, this package possesses the following BMM methods:
 ## Documentation
 See Taweret's docs webpage [here](https://taweretdocs.readthedocs.io).
 
-### Cloning
+## Cloning
 This repository uses submodules. 
 To clone this repository and automatically checkout all the submodules, use
 ```terminal

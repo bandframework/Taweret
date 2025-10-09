@@ -1,0 +1,67 @@
+name: Test in Anaconda
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  tests:
+    #####----- RUN FULL TEST SUITE WITHOUT COVERAGE
+    # Test through actual installations for end-to-end testing including
+    # packaging.
+    #
+    # Refer to Issue #122 to understand use of older Python, older miniconda
+    # version, and older setup-miniconda version.
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-24.04,
+             macos-13, macos-14, macos-15]
+        mpi_impl: ["openmpi"]
+        python-version: ["3.12"]
+        miniconda-version: [py312_24.11.1-0]
+        exclude:
+          # Prebuilt Intel MPI package not available for macOS
+          - os: [macos-13, macos-14, macos-15]
+            mpi_impl: "impi_rt"
+    runs-on: ${{ matrix.os }}
+    env:
+      CLONE_PATH: ${{ github.workspace }}
+    steps:
+      - uses: conda-incubator/setup-miniconda@v2.1.1
+        with:
+          miniconda-version: ${{ matrix.miniconda-version }}
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+      - name: Checkout Taweret
+        uses: actions/checkout@v4
+      - name: Setup miniconda & log
+        shell: bash -el {0}
+        run: |
+          which python
+          which pip
+          python --version
+          python -m pip install build
+          conda info
+          conda list
+          python -m pip list
+      - name: Install prebuilt ${{ matrix.mpi_impl }} via conda
+        shell: bash -el {0}
+        run: |
+          conda install -c conda-forge ${{ matrix.mpi_impl }}
+          conda list
+          #ls /Users/runner/miniconda3/envs/test/bin
+          #find /Users/runner/miniconda3 -name mpicxx
+          which mpicxx || echo "Cannot find the MPI installation"
+          mpicxx -show || echo "Cannot check the MPI wrapper specification"
+      - name: Run tests without coverage
+        shell: bash -el {0}
+        run: |
+          pushd $CLONE_PATH
+          # Since the package is pure Python, the binary wheel should be
+          # universal.  Therefore, all pip installs from PyPI should get the
+          # wheel rather than the source distribution and we test the wheel.
+          python -m build --wheel
+          python -m pip install dist/[Tt]aweret-*-py3-none-any.whl
+          popd
+          $CLONE_PATH/tools/test_python_installation.py

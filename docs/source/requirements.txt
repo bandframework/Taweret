@@ -1,3 +1,4 @@
+meson
 ipython
 Pygments
 sphinxcontrib-bibtex

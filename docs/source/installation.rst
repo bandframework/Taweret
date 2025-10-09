@@ -1,13 +1,52 @@
 Installation
 ============
 
+Prerequisites
+-------------
+.. _openbtmixing: https://pypi.org/project/openbtmixing/
+.. _documentation: https://github.com/jcyannotty/OpenBT?tab=readme-ov-file#installation
+.. _bilby: https://pypi.org/project/bilby/
+
+The Trees module uses the MPI-based `openbtmixing`_ Python package (See [1] and
+[2]).  Before installing Taweret, please prepare your system as indicated in the
+OpenBT mixing installation `documentation`_.  Note that for some package
+managers, developer library packages such as ``libopenmpi-dev`` or
+``libmpich-dev`` might need to be installed in addition to the base MPI packages
+such as ``openmpi-bin`` or ``mpich``.
+
+Otherwise, the list of dependences is as short as possible to keep the installation process streamlined and allow for minimal, clean installations; however, if a user would like to run 
+the Jupyter notebooks in the associated Jupyter Book, dependences for the notebooks will need to be installed in the relevant environment.
+These dependences are located in the Jupyter notebooks, and hence can be quickly installed by running the import cell at the top of each notebook.
+
+The `bilby`_ sampler comes with the ability to use a suite of samplers---in the case of Taweret, we also have not listed all
+samplers as dependences. However, the user can (and should) install any samplers that they wish to use and `bilby` will be able
+to use them through its wrapper in the Taweret package.
+
+**OpenBT References**
+
+1. OpenBT Repository (https://bitbucket.org/mpratola/openbt/src/master/).
+2. OpenBT Repository with Model Mixing (https://github.com/jcyannotty/OpenBT).
+
+Windows Users
+^^^^^^^^^^^^^
+.. _instructions: https://wiki.ubuntu.com/WSL?action=subscribe&_ga=2.237944261.411635877.1601405226-783048612.1601405226#Installing_Packages_on_Ubuntu
+
+While in the past Taweret was known to work with Windows 10 using an
+appropriately configured Ubuntu 20.04 Windows Subsystem for Linux (WSL) build,
+it is presently tested only using macOS and Ubuntu installations.  Windows users
+that would like to see if Taweret will work for them might find these
+`instructions`_ useful for helping to keep their Ubuntu WSL up to date, or to
+install additional features like X support.
+
+Standard Installation
+---------------------
 Taweret is available via pip install
 
 .. code-block:: bash
 
     pip install Taweret
 
-If you prefer to use conda for your package management, you can still pip install Taweret, but be sure to `conda install pip` first, so you conda environment knows where to look.
+If you prefer to use conda to setup your Python environment, you can still pip install Taweret, but be sure to `conda install pip` first, so you conda environment knows where to look.
 
 Alternative Installation
 ------------------------
@@ -20,42 +59,12 @@ Python environment in developer or editable mode from the clone by running
 
    pip install -e .
 
+Testing
+-------
+A Taweret installation can be tested directly by executing
 
-From here, you can run the notebooks, for example, in CodeSpaces.
+.. code-block:: python
 
-Prerequisites
--------------
-
-The Trees module depends on OpenMPI. Please ensure OpenMPI is installed with shared/built libraries prior to using the Trees module.
-
-The list of dependences is as short as possible to keep the installation process streamlined and allow for minimal, clean installations; however, if a user would like to run 
-the Jupyter notebooks in the associated Jupyter Book, dependences for the notebooks will need to be installed in the relevant environment.
-These dependences are located in the Jupyter notebooks, and hence can be quickly installed by running the import cell at the top of each notebook.
-
-The `bilby` sampler comes with the ability to use a suite of samplers---in the case of Taweret, we also have not listed all
-samplers as dependences. However, the user can (and should) install any samplers that they wish to use and `bilby` will be able
-to use them through its wrapper in the Taweret package.
-
-
-Windows Users
---------------
-
-The Trees module is a Python interface for a C++ backend. For Mac OS/X and Linux users, the compiled libraries  \
-are installed as a dependency with Taweret. This module is developed as a part of the \
-Open Bayesian Trees Project (OpenBT). See references [1] and [2] for details. The package relies on OpenMPI \
-thus Windows users must use Windows subsytem for linux in order to use the Trees module. Further installation \
-instructions are listed below. 
-
-OpenBT will run within the Windows 10 Windows Subsystem for Linux (WSL) environment. For instructions on installing WSL, \
-please see (https://ubuntu.com/wsl). We recommend installing the Ubuntu 20.04 WSL build. \
-There are also instructions \
-(https://wiki.ubuntu.com/WSL?action=subscribe&_ga=2.237944261.411635877.1601405226-783048612.1601405226#Installing_Packages_on_Ubuntu) \
-on keeping your Ubuntu WSL up to date, or installing additional features like X support. Once you have \
-installed the WSL Ubuntu layer, start the WSL Ubuntu shell from the start menu and then you can begin working with Taweret.
-
- 
-**OpenBT References**
-
-1. OpenBT Repository (https://bitbucket.org/mpratola/openbt/src/master/).
-
-2. OpenBR Repository with Model Mixing (https://github.com/jcyannotty/OpenBT).
+    >>> import Taweret
+    >>> Taweret.__version__
+    >>> Taweret.test()

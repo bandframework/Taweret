@@ -20,7 +20,7 @@ At present, this package possesses the following BMM methods:
 ## Documentation
 See Taweret's docs webpage [here](https://taweretdocs.readthedocs.io).
 
-### Cloning
+## Cloning
 This repository uses submodules. 
 To clone this repository and automatically checkout all the submodules, use
 ```terminal
@@ -35,40 +35,6 @@ Inside the directory containing the cloned repository, you then run
 ```terminal
 git submodule update --init --depth=1
 ```
-
-### Prerequisites
-
-The Trees module depends on [OpenMPI](https://www.open-mpi.org/). Please ensure OpenMPI is installed with shared/built libraries prior to using the Trees module.
-
-## Testing
-The test suite requires the [pytest](https://pypi.org/project/pytest/) package to be installed and can be run from the `test/` directory. To test the current BMM methods, first install the required packages and then run the following three lines of code:
-
-To installing requirements, first navigate to the Taweret directory. The requirements.txt file is located in the root of this directory. Once in the Taweret directory, then execute the following line of code from the terminal.
-
-```
-pip install -e .
-```
-
-Once all installation is complete, proceed with testing by naviagating to the `test/` directory and executing the following three lines of code.
-
-```
-pytest test_bivariate_linear.py
-pytest test_gaussian.py
-pytest test_trees.py
-```
-
-## Windows Users:
- 
-Taweret also depends on the OpenBT Mixing package in order to execute the trees modulde. This package is built with OpenMPI thus Windows users can work with the trees module using Windows Subsystem for Linux. Installation instructions are shown below.
-
-OpenBT will run within the Windows 10 Windows Subsystem for Linux (WSL) environment. For instructions on installing WSL,
-please see (https://ubuntu.com/wsl). We recommend installing the Ubuntu 20.04 WSL build. There are also instructions
-[here](https://wiki.ubuntu.com/WSL?action=subscribe&_ga=2.237944261.411635877.1601405226-783048612.1601405226#Installing_Packages_on_Ubuntu) 
-on keeping your Ubuntu WSL up to date, or installing additional features like X support. Once you have installed the WSL Ubuntu layer, start the WSL Ubuntu shell from the start menu and then you can begin working with Taweret.
-
-## MacOS Users:
-
-At the moment, we do not have a working arm64 wheel for OpenBT. However, if you would like to use the Trees class in Taweret, you can follow the instructions found [here](https://github.com/jcyannotty/OpenBT/blob/ArmDocs/README.md) to build OpenBT locally.
 
 ## Running on Codespaces
 GitHub's Codespaces is a great place to test using Taweret. Right now, you can try out Taweret's Bivariate Linear BMM and Multivariate BMM methods there, by following the instructions below. 

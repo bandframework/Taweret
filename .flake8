@@ -3,6 +3,8 @@ exclude =
     .tox
     build
     dist
+    # GH actions have a local install folder including venvs
+    local
 per-file-ignores =
     # Do not apply PEP8 to __init__.py files
     src/Taweret/__init__.py:F401

@@ -7,7 +7,7 @@ Taweret = ["tests/samba_results.txt", "tests/bart_bmm_test_data/2d_*.txt"]
 
 [project]
 name = "Taweret"
-version = "1.1.0"
+version = "1.2.0"
 authors = [
     { name="Kevin Ingles", email="kingles@illinois.edu"},
     { name="Dananjaya (Dan) Liyanage", email="liyanage@osu.edu"},
@@ -20,10 +20,12 @@ license = {file = "LICENSE"}
 requires-python = ">=3.9"
 # We request that users who want to use non-default bilby samplers (e.g.,
 # ptemcee) manually install the related packages first.
+#
+# See Issue #123 to understand upper bound on scipy version.
 dependencies = [
     "numpy>=1.20.3",
     "matplotlib",
-    "scipy>=1.7.0",
+    "scipy>=1.7.0,<1.15.0",
     "bilby",
     "pytest",
     "openbtmixing",

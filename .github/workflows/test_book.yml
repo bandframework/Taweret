@@ -26,7 +26,7 @@ jobs:
     - name: Install OpenMPI
       run: |
            sudo apt-get update
-           sudo apt-get -y install openmpi-bin
+           sudo apt-get -y install openmpi-bin libopenmpi-dev
 
     - name: Setup python with tox
       run: |
@@ -34,11 +34,15 @@ jobs:
 
     - name: Build Jupyter Book
       run: |
+        which mpirun || echo "Cannot find the MPI installation"
+        which mpicxx || echo "Cannot find the MPI compiler wrapper"
+        mpicxx -show || echo "Cannot check the MPI wrapper specification"
+        echo " "
         pushd $CLONE_PATH
         tox -r -e book
         popd
 
     - name: Archive examples Jupyter book 
-      uses: actions/upload-pages-artifact@v2
+      uses: actions/upload-pages-artifact@v3
       with:
         path: ${{ env.EXAMPLES_BOOK }}

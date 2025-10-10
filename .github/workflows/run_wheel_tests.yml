@@ -12,7 +12,7 @@ jobs:
     # packaging.
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-24.04, macos-13, macos-14, macos-15]
+        os: [ubuntu-22.04, ubuntu-24.04, macos-14, macos-15]
         mpi_impl: ["openmpi", "mpich"]
         python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
         exclude:

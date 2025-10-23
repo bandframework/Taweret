@@ -26,3 +26,8 @@ launch_buttons:
 
 # disable building anything not included in the TOC
 only_build_toc_files: true
+
+# Print traceback when notebook executions fail
+sphinx:
+  config:
+    nb_execution_show_tb : True

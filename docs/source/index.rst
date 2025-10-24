@@ -6,6 +6,8 @@
 Welcome to Bayesian Model Mixing with Taweret!
 ==============================================
 
+**Version:** |version|
+
 .. toctree::
    :maxdepth: 4
    :caption: About Taweret:

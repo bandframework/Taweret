@@ -39,7 +39,7 @@
 |---|------------------------|-------|-------------------------|
 |**R1.**| Have a public repository. |Full| Taweret is a public repository. |
 |**R2.**| Free all system resources acquired as soon as they are no longer needed. |Full| None. |
-|**R3.**| Provide a mechanism to export ordered list of library dependencies. |None| See the list of dependences in the `pypiproject.toml` file. |
+|**R3.**| Provide a mechanism to export ordered list of library dependencies. |None| See the list of dependences in the `pyproject.toml` file. |
 |**R4.**| Document versions of packages that it works with or depends upon, preferably in machine-readable form.  |None| See R3. |
 |**R5.**| Have SUPPORT, LICENSE, and CHANGELOG files in top directory.  |Partial| The LICENSE is in the top directory, the other two files are not included at this time. |
 |**R6.**| Have sufficient documentation to support use and further development.  |Full| Full documentation is provided at https://taweretdocs.readthedocs.io/en/latest/index.html and pedagogical information, including examples, at https://bandframework.github.io/Taweret/. |

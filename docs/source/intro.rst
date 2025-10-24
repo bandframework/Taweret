@@ -54,7 +54,7 @@ The models are required to have an "evaluate" method that should return a mean a
 
 Mixing Method
 ^^^^^^^^^^^^^
-The user will then choose a mixing method. Currently Taweret supports: \
+The user will then choose a mixing method. Currently Taweret supports:
 1. **Linear mixing** - 2 models
 2. **Multivariate BMM** - N models
 3. **Bayesian Trees** - N models

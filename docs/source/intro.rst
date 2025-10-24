@@ -1,6 +1,8 @@
 Taweret for Bayesian Model Mixing
 =================================
 
+**Version:** |release|
+
 .. contents::
     :local:
 

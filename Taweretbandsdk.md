@@ -24,7 +24,7 @@
 **BAND SDK**
 | # | Policy                 |Support| Notes                   |
 |---|-----------------------|-------|-------------------------|
-| 1. | Support BAND community GNU Autoconf, CMake, or other build options. |Full| The majority of Taweret is written in Python which does not have compatibility with CMake or require GNU Autoconfig. The trees module has an additional step for installing a Ubuntu package and thus does not need compilation. These installation steps are described in the Taweret documentation.|
+| 1. | Support BAND community GNU Autoconf, CMake, or other build options. |Full| Taweret is fully written in Python which does not have compatibility with CMake or require GNU Autoconfig. The trees module has an additional dependency (openbtmixing) that requires a build system. These installation steps are described in the documentation of openbtmixing.|
 | 2. | Have a README file in the top directory that states a specific set of testing procedures for a user to verify the software was installed and run correctly. | Full | None. |
 | 3. | Provide a documented, reliable way to contact the development team. |Full| The Taweret team can be contacted via the public issues page Github. |
 | 4. | Come with an open-source license |Full| Taweret uses the MIT license.|
@@ -43,7 +43,7 @@
 |**R4.**| Document versions of packages that it works with or depends upon, preferably in machine-readable form.  |None| See R3. |
 |**R5.**| Have SUPPORT, LICENSE, and CHANGELOG files in top directory.  |Partial| The LICENSE is in the top directory, the other two files are not included at this time. |
 |**R6.**| Have sufficient documentation to support use and further development.  |Full| Full documentation is provided at https://taweretdocs.readthedocs.io/en/latest/index.html and pedagogical information, including examples, at https://bandframework.github.io/Taweret/. |
-|**R7.**| Be buildable using 64-bit pointers; 32-bit is optional. |Partial| The trees module depends on a Ubuntu package which is built for 64-bit.|
+|**R7.**| Be buildable using 64-bit pointers; 32-bit is optional. |Full| The trees module depends on a Ubuntu package which is built for 64-bit.|
 |**R8.**| Do not assume a full MPI communicator; allow for user-provided MPI communicator. |N/a| None. |
 |**R9.**| Use a limited and well-defined name space (e.g., symbol, macro, library, include). |Full| None.|
 |**R10.**| Give best effort at portability to key architectures. |Full| Documentation for installing the Ubuntu package required in the trees module is provided. |

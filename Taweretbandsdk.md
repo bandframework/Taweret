@@ -31,7 +31,7 @@
 | 5. | Provide a runtime API to return the current version number of the software. |Full| Printing `Taweret.__version__` will show the version number.|
 | 6. | Provide a BAND team-accessible repository. |Full| https://github.com/bandframework/Taweret |
 | 7. | Must allow installing, building, and linking against an outside copy of all imported software that is externally developed and maintained. |Full| None.|
-| 8. | Have no hardwired print or IO statements that cannot be turned off. |Full| The trees module prints out one line when the model begins to train. This can be removed if needed.|
+| 8. | Have no hardwired print or IO statements that cannot be turned off. |Partial| Some of the mixing methods print statements that are akin to warnings; these will be removed in the next release of Taweret.|
 
 ### Recommended Policies
 

@@ -14,6 +14,9 @@ name: Build, Test, & Publish Wheel
 env:
   CLONE_PATH: ${{ github.workspace }}
 on:
+  push:
+    tags:
+      - 'v*'
   # TODO: Limit to only branches named release/v*.* once the new git workflow is
   # in place.
   release:

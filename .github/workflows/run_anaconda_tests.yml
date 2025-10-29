@@ -16,13 +16,13 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04, ubuntu-24.04,
-             macos-13, macos-14, macos-15]
+             macos-14, macos-15]
         mpi_impl: ["openmpi"]
         python-version: ["3.12"]
         miniconda-version: [py312_24.11.1-0]
         exclude:
           # Prebuilt Intel MPI package not available for macOS
-          - os: [macos-13, macos-14, macos-15]
+          - os: [macos-14, macos-15]
             mpi_impl: "impi_rt"
     runs-on: ${{ matrix.os }}
     env:

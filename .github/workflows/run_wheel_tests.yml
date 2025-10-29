@@ -1,9 +1,9 @@
 name: Test package & measure coverage
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
 
 jobs:
   tests:

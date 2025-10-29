@@ -17,16 +17,15 @@ authors = [
 description = "A python package for Bayesian model mixing"
 readme = "README.md"
 license = {file = "LICENSE"}
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 # We request that users who want to use non-default bilby samplers (e.g.,
 # ptemcee) manually install the related packages first.
 #
-# See Issue #123 to understand upper bound on scipy version.
 dependencies = [
     "numpy>=1.20.3",
     "matplotlib",
-    "scipy>=1.7.0,<1.15.0",
-    "bilby",
+    "scipy>=1.7.0",
+    "bilby>=2.5.0",
     "pytest",
     "openbtmixing",
 ]

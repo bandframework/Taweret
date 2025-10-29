@@ -1,3 +1,8 @@
+#
+# IMPORTANT: Please ensure that all changes made to Python and external
+# dependence versions are made in a consistent way in tox.ini and in actions.
+#
+
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
@@ -20,14 +25,18 @@ license = {file = "LICENSE"}
 requires-python = ">=3.10"
 # We request that users who want to use non-default bilby samplers (e.g.,
 # ptemcee) manually install the related packages first.
+#
 # We use bilby>=2.5.0 to cover scipy incompatibilities (see Issue 123).
+#
+# numpy/scipy minimum versions set for v1.2.0 release based on discussion in
+# Issue #140.
 dependencies = [
-    "numpy>=1.20.3",
-    "matplotlib",
-    "scipy>=1.7.0",
+    "numpy>=1.21.0",
+    "scipy>=1.10.0",
     "bilby>=2.5.0",
-    "pytest",
     "openbtmixing",
+    "matplotlib",
+    "pytest",
 ]
 classifiers = [
     "License :: OSI Approved :: MIT License",

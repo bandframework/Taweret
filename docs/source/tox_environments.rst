@@ -74,7 +74,7 @@ the coverage results file that will be used with all coverage tasks;
 
   * Run the full Taweret test suite using the oldest allowable Python version
     and the oldest versions of external dependencies that have a limited set of
-    acceptable versions specified in `pyproject.toml`.
+    acceptable versions specified in ``pyproject.toml``.
   * Note that this task installs the Taweret code in its virtual environment as
     an editable_ installation of the local clone, which mimics an interactive
     developer setup.

@@ -12,8 +12,8 @@ jobs:
   # here are unrelated to the MPI implementation used with OpenBTMixing.
   # Therefore, we only need to test with a single MPI implementation.
   #
-  # Python version should be maintained consistent with value in pyproject.toml
-  # and in tox.ini.
+  # Python version should be maintained consistent with value in pyproject.toml,
+  # tox.ini, etc.
   tests:
     strategy:
       matrix:

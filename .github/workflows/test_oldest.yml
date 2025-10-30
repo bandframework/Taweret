@@ -1,0 +1,47 @@
+name: Test oldest versions
+env:
+  CLONE_PATH: ${{ github.workspace }}
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # The mutual compatibility of Python and the external Python packages tested
+  # here are unrelated to the MPI implementation used with OpenBTMixing.
+  # Therefore, we only need to test with a single MPI implementation.
+  #
+  # Python version should be maintained consistent with value in pyproject.toml,
+  # tox.ini, etc.
+  tests:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-24.04, macos-14, macos-15]
+        python-version: ["3.10"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Open-MPI
+        run: |
+          if   [ "${{ runner.os }}" = "Linux" ]; then
+             sudo apt-get update
+             sudo apt-get -y install openmpi-bin libopenmpi-dev
+          elif [ "${{ runner.os }}" = "macOS" ]; then
+             brew update
+             brew install open-mpi
+          fi
+      - name: Setup base Python environment
+        run: $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
+      - name: Run tests
+        run: |
+          which mpirun || echo "Cannot find the MPI installation"
+          which mpicxx || echo "Cannot find the MPI compiler wrapper"
+          mpicxx -show || echo "Cannot check the MPI wrapper specification"
+          pushd $CLONE_PATH
+          tox -r -e oldest
+          popd

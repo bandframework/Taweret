@@ -145,8 +145,6 @@ def test_evaluate_weights():
     weights_low = samba_arrays[8]
     weights_high = samba_arrays[9]
 
-    assert 1 == 2
-
     # test weights
     assert np.allclose(weights_low, mixed.var_weights[0, :]), \
         "weights are incorrect"

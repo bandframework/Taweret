@@ -29,9 +29,9 @@ requires-python = ">=3.10"
 # We use bilby>=2.5.0 to cover scipy incompatibilities (see Issue 123).
 #
 # numpy/scipy minimum versions set for v1.2.0 release based on discussion in
-# Issue #140.
+# Issue 140.
 dependencies = [
-    "numpy>=1.21.0",
+    "numpy>=1.21.1",
     "scipy>=1.10.0",
     "bilby>=2.5.0",
     "openbtmixing",

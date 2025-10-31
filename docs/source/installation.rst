@@ -73,7 +73,7 @@ A Taweret installation can be tested directly by executing
 
 An Important Note
 -----------------
-``pip`` maintains a cache of previously built wheels. Therefore a new Taweret installation may be faulty if `openbtmixing`_ was installed using a previously cached wheel that was built with a different or incompatible MPI installation. If some of the `trees`_ tests are failing, users can first determine if a clean reinstall addresses the failures by:
+``pip`` maintains a cache of previously built wheels. Therefore a new Taweret installation may be faulty if `openbtmixing`_ was installed using a previously cached wheel that was built with a different or incompatible MPI installation. If some of the ``trees`` tests are failing, users can first determine if a clean reinstall addresses the failures by:
 
 1. uninstalling Taweret,
 2. removing the `openbtmixing`_ wheel from cache (e.g., ``python -m pip cache remove openbtmixing``),

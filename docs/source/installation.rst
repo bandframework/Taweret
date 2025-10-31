@@ -24,11 +24,23 @@ The `bilby`_ sampler comes with the ability to use a suite of samplers---in the 
 samplers as dependences. However, the user can (and should) install any samplers that they wish to use and `bilby` will be able
 to use them through its wrapper in the Taweret package.
 
-It is important to note that ``pip`` maintains a cache of previously built wheels. Therefore a new Taweret installation may be faulty if `openbtmixing`_ was installed using a previously cached wheel that was built with a different or incompatible MPI installation. If some of the ``trees`` tests are failing, users can first determine if a clean reinstall addresses the failures by:
+It is important to note that ``pip`` maintains a cache of previously built
+wheels. Therefore a new Taweret installation may be faulty if `openbtmixing`_
+was installed using a previously cached wheel that was built with an MPI
+installation that is different from or incompatible with the current MPI
+installation.   To determine if ``pip`` has an `openbtmixing`_ wheel cached,
+inspect the output of
 
-1. uninstalling Taweret,
-2. removing the `openbtmixing`_ wheel from cache (e.g., ``python -m pip cache remove openbtmixing``),
-3. and reinstalling Taweret.
+.. code:: python
+
+    python -m pip cache list
+
+If an `openbtmixing`_ wheel is present, consider removing it prior to installing
+Taweret with a command such as
+
+.. code:: python
+
+    python -m pip cache remove openbtmixing
 
 **OpenBT References**
 

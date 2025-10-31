@@ -16,14 +16,6 @@ such as ``openmpi-bin`` or ``mpich``. `openbtmixing`_ also requires the package
 ``ninja`` to be preinstalled, so this may need to be added to the user's system
 prior to configuring `openbtmixing`_.
 
-Otherwise, the list of dependences is as short as possible to keep the installation process streamlined and allow for minimal, clean installations; however, if a user would like to run 
-the Jupyter notebooks in the associated Jupyter Book, dependences for the notebooks will need to be installed in the relevant environment.
-These dependences are located in the Jupyter notebooks, and hence can be quickly installed by running the import cell at the top of each notebook.
-
-The `bilby`_ sampler comes with the ability to use a suite of samplers---in the case of Taweret, we also have not listed all
-samplers as dependences. However, the user can (and should) install any samplers that they wish to use and `bilby` will be able
-to use them through its wrapper in the Taweret package.
-
 It is important to note that ``pip`` maintains a cache of previously built
 wheels. Therefore a new Taweret installation may be faulty if `openbtmixing`_
 was installed using a previously cached wheel that was built with an MPI
@@ -41,6 +33,14 @@ Taweret with a command such as
 .. code:: python
 
     python -m pip cache remove openbtmixing
+
+Otherwise, the list of dependences is as short as possible to keep the installation process streamlined and allow for minimal, clean installations; however, if a user would like to run 
+the Jupyter notebooks in the associated Jupyter Book, dependences for the notebooks will need to be installed in the relevant environment.
+These dependences are located in the Jupyter notebooks, and hence can be quickly installed by running the import cell at the top of each notebook.
+
+The `bilby`_ sampler comes with the ability to use a suite of samplers---in the case of Taweret, we also have not listed all
+samplers as dependences. However, the user can (and should) install any samplers that they wish to use and `bilby` will be able
+to use them through its wrapper in the Taweret package.
 
 **OpenBT References**
 

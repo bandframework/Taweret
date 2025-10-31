@@ -3,18 +3,37 @@ Installation
 
 Prerequisites
 -------------
-.. _openbtmixing: https://pypi.org/project/openbtmixing/
+.. _OpenBTMixing: https://pypi.org/project/openbtmixing/
 .. _documentation: https://github.com/jcyannotty/OpenBT?tab=readme-ov-file#installation
+.. _ninja: https://ninja-build.org
 .. _bilby: https://pypi.org/project/bilby/
 
-The Trees module uses the MPI-based `openbtmixing`_ Python package (See [1] and
+The Trees module uses the MPI-based `OpenBTMixing`_ Python package (See [1] and
 [2]).  Before installing Taweret, please prepare your system as indicated in the
-OpenBT mixing installation `documentation`_.  Note that for some package
+OpenBTMixing installation `documentation`_.  Note that for some package
 managers, developer library packages such as ``libopenmpi-dev`` or
 ``libmpich-dev`` might need to be installed in addition to the base MPI packages
-such as ``openmpi-bin`` or ``mpich``. `openbtmixing`_ also requires the package
-``ninja`` to be preinstalled, so this may need to be added to the user's system
-prior to configuring `openbtmixing`_.
+such as ``openmpi-bin`` or ``mpich``. OpenBTMixing also requires the `ninja`_
+build system to be preinstalled, so this may need to be added to the user's
+system prior to installing Taweret and therefore OpenBTMixing.
+
+It is important to note that ``pip`` maintains a cache of previously built
+wheels. Therefore a new Taweret installation may be faulty if OpenBTMixing was
+installed using a previously cached wheel that was built with an MPI
+installation that is different from or incompatible with the current MPI
+installation.   To determine if ``pip`` has an OpenBTMixing wheel cached,
+inspect the output of
+
+.. code:: console
+
+    python -m pip cache list
+
+If an OpenBTMixing wheel is present, consider removing it prior to installing
+Taweret with a command such as
+
+.. code:: console
+
+    python -m pip cache remove openbtmixing
 
 Otherwise, the list of dependences is as short as possible to keep the installation process streamlined and allow for minimal, clean installations; however, if a user would like to run 
 the Jupyter notebooks in the associated Jupyter Book, dependences for the notebooks will need to be installed in the relevant environment.
@@ -54,7 +73,7 @@ Alternative Installation
 ------------------------
 .. _repository: https://github.com/bandframework/Taweret.git
 
-Alternatively, you can clone the `repository`_ and install Taweret into your
+Alternatively, you can clone the `repository`_, checkout the desired commit (ideally the latest tagged release), and install Taweret into your
 Python environment in developer or editable mode from the clone by running
 
 .. code-block:: bash
@@ -71,10 +90,4 @@ A Taweret installation can be tested directly by executing
     >>> Taweret.__version__
     >>> Taweret.test()
 
-An Important Note
------------------
-``pip`` maintains a cache of previously built wheels. Therefore a new Taweret installation may be faulty if `openbtmixing`_ was installed using a previously cached wheel that was built with a different or incompatible MPI installation. If some of the ``trees`` tests are failing, users can first determine if a clean reinstall addresses the failures by:
-
-1. uninstalling Taweret,
-2. removing the `openbtmixing`_ wheel from cache (e.g., ``python -m pip cache remove openbtmixing``),
-3. and reinstalling Taweret.
+The version output should be consistent with the version of the release that was installed or the commit that was used to install from your local clone.

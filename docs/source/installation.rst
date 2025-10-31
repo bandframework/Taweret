@@ -24,6 +24,12 @@ The `bilby`_ sampler comes with the ability to use a suite of samplers---in the 
 samplers as dependences. However, the user can (and should) install any samplers that they wish to use and `bilby` will be able
 to use them through its wrapper in the Taweret package.
 
+It is important to note that ``pip`` maintains a cache of previously built wheels. Therefore a new Taweret installation may be faulty if `openbtmixing`_ was installed using a previously cached wheel that was built with a different or incompatible MPI installation. If some of the ``trees`` tests are failing, users can first determine if a clean reinstall addresses the failures by:
+
+1. uninstalling Taweret,
+2. removing the `openbtmixing`_ wheel from cache (e.g., ``python -m pip cache remove openbtmixing``),
+3. and reinstalling Taweret.
+
 **OpenBT References**
 
 1. OpenBT Repository (https://bitbucket.org/mpratola/openbt/src/master/).
@@ -54,7 +60,7 @@ Alternative Installation
 ------------------------
 .. _repository: https://github.com/bandframework/Taweret.git
 
-Alternatively, you can clone the `repository`_ and install Taweret into your
+Alternatively, you can clone the `repository`_, checkout the desired commit (ideally the latest tagged release), and install Taweret into your
 Python environment in developer or editable mode from the clone by running
 
 .. code-block:: bash
@@ -71,10 +77,4 @@ A Taweret installation can be tested directly by executing
     >>> Taweret.__version__
     >>> Taweret.test()
 
-An Important Note
------------------
-``pip`` maintains a cache of previously built wheels. Therefore a new Taweret installation may be faulty if `openbtmixing`_ was installed using a previously cached wheel that was built with a different or incompatible MPI installation. If some of the ``trees`` tests are failing, users can first determine if a clean reinstall addresses the failures by:
-
-1. uninstalling Taweret,
-2. removing the `openbtmixing`_ wheel from cache (e.g., ``python -m pip cache remove openbtmixing``),
-3. and reinstalling Taweret.
+The version output should be consistent with the version of the release that was installed or the commit that was used to install from your local clone.

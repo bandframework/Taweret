@@ -12,7 +12,9 @@ The Trees module uses the MPI-based `openbtmixing`_ Python package (See [1] and
 OpenBT mixing installation `documentation`_.  Note that for some package
 managers, developer library packages such as ``libopenmpi-dev`` or
 ``libmpich-dev`` might need to be installed in addition to the base MPI packages
-such as ``openmpi-bin`` or ``mpich``.
+such as ``openmpi-bin`` or ``mpich``. `openbtmixing`_ also requires the package
+`ninja`_ to be preinstalled, so this may need to be added to the user's system
+prior to configuring `openbtmixing`_.
 
 Otherwise, the list of dependences is as short as possible to keep the installation process streamlined and allow for minimal, clean installations; however, if a user would like to run 
 the Jupyter notebooks in the associated Jupyter Book, dependences for the notebooks will need to be installed in the relevant environment.
@@ -68,3 +70,11 @@ A Taweret installation can be tested directly by executing
     >>> import Taweret
     >>> Taweret.__version__
     >>> Taweret.test()
+
+An Important Note
+-----------------
+`pip`_ maintains a cache of previously built wheels. Therefore a new Taweret installation may be faulty if `openbtmixing`_ was installed using a previously cached wheel that was built with a different or incompatible MPI installation. If some of the `trees_` tests are failing, users can first determine if a clean reinstall addresses the failures by:
+
+1. uninstalling Taweret,
+2. removing the `openbtmixing`_ wheel from cache (e.g., `python -m pip cache remove openbtmixing`_),
+3. and reinstalling Taweret.

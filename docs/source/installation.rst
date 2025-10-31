@@ -3,34 +3,35 @@ Installation
 
 Prerequisites
 -------------
-.. _openbtmixing: https://pypi.org/project/openbtmixing/
+.. _OpenBTMixing: https://pypi.org/project/openbtmixing/
 .. _documentation: https://github.com/jcyannotty/OpenBT?tab=readme-ov-file#installation
+.. _ninja: https://ninja-build.org
 .. _bilby: https://pypi.org/project/bilby/
 
-The Trees module uses the MPI-based `openbtmixing`_ Python package (See [1] and
+The Trees module uses the MPI-based `OpenBTMixing`_ Python package (See [1] and
 [2]).  Before installing Taweret, please prepare your system as indicated in the
-OpenBT mixing installation `documentation`_.  Note that for some package
+OpenBTMixing installation `documentation`_.  Note that for some package
 managers, developer library packages such as ``libopenmpi-dev`` or
 ``libmpich-dev`` might need to be installed in addition to the base MPI packages
-such as ``openmpi-bin`` or ``mpich``. `openbtmixing`_ also requires the package
-``ninja`` to be preinstalled, so this may need to be added to the user's system
-prior to configuring `openbtmixing`_.
+such as ``openmpi-bin`` or ``mpich``. OpenBTMixing also requires the `ninja`_
+build system to be preinstalled, so this may need to be added to the user's
+system prior to installing Taweret and therefore OpenBTMixing.
 
 It is important to note that ``pip`` maintains a cache of previously built
-wheels. Therefore a new Taweret installation may be faulty if `openbtmixing`_
-was installed using a previously cached wheel that was built with an MPI
+wheels. Therefore a new Taweret installation may be faulty if OpenBTMixing was
+installed using a previously cached wheel that was built with an MPI
 installation that is different from or incompatible with the current MPI
-installation.   To determine if ``pip`` has an `openbtmixing`_ wheel cached,
+installation.   To determine if ``pip`` has an OpenBTMixing wheel cached,
 inspect the output of
 
-.. code:: python
+.. code:: console
 
     python -m pip cache list
 
-If an `openbtmixing`_ wheel is present, consider removing it prior to installing
+If an OpenBTMixing wheel is present, consider removing it prior to installing
 Taweret with a command such as
 
-.. code:: python
+.. code:: console
 
     python -m pip cache remove openbtmixing
 

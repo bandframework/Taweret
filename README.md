@@ -20,6 +20,10 @@ At present, this package possesses the following BMM methods:
 ## Documentation
 See Taweret's docs webpage [here](https://taweretdocs.readthedocs.io).
 
+## Tutorials
+We have produced a [Jupyter Book](https://bandframework.github.io/Taweret/landing.html) that contains all of our Jupyter notebook tutorials and further
+information about Bayesian model mixing to get users started on understanding the techniques included in Taweret. The Book contains the most current version of the tutorial notebooks, and these can be downloaded directly from the Book website or from the most current version of this repository.
+
 ## Cloning
 This repository uses submodules. 
 To clone this repository and automatically checkout all the submodules, use

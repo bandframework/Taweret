@@ -10,6 +10,9 @@ The full documentation of the package can be found here: https://taweretdocs.rea
 This Jupyter Book is able to launch to Google Colab, so that you can run the notebooks contained here live. There are dependences that
 are commented out in the notebooks---simply uncomment them to install the notebook-specific packages used there.
 
+## Accessing the notebooks
+This Book serves as the main access point for the most up to date version of these tutorials. If you would like to download them, you may do so directly by clicking on the download button in this Book, or navigating to the GitHub repository via the GitHub button at the top of this page, where you will be taken to the most recent commit to the repository's main branch. From here you can download the tutorials from the `book` folder.
+
 ## Citing Taweret
 If you have benefited from Taweret, please cite our software using the following format:
 

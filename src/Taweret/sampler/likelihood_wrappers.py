@@ -73,7 +73,7 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
         log_l = self.mixed_model.mix_loglikelihood(
             mix_param, models_params, self.x_exp, self.y_exp, self.y_err)
 
-        if not np.isfinite(logL):
+        if not np.isfinite(log_l):
             return -np.inf
 
         return log_l

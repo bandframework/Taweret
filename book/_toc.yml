@@ -7,12 +7,12 @@ chapters:
 
 - file: notebooks/LMM/LMM
   sections:
-  - file: notebooks/LMM/Linear_BMM_with_step_function_for_SAMBA_models
-  - file: notebooks/LMM/Linear_BMM_with_cdf_function_for_SAMBA_models
-  - file: notebooks/LMM/Linear_BMM_with_switchcos_function_for_SAMBA_models
-  - file: notebooks/LMM/Linear_BMM_with_switchcos_function_for_SAMBA_models_Bilby_constrained_prior
+  # - file: notebooks/LMM/Linear_BMM_with_step_function_for_SAMBA_models
+  # - file: notebooks/LMM/Linear_BMM_with_cdf_function_for_SAMBA_models
+  # - file: notebooks/LMM/Linear_BMM_with_switchcos_function_for_SAMBA_models
+  # - file: notebooks/LMM/Linear_BMM_with_switchcos_function_for_SAMBA_models_Bilby_constrained_prior
   - file: notebooks/LMM/Linear_BMM_with_cdf_function_for_coleman_models
-  - file: notebooks/LMM/coleman_models_BMM_comparative_study
+  # - file: notebooks/LMM/coleman_models_BMM_comparative_study
 
 - file: notebooks/Biv_BMM/Bivariate_MM
   sections:

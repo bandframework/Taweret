@@ -28,7 +28,7 @@ class coleman_model_1(BaseModel):
 
         x = input_values.flatten()
         mean = np.zeros(len(x))
-        var = 0.3 * 0.3 * np.zeros(len(x))
+        var = 0.3 * 0.3 * np.ones(len(x))
 
         if len(model_param.flatten()) != 1:
             raise TypeError(
@@ -142,7 +142,7 @@ class coleman_model_2(BaseModel):
 
         x = input_values.flatten()
         mean = np.zeros(len(x))
-        var = 0.3 * 0.3 * np.zeros(len(x))
+        var = 0.3 * 0.3 * np.ones(len(x))
 
         if len(model_param.flatten()) != 1:
             raise TypeError(

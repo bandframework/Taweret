@@ -5,8 +5,8 @@ options:
 chapters:
 - file: BMM_intro
 
-- file: notebooks/LMM/LMM
-  sections:
+# - file: notebooks/LMM/LMM
+#   sections:
   # - file: notebooks/LMM/Linear_BMM_with_step_function_for_SAMBA_models
   # - file: notebooks/LMM/Linear_BMM_with_cdf_function_for_SAMBA_models
   # - file: notebooks/LMM/Linear_BMM_with_switchcos_function_for_SAMBA_models

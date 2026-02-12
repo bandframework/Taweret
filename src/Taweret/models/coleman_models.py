@@ -98,12 +98,10 @@ class coleman_model_1(BaseModel):
         Set the prior on model parameters.
         '''
         if bilby_priors is None:
-            # print('Using default priors for model 1')
             priors = bilby.prior.PriorDict()
             priors['model1_0'] = bilby.core.prior.Uniform(1, 6, "model1_0")
         else:
             priors = bilby_priors
-      #  print(priors)
         self._prior = priors
         return priors
 
@@ -212,12 +210,10 @@ class coleman_model_2(BaseModel):
         Set the prior on model parameters.
         '''
         if bilby_priors is None:
-            #print('Using default priors for model 2')
             priors = bilby.prior.PriorDict()
             priors['model2_0'] = bilby.core.prior.Uniform(-2, 3, "model2_0")
         else:
             priors = bilby_priors
-       # print(priors)
         self._prior = priors
         return priors
 

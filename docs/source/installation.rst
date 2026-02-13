@@ -10,10 +10,7 @@ Prerequisites
 
 The Trees module uses the MPI-based `OpenBTMixing`_ Python package (See [1] and
 [2]).  Before installing Taweret, please prepare your system as indicated in the
-OpenBTMixing installation `documentation`_.  Note that for some package
-managers, developer library packages such as ``libopenmpi-dev`` or
-``libmpich-dev`` might need to be installed in addition to the base MPI packages
-such as ``openmpi-bin`` or ``mpich``.
+OpenBTMixing installation `documentation`_.
 
 It is important to note that ``pip`` maintains a cache of previously built
 wheels. Therefore a new Taweret installation may be faulty if OpenBTMixing was

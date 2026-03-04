@@ -242,8 +242,8 @@ class BivariateLinear(BaseMixer):
                 x: np.ndarray,
                 CI: List = [5, 95],
                 samples: Optional[np.ndarray] = None,
-                nthin: int = 1
-                ) -> (np.ndarray, np.ndarray, np.ndarray, np.ndarray):
+                nthin: int = 1):
+    #            ) -> (np.ndarray, np.ndarray, np.ndarray, np.ndarray):
         '''
         Evaluate posterior to make prediction at test points x.
 
@@ -312,8 +312,8 @@ class BivariateLinear(BaseMixer):
     def predict_weights(self,
                         x: np.ndarray,
                         CI: List = [5, 95],
-                        samples: Optional[np.ndarray] = None
-                        ) -> (np.ndarray, np.ndarray, np.ndarray, np.ndarray):
+                        samples: Optional[np.ndarray] = None):
+        #                ) -> (np.ndarray, np.ndarray, np.ndarray, np.ndarray):
         '''
         Calculate posterior predictive distribution for first model weights
 
@@ -371,8 +371,8 @@ class BivariateLinear(BaseMixer):
     def prior_predict(self,
                       x: np.ndarray,
                       CI: List = [5, 95],
-                      n_sample: int = 10000
-                      ) -> (np.ndarray, np.ndarray, np.ndarray, np.ndarray):
+                      n_sample: int = 10000):
+        #              ) -> (np.ndarray, np.ndarray, np.ndarray, np.ndarray):
         '''
         Evaluate prior to make prediction at test points x.
 

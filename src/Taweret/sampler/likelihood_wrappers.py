@@ -35,6 +35,8 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
                      }
 
         super().__init__(parameters=param_dic)
+
+        self._compute_ln_noise_evidence = lambda: 0.0
         self.mixed_model = mixed_model
         self.x_exp = x_exp
         self.y_exp = y_exp

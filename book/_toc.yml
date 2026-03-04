@@ -23,3 +23,8 @@ chapters:
   sections:
   - file: notebooks/Trees_BMM/Trees_BMM_2D
   - file: notebooks/Trees_BMM/Trees_BMM_2D_K_models
+
+- file: notebooks/GP_BMM/GPs
+  sections:
+  - file: notebooks/GP_BMM/gp_bmm_stationary
+  - file: notebooks/GP_BMM/gp_bmm_nonstationary

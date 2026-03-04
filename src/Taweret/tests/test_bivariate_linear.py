@@ -79,6 +79,7 @@ priors['addstepasym_2'] = bilby.core.prior.Uniform(0, 1, name="addstepasym_2")
 for mix_model in mix_models:
     mix_model.set_prior(priors)
 
+
 def test_likelihood_wrapper_initialization():
 
     # test mixed model with simple prior
@@ -99,6 +100,7 @@ def test_likelihood_wrapper_initialization():
     assert wrapper.mixed_model is dummy_mixed_model
 
     return None
+
 
 def gaussian_LL(delta, Cov):
     inv_Cov = np.linalg.inv(Cov)

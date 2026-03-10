@@ -235,6 +235,17 @@ def test_BMMmean():
     log_like_from_test = approx(log_lik_from_taweret_model)
     assert log_like_from_test != 0.0, "log likelihood is zero"
 
+
+def test_prior_setter():
+    '''
+    Test the prior setter function.
+    '''
+
+    for model in mix_models:
+        model.prior = priors
+        assert model.prior is not None
+
+
 # def test_three_mixing_methods():
 #     for i, model in enumerate(mix_models):
 #         print(f'Testing {methods_name[i]} from bivariate_linear.py')

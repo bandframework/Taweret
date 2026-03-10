@@ -14,9 +14,11 @@
 
 import numpy as np
 import bilby
+import types
 from pytest import approx
 from Taweret.models import coleman_models as toy_models
 from Taweret.mix.bivariate_linear import BivariateLinear as BL
+from Taweret.sampler.likelihood_wrappers import likelihood_wrapper_for_bilby
 
 # Import coleman models
 
@@ -76,6 +78,28 @@ priors['addstepasym_1'] = bilby.core.prior.Uniform(0, 9, name="addstepasym_1")
 priors['addstepasym_2'] = bilby.core.prior.Uniform(0, 1, name="addstepasym_2")
 for mix_model in mix_models:
     mix_model.set_prior(priors)
+
+
+def test_likelihood_wrapper_initialization():
+
+    # test mixed model with simple prior
+    dummy_mixed_model = types.SimpleNamespace(
+        prior={"theta": 1.0})
+
+    x = np.array([0.0])
+    y = np.array([1.0])
+    yerr = np.array([0.1])
+
+    wrapper = likelihood_wrapper_for_bilby(
+        mixed_model=dummy_mixed_model,
+        x_exp=x,
+        y_exp=y,
+        y_err=yerr,
+    )
+
+    assert wrapper.mixed_model is dummy_mixed_model
+
+    return None
 
 
 def gaussian_LL(delta, Cov):
@@ -210,6 +234,17 @@ def test_BMMmean():
 
     log_like_from_test = approx(log_lik_from_taweret_model)
     assert log_like_from_test != 0.0, "log likelihood is zero"
+
+
+def test_prior_setter():
+    '''
+    Test the prior setter function.
+    '''
+
+    for model in mix_models:
+        model.prior = priors
+        assert model.prior is not None
+
 
 # def test_three_mixing_methods():
 #     for i, model in enumerate(mix_models):

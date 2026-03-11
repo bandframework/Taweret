@@ -31,7 +31,8 @@ class BivariateLinear(BaseMixer):
                  same_parameters: bool = False,
                  full_cov: bool = False,
                  BMMcor: bool = False,
-                 mean_mix: bool = False):
+                 mean_mix: bool = False, 
+                 logger=print):
         '''
         Parameters:
         -----------
@@ -72,7 +73,7 @@ class BivariateLinear(BaseMixer):
                 # model is not a class but an object
                 isinstance(model, BaseModel)
             except AttributeError:
-                print(f'model {list(models_dic.keys())[i]} is not derived \
+                logger(f'model {list(models_dic.keys())[i]} is not derived \
                       from taweret.core.base_model class')
             else:
                 continue
@@ -89,15 +90,12 @@ class BivariateLinear(BaseMixer):
             raise Exception('Mixing function is not found')
         else:
             self.n_mix = method_n_mix_dic[method]
-            print(f'{method} mixing function has {self.n_mix} \
-                  free parameter(s)')
+
         # assign default priors
         priors = bilby.core.prior.PriorDict()
         for i in range(0, self.n_mix):
             name = f'{method}_{i}'
             priors[name] = bilby.core.prior.Uniform(0, 1, name=name)
-        print(f'Warning : Default prior is set to {priors}')
-        print('To change the prior use `set_prior` method')
         self.same_parameters = same_parameters
         self.method = method
         self.nargs_model_dic = nargs_model_dic
@@ -276,7 +274,6 @@ class BivariateLinear(BaseMixer):
         pos_predictions = []
 
         if samples is not None:
-            print("using provided samples instead of posterior")
             posterior = samples
         else:
             posterior = self._posterior
@@ -344,7 +341,6 @@ class BivariateLinear(BaseMixer):
         pos_predictions = []
 
         if samples is not None:
-            print("using provided samples instead of posterior")
             posterior = samples
         else:
             posterior = self._posterior
@@ -356,7 +352,6 @@ class BivariateLinear(BaseMixer):
             value, _ = self.evaluate_weights(mixture_param, x)
             pos_predictions.append(value)
         pos_predictions = np.array(pos_predictions)
-        print(pos_predictions.shape)
 
         CIs = np.percentile(pos_predictions, CI, axis=0)
 
@@ -399,7 +394,6 @@ class BivariateLinear(BaseMixer):
             raise Exception("Define the prior first using set_prior")
         else:
             samples = np.array(list(self._prior.sample(n_sample).values())).T
-            print(samples.shape)
             return self.predict(x, CI=CI, samples=samples)
 
     def set_prior(self,
@@ -429,7 +423,6 @@ class BivariateLinear(BaseMixer):
         '''
         for name, model in self.models_dic.items():
             if model.prior is None:
-                # print(f'model has no prior {model}')
                 continue
             else:
                 priors = model.prior
@@ -551,7 +544,6 @@ class BivariateLinear(BaseMixer):
                 final_cov += np.diag(np.square(y_err_all))
             else:
                 final_cov = np.diag(np.square(y_err_all))
-            # print(np.all(np.isclose(final_cov,final_cov_2)))
 
             return normed_mvn_loglike(diff, final_cov)
 
@@ -590,7 +582,8 @@ class BivariateLinear(BaseMixer):
               label: str = 'bivariate_mix',
               outdir: str = 'outdir',
               kwargs_for_sampler: Optional[Dict[str, int]] = None,
-              load_previous: bool = False
+              load_previous: bool = False,
+              logger=print,
               ):
         '''
         Run sampler to learn parameters. Method should also create class
@@ -665,7 +658,7 @@ class BivariateLinear(BaseMixer):
             result = bilby.result.read_in_result(outdir=outdir, label=label)
         except BaseException:
             if load_previous:
-                print(f'Saved results for {label} do not exist in : ' +
+                logger(f'Saved results for {label} do not exist in : ' +
                       outdir)
             # if os.path.exists(outdir+'/'+label):
             #    shutil.rmtree(outdir+'/'+label)
@@ -680,15 +673,6 @@ class BivariateLinear(BaseMixer):
                                       'printdt': 60}
                 # 'safety':2,
                 # 'autocorr_tol':5}
-                print(f'The following Default settings for \
-                      sampler will be used. You can change these \
-                      arguments by providing kwargs_for_sampler argument in \
-                      `train`. Check Bilby documentation for other sampling \
-                      options.\n{kwargs_for_sampler}')
-            else:
-                print(
-                    f'The following settings were \
-                    provided for sampler \n{kwargs_for_sampler}')
 
             result = bilby.run_sampler(
                 likelihood,

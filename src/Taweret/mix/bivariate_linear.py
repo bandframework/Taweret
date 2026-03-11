@@ -581,6 +581,7 @@ class BivariateLinear(BaseMixer):
               outdir: str = 'outdir',
               kwargs_for_sampler: Optional[Dict[str, int]] = None,
               load_previous: bool = False,
+              plot: bool = False,
               ):
         '''
         Run sampler to learn parameters. Method should also create class
@@ -672,7 +673,8 @@ class BivariateLinear(BaseMixer):
                 prior,
                 label=label,
                 outdir=outdir,
-                **kwargs_for_sampler)
+                **kwargs_for_sampler,
+                plot=plot)
         # The last two columns are model liklihood and log_prior.
         self._posterior = result.posterior.values[:, 0:-2]
         self.model_was_trained = True

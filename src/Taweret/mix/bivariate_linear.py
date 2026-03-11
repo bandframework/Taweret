@@ -71,9 +71,10 @@ class BivariateLinear(BaseMixer):
             try:
                 # model is not a class but an object
                 isinstance(model, BaseModel)
-            except: 
-                raise AttributeError(f'model {list(models_dic.keys())[i]} is not derived \
-                      from taweret.core.base_model class')
+            except Exception:
+                raise AttributeError(f'model {list(models_dic.keys())[i]} \
+                                     is not derived from \
+                                     taweret.core.base_model class')
             else:
                 continue
         self.models_dic = models_dic

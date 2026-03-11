@@ -84,7 +84,10 @@ def test_likelihood_wrapper_initialization():
 
     # test mixed model with simple prior
     dummy_mixed_model = types.SimpleNamespace(
-        prior={"theta": 1.0})
+        prior={"theta": 1.0},
+        n_mix=1,
+        nargs_model_dic={"model1": 1},
+        same_parameters=True)
 
     x = np.array([0.0])
     y = np.array([1.0])

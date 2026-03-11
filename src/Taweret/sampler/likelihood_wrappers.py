@@ -30,9 +30,7 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
             the wrapper object.
         """
 
-        self.parameters = {i: None
-                     for i in mixed_model.prior.keys()
-                     }
+        self.parameters = {i: None for i in mixed_model.prior.keys()}
 
         # super().__init__(parameters=param_dic)
         super().__init__()

@@ -33,7 +33,7 @@ class Multivariate(BaseMixer):
             m.evaluate_weights()
     '''
 
-    def __init__(self, x, models, n_models=0, logger=print):
+    def __init__(self, x, models, n_models=0):
         '''
         Parameters:
         -----------
@@ -50,13 +50,6 @@ class Multivariate(BaseMixer):
         --------
         None.
         '''
-
-        # check for predict method in the models
-        for i in models.keys():
-            try:
-                getattr(models[i], 'evaluate')
-            except AttributeError:
-                logger('model {i} does not have an evaluate method')
 
         # set up the class variables
         self.model_dict = models

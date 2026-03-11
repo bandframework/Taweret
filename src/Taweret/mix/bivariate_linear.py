@@ -31,8 +31,7 @@ class BivariateLinear(BaseMixer):
                  same_parameters: bool = False,
                  full_cov: bool = False,
                  BMMcor: bool = False,
-                 mean_mix: bool = False, 
-                 logger=print):
+                 mean_mix: bool = False):
         '''
         Parameters:
         -----------
@@ -72,8 +71,8 @@ class BivariateLinear(BaseMixer):
             try:
                 # model is not a class but an object
                 isinstance(model, BaseModel)
-            except AttributeError:
-                logger(f'model {list(models_dic.keys())[i]} is not derived \
+            except: 
+                raise AttributeError(f'model {list(models_dic.keys())[i]} is not derived \
                       from taweret.core.base_model class')
             else:
                 continue
@@ -277,7 +276,6 @@ class BivariateLinear(BaseMixer):
             posterior = samples
         else:
             posterior = self._posterior
-        # n_samples = posterior.shape[0]
         for sample in posterior[::nthin]:
             sample = np.array(sample).flatten()
 
@@ -583,7 +581,6 @@ class BivariateLinear(BaseMixer):
               outdir: str = 'outdir',
               kwargs_for_sampler: Optional[Dict[str, int]] = None,
               load_previous: bool = False,
-              logger=print,
               ):
         '''
         Run sampler to learn parameters. Method should also create class
@@ -654,12 +651,8 @@ class BivariateLinear(BaseMixer):
 
         # if os.path.exists(outdir) and load_previous:
         try:
-
             result = bilby.result.read_in_result(outdir=outdir, label=label)
-        except BaseException:
-            if load_previous:
-                logger(f'Saved results for {label} do not exist in : ' +
-                      outdir)
+        except Exception:
             # if os.path.exists(outdir+'/'+label):
             #    shutil.rmtree(outdir+'/'+label)
             if kwargs_for_sampler is None:

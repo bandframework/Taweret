@@ -97,10 +97,16 @@ def test_likelihood_wrapper_initialization():
         y_err=yerr,
     )
 
-    # multiple test lines to double check all settings
+    # test wrapper is being built
     assert wrapper.mixed_model is dummy_mixed_model
-    assert wrapper.parameters is not None
-    assert all(v is None for v in wrapper.parameters.values())
+
+    # checking parameters=None works
+    val = wrapper.log_likelihood()
+    assert np.isfinite(val)
+
+    # checking other case
+    val2 = wrapper.log_likelihood(parameters={"theta": 0.9})
+    assert np.isfinite(val2)
 
     return None
 

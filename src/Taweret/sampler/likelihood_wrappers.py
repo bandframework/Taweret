@@ -55,7 +55,7 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
 
         """
 
-        # compatibility with older samplers and bilby versions (codecov issue here)
+        # compatibility with older samplers and versions
         if parameters is None:
             parameters = self.parameters
 

@@ -97,7 +97,10 @@ def test_likelihood_wrapper_initialization():
         y_err=yerr,
     )
 
+    # multiple test lines to double check all settings
     assert wrapper.mixed_model is dummy_mixed_model
+    assert wrapper.parameters is not None
+    assert all(v is None for v in wrapper.parameters.values())
 
     return None
 

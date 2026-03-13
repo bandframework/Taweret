@@ -6,13 +6,15 @@
 # necessary imports
 from Taweret.core.base_mixer import BaseMixer
 import numpy as np
+from scipy import stats
+from sklearn.gaussian_process.kernels import *
 import sys
 sys.path.append('../Taweret')
 
 # set up classes for each option here
 class GPBMM(BaseMixer):   # TODO: figure out how to deal with hyperpriors
 
-    def __init__(self, x, models, mean_function='zero', kernel='rbf', 
+    def __init__(self, x, models, mean_function='zero', kernel=None, 
                  priors=None):
         '''
         Parameters:
@@ -36,31 +38,34 @@ class GPBMM(BaseMixer):   # TODO: figure out how to deal with hyperpriors
         priors: dict
             Dict of hyperpriors for the selected kernel. Default
             priors included in the package will be run if there
-            are no specified hyperpriors. 
+            are no specified hyperpriors, depending on the kernel
+            selected.
 
         Returns:
         --------
         None.
         '''
 
-        # check for predict method in the models
-        for i in models.keys():
-            try:
-                getattr(models[i], 'evaluate')
-            except AttributeError:
-                print('model {i} does not have an evaluate method')
-
-        # set up the class variables
+        # set up the class variables assuming models are valid
         self.model_dict = models
         self.x = x
 
         # str class variables (will become objects later)
         self.mean_function_choice = mean_function
-        self.kernel_choice = kernel
+
+        # handle None for kernel
+        if kernel is None:
+            self.kernel_ = ConstantKernel(1.0, constant_value_bounds="fixed") * RBF(
+                1.0, length_scale_bounds="fixed"
+            )
+        else:
+            self.kernel_ = clone(kernel)
         
         # set priors up using defaults if no user given priors
         if priors is None:
-            priors = self._default_priors()
+            # assign basic parameters for now
+            logparams = np.log(np.ones(len(2)))
+            priors = self._default_priors(logparams)
 
         # otherwise use the user provided priors
         self.priors = priors
@@ -102,7 +107,7 @@ class GPBMM(BaseMixer):   # TODO: figure out how to deal with hyperpriors
         return None
     
     # TODO this is where the primary work will be performed
-    def predict(self, ci=68):
+    def predict(self):
         '''
         Here the GP needed to perform the mixing is assigned and
         trained on the model means, variances, and covariances
@@ -120,19 +125,8 @@ class GPBMM(BaseMixer):   # TODO: figure out how to deal with hyperpriors
             and the means, variances, and covariances at each of 
             these specified locations.
         '''
-
-        # credibility interval(s)
-        self.ci = ci
-
-        # credibility interval check
-        if self.ci == 68:
-            val = [1.0]
-        elif self.ci == 95:
-            val = [1.96]
-        elif self.ci == [68, 95]:
-            val = [1.0, 1.96]
-        else:
-            raise ValueError('Choose 1 and/or 2 sigma band.')
+        
+        ### stuff goes here from GP predict ###
         
         # set up the dict of values to return
         gp_results = {
@@ -191,3 +185,58 @@ class GPBMM(BaseMixer):   # TODO: figure out how to deal with hyperpriors
         and models. Needs to be implemented.
         '''
         return None
+    
+    def _default_priors(self, logparams):
+        '''
+        Default prior in case the user has no idea what
+        to use and would like to play with a pre-built case.
+        ** Params array is in log space because 
+        the GP code requires this and cannot be changed. **
+        '''
+
+        # handle the default kernel and no prior case (RBF)
+        # TODO add other cases later
+
+        # begin with sigma
+        sig = np.exp(logparams[0])
+        a_sig = np.exp(self.kernel_.bounds[0,0])
+        b_sig = np.exp(self.kernel_.bounds[0,1])
+
+        # now include lengthscale
+        ls = np.exp(logparams[1])
+        a = np.exp(self.kernel_.bounds[1,0])
+        b = np.exp(self.kernel_.bounds[1,1])
+
+        # sigma prior
+        log_prior_sig = self.luniform_sig(sig, a_sig, b_sig) + stats.norm.logpdf(sig, 1.0, 0.25)
+        log_gradient_sig = self.sig_grad(sig)
+
+        # lengthscale prior
+        
+        log_prior = self.luniform_ls(ls, a, b) + stats.norm.logpdf(ls, 1.0, 0.15)
+        log_gradient = self.ls_grad(ls)
+
+        return log_prior + log_prior_sig, log_gradient + log_gradient_sig
+
+    # helper pdf functions
+    def luniform_ls(self, ls, a, b):
+        if ls > a and ls < b:
+            return 0.0
+        else:
+            return -np.inf
+    
+    def luniform_sig(self, sig, a, b):
+        if sig > a and sig < b:
+            return 0.0
+        else:
+            return -np.inf
+    
+    # derivative helper for sigma
+    def sig_grad(self, sig):
+        trunc = -(sig - 1.0)/(0.25**2)
+        return trunc
+    
+    # helper grad for ls
+    def ls_grad(self, ls):
+        ls_deriv = -(ls - 1.0)/(0.15**2)
+        return ls_deriv

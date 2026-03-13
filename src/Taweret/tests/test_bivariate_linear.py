@@ -87,7 +87,9 @@ def test_likelihood_wrapper_initialization():
         prior={"theta": 1.0},
         n_mix=1,
         nargs_model_dic={"model1": 1},
-        same_parameters=True)
+        same_parameters=True,
+        mix_loglikelihood=lambda mix_param, models_params, x, y, yerr: -0.5
+)
 
     x = np.array([0.0])
     y = np.array([1.0])
@@ -104,7 +106,7 @@ def test_likelihood_wrapper_initialization():
     assert wrapper.mixed_model is dummy_mixed_model
 
     # checking parameters=None works
-    val = wrapper.log_likelihood()
+    val = wrapper.log_likelihood(parameters=None)
     assert np.isfinite(val)
 
     # checking other case

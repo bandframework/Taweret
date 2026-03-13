@@ -59,7 +59,7 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
         if parameters is None:
             parameters = self.parameters
 
-        params = list(parameters.values())
+        params = list(parameters.values())  # if none doesn't work well
 
         # Because when putting constraints dummy variables enter which are None
         # in parameters

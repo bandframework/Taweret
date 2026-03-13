@@ -68,8 +68,6 @@ def normed_mvn_loglike(y, cov):
 
     n = len(y)
     norm_const = -n / (2. * np.log(2. * np.pi))
-    # print(norm_const)
-    # print(L.diagonal())
     # return -.5*np.dot(y, alpha) - np.log(eps+L.diagonal()).sum() + \
     # norm_const
     return -.5 * np.dot(y, alpha) - np.log(L.diagonal()).sum() + norm_const
@@ -250,13 +248,9 @@ def mixture_function(
         w = np.array(w).flatten()
         return w, 1 - w
     elif method == 'beta':
-        print('Warning: mixture_function - the `beta` choice forces a \
-              stochastic likelihood to be returned after calibration')
         w = beta.rvs(*mixture_params)
         return w, 1 - w
     elif method == 'dirchlet':
-        print('Warning: mixture_function - the `dirichlet` choice forces a \
-              stochastic likelihood to be returned after calibration')
         w = dirichlet.rvs(mixture_params)
         return w
     elif method == 'switchcos':

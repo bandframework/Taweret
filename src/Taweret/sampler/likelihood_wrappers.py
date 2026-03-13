@@ -30,11 +30,10 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
             the wrapper object.
         """
 
-        param_dic = {i: None
-                     for i in mixed_model.prior.keys()
-                     }
+        self.parameters = {i: None for i in mixed_model.prior.keys()}
 
-        super().__init__(parameters=param_dic)
+        # super().__init__(parameters=param_dic)
+        super().__init__()
 
         self._compute_ln_noise_evidence = lambda: 0.0
         self.mixed_model = mixed_model
@@ -42,7 +41,7 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
         self.y_exp = y_exp
         self.y_err = y_err
 
-    def log_likelihood(self):
+    def log_likelihood(self, parameters=None):
         """
         The log likelihood function that can be used with Bilby.
 
@@ -55,9 +54,14 @@ class likelihood_wrapper_for_bilby(bilby.Likelihood):
             The scalar log likelihood value.
 
         """
-        params = list(self.parameters.values())
 
-        # Because when putting consteaints dummy variables enter which are None
+        # compatibility with older samplers and versions
+        if parameters is None:
+            parameters = self.parameters
+
+        params = list(parameters.values())  # if none doesn't work well
+
+        # Because when putting constraints dummy variables enter which are None
         # in parameters
         params = [i for i in params if i is not None]
         params = np.array(params).flatten()

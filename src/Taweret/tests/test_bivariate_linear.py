@@ -84,7 +84,11 @@ def test_likelihood_wrapper_initialization():
 
     # test mixed model with simple prior
     dummy_mixed_model = types.SimpleNamespace(
-        prior={"theta": 1.0})
+        prior={"theta": 1.0},
+        n_mix=1,
+        nargs_model_dic={"model1": 1},
+        same_parameters=True,
+        mix_loglikelihood=lambda mix_param, models_params, x, y, yerr: -0.5)
 
     x = np.array([0.0])
     y = np.array([1.0])
@@ -97,7 +101,16 @@ def test_likelihood_wrapper_initialization():
         y_err=yerr,
     )
 
+    # test wrapper is being built
     assert wrapper.mixed_model is dummy_mixed_model
+
+    # checking if parameters works
+    val = wrapper.log_likelihood(parameters={"theta": 1.0})
+    assert np.isfinite(val)
+
+    # checking other case
+    val2 = wrapper.log_likelihood(parameters={"theta": 0.9})
+    assert np.isfinite(val2)
 
     return None
 

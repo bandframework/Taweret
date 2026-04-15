@@ -51,13 +51,6 @@ class Multivariate(BaseMixer):
         None.
         '''
 
-        # check for predict method in the models
-        for i in models.keys():
-            try:
-                getattr(models[i], 'evaluate')
-            except AttributeError:
-                print('model {i} does not have an evaluate method')
-
         # set up the class variables
         self.model_dict = models
         self.x = x

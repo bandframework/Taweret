@@ -28,8 +28,9 @@ GPR_CHOLESKY_LOWER = True
 class GPmixing(BaseMixer):
 
     def __init__(
-        self, x, models, mean_function="zero", kernel=None, priors=None,
-        max_iter=None,
+        self, x, models, mean_function="zero", kernel=None, priors=True,
+        prior_params=None, prior_choice=None, prior_type=None, switch=None,
+        max_iter=None
     ):
         """
         Parameters:
@@ -73,8 +74,13 @@ class GPmixing(BaseMixer):
 
         # str class variables
         self.mean_function_choice = mean_function
+        self.priors = priors  # if False, will use LML instead of MAP
+        self.prior_params = prior_params
+        self.prior_choice = prior_choice
+        self.prior_type = prior_type  # only used for changepoint kernel
+        self.switch = switch
 
-        # handle None for kernel
+        # handle None case for kernel
         if kernel is None:
             self.kernel_ = C(1.0, constant_value_bounds="fixed") * RBF(
                 1.0, length_scale_bounds="fixed"
@@ -85,14 +91,10 @@ class GPmixing(BaseMixer):
         # make a copy of the unconstrained kernel for use later
         self.kernel_copy = self.kernel_
 
-        # set priors up using defaults if no user given priors
-        if priors is None:
-            # assign basic parameters for now
-            logparams = np.log(np.ones(len(2)))
-            priors = self._default_priors(logparams)
-
-        # otherwise use the user provided priors
-        self.priors = priors
+        # get hyperpriors set up here
+        if self.prior_params is None and self.priors is True:
+            self.prior_choice = 'rbfnorm'  # default choice here
+            self.prior_params = self._default_prior_params()
 
         # convert models dict() to list
         self.models = [i for i in self.model_dict.values()]
@@ -104,6 +106,9 @@ class GPmixing(BaseMixer):
             self.mean_function_choice,
             self.kernel_,
             self.priors,
+            self.prior_choice,
+            self.prior_type,
+            self.prior_params,
             self.switch,
             self.max_iter,
         )
@@ -177,7 +182,6 @@ class GPmixing(BaseMixer):
             these specified locations.
         """
 
-        # TODO which array is stored as self.x?
         if self._is_trained is True:
             self.mean, self.std_dev = self.gpr.predict(self.x, return_std=True)
             _, self.cov = self.gpr.predict(self.x, return_cov=True)
@@ -202,11 +206,12 @@ class GPmixing(BaseMixer):
         """
         return NotImplemented
 
-    @property  # TODO determine the function of this prior; kernel? not needed
+    @property
     def prior(self):
         """
         Return the prior of the parameters in the mixing.
-        Not needed for this method.
+        Not needed for this method, since hyperpriors are
+        really what we are using.
         """
         return None
 
@@ -225,6 +230,9 @@ class GPmixing(BaseMixer):
                 self.mean_function_choice,
                 self.kernel_copy,
                 self.priors,
+                self.prior_choice,
+                self.prior_type,
+                self.prior_params,
                 self.switch,
                 self.max_iter,
             )
@@ -267,8 +275,7 @@ class GPmixing(BaseMixer):
         """
         return None
 
-    def train(self, X, y, prior_choice="rbfnorm",
-              prior_type=None, switch=None):
+    def train(self, X, y):
         """
         Train the GP chosen in the __init__() function
         to optimize its hyperparameters given chosen priors
@@ -298,21 +305,15 @@ class GPmixing(BaseMixer):
             to indicate not using this kernel.
         """
 
-        # do some preprocessing
-        self.prior_choice = prior_choice
-        self.prior_type = prior_type
-        self.switch = switch
-
-        # fit function call
-        self.gpr_obj = self._fit(X, y)
+        # fit function call from GPRWrapper
+        self.gpr_obj = self.gpr.fit(X, y)
 
         # make sure it is clear it has been trained
         self._is_trained = True
 
         return None
 
-    # TODO get this part done and allow for prior class to be written by user
-    def _default_priors(self, logparams):
+    def _default_prior_params(self):
         """
         Default prior in case the user has no idea what
         to use and would like to play with a pre-built case.
@@ -320,54 +321,16 @@ class GPmixing(BaseMixer):
         the GP code requires this and cannot be changed. **
         """
 
-        # TODO add other cases later (maybe?)
+        # check if guesses are provided for bounds; if not, use local
+        if self.prior_params is None and self.priors is True:
+            if self.prior_choice == 'rbfnorm':
+                self.prior_params = {
+                    'sigma0': 1.0,
+                    'sigstd': 0.25,
+                    'ls0': 1.0,
+                }
 
-        # begin with sigma
-        sig = np.exp(logparams[0])
-        a_sig = np.exp(self.kernel_.bounds[0, 0])
-        b_sig = np.exp(self.kernel_.bounds[0, 1])
-
-        # now include lengthscale
-        ls = np.exp(logparams[1])
-        a = np.exp(self.kernel_.bounds[1, 0])
-        b = np.exp(self.kernel_.bounds[1, 1])
-
-        # sigma prior
-        log_prior_sig = self.luniform_sig(sig, a_sig, b_sig)
-        + stats.norm.logpdf(
-            sig, 1.0, 0.25
-        )
-        log_gradient_sig = self.sig_grad(sig)
-
-        # lengthscale prior
-        log_prior_ls = self.luniform_ls(ls, a, b)
-        + stats.norm.logpdf(ls, 1.0, 0.15)
-        log_gradient_ls = self.ls_grad(ls)
-
-        return log_prior_ls + log_prior_sig, log_gradient_ls + log_gradient_sig
-
-    # helper pdf functions
-    def luniform_ls(self, ls, a, b):
-        if ls > a and ls < b:
-            return 0.0
-        else:
-            return -np.inf
-
-    def luniform_sig(self, sig, a, b):
-        if sig > a and sig < b:
-            return 0.0
-        else:
-            return -np.inf
-
-    # derivative helper for sigma
-    def sig_grad(self, sig):
-        trunc = -(sig - 1.0) / (0.25**2)
-        return trunc
-
-    # helper grad for ls
-    def ls_grad(self, ls):
-        ls_deriv = -(ls - 1.0) / (0.15**2)
-        return ls_deriv
+        return self.prior_params
 
 
 class GPRwrapper(GaussianProcessRegressor):
@@ -378,10 +341,13 @@ class GPRwrapper(GaussianProcessRegressor):
         models,
         mean_function="zero",
         kernel=None,
-        priors=None,
+        priors=True,
+        prior_choice=None,
+        prior_type=None,
+        prior_params=None,
         switch=None,
         max_iter=None,
-    ):  # pass the inputs here
+    ):  # pass the inputs from GPMixing here
 
         # set class variables here
         self.x = x
@@ -389,6 +355,9 @@ class GPRwrapper(GaussianProcessRegressor):
         self.mean_function = mean_function
         self.kernel_ = kernel
         self.priors = priors
+        self.prior_choice = prior_choice
+        self.prior_type = prior_type
+        self.prior_params = prior_params
         self.switch = switch
         self.max_iter = max_iter
 
@@ -447,35 +416,49 @@ class GPRwrapper(GaussianProcessRegressor):
         self.X_train_ = np.copy(X) if self.copy_X_train else X
         self.y_train_ = np.copy(y) if self.copy_X_train else y
 
-        # TODO fix this!
-        self.prior_ = None
-        # self.prior_ = GPPriors(
-        #     kernel=self.kernel_,
-        #     prior_choice=self.prior_choice,
-        #     prior_type=self.prior_type,
-        #     switch=self.switch,
-        #     cutoff=self.cutoff,
-        # )
+        # set the hyperpriors here
+        if self.priors is True:
+            self.prior_ = GPPriors(
+                kernel=self.kernel_,
+                prior_choice=self.prior_choice,
+                prior_type=self.prior_type,
+                prior_params=self.prior_params,
+                switch=self.switch,
+            )
 
-        # TODO: handle the no prior case and revert to LML if requested by user
         # LML or MAP, depending on state of the prior
         if self.optimizer is not None and self.kernel_.n_dims > 0:
             # Choose hyperparameters based on maximizing the log-marginal
             # likelihood (potentially starting from several initial values)
             def obj_func(theta, eval_gradient=True):
 
-                if eval_gradient:
-                    lml, grad_lml = self._log_marginal_likelihood(
-                        theta, eval_gradient=True, clone_kernel=False
-                    )
-                    lp, grad_lp = self.prior_.log_priors(theta)
-                    return -(lml + lp), -(grad_lml + grad_lp)
+                # MAP value case with priors included
+                if self.priors is True:
+                    if eval_gradient:
+                        lml, grad_lml = self._log_marginal_likelihood(
+                            theta, eval_gradient=True, clone_kernel=False
+                        )
+                        lp, grad_lp = self.prior_.log_priors(theta)
+                        return -(lml + lp), -(grad_lml + grad_lp)
 
+                    else:
+                        lml = self._log_marginal_likelihood(theta,
+                                                            clone_kernel=False)
+                        lp, _ = self.prior_.log_priors(theta)
+                        return -(lml + lp)
+
+                # handle LML case only if no priors selected
                 else:
-                    lml = self._log_marginal_likelihood(theta,
-                                                        clone_kernel=False)
-                    lp, _ = self.prior_.log_priors(theta)
-                    return -(lml + lp)
+                    if eval_gradient:
+                        lml, grad_lml = self._log_marginal_likelihood(
+                            theta, eval_gradient=True, clone_kernel=False
+                        )
+                        return -lml, -grad_lml
+
+                    else:
+                        lml = self._log_marginal_likelihood(theta,
+                                                            clone_kernel=False)
+                        return -lml
 
             # First optimize starting from theta specified in kernel
             optima = [
@@ -772,3 +755,244 @@ class GPRwrapper(GaussianProcessRegressor):
             raise NotImplementedError
 
         return n_iter_i
+
+
+class GPPriors:
+
+    # allow for stationary and non-stationary options
+    def __init__(self, kernel, prior_choice=None, prior_type=None,
+                 prior_params=None, switch=None):
+        self.kernel_ = kernel
+        self.prior_choice = prior_choice
+        self.prior_type = prior_type
+        self.prior_params = prior_params
+        self.switch = switch
+
+        return None
+
+    # chunky function that could be improved and split later
+    def log_priors(self, theta, **kwargs):
+
+        if self.prior_choice == 'changepoint':
+
+            # will look for both of these as a default
+            cp_bounds = True
+            w_bounds = True
+
+            # make dict of values for this part to tell code which is optimized
+            if self.kernel_.width_bounds == 'fixed':
+                w_bounds = False
+            if self.kernel_.changepoint_bounds == 'fixed':
+                cp_bounds = False
+            arg_dict = {
+                'cp_opt': cp_bounds,
+                'w_opt': w_bounds
+            }
+
+            # include both changepoint and width options
+            cp_opt = arg_dict['cp_opt']
+            w_opt = arg_dict['w_opt']
+
+            # means and variances of width
+            if self.switch == 'sigmoid':
+                mean_w = 0.16
+                var_w = 0.155
+            elif self.switch == 'tanh':
+                mean_w = 0.32
+                var_w = 0.31
+
+            # optimizing both parameters
+            if cp_opt is True and w_opt is True:
+
+                # converting back into parameter space
+                cp = np.exp(theta[0])
+                w = np.exp(theta[1])
+
+                cpa = np.exp(self.kernel_.bounds[0, 0])
+                cpb = np.exp(self.kernel_.bounds[0, 1])
+                wa = np.exp(self.kernel_.bounds[1, 0])
+                wb = np.exp(self.kernel_.bounds[1, 1])
+
+                # construct the prior and gradient
+                if (self.prior_type['cp'] == 'truncnorm'
+                        and self.prior_type['w'] == 'truncnorm'):
+                    deriv_cp_norm = self.deriv_cp(cp)
+                    if self.switch == 'sigmoid':
+                        deriv_w_norm = self.deriv_w_sigmoid(w)
+                    elif self.switch == 'tanh':
+                        deriv_w_norm = self.deriv_w_tanh(w)
+                    log_prior = self.luniform_ls(cp, cpa, cpb) + \
+                        stats.norm.logpdf(cp, 0.98, 0.33) + \
+                        self.luniform_ls(w, wa, wb) + \
+                        stats.norm.logpdf(w, mean_w, var_w)
+                    log_gradient = deriv_cp_norm + deriv_w_norm
+
+                elif (self.prior_type['cp'] == 'truncnorm'
+                        and self.prior_type['w'] == 'free'):
+                    deriv_cp_norm = self.deriv_cp(cp)
+                    log_prior = self.luniform_ls(cp, cpa, cpb) + \
+                        stats.norm.logpdf(cp, 0.98, 0.33) + \
+                        self.luniform_ls(w, wa, wb)
+                    log_gradient = deriv_cp_norm
+
+                elif (self.prior_type['w'] == 'truncnorm'
+                      and self.prior_type['cp'] == 'free'):
+                    if self.switch == 'sigmoid':
+                        deriv_w_norm = self.deriv_w_sigmoid(w)
+                    elif self.switch == 'tanh':
+                        deriv_w_norm = self.deriv_w_tanh(w)
+                    log_prior = self.luniform_ls(cp, cpa, cpb) + \
+                        self.luniform_ls(w, wa, wb) + \
+                        stats.norm.logpdf(w, mean_w, var_w)
+                    log_gradient = deriv_w_norm
+
+                elif (self.prior_type['cp'] == 'free'
+                      and self.prior_type['w'] == 'free'):
+                    log_prior = (self.luniform_ls(cp, cpa, cpb)
+                                 + self.luniform_ls(w, wa, wb))
+                    log_gradient = 0.0
+
+                # save prior values
+                self.log_prior_vals = log_prior
+                self.log_prior_grad = log_gradient
+
+                return log_prior, log_gradient
+
+            # optimizing width only
+            elif w_opt is True and cp_opt is not True:
+
+                w = np.exp(theta[0])
+                wa = np.exp(self.kernel_.bounds[0, 0])
+                wb = np.exp(self.kernel_.bounds[0, 1])
+
+                # construct the prior and gradient
+                if self.prior_type['w'] == 'truncnorm':
+                    if self.switch == 'sigmoid':
+                        deriv_w_norm = self.deriv_w_sigmoid(w)
+                    elif self.switch == 'tanh':
+                        deriv_w_norm = self.deriv_w_tanh(w)
+                    log_prior = self.luniform_ls(w, wa, wb) + \
+                        stats.norm.logpdf(w, mean_w, var_w)
+                    log_gradient = deriv_w_norm
+                elif self.prior_type['w'] == 'free':
+                    log_prior = self.luniform_ls(w, wa, wb)
+                    log_gradient = 0.0
+
+                return log_prior, log_gradient
+
+            # optimizing changepoint only
+            elif cp_opt is True and w_opt is not True:
+
+                cp = np.exp(theta[0])
+                cpa = np.exp(self.kernel_.bounds[0, 0])
+                cpb = np.exp(self.kernel_.bounds[0, 1])
+
+                # construct the prior and gradient
+                if self.prior_type['cp'] == 'truncnorm':
+                    deriv_cp_norm = self.deriv_cp(cp)
+                    log_prior = self.luniform_ls(cp, cpa, cpb) + \
+                        stats.norm.logpdf(cp, 0.98, 0.33)
+                    log_gradient = deriv_cp_norm
+
+                elif self.prior_type['cp'] == 'free':
+                    log_prior = self.luniform_ls(cp, cpa, cpb)
+                    log_gradient = 0.0
+
+                return log_prior, log_gradient
+
+        # stationary kernels start here
+        if (self.prior_choice == 'rbfnorm' or self.prior_choice == 'matern32'
+                or self.prior_choice == 'matern52'
+                or self.prior_choice == 'ratquad'):
+
+            # begin with sigma
+            sig = np.exp(theta[0])
+            a_sig = np.exp(self.kernel_.bounds[0, 0])
+            b_sig = np.exp(self.kernel_.bounds[0, 1])
+
+            # also load lengthscale
+            ls = np.exp(theta[1])
+            a = np.exp(self.kernel_.bounds[1, 0])
+            b = np.exp(self.kernel_.bounds[1, 1])
+
+            # sigma prior
+            log_prior_sig = (self.luniform_sig(sig, a_sig, b_sig)
+                             + stats.norm.logpdf(sig, 1.0, 0.25))
+            log_gradient_sig = self.trunc_deriv(sig)
+
+            # now we select the lengthscale prior
+            if self.prior_choice == 'rbfnorm':
+
+                def trunc_deriv_rbf(ls):
+                    trunc_15 = -(ls - 0.95)/(0.15**2)
+                    return trunc_15
+
+                log_prior = (self.luniform_ls(ls, a, b)
+                             + stats.norm.logpdf(ls, 0.89, 0.15))
+                log_gradient = trunc_deriv_rbf(ls)
+
+            elif self.prior_choice == 'uniform':
+
+                log_prior = self.luniform_ls(ls, a, b)
+                log_gradient = self.luniform_ls(ls, a, b)
+
+            elif self.prior_choice == 'matern32':
+
+                def trunc_deriv_matern(ls):
+                    trunc_matern = -(ls - 0.95)/(0.15**2)
+                    return trunc_matern
+
+                log_prior = (self.luniform_ls(ls, a, b)
+                             + stats.norm.logpdf(ls, 0.76, 0.15))
+                log_gradient = trunc_deriv_matern(ls)
+
+            elif self.prior_choice == 'matern52':
+
+                def trunc_deriv_matern(ls):
+                    trunc_matern = -(ls - 0.9)/(0.15**2)
+                    return trunc_matern
+
+                log_prior = (self.luniform_ls(ls, a, b)
+                             + stats.norm.logpdf(ls, 0.8, 0.15))
+                log_gradient = trunc_deriv_matern(ls)
+
+            elif self.prior_choice == 'ratquad':
+
+                def trunc_deriv_rq(ls):
+                    trunc_rq = -(ls - 0.7)/(0.15**2)
+                    return trunc_rq
+
+                log_prior = (self.luniform_ls(ls, a, b)
+                             + stats.norm.logpdf(ls, 0.55, 0.15))
+                log_gradient = trunc_deriv_rq(ls)
+
+            # return both lengthscale and sigma priors together
+            return log_prior + log_prior_sig, log_gradient + log_gradient_sig
+
+    # helper pdf functions
+    def luniform_ls(self, ls, a, b):
+        if ls > a and ls < b:
+            return 0.0
+        else:
+            return -np.inf
+
+    def luniform_sig(self, sig, a, b):
+        if sig > a and sig < b:
+            return 0.0
+        else:
+            return -np.inf
+
+    # derivative helper for sigma
+    def trunc_deriv(self, sig):
+        trunc = -(sig - 1.0)/(0.25**2)
+        return trunc
+
+    # analytic derivative helper functions
+    def deriv_cp(self, cp):
+        return -(cp - 0.98)/(0.33**2)
+
+    def deriv_w_sigmoid(self, w):
+        return -(w - 0.16)/(0.155**2)
+
+    def deriv_w_tanh(self, w):
+        return -(w - 0.32)/(0.31**2)

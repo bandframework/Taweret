@@ -17,6 +17,7 @@ from sklearn.gaussian_process.kernels import RBF
 from sklearn.gaussian_process.kernels import ConstantKernel as C
 from sklearn.base import clone
 from sklearn.utils import check_random_state
+from sklearn.utils.validation import check_X_y
 
 sys.path.append("../Taweret")
 
@@ -28,9 +29,9 @@ GPR_CHOLESKY_LOWER = True
 class GPmixing(BaseMixer):
 
     def __init__(
-        self, x, models, mean_function="zero", kernel=None, priors=True,
-        prior_params=None, prior_choice=None, prior_type=None, switch=None,
-        max_iter=None
+        self, x, models, alpha=None, mean_function="zero", kernel=None,
+        priors=True, prior_params=None, prior_choice=None, prior_type=None,
+        switch=None, max_iter=None, nopt=1000
     ):
         """
         Parameters:
@@ -65,6 +66,8 @@ class GPmixing(BaseMixer):
         # set up the class variables assuming models are valid
         self.model_dict = models
         self.x = x
+        self.alpha = alpha
+        self.nopt = nopt
 
         # initialize the trained state to False
         self._is_trained = False
@@ -82,14 +85,14 @@ class GPmixing(BaseMixer):
 
         # handle None case for kernel
         if kernel is None:
-            self.kernel_ = C(1.0, constant_value_bounds="fixed") * RBF(
+            self.kernel = C(1.0, constant_value_bounds="fixed") * RBF(
                 1.0, length_scale_bounds="fixed"
             )
         else:
-            self.kernel_ = clone(kernel)
+            self.kernel = clone(kernel)
 
         # make a copy of the unconstrained kernel for use later
-        self.kernel_copy = self.kernel_
+        self.kernel_copy = self.kernel
 
         # get hyperpriors set up here
         if self.prior_params is None and self.priors is True:
@@ -99,43 +102,48 @@ class GPmixing(BaseMixer):
         # convert models dict() to list
         self.models = [i for i in self.model_dict.values()]
 
-        # initialize the GPR class
-        self.gpr = GPRwrapper(
-            self.x,
-            self.models,
-            self.mean_function_choice,
-            self.kernel_,
-            self.priors,
-            self.prior_choice,
-            self.prior_type,
-            self.prior_params,
-            self.switch,
-            self.max_iter,
-        )
-
         return None
 
-    def evaluate(self):
+    # TODO need to understand if this is needed
+    def evaluate(self, x):
         """
-        Evaluation of the model at a set of points. Must
-        fit first before calling this function.
+        Evaluation of the model at the set of training points. If
+        the model was not yet fit, this function will return the
+        result of the prior at the training points.
         """
+
+        # set up the training point array
+        if x.ndim == 1:
+            x_eval = x.reshape(-1, 1)
+        else:
+            x_eval = x
 
         # evaluate at a selected array of points
         if self._is_trained is True:
-            result, std_result = self.gpr.predict(self.x, return_std=True)
-            _, cov_result = self.gpr.predict(self.x, return_cov=True)
-            eval_results = {
-                "x": self.x,
-                "mean": result,
-                "std_dev": std_result,
-                "cov": cov_result,
+            eval_mean, eval_std = self.gpr.predict(x_eval, return_std=True)
+            _, eval_cov = self.gpr.predict(x_eval, return_cov=True)
+        else:
+            # call wrapper with unconstrained kernel
+            unconstrained_prior = GPRwrapper(
+                kernel=self.kernel_copy,
+                alpha=self.alpha,
+                n_restarts_optimizer=self.nopt
+            )
+
+            # now calculate results of the GP prior (no fitting!)
+            eval_mean, eval_std = unconstrained_prior.predict(x_eval,
+                                                              return_std=True)
+            _, eval_cov = unconstrained_prior.predict(x_eval, return_cov=True)
+
+        # collect results
+        eval_results = {
+                "x": x_eval[:, 0],
+                "mean": eval_mean,
+                "std": eval_std,
+                "cov": eval_cov,
             }
 
-            return eval_results
-
-        else:
-            raise ValueError("You must train the GP first.")
+        return eval_results
 
     def evaluate_weights(self):
         """
@@ -148,12 +156,15 @@ class GPmixing(BaseMixer):
     @property
     def map(self):
         """
-        Return the MAP values of the parameters.
+        Return the MAP values of the parameters,
+        exponentiated for readability as the true values
+        of the parameters.
         """
 
-        # do this for the GP prior parameters
-
-        return None
+        if self._is_trained is True:
+            return np.exp(self.gpr.kernel_.theta)
+        else:
+            raise ValueError('You need to train the GP first.')
 
     @property
     def posterior(self):
@@ -183,8 +194,10 @@ class GPmixing(BaseMixer):
         """
 
         if self._is_trained is True:
-            self.mean, self.std_dev = self.gpr.predict(self.x, return_std=True)
-            _, self.cov = self.gpr.predict(self.x, return_cov=True)
+            self.mean, self.std_dev = self.gpr.predict(self.x.reshape(-1, 1),
+                                                       return_std=True)
+            _, self.cov = self.gpr.predict(self.x.reshape(-1, 1),
+                                           return_cov=True)
         else:
             raise ValueError("You must train the model first.")
 
@@ -222,33 +235,23 @@ class GPmixing(BaseMixer):
         has been performed yet).
         """
 
-        # if already trained, make a clone and use that
-        if self._is_trained is True:
-            unconstrained_prior = GPRwrapper(
-                self.x,
-                self.models,
-                self.mean_function_choice,
-                self.kernel_copy,
-                self.priors,
-                self.prior_choice,
-                self.prior_type,
-                self.prior_params,
-                self.switch,
-                self.max_iter,
-            )
+        # call wrapper with unconstrained kernel
+        unconstrained_prior = GPRwrapper(
+            kernel=self.kernel_copy,
+            alpha=self.alpha,
+            n_restarts_optimizer=self.nopt
+        )
 
-        else:
-            unconstrained_prior = self.gpr
-
-        # now calculate results of the unconstrained GP prior
-        prior_mean, prior_std = unconstrained_prior.predict(self.x,
+        # now calculate results of the GP prior (no fitting!)
+        x_pred = self.x.reshape(-1, 1)
+        prior_mean, prior_std = unconstrained_prior.predict(x_pred,
                                                             return_std=True)
-        _, prior_cov = unconstrained_prior.predict(self.x, return_cov=True)
+        _, prior_cov = unconstrained_prior.predict(x_pred, return_cov=True)
 
         prior_results = {
             "x": self.x,
             "mean": prior_mean,
-            "std_dev": prior_std,
+            "std": prior_std,
             "cov": prior_cov,
         }
 
@@ -275,7 +278,8 @@ class GPmixing(BaseMixer):
         """
         return None
 
-    def train(self, X, y):
+    def train(self, X, y, prior_choice='rbfnorm', prior_type=None,
+              switch=None, max_iter=None):
         """
         Train the GP chosen in the __init__() function
         to optimize its hyperparameters given chosen priors
@@ -306,7 +310,13 @@ class GPmixing(BaseMixer):
         """
 
         # fit function call from GPRWrapper
-        self.gpr_obj = self.gpr.fit(X, y)
+        self.gpr = GPRwrapper(kernel=self.kernel, alpha=self.alpha,
+                              n_restarts_optimizer=self.nopt)
+        self.gpr_obj = self.gpr.fit(X, y,
+                                    priors=self.priors,
+                                    prior_choice=prior_choice,
+                                    prior_type=prior_type, switch=switch,
+                                    max_iter=max_iter)
 
         # make sure it is clear it has been trained
         self._is_trained = True
@@ -325,9 +335,8 @@ class GPmixing(BaseMixer):
         if self.prior_params is None and self.priors is True:
             if self.prior_choice == 'rbfnorm':
                 self.prior_params = {
-                    'sigma0': 1.0,
-                    'sigstd': 0.25,
-                    'ls0': 1.0,
+                    "sigma": {"mu": 1.0, "sig": 0.25},
+                    "lengthscale": {"mu": 1.0, "sig": 0.15}
                 }
 
         return self.prior_params
@@ -335,35 +344,8 @@ class GPmixing(BaseMixer):
 
 class GPRwrapper(GaussianProcessRegressor):
 
-    def __init__(
-        self,
-        x,
-        models,
-        mean_function="zero",
-        kernel=None,
-        priors=True,
-        prior_choice=None,
-        prior_type=None,
-        prior_params=None,
-        switch=None,
-        max_iter=None,
-    ):  # pass the inputs from GPMixing here
-
-        # set class variables here
-        self.x = x
-        self.models = models
-        self.mean_function = mean_function
-        self.kernel_ = kernel
-        self.priors = priors
-        self.prior_choice = prior_choice
-        self.prior_type = prior_type
-        self.prior_params = prior_params
-        self.switch = switch
-        self.max_iter = max_iter
-
-        return None
-
-    def fit(self, X, y):
+    def fit(self, X, y, priors=True, prior_choice='truncnorm',
+            prior_type=None, prior_params=None, switch=None, max_iter=None):
         """
         Meat of the GP training, where we use the GPR
         class in scikit-learn and wrap it with this
@@ -371,13 +353,30 @@ class GPRwrapper(GaussianProcessRegressor):
         and covariances.
         """
 
+        # set up the class variables here
+        self.priors = priors
+        self.prior_choice = prior_choice
+        self.prior_type = prior_type
+        self.prior_params = prior_params
+        self.switch = switch
+        self.max_iter = max_iter
+
+        # kernel should not be None but still
+        if self.kernel is None:
+            self.kernel_ = C(1.0, constant_value_bounds="fixed") * RBF(
+                1.0, length_scale_bounds="fixed"
+            )
+        else:
+            self.kernel_ = clone(self.kernel)
+
+        # we need to determine why these variables are not passing
         self._rng = check_random_state(self.random_state)
 
         if self.kernel_.requires_vector_input:
             dtype, ensure_2d = "numeric", True
         else:
             dtype, ensure_2d = None, False
-        X, y = self._validate_data(
+        X, y = check_X_y(
             X,
             y,
             multi_output=True,
@@ -530,6 +529,7 @@ class GPRwrapper(GaussianProcessRegressor):
             self.y_train_,
             check_finite=False,
         )
+
         return self
 
     def _log_marginal_likelihood(
@@ -920,15 +920,15 @@ class GPPriors:
                              + stats.norm.logpdf(sig, 1.0, 0.25))
             log_gradient_sig = self.trunc_deriv(sig)
 
-            # now we select the lengthscale prior
+            # now we select the lengthscale prior #TODO fix this
             if self.prior_choice == 'rbfnorm':
 
                 def trunc_deriv_rbf(ls):
-                    trunc_15 = -(ls - 0.95)/(0.15**2)
+                    trunc_15 = -(ls - 1.0)/(0.15**2)
                     return trunc_15
 
                 log_prior = (self.luniform_ls(ls, a, b)
-                             + stats.norm.logpdf(ls, 0.89, 0.15))
+                             + stats.norm.logpdf(ls, 1.0, 0.15))
                 log_gradient = trunc_deriv_rbf(ls)
 
             elif self.prior_choice == 'uniform':

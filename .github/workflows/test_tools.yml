@@ -15,7 +15,7 @@ jobs:
       # script itself and need just one setup.
       matrix:
         os: [ubuntu-24.04]
-        python-version: ["3.13"]
+        python-version: ["3.14"]
     runs-on: ${{ matrix.os }}
     steps:
     ##-- General Setup Steps

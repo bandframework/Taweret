@@ -12,9 +12,9 @@ jobs:
     # packaging.
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-24.04, macos-14, macos-15]
+        os: [ubuntu-22.04, ubuntu-24.04, macos-14, macos-15, macos-26, macos-26-intel]
         mpi_impl: ["openmpi", "mpich"]
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         exclude:
           # See similar tests for openbtmixing for more info.
           - os: ubuntu-24.04
@@ -76,7 +76,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.13"]
+        python-version: ["3.14"]
     runs-on: ${{ matrix.os }}
     env:
       CLONE_PATH:    ${{ github.workspace }}
@@ -102,11 +102,11 @@ jobs:
           tox -r -e coverage,report
           popd
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.KEVIN_CODECOV_TOKEN }}
           slug: bandframework/Taweret
-          file: ${{ env.COVERAGE_XML }}
+          files: ${{ env.COVERAGE_XML }}
           fail_ci_if_error: true
       - name: Archive code coverage results
         uses: actions/upload-artifact@v7

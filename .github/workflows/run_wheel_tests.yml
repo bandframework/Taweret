@@ -23,9 +23,9 @@ jobs:
     env:
       CLONE_PATH: ${{ github.workspace }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install ${{ matrix.mpi_impl }}
@@ -84,9 +84,9 @@ jobs:
       COVERAGE_XML:  ${{ github.workspace }}/coverage.xml
       COVERAGE_HTML: ${{ github.workspace }}/htmlcov
     steps:
-      - uses: actions/checkout@v4 
+      - uses: actions/checkout@v6
       - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install OpenMPI
@@ -102,14 +102,14 @@ jobs:
           tox -r -e coverage,report
           popd
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.KEVIN_CODECOV_TOKEN }}
           slug: bandframework/Taweret
           file: ${{ env.COVERAGE_XML }}
           fail_ci_if_error: true
       - name: Archive code coverage results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: code-coverage-results
           path: |

@@ -34,7 +34,7 @@ jobs:
           auto-update-conda: true
           python-version: ${{ matrix.python-version }}
       - name: Checkout Taweret
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup miniconda & log
         shell: bash -el {0}
         run: |

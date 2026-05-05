@@ -28,12 +28,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-24.04]
-        python-version: ["3.12"]
+        python-version: ["3.14"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
       - name: Setup base Python environment
@@ -46,7 +46,7 @@ jobs:
           ls -lart ./dist
           popd
       - name: Archive distributions
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Taweret-distributions
           path: |
@@ -57,13 +57,13 @@ jobs:
     needs: [build]
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-24.04, macos-14, macos-15]
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        os: [ubuntu-22.04, ubuntu-24.04, macos-14, macos-15, macos-26, macos-26-intel]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install OpenMPI
@@ -78,7 +78,7 @@ jobs:
       - name: Setup base Python environment
         run: |
           $CLONE_PATH/.github/workflows/setup_base_python.sh ${{ runner.os }}
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: Taweret-distributions
           path: ${{ env.CLONE_PATH }}/dist
@@ -139,7 +139,7 @@ jobs:
 #    runs-on: ubuntu-latest
 #    if: github.event_name == 'release' && github.event.action == 'published'
 #    steps:
-#    - uses: actions/download-artifact@v4
+#    - uses: actions/download-artifact@v8
 #      with:
 #        name: Taweret-distributions
 #        path: ${{ env.CLONE_PATH }}/dist

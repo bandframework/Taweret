@@ -96,7 +96,7 @@ class GPmixing(BaseMixer):
 
         # get hyperpriors set up here
         if self.prior_params is None and self.priors is True:
-            self.prior_choice = 'rbfnorm'  # default choice here
+            self.prior_choice = 'rbfnorm'
             self.prior_params = self._default_prior_params()
 
         # convert models dict() to list
@@ -104,7 +104,7 @@ class GPmixing(BaseMixer):
 
         return None
 
-    # TODO need to understand if this is needed
+
     def evaluate(self, x):
         """
         Evaluation of the model at the set of training points. If
@@ -257,7 +257,7 @@ class GPmixing(BaseMixer):
 
         # if sampling return samples; if not, return dict
         if sample is True:
-            samples = self.gpr.sample_y(self.x, n_samples=n_samples)
+            samples = unconstrained_prior.sample_y(x_pred, n_samples=n_samples)
             return prior_results, samples
         else:
             return prior_results
@@ -315,6 +315,7 @@ class GPmixing(BaseMixer):
         self.gpr_obj = self.gpr.fit(X, y,
                                     priors=self.priors,
                                     prior_choice=prior_choice,
+                                    prior_params=self.prior_params,
                                     prior_type=prior_type, switch=switch,
                                     max_iter=max_iter)
 
@@ -905,6 +906,12 @@ class GPPriors:
                 or self.prior_choice == 'matern52'
                 or self.prior_choice == 'ratquad'):
 
+            # extract prior params here for easiness of use
+            ls_mu = self.prior_params['lengthscale']['mu']
+            sig_mu = self.prior_params['sigma']['mu']
+            ls_std = self.prior_params['lengthscale']['sig']
+            sig_std = self.prior_params['sigma']['sig']
+
             # begin with sigma
             sig = np.exp(theta[0])
             a_sig = np.exp(self.kernel_.bounds[0, 0])
@@ -917,18 +924,18 @@ class GPPriors:
 
             # sigma prior
             log_prior_sig = (self.luniform_sig(sig, a_sig, b_sig)
-                             + stats.norm.logpdf(sig, 1.0, 0.25))
+                             + stats.norm.logpdf(sig, sig_mu, sig_std))
             log_gradient_sig = self.trunc_deriv(sig)
 
-            # now we select the lengthscale prior #TODO fix this
+            # now we select the lengthscale prior
             if self.prior_choice == 'rbfnorm':
 
                 def trunc_deriv_rbf(ls):
-                    trunc_15 = -(ls - 1.0)/(0.15**2)
+                    trunc_15 = -(ls - ls_mu)/(ls_std**2)
                     return trunc_15
 
                 log_prior = (self.luniform_ls(ls, a, b)
-                             + stats.norm.logpdf(ls, 1.0, 0.15))
+                             + stats.norm.logpdf(ls, ls_mu, ls_std))
                 log_gradient = trunc_deriv_rbf(ls)
 
             elif self.prior_choice == 'uniform':
@@ -939,31 +946,31 @@ class GPPriors:
             elif self.prior_choice == 'matern32':
 
                 def trunc_deriv_matern(ls):
-                    trunc_matern = -(ls - 0.95)/(0.15**2)
+                    trunc_matern = -(ls - ls_mu)/(ls_std**2)
                     return trunc_matern
 
                 log_prior = (self.luniform_ls(ls, a, b)
-                             + stats.norm.logpdf(ls, 0.76, 0.15))
+                             + stats.norm.logpdf(ls, ls_mu, ls_std))
                 log_gradient = trunc_deriv_matern(ls)
 
             elif self.prior_choice == 'matern52':
 
                 def trunc_deriv_matern(ls):
-                    trunc_matern = -(ls - 0.9)/(0.15**2)
+                    trunc_matern = -(ls - ls_mu)/(ls_std**2)
                     return trunc_matern
 
                 log_prior = (self.luniform_ls(ls, a, b)
-                             + stats.norm.logpdf(ls, 0.8, 0.15))
+                             + stats.norm.logpdf(ls, ls_mu, ls_std))
                 log_gradient = trunc_deriv_matern(ls)
 
             elif self.prior_choice == 'ratquad':
 
                 def trunc_deriv_rq(ls):
-                    trunc_rq = -(ls - 0.7)/(0.15**2)
+                    trunc_rq = -(ls - ls_mu)/(ls_std**2)
                     return trunc_rq
 
                 log_prior = (self.luniform_ls(ls, a, b)
-                             + stats.norm.logpdf(ls, 0.55, 0.15))
+                             + stats.norm.logpdf(ls, ls_mu, ls_std))
                 log_gradient = trunc_deriv_rq(ls)
 
             # return both lengthscale and sigma priors together
@@ -984,7 +991,9 @@ class GPPriors:
 
     # derivative helper for sigma
     def trunc_deriv(self, sig):
-        trunc = -(sig - 1.0)/(0.25**2)
+        sig_mu = self.prior_params['sigma']['mu']
+        sig_std = self.prior_params['sigma']['sig']
+        trunc = -(sig - sig_mu)/(sig_std**2)
         return trunc
 
     # analytic derivative helper functions

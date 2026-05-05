@@ -64,4 +64,4 @@ jobs:
           python -m build --wheel
           python -m pip install dist/[Tt]aweret-*-py3-none-any.whl
           popd
-          $CLONE_PATH/tools/test_python_installation.py
+          python -c "import Taweret ; print(Taweret.__version__) ; exit(not Taweret.test())"

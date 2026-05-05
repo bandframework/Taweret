@@ -104,7 +104,6 @@ class GPmixing(BaseMixer):
 
         return None
 
-
     def evaluate(self, x):
         """
         Evaluation of the model at the set of training points. If

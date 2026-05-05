@@ -22,6 +22,9 @@ on:
   release:
     branches: [main]
     types: [published]
+  # TODO: Remove this trigger after current changes have been checked.
+  pull_request:
+    branches: [main]
 
 jobs:
   build: 

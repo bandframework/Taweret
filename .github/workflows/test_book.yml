@@ -9,6 +9,8 @@ on:
     branches: [main]
 
 jobs:
+  # This failed with Python 3.14 with semaphore lock failures in the
+  # multiprocessing package.
   build:
     runs-on: ${{ matrix.os }}
     strategy:

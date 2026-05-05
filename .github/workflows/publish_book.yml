@@ -9,6 +9,8 @@ on:
     workflow_dispatch:
 
 jobs:
+  # This failed with Python 3.14 with semaphore lock failures in the
+  # multiprocessing package.
   build:
     permissions:
       pages: write

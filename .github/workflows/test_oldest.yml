@@ -17,13 +17,13 @@ jobs:
   tests:
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-24.04, macos-14, macos-15]
+        os: [ubuntu-22.04, ubuntu-24.04, macos-14, macos-15, macos-26, macos-26-intel]
         python-version: ["3.10"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install Open-MPI

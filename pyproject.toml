@@ -38,7 +38,7 @@ dependencies = [
     "openbtmixing",
     "matplotlib",
     "pytest",
-    "scikit-learn",
+    "scikit-learn>=1.0.0",
 ]
 classifiers = [
     "Operating System :: OS Independent",

@@ -95,9 +95,11 @@ class GPmixing(BaseMixer):
         self.kernel_copy = self.kernel
 
         # get hyperpriors set up here
-        if self.prior_params is None and self.priors is True:
-            self.prior_choice = 'rbfnorm'
-            self.prior_params = self._default_prior_params()
+        if (self.prior_params is None and self.priors is True):
+            if self.prior_choice is None:
+                raise ValueError('Must supply a choice of prior.')
+            elif self.prior_choice is not None:
+                self.prior_params = self._default_prior_params()
 
         # convert models dict() to list
         self.models = [i for i in self.model_dict.values()]
@@ -327,18 +329,25 @@ class GPmixing(BaseMixer):
         """
         Default prior in case the user has no idea what
         to use and would like to play with a pre-built case.
-        ** Params array is in log space because
-        the GP code requires this and cannot be changed. **
         """
 
         # check if guesses are provided for bounds; if not, use local
         if self.prior_params is None and self.priors is True:
-            if self.prior_choice == 'rbfnorm':
+            if (self.prior_choice == 'rbfnorm' or
+                self.prior_choice=='matern3/2' or
+                self.prior_choice=='matern5/2' or
+                self.prior_choice=='ratquad'):
+
+                # default choice
                 self.prior_params = {
                     "sigma": {"mu": 1.0, "sig": 0.25},
                     "lengthscale": {"mu": 1.0, "sig": 0.15}
                 }
-
+            elif self.prior_choice == 'changepoint':
+                self.prior_params = {
+                    "cp": {"mu": 0.5, "sig": 0.1},
+                    "w": {"mu": 0.1, "sig": 0.1},
+                }
         return self.prior_params
 
 
@@ -793,16 +802,20 @@ class GPPriors:
             cp_opt = arg_dict['cp_opt']
             w_opt = arg_dict['w_opt']
 
-            # means and variances of width
-            if self.switch == 'sigmoid':
-                mean_w = 0.16
-                var_w = 0.155
-            elif self.switch == 'tanh':
-                mean_w = 0.32
-                var_w = 0.31
-
             # optimizing both parameters
             if cp_opt is True and w_opt is True:
+
+                # means and variances of changepoint and width
+                if self.switch == 'sigmoid':
+                    mean_cp = self.prior_params['cp']['mu']
+                    var_cp = self.prior_params['cp']['sig']
+                    mean_w = self.prior_params['w']['mu']
+                    var_w = self.prior_params['w']['sig']
+                elif self.switch == 'tanh':
+                    mean_cp = 2.0*self.prior_params['cp']['mu']
+                    var_cp = 2.0*self.prior_params['cp']['sig']
+                    mean_w = 2.0*self.prior_params['w']['mu']
+                    var_w = 2.0*self.prior_params['w']['sig']
 
                 # converting back into parameter space
                 cp = np.exp(theta[0])
@@ -816,31 +829,31 @@ class GPPriors:
                 # construct the prior and gradient
                 if (self.prior_type['cp'] == 'truncnorm'
                         and self.prior_type['w'] == 'truncnorm'):
-                    deriv_cp_norm = self.deriv_cp(cp)
+                    deriv_cp_norm = self.deriv_cp(cp, mean_cp, var_cp)
                     if self.switch == 'sigmoid':
-                        deriv_w_norm = self.deriv_w_sigmoid(w)
+                        deriv_w_norm = self.deriv_w_sigmoid(w, mean_w, var_w)
                     elif self.switch == 'tanh':
-                        deriv_w_norm = self.deriv_w_tanh(w)
+                        deriv_w_norm = self.deriv_w_tanh(w, mean_w, var_w)
                     log_prior = self.luniform_ls(cp, cpa, cpb) + \
-                        stats.norm.logpdf(cp, 0.98, 0.33) + \
+                        stats.norm.logpdf(cp, mean_cp, var_cp) + \
                         self.luniform_ls(w, wa, wb) + \
                         stats.norm.logpdf(w, mean_w, var_w)
                     log_gradient = deriv_cp_norm + deriv_w_norm
 
                 elif (self.prior_type['cp'] == 'truncnorm'
                         and self.prior_type['w'] == 'free'):
-                    deriv_cp_norm = self.deriv_cp(cp)
+                    deriv_cp_norm = self.deriv_cp(cp, mean_cp, var_cp)
                     log_prior = self.luniform_ls(cp, cpa, cpb) + \
-                        stats.norm.logpdf(cp, 0.98, 0.33) + \
+                        stats.norm.logpdf(cp, mean_cp, var_cp) + \
                         self.luniform_ls(w, wa, wb)
                     log_gradient = deriv_cp_norm
 
                 elif (self.prior_type['w'] == 'truncnorm'
                       and self.prior_type['cp'] == 'free'):
                     if self.switch == 'sigmoid':
-                        deriv_w_norm = self.deriv_w_sigmoid(w)
+                        deriv_w_norm = self.deriv_w_sigmoid(w, mean_w, var_w)
                     elif self.switch == 'tanh':
-                        deriv_w_norm = self.deriv_w_tanh(w)
+                        deriv_w_norm = self.deriv_w_tanh(w, mean_w, var_w)
                     log_prior = self.luniform_ls(cp, cpa, cpb) + \
                         self.luniform_ls(w, wa, wb) + \
                         stats.norm.logpdf(w, mean_w, var_w)
@@ -861,6 +874,14 @@ class GPPriors:
             # optimizing width only
             elif w_opt is True and cp_opt is not True:
 
+                # means and variances of changepoint and width
+                if self.switch == 'sigmoid':
+                    mean_w = self.prior_params['w']['mu']
+                    var_w = self.prior_params['w']['sig']
+                elif self.switch == 'tanh':
+                    mean_w = 2.0*self.prior_params['w']['mu']
+                    var_w = 2.0*self.prior_params['w']['sig']
+
                 w = np.exp(theta[0])
                 wa = np.exp(self.kernel_.bounds[0, 0])
                 wb = np.exp(self.kernel_.bounds[0, 1])
@@ -868,9 +889,9 @@ class GPPriors:
                 # construct the prior and gradient
                 if self.prior_type['w'] == 'truncnorm':
                     if self.switch == 'sigmoid':
-                        deriv_w_norm = self.deriv_w_sigmoid(w)
+                        deriv_w_norm = self.deriv_w_sigmoid(w, mean_w, var_w)
                     elif self.switch == 'tanh':
-                        deriv_w_norm = self.deriv_w_tanh(w)
+                        deriv_w_norm = self.deriv_w_tanh(w, mean_w, var_w)
                     log_prior = self.luniform_ls(w, wa, wb) + \
                         stats.norm.logpdf(w, mean_w, var_w)
                     log_gradient = deriv_w_norm
@@ -883,15 +904,23 @@ class GPPriors:
             # optimizing changepoint only
             elif cp_opt is True and w_opt is not True:
 
+                # means and variances of changepoint and width
+                if self.switch == 'sigmoid':
+                    mean_cp = self.prior_params['cp']['mu']
+                    var_cp = self.prior_params['cp']['sig']
+                elif self.switch == 'tanh':
+                    mean_cp = 2.0*self.prior_params['cp']['mu']
+                    var_cp = 2.0*self.prior_params['cp']['sig']
+
                 cp = np.exp(theta[0])
                 cpa = np.exp(self.kernel_.bounds[0, 0])
                 cpb = np.exp(self.kernel_.bounds[0, 1])
 
                 # construct the prior and gradient
                 if self.prior_type['cp'] == 'truncnorm':
-                    deriv_cp_norm = self.deriv_cp(cp)
+                    deriv_cp_norm = self.deriv_cp(cp, mean_cp, var_cp)
                     log_prior = self.luniform_ls(cp, cpa, cpb) + \
-                        stats.norm.logpdf(cp, 0.98, 0.33)
+                        stats.norm.logpdf(cp, mean_cp, var_cp)
                     log_gradient = deriv_cp_norm
 
                 elif self.prior_type['cp'] == 'free':
@@ -996,11 +1025,11 @@ class GPPriors:
         return trunc
 
     # analytic derivative helper functions
-    def deriv_cp(self, cp):
-        return -(cp - 0.98)/(0.33**2)
+    def deriv_cp(self, cp, mean_cp, var_cp):
+        return -(cp - mean_cp)/(var_cp**2)
 
-    def deriv_w_sigmoid(self, w):
-        return -(w - 0.16)/(0.155**2)
+    def deriv_w_sigmoid(self, w, mean_w, var_w):
+        return -(w - mean_w)/(var_w**2)
 
-    def deriv_w_tanh(self, w):
-        return -(w - 0.32)/(0.31**2)
+    def deriv_w_tanh(self, w, mean_w, var_w):
+        return -(w - mean_w)/(var_w**2)

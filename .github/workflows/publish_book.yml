@@ -4,6 +4,9 @@ env:
   EXAMPLES_BOOK: ${{ github.workspace }}/book/_build/html
 on:
   push:
+    # TODO: Issue #117.  Should this publish for every commit on main or only on
+    # release events on main?  If only release events, then the test_book action
+    # should also be run on pushes to main that aren't release events.
     branches:
       - main 
     workflow_dispatch:

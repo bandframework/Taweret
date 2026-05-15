@@ -3,10 +3,10 @@ env:
   CLONE_PATH:    ${{ github.workspace }}
   EXAMPLES_BOOK: ${{ github.workspace }}/book/_build/html
 on:
-  push:
-    branches: [main]
+  # Only execute on PRs into main under the assumption that the publish_book
+  # action builds the book and publishes it on pushes to main.
   pull_request:
-    branches: [main]
+    branches: main
 
 jobs:
   # This failed with Python 3.14 with semaphore lock failures in the

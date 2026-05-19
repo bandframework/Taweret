@@ -32,7 +32,7 @@ requires-python = ">=3.10"
 # numpy/scipy minimum versions set for v1.2.0 release based on discussion in
 # Issue 140.
 dependencies = [
-    "numpy>=1.21.1",
+    "numpy>=1.22.0",
     "scipy>=1.10.0",
     "bilby>=2.5.0",
     "openbtmixing",

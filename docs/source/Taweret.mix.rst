@@ -23,3 +23,9 @@ Submodules
    :members:
    :undoc-members:
    :show-inheritance:
+
+
+.. automodule:: Taweret.mix.gp_bmm
+   :members:
+   :undoc-members:
+   :show-inheritance:

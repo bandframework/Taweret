@@ -333,10 +333,12 @@ class GPmixing(BaseMixer):
 
         # check if guesses are provided for bounds; if not, use local
         if self.prior_params is None and self.priors is True:
-            if (self.prior_choice == 'rbfnorm' or
-                self.prior_choice=='matern3/2' or
-                self.prior_choice=='matern5/2' or
-                self.prior_choice=='ratquad'):
+            if self.prior_choice in (
+                'rbfnorm',
+                'matern3/2',
+                'matern5/2',
+                'ratquad',
+            ):
 
                 # default choice
                 self.prior_params = {

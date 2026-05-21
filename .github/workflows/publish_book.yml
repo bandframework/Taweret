@@ -54,10 +54,10 @@ jobs:
         popd
 
     - name: Archive examples Jupyter book 
-      uses: actions/upload-pages-artifact@v4
+      uses: actions/upload-pages-artifact@v5
       with:
         path: ${{ env.EXAMPLES_BOOK }}
 
     - name: Publish Taweret Jupyter Book
       id: deployment
-      uses: actions/deploy-pages@v4
+      uses: actions/deploy-pages@v5

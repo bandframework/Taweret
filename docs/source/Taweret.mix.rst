@@ -27,5 +27,6 @@ Submodules
 
 .. automodule:: Taweret.mix.gp_bmm
    :members:
+   :exclude-members: RequestMethod, _metadata_requests
    :undoc-members:
    :show-inheritance:

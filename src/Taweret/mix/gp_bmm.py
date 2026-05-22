@@ -108,9 +108,20 @@ class GPmixing(BaseMixer):
 
     def evaluate(self, x):
         """
-        Evaluation of the model at the set of training points. If
+        Evaluation of the trained model at the set of training points. If
         the model was not yet fit, this function will return the
         result of the prior at the training points.
+
+        Parameters:
+        -----------
+        x : numpy.linspace
+            The array of training points used.
+
+        Returns:
+        --------
+        eval_results : dict
+            The evaluated results including the training
+            points, mean, standard deviation, and covariances.
         """
 
         # set up the training point array
@@ -160,6 +171,14 @@ class GPmixing(BaseMixer):
         Return the MAP values of the parameters,
         exponentiated for readability as the true values
         of the parameters.
+
+        Parameters:
+        -----------
+        None.
+
+        Returns:
+        --------
+        The MAP values of the parameters.
         """
 
         if self._is_trained is True:
@@ -234,6 +253,26 @@ class GPmixing(BaseMixer):
         Find the predicted prior distribution using the
         unconstrained GP (e.g., no hyperparameter optimization
         has been performed yet).
+
+        Parameters:
+        -----------
+        sample : bool
+            Whether or not the user would like draws returned
+            from the GP distribution.
+
+        n_samples : int
+            The number of draws to return.
+
+        Returns:
+        --------
+        prior_results : dict
+            The dictionary of prior results, including the
+            input space array, mean, standard deviation, and
+            covariance matrix.
+
+        samples : numpy.ndarray
+            If samples is True, return the values
+            of the GP for each draw from the distribution.
         """
 
         # call wrapper with unconstrained kernel
@@ -273,9 +312,8 @@ class GPmixing(BaseMixer):
 
     def set_prior(self):
         """
-        Set the priors on the parameters. This will
-        be needed for this method but not yet determined how
-        to properly use it.
+        Set the priors on the parameters. Not used
+        for this method.
         """
         return None
 
@@ -288,26 +326,36 @@ class GPmixing(BaseMixer):
 
         Parameters:
         -----------
-        X (array-like of shape (n_samples, n_features) or list of object):
+        X : array-like of shape (n_samples, n_features) or list of object
             Feature vectors or other representations of training data.
 
-        y (array-like of shape (n_samples,) or (n_samples, n_targets)):
+        y : array-like of shape (n_samples,) or (n_samples, n_targets)
             Target values.
 
-        prior_choice (str): The choice of which type of prior to use on
+        prior_choice : str
+            The choice of which type of prior to use on
             the length scale. Default is 'rbfnorm'; other options are
             'skewnorm' and 'uniform'.
 
-        prior_type (dict): The type of prior we want to use on the
+        prior_type : dict
+            The type of prior we want to use on the
             hyperparameters when in a situation where more than one
             hyperparameter will be optimized, or when we do not want
             to use a log normal prior on the chosen hyperparameter
             in the changepoint kernel. This also takes in the switching
             function type; currently options are 'tanh' and 'sigmoid'.
 
-        switch (str): If using a changepoint kernel, specify which
+        switch : str
+            If using a changepoint kernel, specify which
             switching function you are using. Default is None
             to indicate not using this kernel.
+
+        max_iter : int
+            The maximum number of iterations of the optimizer.
+
+        Returns:
+        --------
+        None.
         """
 
         # fit function call from GPRWrapper
@@ -329,6 +377,15 @@ class GPmixing(BaseMixer):
         """
         Default prior in case the user has no idea what
         to use and would like to play with a pre-built case.
+
+        Parameters:
+        -----------
+        None.
+
+        Returns:
+        --------
+        self.prior_params : dict
+            The dict of prior parameters selected.
         """
 
         # check if guesses are provided for bounds; if not, use local
@@ -362,6 +419,40 @@ class GPRwrapper(GaussianProcessRegressor):
         class in scikit-learn and wrap it with this
         treatment of the extracted model means, variances,
         and covariances.
+
+        Parameters:
+        -----------
+        X : array-like of shape (n_samples, n_features) or list of object
+            Feature vectors or other representations of training data.
+
+        y : array-like of shape (n_samples,) or (n_samples, n_targets)
+            Target values.
+
+        prior_choice : str
+            The choice of which type of prior to use on
+            the length scale. Default is 'rbfnorm'; other options are
+            'skewnorm' and 'uniform'.
+
+        prior_type : dict
+            The type of prior we want to use on the
+            hyperparameters when in a situation where more than one
+            hyperparameter will be optimized, or when we do not want
+            to use a log normal prior on the chosen hyperparameter
+            in the changepoint kernel. This also takes in the switching
+            function type; currently options are 'tanh' and 'sigmoid'.
+
+        switch : str
+            If using a changepoint kernel, specify which
+            switching function you are using. Default is None
+            to indicate not using this kernel.
+
+        max_iter : int
+            The maximum number of iterations of the optimizer.
+
+        Returns:
+        --------
+        self : object
+            The fitted GP object.
         """
 
         # set up the class variables here
@@ -549,29 +640,34 @@ class GPRwrapper(GaussianProcessRegressor):
         """Return log-marginal likelihood of theta for training data.
 
         Parameters:
-            theta (array-like of shape (n_kernel_params,) default=None):
-                Kernel hyperparameters for which the log-marginal likelihood is
-                evaluated. If None, the precomputed log_marginal_likelihood
-                of ``self.kernel_.theta`` is returned.
+        -----------
+        theta : array-like of shape (n_kernel_params,) default=None
+            Kernel hyperparameters for which the log-marginal likelihood is
+            evaluated. If None, the precomputed log_marginal_likelihood
+            of ``self.kernel_.theta`` is returned.
 
-            eval_gradient (bool, default=False): If True, the gradient of the
-                log-marginal likelihood with respect
-                to the kernel hyperparameters at position theta is returned
-                additionally. If True, theta must not be None.
+        eval_gradient : bool, default=False
+            If True, the gradient of the
+            log-marginal likelihood with respect
+            to the kernel hyperparameters at position theta is returned
+            additionally. If True, theta must not be None.
 
-            clone_kernel (bool, default=True): If True, the kernel attribute
-                is copied. If False, the kernel
-                attribute is modified, but may result in a performance
-                improvement.
+        clone_kernel : bool, default=True
+            If True, the kernel attribute
+            is copied. If False, the kernel
+            attribute is modified, but may result in a performance
+            improvement.
 
         Returns:
-            log_likelihood (float): Log-marginal likelihood of theta for
-                training data.
+        --------
+        log_likelihood : float
+            Log-marginal likelihood of theta for
+            training data.
 
-            log_likelihood_gradient (ndarray of shape (n_kernel_params,),
-                optional): Gradient of the log-marginal likelihood with
-                respect to the kernel hyperparameters at position theta.
-                Only returned when eval_gradient is True.
+        log_likelihood_gradient : ndarray of shape (n_kernel_params,)
+            Gradient of the log-marginal likelihood with
+            respect to the kernel hyperparameters at position theta.
+            Only returned when eval_gradient is True.
         """
         if theta is None:
             if eval_gradient:
@@ -685,6 +781,31 @@ class GPRwrapper(GaussianProcessRegressor):
     def _constrained_optimization(
         self, obj_func, initial_theta, bounds, max_iter
     ):  # added max_iter
+        '''
+        Optimization function directly taken from scikit-learn.
+
+        Parameters:
+        -----------
+        obj_func : func
+            The objective function to be minimized.
+
+        initial_theta : numpy.ndarray or float
+            The initial values of the theta parameters.
+
+        bounds : numpy.ndarray
+            The bounds on theta.
+
+        max_iter : int
+            The maximum number of iterations allowed for the
+            optimization.
+
+        Returns:
+        --------
+        theta_opt : numpy.ndarray or float
+            The optimized values of the parameters.
+        func_min : float
+            The minimum of the objective function.
+        '''
         if self.optimizer == "fmin_l_bfgs_b":
             if max_iter is None:
                 opt_res = scipy.optimize.minimize(
@@ -720,21 +841,27 @@ class GPRwrapper(GaussianProcessRegressor):
     def _check_optimize_result(
         self, solver, result, max_iter=None, extra_warning_msg=None
     ):
-        """Check the OptimizeResult for successful convergence
+        """Check the OptimizeResult for successful convergence.
+        Also taken from scikit-learn.
 
         Parameters:
-            solver (str): Solver name. Currently only `lbfgs` is supported.
+        -----------
+        solver : str
+            Solver name. Currently only `lbfgs` is supported.
 
-            result (OptimizeResult): Result of the scipy.optimize.minimize
-                function.
+        result : OptimizeResult
+            Result of the scipy.optimize.minimize function.
 
-            max_iter (int, default=None): Expected maximum number of
-                iterations.
+        max_iter : int
+            Expected maximum number of iterations.
 
-            extra_warning_msg (str, default=None): Extra warning message.
+        extra_warning_msg : str
+            Extra warning message.
 
         Returns:
-            n_iter (int): Number of iterations.
+        --------
+        n_iter : int
+            Number of iterations.
         """
         # handle both scipy and scikit-learn solver names
         if solver == "lbfgs":
@@ -773,6 +900,41 @@ class GPPriors:
     # allow for stationary and non-stationary options
     def __init__(self, kernel, prior_choice=None, prior_type=None,
                  prior_params=None, switch=None):
+        '''
+        The GP prior class for housing the hyperpriors of the
+        kernels.
+
+        Parameters:
+        -----------
+        kernel : obj
+            The kernel used in the GP mixing step.
+
+        prior_choice : str
+            The choice of which type of prior to use on
+            the length scale. Default is 'rbfnorm'; other options are
+            'skewnorm' and 'uniform'.
+
+        prior_type : dict
+            The type of prior we want to use on the
+            hyperparameters when in a situation where more than one
+            hyperparameter will be optimized, or when we do not want
+            to use a log normal prior on the chosen hyperparameter
+            in the changepoint kernel. This also takes in the switching
+            function type; currently options are 'tanh' and 'sigmoid'.
+
+        prior_params : dict
+            The prior parameters we want to use as starting guesses for
+            the optimization.
+
+        switch : str
+            If using a changepoint kernel, specify which
+            switching function you are using. Default is None
+            to indicate not using this kernel.
+
+        Returns:
+        --------
+        None.
+        '''
         self.kernel_ = kernel
         self.prior_choice = prior_choice
         self.prior_type = prior_type
@@ -783,6 +945,22 @@ class GPPriors:
 
     # chunky function that could be improved and split later
     def log_priors(self, theta, **kwargs):
+        '''
+        The log prior function for optimization.
+
+        Parameters:
+        -----------
+        theta : numpy.ndarray
+            The initial theta values of the parameters.
+
+        Returns:
+        --------
+        log_prior : float
+            The value of the log prior.
+
+        log_gradient : float
+            The value of the log gradient.
+        '''
 
         if self.prior_choice == 'changepoint':
 
@@ -1006,32 +1184,154 @@ class GPPriors:
             # return both lengthscale and sigma priors together
             return log_prior + log_prior_sig, log_gradient + log_gradient_sig
 
-    # helper pdf functions
     def luniform_ls(self, ls, a, b):
+        '''
+        Helper function to calculate log uniform
+        prior.
+
+        Parameters:
+        -----------
+        ls : float
+            The lengthscale parameter.
+
+        a : float
+            The lower cutoff of the uniform prior.
+
+        b : float
+            The upper cutoff of the uniform prior.
+
+        Returns:
+        --------
+        Either 0 or -inf depending on the value
+        of the lengthscale.
+        '''
         if ls > a and ls < b:
             return 0.0
         else:
             return -np.inf
 
     def luniform_sig(self, sig, a, b):
+        '''
+        Helper function to calculate the log
+        uniform prior of the marginal variance.
+
+        Parameters:
+        -----------
+        sig : float
+            The value of the marginal variance.
+
+        a : float
+            The lower cutoff of the uniform prior.
+
+        b : float
+            The upper cutoff of the uniform prior.
+
+        Returns:
+        --------
+        Either 0 or -inf depending on the value
+        of the marginal variance.
+        '''
         if sig > a and sig < b:
             return 0.0
         else:
             return -np.inf
 
-    # derivative helper for sigma
     def trunc_deriv(self, sig):
+        '''
+        Derivative helper function for the
+        truncated normal distribution for the
+        marginal variance.
+
+        Parameters:
+        -----------
+        sig : float
+            The value of the marginal variance.
+
+        Returns:
+        --------
+        trunc : float
+            The value of the derivative function.
+        '''
         sig_mu = self.prior_params['sigma']['mu']
         sig_std = self.prior_params['sigma']['sig']
         trunc = -(sig - sig_mu)/(sig_std**2)
         return trunc
 
-    # analytic derivative helper functions
     def deriv_cp(self, cp, mean_cp, var_cp):
+        '''
+        The derivative helper function for the
+        changepoint.
+
+        Parameters:
+        -----------
+        cp : float
+            The value of the changepoint.
+
+        mean_cp : float
+            The starting guess of the changepoint
+            mean.
+
+        var_cp : float
+            The starting guess of the changepoint
+            standard deviation.
+
+        Returns:
+        --------
+        The value of the derivative at the
+        parameter values.
+        '''
         return -(cp - mean_cp)/(var_cp**2)
 
     def deriv_w_sigmoid(self, w, mean_w, var_w):
+        '''
+        The derivative helper function for the
+        changepoint width in the sigmoid
+        mixing function.
+
+        Parameters:
+        -----------
+        w : float
+            The value of the changepoint width.
+
+        mean_w : float
+            The starting guess for the
+            changepoint width mean.
+
+        var_w : float
+            The starting guess for the changepoint
+            width standard deviation.
+
+        Returns:
+        --------
+        The value of the derivative at the
+        parameters.
+        '''
         return -(w - mean_w)/(var_w**2)
 
     def deriv_w_tanh(self, w, mean_w, var_w):
+        '''
+        The derivative helper function for the
+        changepoint width in the tanh mixing
+        function.
+
+        Parameters:
+        -----------
+        w : float
+            The value of the changepoint width
+            parameter.
+
+        mean_w : float
+            The starting guess for the changepoint
+            width mean.
+
+        var_w : float
+            The starting guess for the changepoint
+            width standard deviation.
+
+        Returns:
+        --------
+        The value of the derivative at the
+        parameters.
+
+        '''
         return -(w - mean_w)/(var_w**2)

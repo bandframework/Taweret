@@ -27,11 +27,16 @@ jobs:
     env:
       CLONE_PATH: ${{ github.workspace }}
     steps:
+      # Following GH action messages, we explicitly remove the defaults channels
+      # setting.  According to the setup-miniconda docs, this is related to a
+      # workaround for
+      #            https://github.com/conda/conda/issues/12356
       - uses: conda-incubator/setup-miniconda@v4.0.1
         with:
           miniconda-version: "latest"
           python-version: ${{ matrix.python-version }}
           auto-update-conda: true
+          channels: conda-forge
           conda-remove-defaults: true
       - name: Checkout Taweret
         uses: actions/checkout@v6

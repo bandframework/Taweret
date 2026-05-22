@@ -45,11 +45,11 @@ jobs:
         run: |
           which python
           python --version
-          python -m pip install --upgrade pip
-          python -m pip install build
           conda info
           conda list
-          python -m pip list
+          conda install pip
+          python -m pip install build
+          conda list
       - name: Install prebuilt ${{ matrix.mpi_impl }} via PyPI
         shell: bash -el {0}
         run: |

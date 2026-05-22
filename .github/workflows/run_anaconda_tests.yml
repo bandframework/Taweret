@@ -28,7 +28,7 @@ jobs:
     env:
       CLONE_PATH: ${{ github.workspace }}
     steps:
-      - uses: conda-incubator/setup-miniconda@v2.1.1
+      - uses: conda-incubator/setup-miniconda@v4.0.1
         with:
           miniconda-version: ${{ matrix.miniconda-version }}
           auto-update-conda: true

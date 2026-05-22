@@ -59,6 +59,7 @@ The user will then choose a mixing method. Currently Taweret supports:
 1. **Linear mixing** - 2 models
 2. **Multivariate BMM** - N models
 3. **Bayesian Trees** - N models
+4. **Mixing with Gaussian processes** - 2 models
 
 Details of each Mixing Method
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -70,15 +71,21 @@ likelihood or finding the full posterior is done as the next step.
 
 **Multivariate BMM**: A mean-mixing method that combines two (or more!) models provided by the user into \
 a mixed model. This method, unlike linear mixing, only requires knowledge of the two models and their \
-uncertainties at the input points. Given that the models are supplied by the user, one could combine \
-two functions with a Gaussian Process (as seen in the example notebook for this method). 
+uncertainties at the input points, and this method can combine up to N models.
 
 **Bayesian Trees**: This mean-mixing method estimates the true underlying system by combining the mean predictions \
 from N models using a linear combination and input-dependent weighting scheme. The weights functions \
 are defined using Bayesian Additive Regression Trees (BART). This flexible and non-parametric weighting scheme \
 allows the weight functions to reflect the localized performances of each model based on the information across \
 a set of observational data and the corresponding mean predictions from the model set. This approach is applicable for \
-p-dimensional input spaces.     
+p-dimensional input spaces.
+
+**Mixing with Gaussian processes**: This method uses Gaussian processes (GPs) to estimate the true \
+underlying theory. It takes in two models and interpolates between them with rigorous uncertainty quantification, \
+making it a robust technique to employ when two models may not have an overlapping input space. The GPs also possess \
+hyperparameters that are fit using optimization techniques given the information from the models, and can be \
+constrained by implementing physically motivated hyperpriors. This technique can be used with p-dimensional input spaces \
+and, currently, can combine two models. 
 
 Estimating the Weight Functions 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -44,11 +44,12 @@ jobs:
           conda info
           conda list
           python -m pip list
-      - name: Install prebuilt ${{ matrix.mpi_impl }} via conda
+      - name: Install prebuilt ${{ matrix.mpi_impl }} via PyPI
         shell: bash -el {0}
         run: |
-          conda install -c conda-forge ${{ matrix.mpi_impl }}
+          python -m pip install openmpi
           conda list
+          python -m pip list
           #ls /Users/runner/miniconda3/envs/test/bin
           #find /Users/runner/miniconda3 -name mpicxx
           which mpicxx || echo "Cannot find the MPI installation"

@@ -16,10 +16,9 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04, ubuntu-24.04,
-             macos-14, macos-15]
+             macos-14, macos-15, macos-26, macos-26-intel]
         mpi_impl: ["openmpi"]
         python-version: ["3.12"]
-        miniconda-version: [py312_24.11.1-0]
         exclude:
           # Prebuilt Intel MPI package not available for macOS
           - os: [macos-14, macos-15]
@@ -30,7 +29,7 @@ jobs:
     steps:
       - uses: conda-incubator/setup-miniconda@v4.0.1
         with:
-          miniconda-version: ${{ matrix.miniconda-version }}
+          miniconda-version: "latest"
           auto-update-conda: true
           python-version: ${{ matrix.python-version }}
       - name: Checkout Taweret

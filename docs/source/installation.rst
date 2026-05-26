@@ -62,9 +62,7 @@ Taweret is available via pip install
 
     pip install Taweret
 
-If you prefer to use conda to setup your Python environment, you can still pip install Taweret, but be sure to `conda install pip` first, so you conda environment knows where to look.
-
-Alternative Installation
+Clone-based Installation
 ------------------------
 .. _repository: https://github.com/bandframework/Taweret.git
 
@@ -74,6 +72,20 @@ Python environment in developer or editable mode from the clone by running
 .. code-block:: bash
 
    pip install -e .
+
+Conda Installation
+------------------
+..
+    Ideally text such as this would be added to the OpenBTMixing docs and this
+    section would point users to that documentation to assess how best to
+    proceed with a Conda installation.
+
+While our set of GitHub actions currently test Anaconda installations, the setup
+of those tests within the action runner is less than desirable.  In particular,
+the action no longer succeeds to build OpenBTMixing if an MPI implementation is
+installed using Conda.  Rather, the action installs an MPI implementation from
+PyPI using ``pip``, which is less clean than a Conda installation.  Users who
+prefer to use Conda should proceed with extra caution.
 
 Testing
 -------

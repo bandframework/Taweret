@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04, ubuntu-24.04, macos-14, macos-15, macos-26, macos-26-intel]
-        mpi_impl: ["openmpi"]
+        mpi_impl: ["openmpi", "mpich"]
         python-version: ["3.10"]
     runs-on: ${{ matrix.os }}
     steps:
@@ -32,6 +32,8 @@ jobs:
         run: |
           if   [ "${{ matrix.mpi_impl }}" = "openmpi" ]; then
              python -m pip install openmpi
+          elif [ "${{ matrix.mpi_impl }}" = "mpich" ]; then
+             python -m pip install mpich
           else
              echo "Cannot install ${{ matrix.mpi_impl }}"
              exit 1

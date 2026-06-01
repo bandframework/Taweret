@@ -10,9 +10,6 @@ jobs:
     #####----- RUN FULL TEST SUITE WITHOUT COVERAGE
     # Test through actual installations for end-to-end testing including
     # packaging.
-    #
-    # Refer to Issue #122 to understand use of older Python, older miniconda
-    # version, and older setup-miniconda version.
     strategy:
       matrix:
         os: [ubuntu-22.04, ubuntu-24.04,
@@ -55,8 +52,6 @@ jobs:
         run: |
           python -m pip install openmpi
           conda list
-          #ls /Users/runner/miniconda3/envs/test/bin
-          #find /Users/runner/miniconda3 -name mpicxx
           which mpicxx || echo "Cannot find the MPI installation"
           mpicxx -show || echo "Cannot check the MPI wrapper specification"
       - name: Run tests without coverage

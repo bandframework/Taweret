@@ -8,27 +8,28 @@ Prerequisites
 .. _ninja: https://ninja-build.org
 .. _bilby: https://pypi.org/project/bilby/
 
-The Trees module uses the MPI-based `OpenBTMixing`_ Python package (See [1] and
-[2]).  Before installing Taweret, please prepare your system as indicated in the
-OpenBTMixing installation `documentation`_.
+The Trees module uses the MPI-based `openbt`_ Python package (See [1] and
+[2]) that builds an interface between the C++ package `OpenBT` and Taweret.
+Before installing Taweret, please prepare your system as indicated in the
+`openbt` installation `documentation`_.
 
 It is important to note that ``pip`` maintains a cache of previously built
-wheels. Therefore a new Taweret installation may be faulty if OpenBTMixing was
+wheels. Therefore a new Taweret installation may be faulty if `openbt` was
 installed using a previously cached wheel that was built with an MPI
 installation that is different from or incompatible with the current MPI
-installation.   To determine if ``pip`` has an OpenBTMixing wheel cached,
+installation.   To determine if ``pip`` has an `openbt` wheel cached,
 inspect the output of
 
 .. code:: console
 
     python -m pip cache list
 
-If an OpenBTMixing wheel is present, consider removing it prior to installing
+If an `openbt` wheel is present, consider removing it prior to installing
 Taweret with a command such as
 
 .. code:: console
 
-    python -m pip cache remove openbtmixing
+    python -m pip cache remove openbt
 
 Otherwise, the list of dependences is as short as possible to keep the installation process streamlined and allow for minimal, clean installations; however, if a user would like to run 
 the Jupyter notebooks in the associated Jupyter Book, dependences for the notebooks will need to be installed in the relevant environment.

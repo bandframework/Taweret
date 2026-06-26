@@ -22,6 +22,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
+      # TODO: Remove this once OpenBT is officially in it's new PyPI project
+      # space.
+      - name: Checkout OpenBT repository
+        uses: actions/checkout@v6
+        with:
+          repository: bandframework/OpenBT
+          path: ${{ env.CLONE_PATH }}/OpenBT
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
         with:
@@ -45,5 +52,5 @@ jobs:
           which mpicxx || echo "Cannot find the MPI compiler wrapper"
           mpicxx -show || echo "Cannot check the MPI wrapper specification"
           pushd $CLONE_PATH
-          tox -r -e oldest
+          OPENBT_PATH=$CLONE_PATH/OpenBT tox -r -e oldest
           popd

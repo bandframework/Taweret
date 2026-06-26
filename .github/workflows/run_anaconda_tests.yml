@@ -32,6 +32,13 @@ jobs:
           conda-remove-defaults: true
       - name: Checkout Taweret
         uses: actions/checkout@v6
+      # TODO: Remove this once OpenBT is officially in it's new PyPI project
+      # space.
+      - name: Checkout OpenBT repository
+        uses: actions/checkout@v6
+        with:
+          repository: bandframework/OpenBT
+          path: ${{ env.CLONE_PATH }}/OpenBT
       - name: Setup miniconda & log
         shell: bash -el {0}
         run: |
@@ -56,6 +63,8 @@ jobs:
           # Since the package is pure Python, the binary wheel should be
           # universal.  Therefore, all pip installs from PyPI should get the
           # wheel rather than the source distribution and we test the wheel.
+          # TODO: Remove this once OpenBT is officially in it's new PyPI project
+          python -m pip install $CLONE_PATH/OpenBT/openbt_pypkg
           python -m build --wheel
           python -m pip install dist/[Tt]aweret-*-py3-none-any.whl
           popd

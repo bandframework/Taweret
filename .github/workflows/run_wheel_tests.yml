@@ -29,6 +29,13 @@ jobs:
       CLONE_PATH: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v6
+      # TODO: Remove this once OpenBT is officially in it's new PyPI project
+      # space.
+      - name: Checkout OpenBT repository
+        uses: actions/checkout@v6
+        with:
+          repository: bandframework/OpenBT
+          path: ${{ env.CLONE_PATH }}/OpenBT
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
         with:
@@ -63,6 +70,8 @@ jobs:
           which mpirun || echo "Cannot find the MPI installation"
           which mpicxx || echo "Cannot find the MPI compiler wrapper"
           mpicxx -show || echo "Cannot check the MPI wrapper specification"
+          # TODO: Remove this once OpenBT is officially in it's new PyPI project
+          python -m pip install $CLONE_PATH/OpenBT/openbt_pypkg
           echo " "
           pushd $CLONE_PATH
           # Since the package is pure Python, the binary wheel should be
@@ -90,6 +99,13 @@ jobs:
       COVERAGE_HTML: ${{ github.workspace }}/htmlcov
     steps:
       - uses: actions/checkout@v6
+      # TODO: Remove this once OpenBT is officially in it's new PyPI project
+      # space.
+      - name: Checkout OpenBT repository
+        uses: actions/checkout@v6
+        with:
+          repository: bandframework/OpenBT
+          path: ${{ env.CLONE_PATH }}/OpenBT
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
         with:
@@ -104,7 +120,7 @@ jobs:
       - name: Run tests with coverage
         run: |
           pushd $CLONE_PATH
-          tox -r -e coverage,report
+          OPENBT_PATH=$CLONE_PATH/OpenBT tox -r -e coverage,report
           popd
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v7

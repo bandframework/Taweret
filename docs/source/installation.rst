@@ -8,7 +8,7 @@ Prerequisites
 .. _ninja: https://ninja-build.org
 .. _bilby: https://pypi.org/project/bilby/
 
-The Trees module uses the MPI-based `openbt`_ Python package (See [1] and
+The Trees module uses the MPI-based `openbt` Python package (See [1] and
 [2]) that builds an interface between the C++ package `OpenBT` and Taweret.
 Before installing Taweret, please prepare your system as indicated in the
 `openbt` installation `documentation`_.

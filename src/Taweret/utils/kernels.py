@@ -1,13 +1,14 @@
-# import external dependences
+"""Non-stationary changepoint kernels for scikit-learn Gaussian processes."""
+
+# import external dependencies
 import numpy as np
 from sklearn.gaussian_process.kernels import Kernel, RBF, Hyperparameter
 from sklearn.gaussian_process.kernels import ConstantKernel as C
 
 
-# set up a wrapper for sklearn kernel class
 class SigmoidChangepoint(Kernel):
 
-    r'''
+    r"""
     Designs a non-stationary changepoint kernel that inherits
     from the sklearn RBF Kernel class.
 
@@ -20,12 +21,12 @@ class SigmoidChangepoint(Kernel):
     where K1 is the first kernel and K2 is the second kernel, with the
     changepoint defined by a chosen switching function. The current
     options are 'linear' and 'sigmoid'.
-    '''
+    """
 
     # import hyperparameter names here
     def __init__(self, ls1, ls2, cbar1, cbar2, changepoint=1.0,
-                 changepoint_bounds=(1e-5, 1e5),
-                 width=1.0, width_bounds=(1e-5, 1e5)):
+                 changepoint_bounds=(1e-5, 1e5), width=1.0,
+                 width_bounds=(1e-5, 1e5)):
 
         # will not touch these for now
         self.ls1 = ls1
@@ -48,7 +49,7 @@ class SigmoidChangepoint(Kernel):
     def anisotropic(self):
         return np.iterable(self.changepoint) and len(self.changepoint) > 1
 
-    # get hyperparmeters to be optimized, leave option for fixed values
+    # get hyperparameters to be optimized, leave option for fixed values
     @property
     def hyperparameter_changepoint(self):
         if self.anisotropic:
@@ -86,13 +87,15 @@ class SigmoidChangepoint(Kernel):
         self.K = np.zeros([len(X), len(Y)])
 
         # assign the stationary kernels (chiral and pQCD)
-        self.K1 = (C(constant_value=self.cbar1, constant_value_bounds='fixed')
-                   * RBF(length_scale=self.ls1,
-                         length_scale_bounds='fixed'))(X, Y)
+        self.K1 = (
+            C(constant_value=self.cbar1, constant_value_bounds='fixed')
+            * RBF(length_scale=self.ls1, length_scale_bounds='fixed')
+        )(X, Y)
 
-        self.K2 = (C(constant_value=self.cbar2, constant_value_bounds='fixed')
-                   * RBF(length_scale=self.ls2,
-                         length_scale_bounds='fixed'))(X, Y)
+        self.K2 = (
+            C(constant_value=self.cbar2, constant_value_bounds='fixed')
+            * RBF(length_scale=self.ls2, length_scale_bounds='fixed')
+        )(X, Y)
 
         self.K3 = C(constant_value=0.0, constant_value_bounds='fixed')(X, Y)
 
@@ -100,40 +103,38 @@ class SigmoidChangepoint(Kernel):
         if self.type == 'theta':
 
             # assign Heaviside functions like sigmoid below
-            h1 = np.heaviside(X - self.changepoint, 1).T
-            h2 = np.heaviside(Y - self.changepoint, 1).T
-            self.K = np.outer(np.ones(len(X)) - h1,
-                              np.ones(len(Y)) - h2) * self.K1
-            + np.outer(h1, h2) * self.K2
-            + np.outer(np.ones(len(X)) - h1, h2) * self.K3
-            + np.outer(h1, np.ones(len(Y)) - h2) * self.K3
+            hx = np.heaviside(X - self.changepoint, 1).T
+            hy = np.heaviside(Y - self.changepoint, 1).T
+            self.K = (
+                np.outer(np.ones(len(X)) - hx, np.ones(len(Y)) - hy) * self.K1
+                + np.outer(hx, hy) * self.K2
+                + np.outer(np.ones(len(X)) - hx, hy) * self.K3
+                + np.outer(hx, np.ones(len(Y)) - hy) * self.K3
+            )
 
         elif self.type == 'sigmoid':
 
             # sigmoid bilinear function
             def sigmoid(dens, x0, k):
-                return 1.0 / (1.0 + np.exp(-(dens-x0)/k))
+                return 1.0 / (1.0 + np.exp(-(dens - x0) / k))
 
             # sigmoid deriv for cp and width
             def sig_grad(dens, x0, k, deriv='cp'):
                 if deriv == 'cp':
-                    grad = (-(np.exp(-(dens-x0)/k)/k)
-                            * (1.0 + np.exp(-(dens-x0)/k))**(-2.0))
-                    return grad
+                    return (-(np.exp(-(dens - x0) / k) / k)
+                            * (1.0 + np.exp(-(dens - x0) / k)) ** (-2.0))
                 elif deriv == 'w':
-                    grad = (-(np.exp(-(dens-x0)/k))
-                            * (dens-x0)/k**2.0
-                            * (1.0 + np.exp(-(dens-x0)/k))**(-2.0))
-                    return grad
+                    return (-(np.exp(-(dens - x0) / k))
+                            * (dens - x0) / k ** 2.0
+                            * (1.0 + np.exp(-(dens - x0) / k)) ** (-2.0))
 
             # define kernel matrix
-            self.K = (np.outer((np.ones(len(X))
-                               - sigmoid(X, self.changepoint, self.width).T),
-                               (np.ones(len(Y))
-                               - sigmoid(Y, self.changepoint, self.width).T))
-                      * self.K1)
-            + np.outer(sigmoid(X, self.changepoint, self.width).T,
-                       sigmoid(Y, self.changepoint, self.width).T) * self.K2
+            sx = sigmoid(X, self.changepoint, self.width).T
+            sy = sigmoid(Y, self.changepoint, self.width).T
+            self.K = (
+                np.outer(np.ones(len(X)) - sx, np.ones(len(Y)) - sy) * self.K1
+                + np.outer(sx, sy) * self.K2
+            )
 
         # only for when optimization of hyperparameters is needed
         if eval_gradient:
@@ -145,62 +146,49 @@ class SigmoidChangepoint(Kernel):
 
                     # gradient wrt changepoint
                     if self.hyperparameter_changepoint.fixed is False:
-                        sx = sigmoid(X, self.changepoint, self.width).T
-                        sy = sigmoid(Y, self.changepoint, self.width).T
-                        gx = sig_grad(X, self.changepoint, self.width).T
-                        gy = sig_grad(Y, self.changepoint, self.width).T
-
-                        onex = np.ones(len(X))
-                        oney = np.ones(len(Y))
-
+                        gx_cp = sig_grad(X, self.changepoint, self.width).T
+                        gy_cp = sig_grad(Y, self.changepoint, self.width).T
                         K_gradient_cp = (self.changepoint * (
-                                             np.outer(-gx, (oney - sy))
-                                             * self.K1
-                                             + np.outer((onex - sx), -gy)
-                                             * self.K1
-                                             + np.outer(gx, sy)
-                                             * self.K2
-                                             + np.outer(sx, gy)
-                                             * self.K2))[:, :, np.newaxis]
+                            np.outer(-gx_cp, np.ones(len(Y)) - sy) * self.K1
+                            + np.outer(np.ones(len(X)) - sx, -gy_cp) * self.K1
+                            + np.outer(gx_cp, sy) * self.K2
+                            + np.outer(sx, gy_cp) * self.K2
+                        ))[:, :, np.newaxis]
                     else:
+                        # no gradient
                         K_gradient_cp = np.empty((self.K.shape[0],
                                                   self.K.shape[1], 0))
 
                     # gradient wrt width
                     if self.hyperparameter_width.fixed is False:
-                        sx = sigmoid(X, self.changepoint, self.width).T
-                        sy = sigmoid(Y, self.changepoint, self.width).T
-                        gx = sig_grad(X, self.changepoint, self.width, 'w').T
-                        gy = sig_grad(Y, self.changepoint, self.width, 'w').T
-
-                        onex = np.ones(len(X))
-                        oney = np.ones(len(Y))
-
-                        self.K_gradient_w = (self.width
-                                             * (np.outer(-gx, (oney - sy))
-                                                 * self.K1
-                                                 + np.outer((onex - sx), -gy)
-                                                 * self.K1 + np.outer(gx, sy)
-                                                 * self.K2
-                                                 + np.outer(sx, gy)
-                                                 * self.K2))[:, :, np.newaxis]
+                        self.hey = 1.0
+                        gx_w = sig_grad(X, self.changepoint, self.width, 'w').T
+                        gy_w = sig_grad(Y, self.changepoint, self.width, 'w').T
+                        self.K_gradient_w = (self.width * (
+                            np.outer(-gx_w, np.ones(len(Y)) - sy) * self.K1
+                            + np.outer(np.ones(len(X)) - sx, -gy_w) * self.K1
+                            + np.outer(gx_w, sy) * self.K2
+                            + np.outer(sx, gy_w) * self.K2
+                        ))[:, :, np.newaxis]
                     else:
+                        # no gradient
                         self.K_gradient_w = np.empty((self.K.shape[0],
                                                       self.K.shape[1], 0))
 
                     # full gradient return
-                    stack_grad = np.dstack((K_gradient_cp, self.K_gradient_w))
-                    return self.K, stack_grad
+                    return self.K, np.dstack((K_gradient_cp,
+                                              self.K_gradient_w))
 
                 elif self.type == 'theta':
-                    raise ValueError("""The gradient cannot be evaluated
-                                     for the Heaviside changepoint kernel."""
-                                     """Optimization cannot be performed
-                                     using this kernel choice.""")
+                    raise ValueError(
+                        '''The gradient cannot be evaluated for the
+                        Heaviside changepoint kernel. Optimization cannot be
+                        performed using this kernel choice.'''
+                    )
 
             elif self.anisotropic:
-                raise ValueError("""The kernel has not been implemented
-                                 for anisotropic cases.""")
+                raise ValueError('''The kernel has not been implemented for
+                                 anisotropic cases.''')
 
         # if eval_gradient is false, return no gradient
         else:
@@ -208,7 +196,7 @@ class SigmoidChangepoint(Kernel):
 
     # diagonal function (general for the nonstationary case)
     def diag(self, X):
-        return np.apply_along_axis(self, 1, X).ravel()
+        return np.apply_along_axis(self, 1, X).ravel()  # makes sense---> X = Y
 
     # stationary function needed for base class
     def is_stationary(self):
@@ -229,7 +217,7 @@ class SigmoidChangepoint(Kernel):
 
 class TanhChangepoint(Kernel):
 
-    r'''
+    r"""
     Designs a non-stationary changepoint kernel that inherits
     from the sklearn RBF Kernel class.
 
@@ -242,14 +230,13 @@ class TanhChangepoint(Kernel):
     where K1 is the first kernel and K2 is the second kernel, with the
     changepoint defined by a chosen switching function. The current
     option is 'tanh'.
-    '''
+    """
 
     # import hyperparameter names here
     def __init__(self, ls1, ls2, cbar1, cbar2, changepoint=1.0,
-                 changepoint_bounds=(1e-5, 1e5),
-                 width=1.0, width_bounds=(1e-5, 1e5)):
+                 changepoint_bounds=(1e-5, 1e5), width=1.0,
+                 width_bounds=(1e-5, 1e5)):
 
-        # will not touch these for now
         self.ls1 = ls1
         self.ls2 = ls2
         self.cbar1 = cbar1
@@ -267,7 +254,7 @@ class TanhChangepoint(Kernel):
     def anisotropic(self):
         return np.iterable(self.changepoint) and len(self.changepoint) > 1
 
-    # get hyperparmeters to be optimized, leave option for fixed values
+    # get hyperparameters to be optimized, leave option for fixed values
     @property
     def hyperparameter_changepoint(self):
         if self.anisotropic:
@@ -304,39 +291,38 @@ class TanhChangepoint(Kernel):
         # initialize the K kernel matrix (len(tr_data), len(tr_data))
         self.K = np.zeros([len(X), len(Y)])
 
-        # assign the stationary kernels (chiral and pQCD)
-        self.K1 = (C(constant_value=self.cbar1, constant_value_bounds='fixed')
-                   * RBF(length_scale=self.ls1,
-                         length_scale_bounds='fixed'))(X, Y)
+        # assign the stationary kernels
+        self.K1 = (
+            C(constant_value=self.cbar1, constant_value_bounds='fixed')
+            * RBF(length_scale=self.ls1, length_scale_bounds='fixed')
+        )(X, Y)
 
-        self.K2 = (C(constant_value=self.cbar2, constant_value_bounds='fixed')
-                   * RBF(length_scale=self.ls2,
-                         length_scale_bounds='fixed'))(X, Y)
+        self.K2 = (
+            C(constant_value=self.cbar2, constant_value_bounds='fixed')
+            * RBF(length_scale=self.ls2, length_scale_bounds='fixed')
+        )(X, Y)
 
         self.K3 = C(constant_value=0.0, constant_value_bounds='fixed')(X, Y)
 
         # tanh function
         def tanh(dens, x0, k):
-            return 0.5 + 0.5 * np.tanh((dens - x0)/k)
+            return 0.5 + 0.5 * np.tanh((dens - x0) / k)
 
         # tanh deriv for cp and width
         def tanh_grad(dens, x0, k, deriv='cp'):
             if deriv == 'cp':
-                grad = -0.5 * np.cosh((dens - x0)/k)**(-2.0) / k
-                return grad
+                return -0.5 * np.cosh((dens - x0) / k) ** (-2.0) / k
             elif deriv == 'w':
-                grad = (-0.5 * (dens - x0) *
-                        np.cosh((dens - x0)/k)**(-2.0) / k**2.0)
-                return grad
+                return (-0.5 * (dens - x0)
+                        * np.cosh((dens - x0) / k) ** (-2.0) / k ** 2.0)
 
         # define kernel matrix
-        self.K = np.outer((np.ones(len(X))
-                           - tanh(X, self.changepoint, self.width).T),
-                          (np.ones(len(Y))
-                           - tanh(Y, self.changepoint, self.width).T)) \
-            * self.K1 + (np.outer(tanh(X, self.changepoint, self.width).T,
-                                  tanh(Y, self.changepoint, self.width).T)
-                         * self.K2)
+        tx = tanh(X, self.changepoint, self.width).T
+        ty = tanh(Y, self.changepoint, self.width).T
+        self.K = (
+            np.outer(np.ones(len(X)) - tx, np.ones(len(Y)) - ty) * self.K1
+            + np.outer(tx, ty) * self.K2
+        )
 
         # only for when optimization of hyperparameters is needed
         if eval_gradient:
@@ -345,42 +331,32 @@ class TanhChangepoint(Kernel):
 
                 # gradient wrt changepoint
                 if self.hyperparameter_changepoint.fixed is False:
-                    tx = tanh(X, self.changepoint, self.width).T
-                    ty = tanh(self.changepoint, self.width, Y).T
-                    gx = tanh_grad(X, self.changepoint, self.width).T
-                    gy = tanh_grad(Y, self.changepoint, self.width).T
-
-                    onex = np.ones(len(X))
-                    oney = np.ones(len(Y))
-
-                    K_gradient_cp = (self.changepoint
-                                     * (np.outer(-gx, (oney - ty))
-                                         * self.K1 + np.outer((onex - tx), -gy)
-                                         * self.K1 + np.outer(gx, ty)
-                                         * self.K2 + np.outer(tx, gy)
-                                         * self.K2))[:, :, np.newaxis]
+                    gx_cp = tanh_grad(X, self.changepoint, self.width).T
+                    gy_cp = tanh_grad(Y, self.changepoint, self.width).T
+                    K_gradient_cp = (self.changepoint * (
+                        np.outer(-gx_cp, np.ones(len(Y)) - ty) * self.K1
+                        + np.outer(np.ones(len(X)) - tx, -gy_cp) * self.K1
+                        + np.outer(gx_cp, ty) * self.K2
+                        + np.outer(tx, gy_cp) * self.K2
+                    ))[:, :, np.newaxis]
                 else:
+                    # no gradient
                     K_gradient_cp = np.empty((self.K.shape[0],
                                               self.K.shape[1], 0))
 
                 # gradient wrt width
                 if self.hyperparameter_width.fixed is False:
-                    tx = tanh(X, self.changepoint, self.width).T
-                    ty = tanh(Y, self.changepoint, self.width).T
-                    gx = tanh_grad(X, self.changepoint, self.width, 'w').T
-                    gy = tanh_grad(Y, self.changepoint, self.width, 'w').T
-
-                    onex = np.ones(len(X))
-                    oney = np.ones(len(Y))
-
-                    self.K_gradient_w = (self.width
-                                         * (np.outer(-gx, (oney - ty))
-                                             * self.K1
-                                             + np.outer((onex - tx), -gy)
-                                             * self.K1 + np.outer(gx, ty)
-                                             * self.K2 + np.outer(tx, gy)
-                                             * self.K2))[:, :, np.newaxis]
+                    self.hey = 1.0
+                    gx_w = tanh_grad(X, self.changepoint, self.width, 'w').T
+                    gy_w = tanh_grad(Y, self.changepoint, self.width, 'w').T
+                    self.K_gradient_w = (self.width * (
+                        np.outer(-gx_w, np.ones(len(Y)) - ty) * self.K1
+                        + np.outer(np.ones(len(X)) - tx, -gy_w) * self.K1
+                        + np.outer(gx_w, ty) * self.K2
+                        + np.outer(tx, gy_w) * self.K2
+                    ))[:, :, np.newaxis]
                 else:
+                    # no gradient
                     self.K_gradient_w = np.empty((self.K.shape[0],
                                                   self.K.shape[1], 0))
 
@@ -388,8 +364,8 @@ class TanhChangepoint(Kernel):
                 return self.K, np.dstack((K_gradient_cp, self.K_gradient_w))
 
             elif self.anisotropic:
-                raise ValueError("""The kernel has not been implemented
-                                 for anisotropic cases.""")
+                raise ValueError('''The kernel has not been implemented
+                                 for anisotropic cases.''')
 
         # if eval_gradient is false, return no gradient
         else:

@@ -54,8 +54,8 @@ language = 'python'
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 autoclass_content = 'both'
 
-# At least one GP class is inherited from a scikit-learn class.  Hook up the two
-# document systems so that users can find the docs of the base class.
+# At least one GP class is inherited from a scikit-learn class.  Hook up the
+# two document systems so that users can find the docs of the base class.
 intersphinx_mapping = {'sklearn': ('https://scikit-learn.org/stable/', None)}
 
 # -- Options for HTML output -------------------------------------------------

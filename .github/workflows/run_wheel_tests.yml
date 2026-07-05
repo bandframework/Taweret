@@ -10,6 +10,11 @@ jobs:
     #####----- RUN FULL TEST SUITE WITHOUT COVERAGE
     # Test through actual installations for end-to-end testing including
     # packaging.
+    #
+    # Since this is the main test action with many different test setups, we
+    # install different MPI implementations via OS package managers.  The
+    # "oldest" action confirms that users can install MPI implementations using
+    # PyPI/pip.
     strategy:
       matrix:
         os: [ubuntu-22.04, ubuntu-24.04, macos-14, macos-15, macos-26, macos-26-intel]
@@ -23,7 +28,7 @@ jobs:
     env:
       CLONE_PATH: ${{ github.workspace }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
         with:
@@ -84,7 +89,7 @@ jobs:
       COVERAGE_XML:  ${{ github.workspace }}/coverage.xml
       COVERAGE_HTML: ${{ github.workspace }}/htmlcov
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
         with:
@@ -102,9 +107,10 @@ jobs:
           tox -r -e coverage,report
           popd
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v6
+        if: github.actor != 'dependabot[bot]'
+        uses: codecov/codecov-action@v7
         with:
-          token: ${{ secrets.KEVIN_CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN }}
           slug: bandframework/Taweret
           files: ${{ env.COVERAGE_XML }}
           fail_ci_if_error: true

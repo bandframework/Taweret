@@ -2,7 +2,7 @@
 # Original code from the neutron-rich-bmm repository
 
 # necessary imports
-from Taweret.core.base_mixer import BaseMixer
+from ..core.base_mixer import BaseMixer
 import numpy as np
 from scipy import stats
 import sys
@@ -10,7 +10,7 @@ import sys
 # imports for the sklearn interface
 from operator import itemgetter
 from scipy.linalg import cho_solve, cholesky
-import scipy as scipy
+import scipy
 import warnings
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import RBF
@@ -898,7 +898,7 @@ class GPRwrapper(GaussianProcessRegressor):
 class GPPriors:
 
     # allow for stationary and non-stationary options
-    def __init__(self, kernel, prior_choice=None, prior_type=None,
+    def __init__(self, kernel, prior_choice='rbfnorm', prior_type=None,
                  prior_params=None, switch=None):
         '''
         The GP prior class for housing the hyperpriors of the

@@ -13,10 +13,10 @@ $$
 where $m(x)$ is the mean function of the GP and $\kappa(x,x')$ is the covariance function, or kernel. The mean function captures the overall trend of the data, and the covariance function is meant to describe the correlations between the data points, and the deviation of the data from this overall mean. For the cases we are studying, we will be setting the mean function to zero, but a user can change this option themselves to whatever mean function they wish to use. In terms of the kernel, a popular choice is the stationary, squared-exponential radial basis function (RBF)
 
 $$
-\kappa(x,x';\ell) = \exp(\frac{-(x-x')}{2\ell}),
+\kappa(x,x';\ell) = \exp \left(\frac{-(x-x')}{2\ell}\right),
 $$
 
-where $\ell$ is the lengthscale of the kernel, and represents the length of correlations in the data across the input space. In `Taweret`, we will access to this kernel, along with the Mat\'ern and rational quadratic, both of which are stationary kernels with different functional forms. 
+where $\ell$ is the lengthscale of the kernel, and represents the length of correlations in the data across the input space. In `Taweret`, we will access to this kernel, along with the Matérn and rational quadratic, both of which are stationary kernels with different functional forms. 
 
 ## What is 'stationary' vs. 'nonstationary'?
 

@@ -5,7 +5,6 @@
 from ..core.base_mixer import BaseMixer
 import numpy as np
 from scipy import stats
-import sys
 
 # imports for the sklearn interface
 from operator import itemgetter
@@ -18,8 +17,6 @@ from sklearn.gaussian_process.kernels import ConstantKernel as C
 from sklearn.base import clone
 from sklearn.utils import check_random_state
 from sklearn.utils.validation import check_X_y
-
-sys.path.append("../Taweret")
 
 # global cholesky setting
 GPR_CHOLESKY_LOWER = True

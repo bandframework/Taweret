@@ -69,9 +69,9 @@ with four different types of mixing functions available in Taweret (*Step*, *Sig
 and calculates the likelihood. Finding of the optimal weights by either optimizing the \
 likelihood or finding the full posterior is done as the next step. 
 
-**Multivariate BMM**: A mean-mixing method that combines two (or more!) models provided by the user into \
-a mixed model. This method, unlike linear mixing, only requires knowledge of the two models and their \
-uncertainties at the input points, and this method can combine up to N models.
+**Multivariate BMM**: A mean-mixing method that combines N models provided by the user into \
+an overall mixed model. This method only requires knowledge of the models and their \
+uncertainties at the input points.
 
 **Bayesian Trees**: This mean-mixing method estimates the true underlying system by combining the mean predictions \
 from N models using a linear combination and input-dependent weighting scheme. The weights functions \
@@ -80,12 +80,11 @@ allows the weight functions to reflect the localized performances of each model 
 a set of observational data and the corresponding mean predictions from the model set. This approach is applicable for \
 p-dimensional input spaces.
 
-**Mixing with Gaussian processes**: This method uses Gaussian processes (GPs) to estimate the true \
-underlying theory. It takes in two models and interpolates between them with rigorous uncertainty quantification, \
-making it a robust technique to employ when two models may not have an overlapping input space. The GPs also possess \
-hyperparameters that are fit using optimization techniques given the information from the models, and can be \
-constrained by implementing physically motivated hyperpriors. This technique can be used with p-dimensional input spaces \
-and, currently, can combine two models. 
+**Mixing with Gaussian processes**: This method uses Gaussian processes (GPs) to produce a combined model \
+over the input space. It currently takes in two models and interpolates between them with rigorous uncertainty quantification, \
+making it a robust technique to employ when the models may not have an overlapping input space. The GPs also possess \
+hyperparameters that are fit using optimization techniques given the mean and covariance information from the models, and can be \
+constrained by implementing physically motivated hyperpriors.
 
 Estimating the Weight Functions 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

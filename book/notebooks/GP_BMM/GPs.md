@@ -4,7 +4,7 @@ In this section, we will briefly describe how to use Gaussian processes (GPs), a
 
 ## What is a Gaussian process?
 
-Put simply, a GP is 'a collection of random variables, any finite number of which have a joint Gaussian distribution."~\cite{RasmussenWilliams2006gp}. This is rather vague, however, so we will instead use a more intuitive picture: a GP is a distribution built from a family of basis functions that is able to predict the mean and covariance of unknown data points given known data. It is defined by the functional form
+Put simply, a GP is 'a collection of random variables, any finite number of which have a joint Gaussian distribution."[(see this reference)](https://gaussianprocess.org/gpml/chapters/RW.pdf). This is rather vague, however, so we will instead use a more intuitive picture: a GP is a distribution built from a family of basis functions that is able to predict the mean and covariance of unknown data points given known data. It is defined by the functional form
 
 $$
 f(x) \sim \mathcal{GP}(m(x), \kappa(x,x')),
@@ -24,12 +24,12 @@ You may be wondering what the word 'stationary' really means here; this is simpl
 
 ## Constraining the kernel parameters
 
-All GP kernels possess at least one hyperparameter to be learned from the data. In our case, we are using model information as data, so we will need to constrain our GP by training on this 'model data'. However, standard GPs will use the maximum likelihood estimation (MLE) procedure to constrain these parameters, which can in turn lead to correlation lengths that are far too long for the given problem to be properly describing the physical system at hand. This conundrum leads to the question: can we instead build in physical properties of our system through constraints on the hyperparameters? The answer, of course, is yes we can! In `Taweret`, we are able to do this by implementing hyperpriors on these parameters and employing a maximum a posteriori (MAP) procedure to obtain the most probable value of each kernel hyperparameter. The `GPPriors` class contains standard truncated normal distributions for the hyperparameters in the supplied kernels; users can also implement their own prior forms if they would like to by following the `GPPriors` class as a template.
+All GP kernels possess at least one hyperparameter to be learned from the data. In our case, we are using model information as data, so we will need to constrain our GP by training on this 'model data'. However, standard GPs will use the maximum likelihood estimation (MLE) procedure to constrain these parameters, which can in turn lead to correlation lengths that are far too long for the given problem to properly describe the physical system at hand. This conundrum leads to the question: can we instead build in physical properties of our system through constraints on the hyperparameters? The answer, of course, is yes we can! In `Taweret`, we are able to do this by implementing hyperpriors on these parameters and employing a maximum a posteriori (MAP) procedure to obtain the most probable value of each kernel hyperparameter. The `GPPriors` class contains standard truncated normal distributions for the hyperparameters in the supplied kernels; users can also implement their own prior forms if they would like to by following the `GPPriors` class as a template.
 
 ## Up next
 
 In our next two tutorials, we will implement the stationary and nonstationary kernels on the toy SAMBA models we used for the multivariate mixing and linear model mixing methods earlier in this Book. We will outline how to select hyperpriors for the kernel hyperparameters, how to set up the GP code, and how to analyze the results. We hope you will learn how to use GPs for model mixing and will be able to extend these techniques to your own research!
 
 :::{seealso}
-See [this thesis](https://ohiolink.edu/) for more extensive details on GPs and the model mixing techniques found in this chapter. 
+See [this thesis](https://etd.ohiolink.edu/acprod/odb_etd/r/etd/search/10?p10_accession_num=ohiou1752925796224309&clear=10&session=3431789771542) for more extensive details on GPs and the model mixing techniques found in this chapter. 
 :::

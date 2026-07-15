@@ -55,6 +55,37 @@ class GPmixing(BaseMixer):
             are no specified hyperpriors, depending on the kernel
             selected.
 
+        prior_params: dict
+            Dict of prior hyperparameter starting values if using
+            priors. 'None' will run the default starting values if
+            'priors' is not None.
+
+        prior_choice: str
+            The choice of which type of prior to use on
+            the length scale of a stationary kernel choice. Options are
+            'rbfnorm', 'matern3/2', 'matern5/2', and 'ratquad'. This
+            argument cannot be 'None'.
+
+        prior_type: dict
+            If prior_choice = 'changepoint', then this dict should be
+            set to contain the values of the starting parameters for
+            the changepoint kernel. 'None' will use default parameters
+            for the changepoint kernel is prior_choice = 'changepoint'.
+
+        switch: str
+            The type of mixing function to use if
+            prior_choice = 'changepoint'. Can only be 'None' when not
+            using the changepoint kernel. Options are 'sigmoid' and
+            'tanh'.
+
+        max_iter: int
+            The maximum iterations of the optimizer. 'None' uses maximum
+            iterations set by scikit-learn.
+
+        nopt: int
+            The number of times to restart the optimizer to ensure it
+            does not get stuck in a local minimum.
+
         Returns:
         --------
         None.
@@ -197,11 +228,6 @@ class GPmixing(BaseMixer):
         Here the GP needed to perform the mixing is predicted
         at the requested points.
 
-        Parameters:
-        -----------
-        ci : int, list
-            The desired credibility interval(s) (1-sigma, 2-sigma)
-
         Returns:
         --------
         gp_results : dict
@@ -331,8 +357,8 @@ class GPmixing(BaseMixer):
 
         prior_choice : str
             The choice of which type of prior to use on
-            the length scale. Default is 'rbfnorm'; other options are
-            'skewnorm' and 'uniform'.
+            the length scale. Options are 'rbfnorm', 'matern3/2',
+            'matern5/2', and 'ratquad'.
 
         prior_type : dict
             The type of prior we want to use on the
@@ -344,8 +370,7 @@ class GPmixing(BaseMixer):
 
         switch : str
             If using a changepoint kernel, specify which
-            switching function you are using. Default is None
-            to indicate not using this kernel.
+            switching function you are using.
 
         max_iter : int
             The maximum number of iterations of the optimizer.
@@ -425,9 +450,13 @@ class GPRwrapper(GaussianProcessRegressor):
         y : array-like of shape (n_samples,) or (n_samples, n_targets)
             Target values.
 
+        priors : bool
+            Whether or not to use hyperpriors on the GP kernel
+            hyperparameters.
+
         prior_choice : str
             The choice of which type of prior to use on
-            the length scale. Default is 'rbfnorm'; other options are
+            the length scale. Options are 'truncnorm',
             'skewnorm' and 'uniform'.
 
         prior_type : dict
@@ -438,10 +467,14 @@ class GPRwrapper(GaussianProcessRegressor):
             in the changepoint kernel. This also takes in the switching
             function type; currently options are 'tanh' and 'sigmoid'.
 
+        prior_params: dict
+            If using hyperpriors, specify the dict of
+            starting values for the hyperprior parameters. 'None' will
+            use the default starting values.
+
         switch : str
             If using a changepoint kernel, specify which
-            switching function you are using. Default is None
-            to indicate not using this kernel.
+            switching function you are using.
 
         max_iter : int
             The maximum number of iterations of the optimizer.
@@ -638,18 +671,18 @@ class GPRwrapper(GaussianProcessRegressor):
 
         Parameters:
         -----------
-        theta : array-like of shape (n_kernel_params,) default=None
+        theta : array-like of shape (n_kernel_params,)
             Kernel hyperparameters for which the log-marginal likelihood is
             evaluated. If None, the precomputed log_marginal_likelihood
             of ``self.kernel_.theta`` is returned.
 
-        eval_gradient : bool, default=False
+        eval_gradient : bool
             If True, the gradient of the
             log-marginal likelihood with respect
             to the kernel hyperparameters at position theta is returned
             additionally. If True, theta must not be None.
 
-        clone_kernel : bool, default=True
+        clone_kernel : bool
             If True, the kernel attribute
             is copied. If False, the kernel
             attribute is modified, but may result in a performance
@@ -908,7 +941,7 @@ class GPPriors:
 
         prior_choice : str
             The choice of which type of prior to use on
-            the length scale. Default is 'rbfnorm'; other options are
+            the length scale. Options are 'rbfnorm',
             'skewnorm' and 'uniform'.
 
         prior_type : dict
@@ -925,8 +958,7 @@ class GPPriors:
 
         switch : str
             If using a changepoint kernel, specify which
-            switching function you are using. Default is None
-            to indicate not using this kernel.
+            switching function you are using.
 
         Returns:
         --------

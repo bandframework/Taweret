@@ -4,7 +4,7 @@ In this section, we will briefly describe how to use Gaussian processes (GPs), a
 
 ## What is a Gaussian process?
 
-According to [Rasmussen and Williams](https://gaussianprocess.org/gpml/chapters/RW.pdf), a GP is simply 'a collection of random variables, any finite number of which have a joint Gaussian distribution." This is rather vague, however, so we will instead use a more intuitive picture: a GP is a distribution built from a family of basis functions that is able to predict the mean and covariance of unknown data points given known data. It is defined by the functional form
+According to [Rasmussen and Williams](https://gaussianprocess.org/gpml/chapters/RW.pdf), a GP is simply "a collection of random variables, any finite number of which have a joint Gaussian distribution." This is rather vague, however, so we will instead use a more intuitive picture: a GP is a distribution built from a family of basis functions that is able to predict the mean and covariance of unknown data points given known data. It is defined by the functional form
 
 $$
 f(x) \sim \mathcal{GP}(m(x), \kappa(x,x')),

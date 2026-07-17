@@ -13,14 +13,14 @@ $$
 where $m(x)$ is the mean function of the GP and $\kappa(x,x')$ is the covariance function, or kernel. The mean function captures the overall trend of the data, and the covariance function is meant to describe the correlations between the data points, and the deviation of the data from this overall mean. For the cases we are studying, we will be setting the mean function to zero, but a user can change this option themselves to whatever mean function they wish to use. In terms of the kernel, a popular choice is the stationary, squared-exponential radial basis function (RBF)
 
 $$
-\kappa(x,x';\ell) = \exp \left(\frac{-(x-x')}{2\ell}\right),
+\kappa(x,x';\ell) = \exp \left(\frac{-(x-x')^2}{2\ell^2}\right),
 $$
 
 where $\ell$ is the lengthscale of the kernel, and represents the length of correlations in the data across the input space. In `Taweret`, we will access this kernel, along with the Matérn and rational quadratic kernels, both of which are stationary kernels with different functional forms. 
 
 ## What is 'stationary' vs. 'nonstationary'?
 
-You may be wondering what the word 'stationary' really means here; this is simply denoting that the kernel depends only on the Euclidean distance between the data in the input space, i.e., $(x-x')$. Conversely, 'nonstationary' means that the kernel depends on the location of the data points in the input space, i.e., $x$. These kernels are especially useful for physics problems, since data can have more structure than can be described with a stationary covariance function. In `Taweret`, a nonstationary, changepoint kernel is supplied for these cases, and users can develop their own nonstationary kernels based on its code structure.
+You may be wondering what the word 'stationary' really means here; this is simply denoting that the kernel depends only on the Euclidean distance between the data in the input space, i.e., $|x-x'|$. Conversely, 'nonstationary' means that the kernel depends on the location of the data points in the input space, i.e., $x$. These kernels are especially useful for physics problems, since data can have more structure than can be described with a stationary covariance function. In `Taweret`, a nonstationary, changepoint kernel is supplied for these cases, and users can develop their own nonstationary kernels based on its code structure.
 
 ## Constraining the kernel parameters
 

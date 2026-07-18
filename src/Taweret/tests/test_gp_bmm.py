@@ -155,9 +155,7 @@ gpmix2 = GPmixing(x=g, models=models, alpha=alpha, kernel=kernelCP,
                   switch='sigmoid', nopt=5000)
 
 # fit and predict using the changepoint kernel
-gpmix2.train(x_train.reshape(-1, 1), y_train.reshape(-1, 1),
-             prior_choice='changepoint', prior_type=prior_dict,
-             switch='sigmoid')
+gpmix2.train(x_train.reshape(-1, 1), y_train.reshape(-1, 1))
 
 # predictions
 gpmix_pred = gpmix2.predict()

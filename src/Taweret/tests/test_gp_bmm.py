@@ -146,12 +146,11 @@ kernelCP = SigmoidChangepoint(ls1=k1_ls, ls2=k2_ls, cbar1=k1_c2, cbar2=k2_c2,
 prior_dict = {
     'w': 'truncnorm',
     'cp': 'truncnorm',
-    'switch': 'sigmoid',
 }
 
 # set up the model mixing step
 gpmix2 = GPmixing(x=g, models=models, alpha=alpha, kernel=kernelCP,
-                  mean_function="zero", priors=True, prior_params=None,
+                  priors=True, prior_params=None,
                   prior_choice='changepoint', prior_type=prior_dict,
                   switch='sigmoid', nopt=5000)
 

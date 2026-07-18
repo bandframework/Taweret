@@ -26,7 +26,7 @@ GPR_CHOLESKY_LOWER = True
 class GPmixing(BaseMixer):
 
     def __init__(
-        self, x, models, alpha=None, mean_function="zero", kernel=None,
+        self, x, models, alpha=1e-10, kernel=None,
         priors=True, prior_params=None, prior_choice=None, prior_type=None,
         switch=None, max_iter=None, nopt=1000
     ):
@@ -39,21 +39,16 @@ class GPmixing(BaseMixer):
         models : dict
             Dict of models with BaseModel methods.
 
-        mean_function: str
-            Selection of the mean function chosen for the GP.
-            Choices include: 'zero' and 'spline'.
+        kernel: obj
+            The kernel chosen for this mixing procedure. If 'None', the
+            code will use an RBF kernel with a length scale of 1
+            multiplied with the ConstantKernel with a variance of 1.
 
-        kernel: str
-            Choice of the kernel to be used in the GP. Choices
-            include stationary and non-stationary kernels: 'rbf',
-            'matern32', 'matern52', and 'rq' for stationary;
-            'sigmoid', 'tanh', or 'theta' for non-stationary.
-
-        priors: dict
-            Dict of hyperpriors for the selected kernel. Default
-            priors included in the package will be run if there
-            are no specified hyperpriors, depending on the kernel
-            selected.
+        priors: bool
+            Whether to use hyperpriors for the selected kernel. If
+            False, code will perform maximum likelihood estimation;
+            if True, code will perform maximum a posteriori (MAP)
+            calculation.
 
         prior_params: dict
             Dict of prior hyperparameter starting values if using
@@ -63,14 +58,12 @@ class GPmixing(BaseMixer):
         prior_choice: str
             The choice of which type of prior to use on
             the length scale of a stationary kernel choice. Options are
-            'rbfnorm', 'matern3/2', 'matern5/2', and 'ratquad'. This
+            'rbfnorm', 'matern32', 'matern52', and 'ratquad'. This
             argument cannot be 'None'.
 
-        prior_type: dict
-            If prior_choice = 'changepoint', then this dict should be
-            set to contain the values of the starting parameters for
-            the changepoint kernel. 'None' will use default parameters
-            for the changepoint kernel is prior_choice = 'changepoint'.
+        prior_type : dict
+            Maps the hyperparameters supplied to the names in the
+            priors code ('truncnorm' vs. 'free').
 
         switch: str
             The type of mixing function to use if
@@ -104,7 +97,6 @@ class GPmixing(BaseMixer):
         self.max_iter = max_iter
 
         # str class variables
-        self.mean_function_choice = mean_function
         self.priors = priors  # if False, will use LML instead of MAP
         self.prior_params = prior_params
         self.prior_choice = prior_choice
@@ -120,7 +112,7 @@ class GPmixing(BaseMixer):
             self.kernel = clone(kernel)
 
         # make a copy of the unconstrained kernel for use later
-        self.kernel_copy = self.kernel
+        self.kernel_copy = clone(self.kernel)
 
         # get hyperpriors set up here
         if (self.prior_params is None and self.priors is True):
@@ -160,8 +152,8 @@ class GPmixing(BaseMixer):
 
         # evaluate at a selected array of points
         if self._is_trained is True:
-            eval_mean, eval_std = self.gpr.predict(x_eval, return_std=True)
-            _, eval_cov = self.gpr.predict(x_eval, return_cov=True)
+            eval_mean, eval_cov = self.gpr.predict(x_eval, return_cov=True)
+            eval_std = np.sqrt(np.diag(eval_cov))
         else:
             # call wrapper with unconstrained kernel
             unconstrained_prior = GPRwrapper(
@@ -171,9 +163,9 @@ class GPmixing(BaseMixer):
             )
 
             # now calculate results of the GP prior (no fitting!)
-            eval_mean, eval_std = unconstrained_prior.predict(x_eval,
-                                                              return_std=True)
-            _, eval_cov = unconstrained_prior.predict(x_eval, return_cov=True)
+            eval_mean, eval_cov = unconstrained_prior.predict(x_eval,
+                                                              return_cov=True)
+            eval_std = np.sqrt(np.diag(eval_cov))
 
         # collect results
         eval_results = {
@@ -191,7 +183,7 @@ class GPmixing(BaseMixer):
         of the models used. Not able to be done for this
         mixing method since GP is implicitly weighted.
         """
-        return NotImplemented
+        raise NotImplementedError
 
     @property
     def map(self):
@@ -221,7 +213,7 @@ class GPmixing(BaseMixer):
         Not needed for this mixing method; we
         only return the MAP currently.
         """
-        return None
+        raise NotImplementedError
 
     def predict(self):
         """
@@ -237,10 +229,9 @@ class GPmixing(BaseMixer):
         """
 
         if self._is_trained is True:
-            self.mean, self.std_dev = self.gpr.predict(self.x.reshape(-1, 1),
-                                                       return_std=True)
-            _, self.cov = self.gpr.predict(self.x.reshape(-1, 1),
-                                           return_cov=True)
+            self.mean, self.cov = self.gpr.predict(self.x.reshape(-1, 1),
+                                                   return_cov=True)
+            self.std_dev = np.sqrt(np.diag(self.cov))
         else:
             raise ValueError("You must train the model first.")
 
@@ -260,7 +251,7 @@ class GPmixing(BaseMixer):
         mean and intervals from the posterior of the
         weights. Cannot predict weights for GP implicitly.
         """
-        return NotImplemented
+        raise NotImplementedError
 
     @property
     def prior(self):
@@ -269,7 +260,7 @@ class GPmixing(BaseMixer):
         Not needed for this method, since hyperpriors are
         really what we are using.
         """
-        return None
+        raise NotImplementedError
 
     def prior_predict(self, sample=False, n_samples=None):
         """
@@ -307,9 +298,9 @@ class GPmixing(BaseMixer):
 
         # now calculate results of the GP prior (no fitting!)
         x_pred = self.x.reshape(-1, 1)
-        prior_mean, prior_std = unconstrained_prior.predict(x_pred,
-                                                            return_std=True)
-        _, prior_cov = unconstrained_prior.predict(x_pred, return_cov=True)
+        prior_mean, prior_cov = unconstrained_prior.predict(x_pred,
+                                                            return_cov=True)
+        prior_std = np.sqrt(np.diag(prior_cov))
 
         prior_results = {
             "x": self.x,
@@ -331,17 +322,16 @@ class GPmixing(BaseMixer):
         distributions for the various weight parameters.
         Not needed for this mixing method.
         """
-        return NotImplemented
+        raise NotImplementedError
 
     def set_prior(self):
         """
         Set the priors on the parameters. Not used
         for this method.
         """
-        return None
+        raise NotImplementedError
 
-    def train(self, X, y, prior_choice='rbfnorm', prior_type=None,
-              switch=None, max_iter=None):
+    def train(self, X, y):
         """
         Train the GP chosen in the __init__() function
         to optimize its hyperparameters given chosen priors
@@ -355,26 +345,6 @@ class GPmixing(BaseMixer):
         y : array-like of shape (n_samples,) or (n_samples, n_targets)
             Target values.
 
-        prior_choice : str
-            The choice of which type of prior to use on
-            the length scale. Options are 'rbfnorm', 'matern3/2',
-            'matern5/2', and 'ratquad'.
-
-        prior_type : dict
-            The type of prior we want to use on the
-            hyperparameters when in a situation where more than one
-            hyperparameter will be optimized, or when we do not want
-            to use a log normal prior on the chosen hyperparameter
-            in the changepoint kernel. This also takes in the switching
-            function type; currently options are 'tanh' and 'sigmoid'.
-
-        switch : str
-            If using a changepoint kernel, specify which
-            switching function you are using.
-
-        max_iter : int
-            The maximum number of iterations of the optimizer.
-
         Returns:
         --------
         None.
@@ -385,10 +355,11 @@ class GPmixing(BaseMixer):
                               n_restarts_optimizer=self.nopt)
         self.gpr_obj = self.gpr.fit(X, y,
                                     priors=self.priors,
-                                    prior_choice=prior_choice,
+                                    prior_choice=self.prior_choice,
                                     prior_params=self.prior_params,
-                                    prior_type=prior_type, switch=switch,
-                                    max_iter=max_iter)
+                                    prior_type=self.prior_type,
+                                    switch=self.switch,
+                                    max_iter=self.max_iter)
 
         # make sure it is clear it has been trained
         self._is_trained = True
@@ -414,8 +385,8 @@ class GPmixing(BaseMixer):
         if self.prior_params is None and self.priors is True:
             if self.prior_choice in (
                 'rbfnorm',
-                'matern3/2',
-                'matern5/2',
+                'matern32',
+                'matern52',
                 'ratquad',
             ):
 
@@ -434,7 +405,7 @@ class GPmixing(BaseMixer):
 
 class GPRwrapper(GaussianProcessRegressor):
 
-    def fit(self, X, y, priors=True, prior_choice='truncnorm',
+    def fit(self, X, y, priors=True, prior_choice='rbfnorm',
             prior_type=None, prior_params=None, switch=None, max_iter=None):
         """
         Meat of the GP training, where we use the GPR
@@ -456,16 +427,12 @@ class GPRwrapper(GaussianProcessRegressor):
 
         prior_choice : str
             The choice of which type of prior to use on
-            the length scale. Options are 'truncnorm',
-            'skewnorm' and 'uniform'.
+            the length scale. Options are 'rbfnorm', 'matern32',
+            'matern52', and 'ratquad'.
 
         prior_type : dict
-            The type of prior we want to use on the
-            hyperparameters when in a situation where more than one
-            hyperparameter will be optimized, or when we do not want
-            to use a log normal prior on the chosen hyperparameter
-            in the changepoint kernel. This also takes in the switching
-            function type; currently options are 'tanh' and 'sigmoid'.
+            Maps the hyperparameters supplied to the names in the
+            priors code ('truncnorm' vs. 'free').
 
         prior_params: dict
             If using hyperpriors, specify the dict of
@@ -942,15 +909,11 @@ class GPPriors:
         prior_choice : str
             The choice of which type of prior to use on
             the length scale. Options are 'rbfnorm',
-            'skewnorm' and 'uniform'.
+            'matern32', 'matern52', and 'ratquad'.
 
         prior_type : dict
-            The type of prior we want to use on the
-            hyperparameters when in a situation where more than one
-            hyperparameter will be optimized, or when we do not want
-            to use a log normal prior on the chosen hyperparameter
-            in the changepoint kernel. This also takes in the switching
-            function type; currently options are 'tanh' and 'sigmoid'.
+            Maps the hyperparameters supplied to the names in the
+            priors code ('truncnorm' vs. 'free').
 
         prior_params : dict
             The prior parameters we want to use as starting guesses for

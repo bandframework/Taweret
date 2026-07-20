@@ -27,8 +27,8 @@ class GPmixing(BaseMixer):
 
     def __init__(
         self, x, models, alpha=1e-10, kernel=None,
-        priors=True, prior_params=None, prior_choice=None, prior_type=None,
-        switch=None, max_iter=None, nopt=1000
+        priors=True, prior_params=None, prior_choice='rbfnorm',
+        prior_type=None, switch=None, max_iter=None, nopt=1000
     ):
         """
         Parameters:
@@ -38,6 +38,12 @@ class GPmixing(BaseMixer):
 
         models : dict
             Dict of models with BaseModel methods.
+
+        alpha : scalar or array
+            The covariance from the data added to the inference. The
+            full covariance matrix from the correlated data is given
+            to the GP here and used to train the GP and predict at
+            new points.
 
         kernel: obj
             The kernel chosen for this mixing procedure. If 'None', the
@@ -250,6 +256,7 @@ class GPmixing(BaseMixer):
         Predict the weights of the mixed model. Returns
         mean and intervals from the posterior of the
         weights. Cannot predict weights for GP implicitly.
+        Not needed for this method.
         """
         raise NotImplementedError
 
@@ -335,7 +342,7 @@ class GPmixing(BaseMixer):
         """
         Train the GP chosen in the __init__() function
         to optimize its hyperparameters given chosen priors
-        and models. Needs to be implemented.
+        and models.
 
         Parameters:
         -----------
@@ -404,6 +411,25 @@ class GPmixing(BaseMixer):
 
 
 class GPRwrapper(GaussianProcessRegressor):
+
+    '''
+    Note: There is no __init__() function for this class, but if
+    a user wishes to define a frozen kernel using it, they may do
+    so by passing the parameters below.
+
+    Parameters:
+    -----------
+    alpha : scalar or array
+        The covariance from the data added to the inference. The
+        full covariance matrix from the correlated data is given
+        to the GP here and used to train the GP and predict at
+        new points.
+
+    kernel: obj
+        The kernel chosen for this mixing procedure. If 'None', the
+        code will use an RBF kernel with a length scale of 1
+        multiplied with the ConstantKernel with a variance of 1.
+    '''
 
     def fit(self, X, y, priors=True, prior_choice='rbfnorm',
             prior_type=None, prior_params=None, switch=None, max_iter=None):

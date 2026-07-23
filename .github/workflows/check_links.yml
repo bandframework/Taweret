@@ -1,0 +1,36 @@
+name: Check Links
+env:
+  CLONE_PATH: ${{ github.workspace }}
+on:
+  # Proactively run once weekly at night on the weekend.
+  #
+  # According to GH docs, schedule events will be disabled if a repo is inactive
+  # for more than 60 days.  They suggest picking off-hour times to avoid
+  # resource contention with other scheduled jobs.
+  push:
+    branches: main
+  pull_request:
+    branches: main
+  schedule:
+    - cron:     "41 3 * * 0"
+      timezone: "America/Chicago"
+
+jobs:
+  # Limit network activity concurrency to try to avoid hitting rate limit
+  # rejections (Error 429):
+  # * https://lychee.cli.rs/troubleshooting/rate-limits/#reduce-the-number-of-concurrent-requests
+  #
+  # lychee checks links to local files provided with paths relative to repo's
+  # root, but needs help resolving those.
+  # * https://lychee.cli.rs/recipes/root-dir/
+  check_links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Let's look at links with Lychee
+        id:   lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --root-dir $CLONE_PATH --max-concurrency 1 --verbose --no-progress './**/*.md' './**/*.rst'
+          fail: true
+          failIfEmpty: true

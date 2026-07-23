@@ -1,19 +1,5 @@
 # BAND SDK v0.2 Community Policy Compatibility for Taweret
 
-
-> This document summarizes the efforts of current and future BAND member packages to achieve compatibility with the BAND SDK community policies.  Additional details on the BAND SDK are available [here](/resources/sdkpolicies/bandsdk.md) and should be considered when filling out this form. The most recent copy of this template exists [here](/resources/sdkpolicies/template.md).
->
-> This file should filled out and placed in the directory in the `bandframework` repository representing the software name appended by `bandsdk`.  For example, if you have a software `foo`, the compatibility file should be named `foobandsdk.md` and placed in the directory housing the software in the `bandframework` repository. No open source code can be included without this file.
->
-> All code included in this repository will be open source.  If a piece of code does not contain a open-source LICENSE file as mentioned in the requirements below, then it will be automatically licensed as described in the LICENSE file in the root directory of the bandframework repository.
->
-> Please provide information on your compatibility status for each mandatory policy and, if possible, also for recommended policies. If you are not compatible, state what is lacking and what are your plans on how to achieve compliance. For current BAND SDK packages: If you were not fully compatible at some point, please describe the steps you undertook to fulfill the policy. This information will be helpful for future BAND member packages.
->
-> To suggest changes to these requirements or obtain more information, please contact [BAND](https://bandframework.github.io/team).
->
-> Details on citing the current version of the BAND Framework can be found in the [README](https://github.com/bandframework/bandframework).
-
-
 **Website:** https://github.com/bandframework/Taweret \
 **Contact:** as727414@ohio.edu, ingles.27@buckeyemail.osu.edu, liyanage.5@osu.edu, yannotty.1@osu.edu \
 **Icon:** https://github.com/bandframework/Taweret/blob/main/logos/taweret_logo.PNG \

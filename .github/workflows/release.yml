@@ -82,7 +82,7 @@ jobs:
         with:
           name: Taweret-distributions
           path: ${{ env.CLONE_PATH }}/dist
-      - name: Test source ditribution
+      - name: Test source distribution
         run: |
           distribution=$CLONE_PATH/dist/[Tt]aweret-*.tar.gz
           venv=$CLONE_PATH/TestSrc

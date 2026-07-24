@@ -85,7 +85,7 @@ class BivariateLinear(BaseMixer):
                             'sigmoid': 2, 'cdf': 2, 'switchcos': 3,
                             'calibrate_model_1': 0, 'calibrate_model_2': 0}
 
-        # check if the mixing function exist
+        # check if the mixing function exists
         if method not in method_n_mix_dic:
             raise Exception('Mixing function is not found')
         else:
@@ -242,7 +242,7 @@ class BivariateLinear(BaseMixer):
                 samples: Optional[np.ndarray] = None,
                 nthin: int = 1):
         '''
-        Evaluate posterior to make prediction at test points x.
+        Evaluate posterior to make predictions at test points x.
 
         Parameters:
         -----------
@@ -251,7 +251,7 @@ class BivariateLinear(BaseMixer):
         CI : list
             confidence intervals as percentages
         samples: np.ndarray
-            If samples are given use that instead of posterior\
+            If samples are given use that instead of posterior
                 for predictions.
 
         Returns:
@@ -318,7 +318,7 @@ class BivariateLinear(BaseMixer):
         CI : list
             confidence intervals
         samples: np.ndarray
-            If samples are given use that instead of posterior\
+            If samples are given use that instead of posterior
                 for predictions.
 
         Returns:
@@ -534,7 +534,7 @@ class BivariateLinear(BaseMixer):
 #                     final_cov[i,j] = weights[i]*weights[j]*cov_mat_1[i,j]
             # + (1-weights[i])*(1-weights[j])*cov_mat_2[i,j]
             # Comment out the below code. BMM mean mixing does not touch the
-            # covariance stucture....yet...
+            # covariance structure....yet...
             # w1_mat = np.outer(weights, weights)
             # w2_mat = np.outer(1-weights,1-weights)
             # final_cov = w1_mat * cov_mat_1 + w2_mat * cov_mat_2
@@ -607,7 +607,7 @@ class BivariateLinear(BaseMixer):
         outdir: str
             Where to save the MCMC chain and output of bilby samplers
         kwargs_for_sampler: Dict
-            Optional arguments to be used instead of default Bibly sampler
+            Optional arguments to be used instead of default Bilby sampler
             settings
         load_previous: bool
             If a previous training has been done, load that chain instead of
@@ -641,7 +641,7 @@ class BivariateLinear(BaseMixer):
             ) and kwargs_for_sampler['threads'] > 1:
                 import warnings
                 import multiprocessing
-                warnings.warn("'threads' dectected in 'kwargs_for_sampler'" +
+                warnings.warn("'threads' detected in 'kwargs_for_sampler'" +
                               " on Darwin. Setting `start_method` to `fork`")
                 try:
                     multiprocessing.set_start_method('fork', force=True)
@@ -676,15 +676,15 @@ class BivariateLinear(BaseMixer):
                 outdir=outdir,
                 **kwargs_for_sampler,
                 plot=plot)
-        # The last two columns are model liklihood and log_prior.
+        # The last two columns are model likelihood and log_prior.
         self._posterior = result.posterior.values[:, 0:-2]
         self.model_was_trained = True
-        # Shorcut to find MAP. Need to implement a proper optimization
+        # Shortcut to find MAP. Need to implement a proper optimization
         # routine to find MAP
         # currently MAP finding has to be done outside the bivariate
         # mixing script because it can be computationally heavy.
         # Users are given access to the log likelihood and they can
-        # optimize it Outside of bivaraiate linear mixing script.
+        # optimize it outside of bivariate linear mixing script.
         self._map = self._posterior[np.argmax(
             result.posterior.values[:, -2].flatten()), :]
 

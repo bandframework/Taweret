@@ -754,7 +754,7 @@ class GPRwrapper(GaussianProcessRegressor):
         self.piece_2 = -np.log(np.diag(L)).sum()
         log_likelihood_dims -= K.shape[0] / 2 * np.log(2 * np.pi)
         self.piece_3 = -K.shape[0] / 2 * np.log(2 * np.pi)
-        # the log likehood is sum-up across the outputs     ---- > here we
+        # the log likelihood is sum-up across the outputs     ---- > here we
         # should be able to dissect each piece
         log_likelihood = log_likelihood_dims.sum(axis=-1)
 

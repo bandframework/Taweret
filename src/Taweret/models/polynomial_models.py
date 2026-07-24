@@ -5,7 +5,7 @@ from Taweret.core.base_model import BaseModel
 # Polynomial Class Functions
 
 
-class polynomal_model(BaseModel):
+class polynomial_model(BaseModel):
     '''
         Polynomial models class. Used to define a function of the form
 
@@ -115,7 +115,7 @@ class sin_exp(BaseModel):
         # Get degree list for polynomial expansion
         deg = np.linspace(0, self.k, self.k + 1)
 
-        # Get every 4th term (derivative repaets every 4 terms)
+        # Get every 4th term (derivative repeats every 4 terms)
         h0 = deg[deg % 4 == 0]
         h1 = deg[deg % 4 == 1]
         h2 = deg[deg % 4 == 2]
@@ -209,7 +209,7 @@ class cos_exp(BaseModel):
         # Get degree list for polynomial expansion
         deg = np.linspace(0, self.k, self.k + 1)
 
-        # Get every 4th term (derivative repaets every 4 terms)
+        # Get every 4th term (derivative repeats every 4 terms)
         h0 = deg[deg % 4 == 0]
         h1 = deg[deg % 4 == 1]
         h2 = deg[deg % 4 == 2]
@@ -314,7 +314,7 @@ class sin_cos_exp(BaseModel):
         # Get degree list for polynomial expansion
         deg = np.linspace(0, self.ks, self.ks + 1)
 
-        # Get every 4th term (derivative repaets every 4 terms)
+        # Get every 4th term (derivative repeats every 4 terms)
         h0 = deg[deg % 4 == 0]
         h1 = deg[deg % 4 == 1]
         h2 = deg[deg % 4 == 2]
@@ -348,7 +348,7 @@ class sin_cos_exp(BaseModel):
         # Get degree list for polynomial expansion
         deg = np.linspace(0, self.kc, self.kc + 1)
 
-        # Get every 4th term (derivative repaets every 4 terms)
+        # Get every 4th term (derivative repeats every 4 terms)
         h0 = deg[deg % 4 == 0]
         h1 = deg[deg % 4 == 1]
         h2 = deg[deg % 4 == 2]

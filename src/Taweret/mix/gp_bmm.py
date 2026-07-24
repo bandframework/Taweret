@@ -782,7 +782,7 @@ class GPRwrapper(GaussianProcessRegressor):
             # it is equivalent to:
             # for param_idx in range(n_kernel_params):
             #     for output_idx in range(n_output):
-            #         log_likehood_gradient_dims[param_idx, output_idx] = (
+            #         log_likelihood_gradient_dims[param_idx, output_idx] = (
             #             inner_term[..., output_idx] @
             #             K_gradient[..., param_idx]
             #         )

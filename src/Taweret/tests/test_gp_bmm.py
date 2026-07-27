@@ -266,3 +266,18 @@ def test_predict_weights():
 def test_sample_prior():
     with pytest.raises(NotImplementedError):
         gpmix.sample_prior()
+
+
+def test_posterior():
+    with pytest.raises(NotImplementedError):
+        gpmix.posterior()
+
+
+def test_prior():
+    with pytest.raises(NotImplementedError):
+        gpmix.prior()
+
+
+def test_set_prior():
+    with pytest.raises(NotImplementedError):
+        gpmix.set_prior()

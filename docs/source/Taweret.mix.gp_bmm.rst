@@ -2,7 +2,7 @@ Taweret.mix.gp_bmm
 ==================
 ..
     The GPRwrapper class is inherited from a scikit-learn class, which required
-    the use of intersphinx in this documentation system to get the documenation
+    the use of intersphinx in this documentation system to get the documentation
     rendering without errors/warnings.  As a result, clicking on that base class
     does take the user to the scikit-learn docs for that class.  The decision
     was made to explicitly leave out of the docs for our class the set_* member

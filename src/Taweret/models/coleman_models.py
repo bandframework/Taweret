@@ -45,7 +45,7 @@ class coleman_model_1(BaseModel):
         x_exp = x_exp.flatten()
         y_exp = y_exp.flatten()
         y_err = y_err.flatten()
-        # log likleihood elementwise can only handle 1 observable
+        # log likelihood elementwise can only handle 1 observable
         return log_likelihood_elementwise_utils(
             self, x_exp, y_exp, y_err, model_param)
 
@@ -70,10 +70,10 @@ class coleman_model_1(BaseModel):
     #     predictions, model_errs = self.evaluate(x_exp, model_param)
     #     x_exp = x_exp.flatten()
     #     if len(x_exp)!=y_exp_all.shape[0]:
-    #         raise Exception(f'Dimensionality mistmach between x_exp and
+    #         raise Exception(f'Dimensionality mismatch between x_exp and
     #         y_exp')
     #     #Since the y_Exp_all has the shape of n_centralities *
-    #     n_observabl_types
+    #     n_observable_types
     #     weights = []
     #     for w in W:
     #         weights.append(w*np.ones(y_exp_all.shape[1]))
@@ -157,7 +157,7 @@ class coleman_model_2(BaseModel):
         x_exp = x_exp.flatten()
         y_exp = y_exp.flatten()
         y_err = y_err.flatten()
-        # log likleihood elementwise can only handle 1 observable
+        # log likelihood elementwise can only handle 1 observable
         return log_likelihood_elementwise_utils(
             self, x_exp, y_exp, y_err, model_param)
 
@@ -185,7 +185,7 @@ class coleman_model_2(BaseModel):
     #         raise Exception(f'Dimensionality mistmach between x_exp
     #         and y_exp')
     #     #Since the y_Exp_all has the shape of n_centralities *
-    #      n_observabl_types
+    #      n_observable_types
     #     weights = []
     #     for w in W:
     #         weights.append(w*np.ones(y_exp_all.shape[1]))

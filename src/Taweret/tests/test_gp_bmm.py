@@ -12,6 +12,7 @@ from Taweret.mix.gp_bmm import GPmixing, GPRwrapper
 from Taweret.models.samba_models import Loworder, Highorder
 from Taweret.utils.kernels import SigmoidChangepoint
 import numpy as np
+import pytest
 from scipy.linalg import block_diag
 from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
 
@@ -250,3 +251,33 @@ def test_nonstationary():
     assert np.array_equal(gpmix2.x, g), "class variable self.x not set"
     assert kernelCP is not None, "changepoint kernel not set"
     assert gpmix_pred is not None, "GP predictions not calculated"
+
+
+def test_evaluate_weights():
+    with pytest.raises(NotImplementedError):
+        gpmix.evaluate_weights()
+
+
+def test_predict_weights():
+    with pytest.raises(NotImplementedError):
+        gpmix.predict_weights()
+
+
+def test_sample_prior():
+    with pytest.raises(NotImplementedError):
+        gpmix.sample_prior()
+
+
+def test_posterior():
+    with pytest.raises(NotImplementedError):
+        gpmix.posterior()
+
+
+def test_prior():
+    with pytest.raises(NotImplementedError):
+        gpmix.prior()
+
+
+def test_set_prior():
+    with pytest.raises(NotImplementedError):
+        gpmix.set_prior()

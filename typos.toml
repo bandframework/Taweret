@@ -1,0 +1,24 @@
+[files]
+extend-exclude = [".git"]
+ignore-hidden = false
+
+[default]
+check-filename = true
+check-file = true
+binary = false
+locale = "en"
+unicode = true
+
+[default.extend-identifiers]
+# This is a valid name in the code.  Without this, "lik" is flagged as a typo
+log_lik_from_taweret_model = "log_lik_from_taweret_model"
+# Text in notebook metadata that contain substrings flagged as typos.  I wonder
+# if these would change with slight changes in the notebook content.
+5101b4ba = "5101b4ba"
+9baed56e = "9baed56e"
+08ba4f41 = "08ba4f41"
+
+[default.extend-words]
+# This necessary exclusion associated with np.arange unfortunately shortcuts
+# detection of actual typos of words such as arrange.
+arange = "arange"

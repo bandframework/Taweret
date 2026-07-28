@@ -4,8 +4,8 @@ import numpy as np
 from scipy.special import expit
 from scipy.stats import norm, beta, dirichlet
 # define log likelihood to be calculated give a model with a predict function
-# and experimental measurments.
-# quick fix untill I find a permentant solution to put normed likelihood
+# and experimental measurements.
+# quick fix until I find a permanent solution to put norm likelihood
 # calculation code here
 
 # Path to Jetscape model source code
@@ -81,9 +81,9 @@ def normal_log_likelihood_elementwise(
     model_param=np.array(
         [])) -> np.ndarray:
     """
-    predict the log normal log liklihood for each experimental data point
+    predict the log normal log likelihood for each experimental data point
 
-    Parametrs
+    Parameters
     ---------
     model : object
         model object with a predict method
@@ -120,9 +120,9 @@ def normal_likelihood_elementwise(
     model_param=np.array(
         [])) -> np.ndarray:
     """
-    predict the normal liklihood for each experimental data point
+    predict the normal likelihood for each experimental data point
 
-    Parametrs
+    Parameters
     ---------
     model : object
         model object with a predict method
@@ -157,7 +157,7 @@ def mixture_function(
         mixture_params: np.ndarray,
         prior=None) -> np.ndarray:
     """
-    predict the weights from the mixture funtion at the give input
+    predict the weights from the mixture function at the give input
     parameter values x
 
     Parameters
@@ -167,7 +167,7 @@ def mixture_function(
     x : np.1darray
         input parameter values
     mixture_params : np.1darray
-        parametrs that decide the shape of mixture function
+        parameters that decide the shape of mixture function
     prior : (optional) bilby prior object
         Used only in step mixing
         to deal with negative values of the input.

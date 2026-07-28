@@ -1,0 +1,23 @@
+name: Check Spelling
+permissions:
+  contents: read
+env:
+  CLICOLOR: 1
+  TYPOS_CFG: ${{ github.workspace }}/typos.toml
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  spelling:
+    name: Spell Check with Typos
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Taweret repository
+      uses: actions/checkout@v7
+    - name: Spell Check Repo
+      uses: crate-ci/typos@v1.48.0
+      with:
+        config: ${{ env.TYPOS_CFG }}

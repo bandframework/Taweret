@@ -4,6 +4,6 @@ __version__ = version("Taweret")
 __author__ = "Kevin Ingles, Dananjaya (Dan) Liyanage, \
     Alexandra Semposki, John Yannotty"
 __credits__ = "The Ohio State University, Ohio University, \
-    University of Illinios Urbana-Champaign"
+    University of Illinois Urbana-Champaign"
 
 from .test import test

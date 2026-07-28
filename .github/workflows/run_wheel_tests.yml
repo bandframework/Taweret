@@ -28,7 +28,7 @@ jobs:
     env:
       CLONE_PATH: ${{ github.workspace }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       # TODO: Remove this once OpenBT is officially in it's new PyPI project
       # space.
       - name: Checkout OpenBT repository
@@ -37,7 +37,7 @@ jobs:
           repository: bandframework/OpenBT
           path: ${{ env.CLONE_PATH }}/OpenBT
       - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install ${{ matrix.mpi_impl }}
@@ -98,7 +98,7 @@ jobs:
       COVERAGE_XML:  ${{ github.workspace }}/coverage.xml
       COVERAGE_HTML: ${{ github.workspace }}/htmlcov
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       # TODO: Remove this once OpenBT is officially in it's new PyPI project
       # space.
       - name: Checkout OpenBT repository
@@ -107,7 +107,7 @@ jobs:
           repository: bandframework/OpenBT
           path: ${{ env.CLONE_PATH }}/OpenBT
       - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install OpenMPI
@@ -123,6 +123,7 @@ jobs:
           OPENBT_PATH=$CLONE_PATH/OpenBT tox -r -e coverage,report
           popd
       - name: Upload coverage reports to Codecov
+        if: github.actor != 'dependabot[bot]'
         uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

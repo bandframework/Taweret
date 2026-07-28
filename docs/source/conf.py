@@ -34,7 +34,8 @@ version = Taweret.__version__   # release
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'sphinx.ext.intersphinx'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -52,6 +53,10 @@ language = 'python'
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 autoclass_content = 'both'
+
+# At least one GP class is inherited from a scikit-learn class.  Hook up the
+# two document systems so that users can find the docs of the base class.
+intersphinx_mapping = {'sklearn': ('https://scikit-learn.org/stable/', None)}
 
 # -- Options for HTML output -------------------------------------------------
 

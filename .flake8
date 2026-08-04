@@ -5,10 +5,6 @@ exclude =
     dist
     # GH actions have a local install folder including venvs
     local
-    # This keeps the flake8 action from failing when the OpenBT repo is
-    # installed in the Taweret clone.  TODO: Remove this once OpenBT is in it's
-    # new PyPI space.
-    OpenBT
 per-file-ignores =
     # Do not apply PEP8 to __init__.py files
     src/Taweret/__init__.py:F401

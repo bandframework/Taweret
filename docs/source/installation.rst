@@ -10,8 +10,9 @@ Prerequisites
 
 The Trees module uses the MPI-based `openbt Python package`_, which provides an
 interface between the C++ OpenBT command line tools and Taweret.  Before
-installing Taweret, please prepare and test your system as indicated in the
-`OpenBT documentation`_.
+installing Taweret, please prepare your system as indicated in the `OpenBT
+documentation`_.  Users experiencing Taweret installation issues may benefit
+from explicitly installing and testing `openbt` prior to installing Taweret.
 
 It is important to note that ``pip`` maintains a cache of previously built
 wheels. Therefore a new Taweret installation may be faulty if `openbt` was

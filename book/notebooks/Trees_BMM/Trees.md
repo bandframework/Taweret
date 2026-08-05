@@ -8,7 +8,7 @@ $$
 
 Here, $g_{k}(x;T_{j};M_{j})$ is the $k$th output of the $j$th tree, given by $T_{j}$. The set of parameters associated with this tree is $M_{j}$. The weights are normalized to a prior interval $[0,1]$, but this condition is not strictly enforced, allowing for values outside of this interval.
 
-This mixing method interfaces with the BART (Bayesian Additive Regression Trees) C++ package, [`openBT`](https://bitbucket.org/mpratola/openbt/wiki/Home), and is able to handle multi-dimensional model mixing. 
+This mixing method interfaces with the BART (Bayesian Additive Regression Trees) [`openbt`](https://pypi.org/project/openbt/) Python package, and is able to handle multi-dimensional model mixing. 
 
 :::{seealso}
 See [this paper](https://doi.org/10.1080/00401706.2023.2257765) for more details. 

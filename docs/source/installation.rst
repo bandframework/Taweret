@@ -3,15 +3,15 @@ Installation
 
 Prerequisites
 -------------
-.. _OpenBTMixing: https://pypi.org/project/openbtmixing/
-.. _documentation: https://github.com/jcyannotty/OpenBT?tab=readme-ov-file#installation
+.. _openbt Python package: https://pypi.org/project/openbt/
+.. _OpenBT documentation: https://openbt.readthedocs.io
 .. _ninja: https://ninja-build.org
 .. _bilby: https://pypi.org/project/bilby/
 
-The Trees module uses the MPI-based `openbt` Python package (See [1] and
-[2]) that builds an interface between the C++ package `OpenBT` and Taweret.
-Before installing Taweret, please prepare your system as indicated in the
-`openbt` installation `documentation`_.
+The Trees module uses the MPI-based `openbt Python package`_, which provides an
+interface between the C++ OpenBT command line tools and Taweret.  Before
+installing Taweret, please prepare and test your system as indicated in the
+`OpenBT documentation`_.
 
 It is important to note that ``pip`` maintains a cache of previously built
 wheels. Therefore a new Taweret installation may be faulty if `openbt` was
@@ -38,11 +38,6 @@ These dependences are located in the Jupyter notebooks, and hence can be quickly
 The `bilby`_ sampler comes with the ability to use a suite of samplers---in the case of Taweret, we also have not listed all
 samplers as dependences. However, the user can (and should) install any samplers that they wish to use and ``bilby`` will be able
 to use them through its wrapper in the Taweret package.
-
-**OpenBT References**
-
-1. OpenBT Repository (https://bitbucket.org/mpratola/openbt/src/master/).
-2. OpenBT Repository with Model Mixing (https://github.com/jcyannotty/OpenBT).
 
 Windows Users
 ^^^^^^^^^^^^^
@@ -76,14 +71,9 @@ Python environment in developer or editable mode from the clone by running
 
 Conda Installation
 ------------------
-..
-    Ideally text such as this would be added to the OpenBTMixing docs and this
-    section would point users to that documentation to assess how best to
-    proceed with a Conda installation.
-
 While our set of GitHub actions currently test Anaconda installations, the setup
 of those tests within the action runner is less than desirable.  In particular,
-the action no longer succeeds to build OpenBTMixing if an MPI implementation is
+the action no longer succeeds to build `openbt` if an MPI implementation is
 installed using Conda.  Rather, the action installs an MPI implementation from
 PyPI using ``pip``, which is less clean than a Conda installation.  Users who
 prefer to use Conda should proceed with extra caution.

@@ -3,23 +3,12 @@ Taweret.mix namespace
 
 .. py:module:: Taweret.mix
 
-Submodules
-----------
+These are the current mixing methods offered by Taweret.
 
+.. toctree::
+   :maxdepth: 1
 
-.. automodule:: Taweret.mix.bivariate_linear
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-.. automodule:: Taweret.mix.gaussian
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-.. automodule:: Taweret.mix.trees
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   Taweret.mix.bivariate_linear
+   Taweret.mix.gaussian
+   Taweret.mix.trees
+   Taweret.mix.gp_bmm

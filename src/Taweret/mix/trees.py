@@ -5,7 +5,7 @@
 # Version: 1.0
 
 import numpy as np
-from openbtmixing import Openbtmix
+from openbt import Openbtmix
 
 from Taweret.core.base_mixer import BaseMixer
 
@@ -231,7 +231,7 @@ class Trees(BaseMixer):
         f_matrix = np.concatenate(fhat_list, axis=1)
         s_matrix = np.concatenate(shat_list, axis=1)
 
-        # Run the train command in openbtmixing
+        # Run the train command in openbt
         res = self.obt.train(x_train=X, y_train=y, f_train=f_matrix,
                              s_train=s_matrix, **kwargs)
 
@@ -301,7 +301,7 @@ class Trees(BaseMixer):
         self.q_lower = q_lower
         self.q_upper = q_upper
 
-        # predict via openbtmixing grid
+        # predict via openbt grid
         res = self.obt.predict(X, f_test, ci)
 
         posterior = res["pred"]["draws"]
@@ -343,7 +343,7 @@ class Trees(BaseMixer):
         self.q_lower = q_lower
         self.q_upper = q_upper
 
-        # predict via openbtmixing grid
+        # predict via openbt grid
         res = self.obt.predict_weights(X, ci)
 
         posterior = res["wts"]["draws"]

@@ -5,7 +5,6 @@ Prerequisites
 -------------
 .. _openbt Python package: https://pypi.org/project/openbt/
 .. _OpenBT documentation: https://openbt.readthedocs.io
-.. _ninja: https://ninja-build.org
 .. _bilby: https://pypi.org/project/bilby/
 
 The Trees module uses the MPI-based `openbt Python package`_, which provides an

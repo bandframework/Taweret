@@ -3,7 +3,7 @@
 **Website:** https://github.com/bandframework/Taweret \
 **Contact:** as727414@ohio.edu, ingles.27@buckeyemail.osu.edu, liyanage.5@osu.edu, yannotty.1@osu.edu \
 **Icon:** https://github.com/bandframework/Taweret/blob/main/logos/taweret_logo.PNG \
-**Description:**  Taweret is a python package which implements a variety of Bayesian Model Mixing methodologies. 
+**Description:**  Taweret is a Python package which implements a variety of Bayesian Model Mixing methodologies. 
 
 **Note:** The Trees module in Taweret uses the openbt Python package, which is also offered as part of the BAND framework, as an external dependence. Please refer to the OpenBT SDK for related information regarding that package.
 
@@ -32,7 +32,7 @@
 |**R5.**| Have SUPPORT, LICENSE, and CHANGELOG files in top directory.  |Partial| The LICENSE is in the top directory, the other two files are not included at this time. |
 |**R6.**| Have sufficient documentation to support use and further development.  |Full| Full documentation is provided at https://taweretdocs.readthedocs.io/en/latest/index.html and pedagogical information, including examples, at https://bandframework.github.io/Taweret/. |
 |**R7.**| Be buildable using 64-bit pointers; 32-bit is optional. |Full| None. |
-|**R8.**| Do not assume a full MPI communicator; allow for user-provided MPI communicator. |N/a| None. |
+|**R8.**| Do not assume a full MPI communicator; allow for user-provided MPI communicator. |Full| None. |
 |**R9.**| Use a limited and well-defined name space (e.g., symbol, macro, library, include). |Full| None.|
 |**R10.**| Give best effort at portability to key architectures. |Full| None. |
 |**R11.**| Install headers and libraries under `<prefix>/include` and `<prefix>/lib`, respectively. |Full| None.|

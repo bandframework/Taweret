@@ -3,32 +3,33 @@ Installation
 
 Prerequisites
 -------------
-.. _OpenBTMixing: https://pypi.org/project/openbtmixing/
-.. _documentation: https://github.com/jcyannotty/OpenBT?tab=readme-ov-file#installation
-.. _ninja: https://ninja-build.org
+.. _openbt Python package: https://pypi.org/project/openbt/
+.. _OpenBT documentation: https://openbt.readthedocs.io
 .. _bilby: https://pypi.org/project/bilby/
 
-The Trees module uses the MPI-based `OpenBTMixing`_ Python package (See [1] and
-[2]).  Before installing Taweret, please prepare your system as indicated in the
-OpenBTMixing installation `documentation`_.
+The Trees module uses the MPI-based `openbt Python package`_, which provides an
+interface between the C++ OpenBT command line tools and Taweret.  Before
+installing Taweret, please prepare your system as indicated in the `OpenBT
+documentation`_.  Users experiencing Taweret installation issues may benefit
+from explicitly installing and testing `openbt` prior to installing Taweret.
 
 It is important to note that ``pip`` maintains a cache of previously built
-wheels. Therefore a new Taweret installation may be faulty if OpenBTMixing was
+wheels. Therefore a new Taweret installation may be faulty if `openbt` was
 installed using a previously cached wheel that was built with an MPI
 installation that is different from or incompatible with the current MPI
-installation.   To determine if ``pip`` has an OpenBTMixing wheel cached,
+installation.   To determine if ``pip`` has an `openbt` wheel cached,
 inspect the output of
 
 .. code:: console
 
     python -m pip cache list
 
-If an OpenBTMixing wheel is present, consider removing it prior to installing
+If an `openbt` wheel is present, consider removing it prior to installing
 Taweret with a command such as
 
 .. code:: console
 
-    python -m pip cache remove openbtmixing
+    python -m pip cache remove openbt
 
 Otherwise, the list of dependences is as short as possible to keep the installation process streamlined and allow for minimal, clean installations; however, if a user would like to run 
 the Jupyter notebooks in the associated Jupyter Book, dependences for the notebooks will need to be installed in the relevant environment.
@@ -37,11 +38,6 @@ These dependences are located in the Jupyter notebooks, and hence can be quickly
 The `bilby`_ sampler comes with the ability to use a suite of samplers---in the case of Taweret, we also have not listed all
 samplers as dependences. However, the user can (and should) install any samplers that they wish to use and ``bilby`` will be able
 to use them through its wrapper in the Taweret package.
-
-**OpenBT References**
-
-1. OpenBT Repository (https://bitbucket.org/mpratola/openbt/src/master/).
-2. OpenBT Repository with Model Mixing (https://github.com/jcyannotty/OpenBT).
 
 Windows Users
 ^^^^^^^^^^^^^
@@ -75,14 +71,9 @@ Python environment in developer or editable mode from the clone by running
 
 Conda Installation
 ------------------
-..
-    Ideally text such as this would be added to the OpenBTMixing docs and this
-    section would point users to that documentation to assess how best to
-    proceed with a Conda installation.
-
 While our set of GitHub actions currently test Anaconda installations, the setup
 of those tests within the action runner is less than desirable.  In particular,
-the action no longer succeeds to build OpenBTMixing if an MPI implementation is
+the action no longer succeeds to build `openbt` if an MPI implementation is
 installed using Conda.  Rather, the action installs an MPI implementation from
 PyPI using ``pip``, which is less clean than a Conda installation.  Users who
 prefer to use Conda should proceed with extra caution.

@@ -1,7 +1,6 @@
 
 
 # Taweret
-[![codecov](https://codecov.io/gh/bandframework/Taweret/graph/badge.svg?token=BQ7ZAD5ONP)](https://codecov.io/gh/bandframework/Taweret)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.06175/status.svg)](https://doi.org/10.21105/joss.06175)
 
 <img align="right" width="200" src="logos/taweret_logo.PNG">
@@ -16,6 +15,7 @@ At present, this package possesses the following BMM methods:
 - Linear model mixing ( With simultaneous model mixing and calibration)
 - Multivariate BMM 
 - Bayesian Trees
+- Mixing using Gaussian processes
 
 ## Documentation
 See Taweret's docs webpage [here](https://taweretdocs.readthedocs.io).
@@ -25,19 +25,9 @@ We have produced a [Jupyter Book](https://bandframework.github.io/Taweret/landin
 information about Bayesian model mixing to get users started on understanding the techniques included in Taweret. The Book contains the most current version of the tutorial notebooks, and these can be downloaded directly from the Book website or from the most current version of this repository.
 
 ## Cloning
-This repository uses submodules. 
-To clone this repository and automatically checkout all the submodules, use
+To clone this repository, use
 ```terminal
-git clone --recursive https://github.com/bandframework/Taweret.git 
-```
-
-If you want to limit the size of the repository (this or the submodules), you can use the `depth` flag
-```terminal
-git clone --depth=1 https://github.com/bandframework/Taweret.git
-```
-Inside the directory containing the cloned repository, you then run
-```terminal
-git submodule update --init --depth=1
+git clone https://github.com/bandframework/Taweret.git 
 ```
 
 ## Running on Codespaces

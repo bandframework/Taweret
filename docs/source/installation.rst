@@ -41,14 +41,10 @@ to use them through its wrapper in the Taweret package.
 
 Windows Users
 ^^^^^^^^^^^^^
-.. _instructions: https://wiki.ubuntu.com/WSL?action=subscribe&_ga=2.237944261.411635877.1601405226-783048612.1601405226#Installing_Packages_on_Ubuntu
 
 While in the past Taweret was known to work with Windows 10 using an
 appropriately configured Ubuntu 20.04 Windows Subsystem for Linux (WSL) build,
-it is presently tested only using macOS and Ubuntu installations.  Windows users
-that would like to see if Taweret will work for them might find these
-`instructions`_ useful for helping to keep their Ubuntu WSL up to date, or to
-install additional features like X support.
+it is presently tested only using macOS and Ubuntu installations.
 
 Standard Installation
 ---------------------
